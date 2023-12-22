@@ -1,9 +1,0 @@
-# Önsöz {.unnumbered}
-
-R programlama dili, veri bilimi dünyasında vazgeçilmez bir araç haline geldi. Bu kitap, veri manipülasyonundan görselleştirmeye, keşifçi veri analizinden temel istatistik konularına kadar geniş bir yelpazede R dilini kullanarak veri analizi becerilerinizi güçlendirmenize odaklanıyor.
-
-Kitabımız, R programlama dilini temel seviyeden başlayarak adım adım öğrenmek isteyen herkes için tasarlandı. İlk bölümlerde R dilinin temellerini kavrayacak ve dplyr gibi güçlü paketler aracılığıyla veri manipülasyonunun inceliklerini keşfedeceksiniz. Veri analizinin görselleştirme aşamasında ggplot2 paketiyle nasıl etkileyici grafikler oluşturabileceğinizi adım adım öğrenecek ve veri setlerinizin hikayesini çarpıcı görsellerle anlatacaksınız.
-
-Kitabımız, keşifçi veri analizi sürecinde size rehberlik ederken, veri işleme tekniklerini ve önemli istatistik kavramlarını pratik örneklerle ele alacak. Temel istatistik kolları üzerine odaklanarak, veri setlerinizdeki deseni anlamak ve çözümlemek için gerekli araçları edineceksiniz. Ayrıca doğrusal regresyon gibi önemli modelleme tekniklerini R dilinde nasıl uygulayabileceğinizi adım adım öğreneceksiniz.
-
-Bu kitabın amacı, R programlama dilini veri analizi süreçlerinizde güvenle kullanmanıza yardımcı olmak ve veri odaklı kararlar almanızı desteklemektir. Bilgi birikiminizi genişletirken öğrendiklerinizi uygulamaya dökme şansına sahip olacaksınız. Umarım bu kitap, veri analizi yolculuğunuzda size rehberlik eder ve R dilini kullanarak veriyle olan etkileşiminizi daha da derinleştirir.

@@ -11,6 +11,8 @@ book:
     right: |
       Bu kitap [Quarto](https://quarto.org/) ile hazırlanmıştır.
   cover-image: cover.png
+  site-url: https://rprogramlama.netlify.app/
+  repo-url: https://github.com/MFatihTuzen/r-book-tr
   chapters:
     - index.qmd
     - r_about.qmd
