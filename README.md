@@ -1,5 +1,5 @@
-R Programlama Kitabı
-Bu depo, R programlama dilini kullanarak veri analizi, manipülasyon, görselleştirme ve istatistik konularını içeren bir kitabı barındırmaktadır.
+# R Programlama Kitabı
+Bu repo, R programlama dilini kullanarak veri analizi, manipülasyon, görselleştirme ve istatistik konularını içeren bir kitabı barındırmaktadır.
 
 İçerikler
 Bölüm 1: R Programlama Temelleri
