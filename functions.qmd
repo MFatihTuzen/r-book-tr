@@ -1,0 +1,67 @@
+# Fonksiyonlar
+
+Fonksiyonlar çoğu programlama dillerinin çok önemli bir özelliğidir. Yalnızca mevcut fonksiyonları kullanmak yerine, belirli işleri yapmak için kendimize ait fonksiyonlar yazabiliriz. Ama neden fonksiyon yazmalıyız?
+
+-   Tekrarlardan kaçınmanızı sağlar.
+
+-   Yeniden kullanımı kolaylaştırır.
+
+-   Karmaşık komut dosyalarından kaçınmanıza yardımcı olur.
+
+-   Hata ayıklamayı kolaylaştırır.
+
+Bir fonksiyonun temel kod yapısı aşağıdak gibidir:
+
+```         
+function_name <- function(arg_1, arg_2, ...) {    Function body }
+```
+
+```{r}
+
+# kare alma fonksiyonu
+f_kare <- function(x) {
+   x^2
+ }
+
+f_kare(15)
+f_kare(x=20)
+
+# standart sapma fonksiyonu
+
+# Standart sapmanın hesaplanması
+# sqrt(sum((x - mean(x))^2) / (length(x) - 1))
+
+set.seed(123) # Pseudo-randomization
+x1 <- rnorm(1000, 0, 1.0)
+x2 <- rnorm(1000, 0, 1.5)
+x3 <- rnorm(1000, 0, 5.0)
+
+# her serinin ayrı ayrı standart sapmasının hesaplanması
+sd1 <- sqrt(sum((x1 - mean(x1))^2) / (length(x1) - 1))
+sd2 <- sqrt(sum((x2 - mean(x2))^2) / (length(x2) - 1))
+sd3 <- sqrt(sum((x3 - mean(x1))^2) / (length(x3) - 1))
+c(sd1 = sd1, sd2 = sd2, sd3 = sd3)
+
+# fonksiyonu oluşturalım
+f_sd <- function(x) {
+  result <- sqrt(sum((x - mean(x))^2) / (length(x) - 1))
+  return(result)
+}
+
+sd1 <- f_sd(x1)
+sd2 <- f_sd(x2)
+sd3 <- f_sd(x3)
+c(sd1 = sd1, sd2 = sd2, sd3 = sd3)
+
+# standartlaştırma fonksiyonu
+f_std <- function(x) {
+m <- mean(x)
+s <- sd(x)
+(x - m) / s
+}
+
+x4 <- rnorm(10,5,10)
+x4
+f_std(x4)
+
+```

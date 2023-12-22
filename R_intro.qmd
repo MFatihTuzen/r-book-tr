@@ -1,0 +1,47 @@
+# R Programlamaya Giriş
+
+R kodunun çalıştırılması oldukça basittir ve R Studio gibi entegre geliştirme ortamları (IDE'ler) kullanırken daha da kolaylaşır. R kodunu çalıştırmak için temel adımlar:
+
+1.  **R Studio'yu Açın**: İlk adım, R Studio veya başka bir R IDE'sini açmaktır.
+
+2.  **Yeni Bir script uluşturun veya mevcut bir script kullanın**:
+
+    -   R Studio'da, sol üst köşede bulunan "File" (Dosya) menüsünden "New Script"seçeneği ile yeni bir R scripti oluşturabilirsiniz.
+
+    -   Mevcut bir scripte gitmek istiyorsanız, "File" menüsünden "Open Script" seçeneğini kullanabilirsiniz.
+
+3.  **R Kodunu Scripte Yazın**: Oluşturduğunuz veya açtığınız R skriptinde, R kodlarını yazın veya yapıştırın. Örneğin, basit bir hesaplama yapmak için aşağıdaki kodu kullanabilirsiniz:
+
+    ```{r}
+
+    x <- 5
+    y <- 10
+    z <- x + y
+    z
+    ```
+
+4.  **Kodu Çalıştırma**:
+
+    -   Çalıştırmak istediğiniz kodu seçin veya imleci çalıştırmak istediğiniz satıra getirin.
+
+    -   Çalıştırma işlemi için aşağıdaki yöntemlerden birini kullanabilirsiniz:
+
+        -   Klavyede varsayılan olarak "Ctrl+Enter" (Windows/Linux) veya "Command+Enter" (Mac) tuş kombinasyonunu kullanabilirsiniz.
+
+        -   R Studio'daki "Run" (Çalıştır) düğmesini veya "Run" (Çalıştır) menüsünü kullanabilirsiniz.
+
+        -   Çalıştırmak istediğiniz kodu seçtikten sonra sağ tıklarsanız, "Run" (Çalıştır) seçeneğini göreceksiniz.
+
+5.  **Sonuçları İnceleyin**: Çalıştırılan kodun sonuçları konsol penceresinde veya çıktı bölümünde görüntülenir. Örneğin, yukarıdaki örnekte "z" değişkeninin değeri olan "15" sonucunu göreceksiniz.
+
+::: callout-warning
+### Dikkat
+
+Bir script üzerinden çalıştırılan R kodunun sonuçlarını sol alt kısımda yer alan Console bölümünde görebilirsiniz. Aynı şekilde kodu Console bölümüne yazıp Enter tuşuna bastığınızda yine sonuç alabilirsiniz. Ancak script içerisinde yazılan kodları bir **`.R`** uzantılı dosya olarak saklama ve daha sonradan bu dosyaya ulaşma şansınız varken, Console ile çalıştırılan kodları bir **`.R`** dosyası olarak saklama şansınız yoktur. Console tarafındaki sonuçlar geçici olarak ekranda kalır ve R Studio'yu kapatıp açtığınızda tekrar yazdığınız ve çalıştırdığınız kodlara ulaşamayabilirsiniz.
+:::
+
+::: callout-tip
+### İpucu
+
+Console tarafına yansıyan kodların ve sonuçların farklı formatlarda saklama şansımız vardır. Bunun için `sink` fonksiyonunu araştırmanızı önerebilirim.
+:::

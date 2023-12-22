@@ -1,0 +1,3398 @@
+---
+title: "R Programlama El Kitabı"
+author: Muhammed Fatih TÜZEN
+format: 
+  docx:
+   toc: true
+   number-sections: true
+   number-depth: 4
+   toc-title: İçindekiler
+execute:
+  warning: false
+editor: visual 
+highlight-style: pygments
+---
+
+```{r}
+#| eval: TRUE
+#| echo: FALSE
+options(scipen = 9999999)
+```
+
+\newpage
+
+# Giriş
+
+R programlama, veri analizi, istatistiksel ve ekonometrik hesaplamalar, veri görselleştirme ve veri madenciliği gibi istatistiksel ve veri analitiği işlemleri için kullanılan bir programlama dilidir. İlk olarak 1990 yılında **R**oss Ihaka ve **R**obert Gentleman tarafından geliştirilmeye başlanmıştır ve o zamandan bu yana istatistiksel analiz alanında çok popüler bir araç haline gelmiştir. Yazılım ismini yazarların isimlerinin baş harflerinden almaktadır.
+
+## R Programı ile Neler Yapılabilir
+
+R, açık kaynaklı bir programlama dili ve yazılım ortamıdır, bu da onu geniş bir kullanıcı topluluğu tarafından desteklenen ve geliştirilen bir platform yapar. R ile yapılabilecek başlıca işler şunlardır:
+
+1.  **Veri Analizi**: R, veri çerçeveleri ve veri setleri üzerinde işlem yapmak için bir dizi fonksiyon ve araç sunar. Veri temizleme, dönüştürme, özeti alma ve analiz etme işlemleri R ile kolayca gerçekleştirilebilir.
+
+2.  **Veri Görselleştirme**: R, ggplot2 gibi grafik paketleri ile verilerinizi görselleştirmenize olanak tanır. Çeşitli grafik türleri (çizgi grafikleri, sütun grafikleri, dağılım grafikleri vb.) oluşturabilirsiniz.
+
+3.  **İstatistiksel Analiz**: R, istatistiksel modelleri oluşturmak, hipotez testleri yapmak ve regresyon analizi gibi istatistiksel analizler gerçekleştirmek için zengin bir araç seti sunar. Ayrıca zaman serisi analizi ve kümeleme gibi konularda da kullanılır.
+
+4.  **Veri Madenciliği**: R, veri madenciliği uygulamaları için kullanılabilir. Makine öğrenimi algoritmaları uygulamak ve veri madenciliği projeleri geliştirmek için paketler içerir.
+
+5.  **Raporlama**: R Markdown kullanarak veri analizi ve sonuçlarını raporlama için kullanılır. Bu, anlamlı ve formatlı raporlar oluşturmanıza yardımcı olur.
+
+6.  **Paketler ve Genişletilebilirlik**: R, kullanıcıların işlevselliği genişletmek için paketler ekleyebileceği bir sistem sunar. CRAN (Comprehensive R Archive Network) gibi kaynaklar, binlerce paketi içeren bir depo sağlar.
+
+::: callout-note
+### Not
+
+R programlama özellikle istatistik, veri bilimi ve akademik araştırmalar alanlarında çok kullanılır, ancak endüstriyel uygulamalarda da giderek daha fazla kullanılmaktadır. R'nin açık kaynaklı olması ve geniş bir kullanıcı topluluğuna sahip olması, bu dilin popülerliğini artırmıştır. R ile çalışmak için temel programlama bilgisine sahip olmak yararlı olacaktır, ancak öğrenmesi oldukça erişilebilir bir dildir ve çevrimiçi kaynaklar ve kurslar mevcuttur.
+:::
+
+## R Programlama ile ilgili Faydalı Kaynaklar
+
+R programlamayı öğrenmek ve geliştirmek için bir dizi faydalı kaynak bulunmaktadır. R programlamaya başlamak veya ilerlemek için kullanabileceğiniz bazı kaynaklar:
+
+1.  **Resmi R Web Sitesi**: R'nin resmi web sitesi ([**https://www.r-project.org/**](https://www.r-project.org/)) R programlamaya başlamak için temel kaynaktır. Burada R'nin indirilmesi, kurulumu ve temel belgelendirme bilgilerine erişebilirsiniz.
+
+2.  **RStudio**: R programlama için yaygın olarak kullanılan RStudio IDE'si (Entegre Geliştirme Ortamı), R kodlarını yazmak, çalıştırmak ve yönetmek için güçlü bir araçtır. RStudio'nun resmi web sitesi ([**https://www.rstudio.com/**](https://www.rstudio.com/)) RStudio'nun indirilmesi ve kullanımı hakkında bilgi sunar.
+
+3.  **R Dersleri ve Kurslar**: İnternette birçok ücretsiz R dersi ve kursu bulabilirsiniz. Coursera, edX, Udemy ve DataCamp gibi platformlar, R programlamayı öğrenmek için çeşitli kurslar sunmaktadır.
+
+4.  **R Belgeleri**: R'nin resmi belgeleme ([**https://cran.r-project.org/manuals.html**](https://cran.r-project.org/manuals.html)) kaynakları, R dilinin temellerini ve paketlerini öğrenmek için çok faydalıdır. R'deki komutlar ve fonksiyonlar hakkında ayrıntılı bilgi içerirler.
+
+5.  **Kitaplar**: R programlamayı öğrenmek için yazılmış birçok kitap bulunmaktadır. Örnek olarak, "R Graphics Cookbook" (Hadley Wickham), "R for Data Science" (Hadley Wickham ve Garrett Grolemund), "Advanced R" (Hadley Wickham) gibi kitaplar önerilebilir.
+
+6.  **Stack Overflow**: Programlama sorunları ve hatalarıyla karşılaştığınızda, Stack Overflow gibi forumlarda R ile ilgili sorular sormak ve cevaplamak için topluluktan yardım alabilirsiniz.
+
+7.  **GitHub**: R ile ilgili açık kaynaklı projeleri incelemek ve kendi projelerinizi paylaşmak için GitHub gibi platformları kullanabilirsiniz. GitHub'da R kodlarını içeren birçok depo bulunmaktadır.
+
+8.  **Bloglar ve Videolar**: R ile ilgili bloglar ve YouTube kanalları, öğrenmek ve güncel kalmak için harika kaynaklardır. RStudio Blog ([**https://blog.rstudio.com/**](https://blog.rstudio.com/)) ve YouTube'da R ile ilgili videoları bulabileceğiniz RStudio'nun resmi kanalı bunlara örnektir.
+
+::: callout-tip
+### Tavsiye
+
+R programlamayı öğrenmek ve geliştirmek için sürekli olarak yeni kaynaklar ve materyaller üretilmektedir. İhtiyacınıza ve seviyenize uygun kaynakları seçmek için zaman ayırın ve kendi hızınıza göre öğrenmeye devam edin.
+:::
+
+## R ve RStudio'nun Bilgisayara Kurulması
+
+R'ın internet sitesinden işletim sisteminize uygun programı indirip kurabilirsiniz. Linux, Mac OS ve Windows işletim sistemleri için sürümleri mevcuttur.
+
+**Windows İşletim Sistemi İçin R Kurulumu**
+
+1.  R programını indirmek için R resmi web sitesini ziyaret edin: [**https://cran.r-project.org/**](https://cran.r-project.org/)
+
+2.  Sayfanın üst kısmında **"Download R for Windows"** başlığını bulun ve tıklayın.
+
+    ![](images/R%20download.PNG){width="664" height="395"}
+
+3.  İndirilen sayfada **"base"** sekmesine tıklayın.
+
+    ![](images/R%20download%20base.PNG){width="663" height="268"}
+
+4.  Açılan sayfada "Download R 4.3.1 for Windows" linkine tıklayın ve dosyayı indirin.
+
+    ![](images/R%20download%20win.PNG){width="654" height="336"}
+
+    ::: callout-warning
+    ### Dikkat
+
+    Sayfayı ziyaret ettiğiniz tarihlerde farklı sürümlerin olabileceğine dikkat edin. Örneğin ileri bir tarihte bu sayfayı ziyaret ettiğinizde R programının yeni sürümü ile karşılabilirsiniz. O yüzden sürüm bilgisi değişkenlik gösterebilir.
+    :::
+
+5.  İndirilen dosyayı çift tıklayarak çalıştırın ve yükleyiciyi başlatın.
+
+6.  Yükleyici, R'nin temel sürümünü yüklemek için sizi yönlendirecektir. Varsayılan ayarları genellikle kabul edebilirsiniz.
+
+7.  Kurulum tamamlandığında, R'yi çalıştırmak için masaüstünüzde veya Başlat menüsünde **"R"** simgesini bulabilirsiniz.
+
+**Windows İşletim Sistemi İçin R Studio Kurulumu**
+
+R editörü grafiksel bir arayüz olmayıp eski tip bir yazılım konsoludur. **R Studio,** R programlama dili için geliştirilmiş entegre bir geliştirme ortamı (IDE) ve arayüzüdür. R Studio, R kodlarını daha verimli bir şekilde yazmanıza, çalıştırmanıza ve yönetmenize olanak tanıyan daha modern ve kullanışlı bir arayüz sunmaktadır. Ayrıca veri analizi, görselleştirme ve raporlama işlemleri için güçlü bir platform sunar. R Studio, açık kaynak bir projedir ve ücretsiz olarak kullanılabilir.
+
+R Studio'nun kurulumu aşağıdaki adımlarla gerçekleştirilebilir:
+
+1.  R Studio'nun en son sürümünü indirmek için aşağıdaki bağlantıyı kullanın: [**https://www.rstudio.com/products/rstudio/download/**](https://www.rstudio.com/products/rstudio/download/)
+
+2.  Sayfada **"Download RStudio Desktop for Windows"** kısmına tıklayın ve indirmeyi başlatın.
+
+    ![](images/R%20Studio.PNG){width="636" height="386"}
+
+3.  İndirilen dosyayı çift tıklayarak çalıştırın ve kurulumu başlatın. Kurulum sırasında varsayılan ayarları genellikle kabul edebilirsiniz.
+
+4.  Kurulum tamamlandığında, R Studio'yu başlatmak için masaüstünüzde veya Başlat menüsünde **"RStudio"** simgesini bulabilirsiniz.
+
+## R Studio Kişiselleştirme
+
+![](images/RStudio.PNG)
+
+RStudio, kullanıcıların ihtiyaçlarına göre kişiselleştirilebilen bir entegre geliştirme ortamı (IDE) sunar. RStudio'yu kişiselleştirmek için aşağıdaki yolları kullanabilirsiniz:
+
+1.  **R Studio Arayüzündeki Alanları Değiştirme**: Resimde görüldüğü gibi yeni bir R Script açıldığı takdirde arayüzde 4 farklı alan görülmektedir. Bu alanlar isteğe göre yer değiştirilebilmektedir. Bunun için **"Tools"** (Araçlar) menüsünden **"Global Options"** (Genel Ayarlar) sekmesi açılır. Buradan **"Pane Layout"** kısmından istenilen ayarlar yapılabilir.
+
+2.  **Temayı ve Editör Stilini Değiştirme**: RStudio'nun görünümünü değiştirmek için birçok tema ve editör stilini seçebilirsiniz. Bu, yazılım geliştirme ortamınızın daha hoş veya kullanışlı olmasını sağlar. **"Tools"** (Araçlar) menüsünden **"Global Options"** (Genel Ayarlar) sekmesini seçerek bu ayarları değiştirebilirsiniz.
+
+3.  **Klavye Kısayollarını Kişiselleştirme**: RStudio'da kullanılan klavye kısayollarını özelleştirebilirsiniz. "Tools" (Araçlar) menüsünden "Modify Keyboard Shortcuts" (Klavye Kısayollarını Düzenle) seçeneğini kullanarak klavye kısayollarını tanımlayabilir veya değiştirebilirsiniz.
+
+4.  **Eklentileri ve Paketleri Kullanma**: RStudio, kullanıcıların işlevselliği genişletmek için eklentileri ve R paketlerini kullanmalarını sağlar. Bu paketler, kod otomatik tamamlama, kod görselleştirme, proje yönetimi gibi birçok işlemi kolaylaştırabilir. R Studio'nun sol üst köşesindeki **"Tools"** (Araçlar) menüsünden **"Install Packages"** (Paketleri Yükle) seçeneği ile yeni paketleri yükleyebilirsiniz.
+
+5.  **R Markdown Belgelerini Özelleştirme**: R Markdown belgeleri, raporlar ve belgeler oluşturmak için kullanılır. Bu belgeleri kişiselleştirebilirsiniz. R Markdown belgelerinin başlık, stil, tablo düzeni ve grafikler gibi birçok yönünü özelleştirebilirsiniz.
+
+6.  **Proje Ayarlarını Yapılandırma**: RStudio'da projeler kullanmak, projelerinizi daha düzenli ve etkili bir şekilde yönetmenize yardımcı olabilir. "File" (Dosya) menüsünden "New Project" (Yeni Proje) seçeneği ile yeni projeler oluşturabilir ve projelerinizi kişiselleştirebilirsiniz.
+
+7.  **Kod Tarayıcı ve Çalışma Ortamını Özelleştirme**: RStudio'nun sağ tarafında bulunan **"Environment"** (Çalışma Ortamı) ve **"Files"** (Dosyalar) sekmelerini özelleştirebilirsiniz. Bu sekmeleri dilediğiniz gibi düzenleyebilirsiniz.
+
+8.  **Addins Kullanma**: RStudio'nun "Addins" (Eklentiler) menüsü, kullanıcıların özel işlevleri ekleyebileceği bir bölümdür. Bu sayede belirli işlemleri hızlıca gerçekleştirebilirsiniz.
+
+RStudio'nun bu kişiselleştirme seçenekleri, kullanıcıların kendi ihtiyaçlarına ve tercihlerine göre IDE'yi özelleştirmelerine olanak tanır. Bu şekilde, RStudio'yu daha verimli ve kişiselleştirilmiş bir şekilde kullanabilirsiniz. RStudio'nun ana bileşenleri ve temel özellikleri ise şunlardır:
+
+1.  **Script Editörü**: RStudio'nun sol üst kısmında yer alan bu bölüm, R kodlarını yazmak, düzenlemek ve çalıştırmak için kullanılır. Renk vurguları, otomatik tamamlama ve hata işaretleme gibi birçok yazılım geliştirme özelliği içerir.
+
+2.  **Environment (Çalışma Ortamı)** : Sağ üst köşede bulunan "Çalışma Ortamı" sekmesi, çalışan nesneleri ve değişkenleri görüntülemenizi sağlar. "Files" sekmesi ise projenizdeki dosyaları ve klasörleri görüntülemenize yardımcı olur.
+
+3.  **Console**: Alt sol köşede bulunan bu bölüm, R kodlarını anlık olarak çalıştırmanıza ve sonuçları görmesinize olanak tanır. R komutlarını doğrudan konsola yazabilir ve çalıştırabilirsiniz.
+
+4.  **Diğer Sekmeler** : RStudio, çeşitli grafikler ve görselleştirmeler oluşturmanıza olanak tanır. R koduyla çizilen grafikler, "**Plots**" sekmesinde görüntülenir. Bunu yanısıra "**Help"** kısmında fonksiyonlar ile ilgili bilgi alınabilir,"**Packages"** kısmından ise paket yükleme vb. işler yapılabilir.
+
+\newpage
+
+# R Programlamaya Giriş
+
+R kodunun çalıştırılması oldukça basittir ve R Studio gibi entegre geliştirme ortamları (IDE'ler) kullanırken daha da kolaylaşır. İşte R kodunu çalıştırmak için temel adımlar:
+
+1.  **R Studio'yu Açın**: İlk adım, R Studio veya başka bir R IDE'sini açmaktır.
+
+2.  **Yeni Bir script uluşturun veya mevcut bir script kullanın**:
+
+    -   R Studio'da, sol üst köşede bulunan "File" (Dosya) menüsünden "New Script"seçeneği ile yeni bir R scripti oluşturabilirsiniz.
+
+    -   Mevcut bir scripte gitmek istiyorsanız, "File" menüsünden "Open Script" seçeneğini kullanabilirsiniz.
+
+3.  **R Kodunu Scripte Yazın**: Oluşturduğunuz veya açtığınız R skriptinde, R kodlarını yazın veya yapıştırın. Örneğin, basit bir hesaplama yapmak için aşağıdaki kodu kullanabilirsiniz:
+
+    ```{r}
+    x <- 5
+    y <- 10
+    z <- x + y
+    z
+    ```
+
+4.  **Kodu Çalıştırma**:
+
+    -   Çalıştırmak istediğiniz kodu seçin veya imleci çalıştırmak istediğiniz satıra getirin.
+
+    -   Çalıştırma işlemi için aşağıdaki yöntemlerden birini kullanabilirsiniz:
+
+        -   Klavyede varsayılan olarak "Ctrl+Enter" (Windows/Linux) veya "Command+Enter" (Mac) tuş kombinasyonunu kullanabilirsiniz.
+
+        -   R Studio'daki "Run" (Çalıştır) düğmesini veya "Run" (Çalıştır) menüsünü kullanabilirsiniz.
+
+        -   Çalıştırmak istediğiniz kodu seçtikten sonra sağ tıklarsanız, "Run" (Çalıştır) seçeneğini göreceksiniz.
+
+5.  **Sonuçları İnceleyin**: Çalıştırılan kodun sonuçları konsol penceresinde veya çıktı bölümünde görüntülenir. Örneğin, yukarıdaki örnekte "z" değişkeninin değeri olan "15" sonucunu göreceksiniz.
+
+::: callout-warning
+### Dikkat
+
+Bir scripti üzerinden çalıştırılan R kodunun sonuçlarını sol alt kısımda yer alan Console bölümünde görebilirsiniz. Aynı şekilde kodu Console bölümüne yazıp Enter tuşuna bastığınızda yine sonuç alabilirsiniz. Ancak script içerisinde yazılan kodları bir **`.R`** uzantılı dosya olarak saklama ve daha sonradan bu dosyaya ulaşma şansınız varken, Console ile çalıştırılan kodları bir **`.R`** dosyası olarak saklama şansınız yoktur. Console tarafındaki sonuçlar geçici olarak ekranda kalır ve R Studio'yu kapatıp açtığınızda tekrar yazdığınız ve çalıştırdığınız kodlara ulaşamayabilirsiniz.
+:::
+
+::: callout-tip
+### İpucu
+
+Console tarafına yansıyan kodların ve sonuçların farklı formatlarda saklama şansımız vardır. Bunun için `sink` fonksiyonunu araştırmanızı önerebilirim.
+:::
+
+## Temel Fonksiyonlar
+
+### Çalışma Dizini
+
+Çalışma Dizini, üzerinde çalıştığınız veri kümeleri vb. gibi tüm gerekli dosya ve belgelerinizi içeren yerdir. Çalışma dizininizi ayarlamanın iki yolu vardır. İlk yol [**getwd ve setwd**]{.underline} işlevlerini kullanmaktır. Diğer yol ise RStudio üzerinden [**Session\>Set Working Directory**]{.underline} youluyla yapılabilir.
+
+```{r}
+
+getwd()
+```
+
+-   [**`dir`**]{.underline} veya [**`list.files`**]{.underline} komutları ile dizinde yer alan dosyalar öğrenilebilir.
+
+-   [**`dir.create`**]{.underline} komutu ile yeni bir klasör oluşturmak mümkündür.
+
+-   [**`file.exists`**]{.underline} kullanılarak klasörün var olup olmadığı sorgulanabilir.
+
+### Yardımcı Bilgiler
+
+**R** komutlarında *Büyük-küçük harf duyarlılığı (case sensitive)* vardır.
+
+```{r}
+a <- 5 
+print(a)
+
+A <- 6 
+print(A) 
+```
+
+**Noktalı virgül (;)** işareti ile aynı satırda birden fazla kod çalıştırılabilir hale getirilir.
+
+```{r}
+
+x <- 1 ; y <- 2 ; z <- 3 
+x; y; z
+```
+
+Komutlar arası açıklamaları ve yorumları **#(hashtag)** ile yazabiliriz. Hastagli satırlar, kod olarak algılanıp çalıştırılmaz. Bu kısımlara yazılan kodlar ile ilgili hatırlatıcı bilgiler (comment) yazılabilir.
+
+```{r}
+
+#6 ile başyalan ve  10 ile  biten tamsayıları c vektörüne atayalım 
+c <- 6:10
+c
+```
+
+-   **`ls()`** çalışma alanındaki nesne ve fonksiyonları listeler.
+
+-   **`rm(a)`** çalışma alanından **a** nesnesini siler.
+
+-   **`rm(list=ls())`** bütün çalışma alanını temizler.
+
+-   **`q()`** R'dan çıkış yapmayı sağlar.
+
+-   **`install.packages("package")`** paket yüklemeyi sağlar.
+
+-   **`library("package")`** yüklü olan paketi getirir.
+
+-   **`installed.packages()`** yüklü olan paketleri listeler
+
+-   **`options(digits=10)`** sayılarda ondalık kısmın basamak sayısını ifade eder.
+
+-   **`help()`** fonksiyonu ya da **`?`** ile bir fonksiyon hakkında yardım alınabilir. Örneğin mean fonksiyonu ile ilgili yardım almak için scripte `?mean` ya da help(mean) yazmanız ve çalıştırmanız yeterlidir. Bunun yanı sıra R Studio penceresinin sağ alt kısmındaki help alanını kullanabilirsiniz.
+
+### Atama Operatörü
+
+Bir değişkene, tabloya veya objeye değer atarken **'\<-'** veya **'='** operatörü kullanılır. '**\<-**' atama operatöründe ok hangi yöndeyse o tarafa atama yapılır. Genellikle '**\<-**' operatörü kullanılmaktadır. Çünkü '**=**' operatörü filtrelemelerde veya işlemlerdeki '**==**' ile karıştırılabilmektedir. Ayrıca fonksiyonlar içinde de kullanılabildiği için kod karmaşasına sebebiyet verebilir. Her iki operatör de aynı işlevi görmektedir.
+
+```{r}
+# a'ya 20 değerini atayalım 
+a <- 20  
+
+# tabloyu ya da değeri görüntülemek için nesnenin kendisi de direkt yazılabilir.  # ya da print fonksiyonu kullanılabilir.  
+print(a)  
+
+# b'ye 12 değerini atayalım 
+b <- 12 
+print(b) 
+
+# a ve b değerlerinden üretilen bir c değeri üretelim.  
+c <- 2 * a + 3 * b 
+print(c) 
+```
+
+**c()** ile vektör oluştutulabilir. c "combine" (birleştirmek) kelimesinin ilk harfini ifade eder. Bir değişkene birden fazla değer atamak istediğimizde kullanılır.
+
+```{r}
+# d adında bir vektör oluşturalım ve değerler atayalım.  
+d <- c(4,7,13) 
+d 
+```
+
+Bir metini değişkene atamak istersek de aşağıdaki gibi metin "" işareti içine yazılmalıdır.
+
+```{r}
+metin <- "Merhaba Arkadaşlar" 
+print(metin)
+```
+
+### Matematiksel Operatörler
+
+R ve R Studio, güçlü bir hesap makinesi olarak kabul edilebilir.
+
+```{r}
+3+5 
+7*8 
+88/2 
+3*(12+(15/3-2)) 
+9^2 # karesini alır 
+a <-  3 
+b <-  a^2 
+print(b) 
+log(15) #ln15 yani doğal logaritma 
+log10(1000) # 10 tabanına göre hesaplama 
+exp(12) #exponential power of the number. e (2.718) üzeri 12 
+factorial(6) # faktöriyel hesaplama yapar 
+sqrt(81) # karekör alma 
+abs(-3) # mutlak değer 
+sign(-5) # işaret bulma 
+sin(45) # sinüs 
+cos(90) # cosinüs 
+pi # pi sayısı 
+tan(pi) # tanjant
+```
+
+### Mantıksal Operatörler
+
+Mantıksal sorgulamalar, koşullarda ve filtrelerde kullanılmaktadır. Verilen koşul veya filtre sağlandığında **TRUE**, sağlanmadığında ise **FALSE** değerleri elde edilmektedir. Bu mantıksal operatörler ayrıca komutlar içindeki özellikleri aktifleştirmek ve pasifleştirmek için de kullanılmaktadır.
+
+Mantıksal operatörler aşağıdaki şekilde kullanılmaktadır:
+
+-   eşittir : **==**
+
+-   eşit değildir : **!=**
+
+-   küçüktür : **\<**
+
+-   küçük eşittir : **\<=**
+
+-   büyüktür : **\>**
+
+-   büyük eşittir : **\>=**
+
+-   x değil : **!x**
+
+-   x ve y : **x&y**
+
+-   x veya y: **x\|y**
+
+```{r}
+
+3 > 5
+
+# & (ve) operatörü
+# iki durumda TRUE ise sonuç TRUE döner.
+3 < 5 & 8 > 7
+
+# bir durum FALSE diğer durum TRUE ise sonuç FALSE döner.
+3 < 5 & 6 > 7
+
+# iki durumda FALSE ise sonuç FALSE döner.
+6 < 5 & 6 > 7
+
+# | (veya) operatörü
+# Her iki durumdan birisi TRUE ise TRUE döner
+(5==4) | (3!=4)
+
+```
+
+## Veri Tipleri ve Yapıları
+
+R'da kulllanılan 5 temel veri tipi vardır. Bu veri tipleri atomic vectörler olarak da bilinir. Atomic olması vektörlerin homojen olması anlamına gelmektedir. Yani vektör içerisinde aynı veri tipinden değerler yer alabilir. Veri tipleri;
+
+-   numeric veya double (reel sayılar)
+
+-   integer (tamsayılar)
+
+-   complex (karmaşık sayılar)
+
+-   character (metinsel ifadeler)
+
+-   logical, TRUE ve FALSE (mantıksal)
+
+`typeof()` veya `class()` fonksiyonları ile veri tipi öğrenilebilir.
+
+```{r}
+
+# numeric
+
+a <- 3.5
+class(a)
+typeof(a) # typeof numeriklerin tipini double olarak gösterir.
+
+is.numeric(a) # verinin tipinin numerik olup olmadığı sorgulanır.
+
+# integer
+
+b <- 5
+class(b)
+is.integer(b)
+
+c <- 6L # integer olması için sayının sağına L yazılır.
+class(c)
+is.integer(c)
+
+class(as.integer(b)) # as. ile baslayan fonksiyonlar dönüşüm için kullanılır.
+
+# complex
+
+z <- 4 + 2i
+class(z)
+
+# character
+
+d <- "R Programlama"
+class(d)
+
+e <- "5.5"
+class(e)
+class(as.numeric(e))
+
+# logical
+
+x <- TRUE ; y <- FALSE
+class(c(x,y))
+as.integer(c(x,y)) # TRUE ve FALSE numeric olarak 1 ve 0 değerine karşılık gelir.
+
+```
+
+### Vektörler
+
+-   R'daki en temel nesneler vektörlerdir.
+
+-   Vektörler homojen yapıya sahiptir yani bütün elemanları aynı veri tipinde olmalıdır.
+
+-   Vektörler tek boyutludur.
+
+-   Bir vektör oluşturmak için kullanabilecek en temel fonksiyon **`c()`**'dir.
+
+```{r}
+
+
+v <- c(1,4,7,2,5,8,3,6,9)
+
+v[1] # 1. elemanını seçer
+v[3] # 3. elemanını seçer
+v[c(3,7)] # 3. ve 7. elemani secer
+v[1:6] # 1. elemandan 6. elemana kadar secer
+v[-2] # 2. elemani haric tutarak secer
+
+length(v) # vektörün uzunluğunu gösterir
+v2 <- c(v,12) # vektöre eleman ekleme
+v2
+
+# : ile başlangıç ve bitiş değerleri belli olan vektörler yaratılabilir.
+
+v3 <- 1:10
+v3
+
+v4 <- 11:20
+v4
+# Vektörler ile matematiksel işlemler yapılabilir.
+
+v3 + v4
+v3 / v4
+2 * v3 - v4
+
+# Vektörler ile ilgili kullanılabilecek bazı fonksiyonlar
+
+# seq () 
+#aritmetik bir diziden meydana gelen bir vektör oluşturmak için kullanılır. 
+seq(from = 5, to = 50, by =5) # 5 ile başlayan 50 ile biten 5şer artan vektör
+seq(from = 5, to = 50, length = 7) # 5 ile başlayan 50 ile 7 elemanlı vektör
+seq(5,1,-1) # 5 ile baslayıp 1'e kadar 1'er azaltarak vektor olusturma
+
+# rep() 
+# tekrarlı sayılar içeren vektörler oluşturulur.
+rep(10,8) # 8 tane 10 değeri olan vektör
+rep(c(1,2,3),4) # 1,2,3 vekrünün 4 defa tekrarlanması
+rep(c(1,2,3), each = 4) # each argünmanı ile sıralı ve tekrarlı vektör
+
+# rev()
+v5 <- c(3,5,6,1,NA,12,NA,8,9) # R'da NA boş gözlemi ifade eder.
+rev(v5) # vektörü tersine çevirir
+
+# rank()
+rank(v5) # elemanların sıra numarasını verir
+rank(v5, na.last = TRUE) # NA leri son sıraya atar.
+rank(v5, na.last = FALSE) # NA leri en başa koyar.
+rank(v5,na.last = NA) # NA değerlere yer verilmez
+rank(v5, na.last = "keep") # NA değerler oldukları gibi görünürler.
+
+# all()
+all(v5>5) # vektördeki tüm elemanların şartı sağlayıp sağlamadıkları test edilir.
+all(v5>0) # vektörde NA varsa sonuç NA döner
+all(v5>0, na.rm = TRUE) # NA gözlemler hariç tutularak sonuç üretir.
+
+# any()
+any(v5>6) # vektördeki en az bir elemanın şartı sağlayıp sağlamadığı test edilir.
+any(v5==9) 
+
+# unique()
+v6 <- rep(1:5,3)
+v6
+unique(v6) # tekrarlı gözlemler temizlenir
+
+# duplicated()
+duplicated(v6) # tekrarlı gözlemlerin varlığını kontrol eder
+v6[duplicated(v6)] # tekrarlı gözlemleri listeler
+
+# sort()
+sort(v5) # küçükten büyüğe sıralama yapar.
+sort(v5,decreasing = TRUE) # azalan sırada sıralama yapar.
+
+# diff()
+diff(v5) # vektörde ardışık elemanlar arasındaki farkı bulur.
+diff(na.omit(v5)) # na.omit vektördeki NA gözlemleri temizler
+
+# is.na()
+is.na(v5) # vektördeki elamanların NA olup olmadığını test eder.
+is.nan(v5) # NaN aynı zamanda bir NA'dir.
+
+# which
+which(v5==12) # 6 sayısının posizyonunu gösterir
+which.max(v5) # vektördeki maximum elemanın posizyonunu gösterir
+which.min(v5) # vektördeki minimum elemanın posizyonunu gösterir
+v5[which.min(v5)] # vektördeki minimum elemanı gösterir
+
+# Temel İstatistiksel Fonksiyonlar
+mean(v5) # NA varsa sonuç NA döner
+mean(v5, na.rm = TRUE) # aritmetik ortalama
+median(v5,na.rm = TRUE) # medyan (ortanca)
+sum(v5,na.rm = TRUE) # vektör toplamını verir
+min(v5,na.rm = TRUE) # vektörün minimum değeri
+max(v5,na.rm = TRUE) # vektörün maximum değeri
+sd(v5,na.rm = TRUE) # standart sapma
+var(v5,na.rm = TRUE) # varyans
+
+```
+
+### Matrisler
+
+-   Matrisler, iki boyutlu yani satır ve sütunları olan atomik vektörlerdir.
+
+-   **`matrix()`** fonksiyonu ile tanımlanmaktadır.
+
+-   Vektörlerin birleştirlmesi ile de matrisler oluşturulabilir. [**rbind**]{.underline}satır bazlı alt alta birleştirme, [**cbind**]{.underline} ise sütun bazlı yanyana birleştirme yapar. Burada vektörlerin aynı boyutlarda olmasına dikkat edilmesi gerekir.
+
+```{r}
+
+v1 <- c(3,4,6,8,5)
+v2 <- c(4,8,4,7,1)
+v3 <- c(2,2,5,4,6)
+v4 <- c(4,7,5,2,5)
+
+matris <- cbind(v1, v2, v3, v4)
+matris
+
+is.matrix(matris)
+dim(matris)
+
+matrix(nrow = 3, ncol = 3, 1:9)
+matrix(1:9, nrow = 3, ncol = 3, byrow = TRUE) # byrow satırlara göre oluşturur.
+
+mat <- seq(3, 21, by = 2)
+mat
+dim(mat) <- c(5,2)
+mat
+matrix(c(1,2,3,11,22,33), nrow = 2, ncol = 3, byrow = TRUE)
+
+# normal dağılımdan 0 ortamalı, 1 standart sapmalı 16 sayı üret
+MA <- rnorm(16, 0, 1)
+MA <- matrix(MA, nrow = 4, ncol = 4)
+
+# normal dağılımdan 90 ortamalı, 10 standart sapmalı 16 sayı üret
+MB <- rnorm(16, 90, 10)
+MB <- matrix(MB, nrow = 4, ncol = 4)
+
+m <- rbind(MA, MB)
+m
+
+# satır ve sütun isimlendirme
+colnames(m) <- LETTERS[1:4]
+rownames(m) <- tail(LETTERS,8)
+m
+
+#Matris Elemanlarina Erismek
+m[1,1] # 1. satır, 1.sütundak, eleman
+m[4,2] # 4. satır, 2.sütundak, eleman
+m[,2] # 2. sütun elemanları
+m[-3,] # 3. satır hariç tüm elemanlar
+
+# köşegen matris oluşturma
+diag(2,nrow=3)
+diag(1,5) # 5*5 birim matris
+
+# transpose
+t(m)
+
+# matris ile işlemler
+
+m1 <- matrix(1:4,nrow=2)
+m2 <- matrix(5:8,nrow=2)
+
+m1;m2
+m1 + m2 # matris elemanları birebir toplanır
+m1 / m2 # matris elemanları birebir toplanır
+m1 * m2 # matris elemanları birebir çarpılır
+m1 %*% m2 # matris çarpımı
+solve(m2) # matrisin tersi
+
+rowSums(m1) # satır toplamları
+rowMeans(m1) # satır ortalaması
+colSums(m1) # sütun toplamları
+colMeans(m1) # sütun ortalaması
+
+```
+
+### Listeler
+
+-   Listeler, birbirinden farklı veri tiplerine sahip vektörler, matrisler vb farklı objeleri birarada tutabilen yapılardır.
+
+-   **`list()`** ile liste oluşturulur.
+
+```{r}
+
+x <- c(3,5,7)
+y <- letters[1:10]
+z <- c(rep(TRUE,3),rep(FALSE,4))
+
+list <- list(x,y,z)
+list
+class(list) # listenin sınıfını verir
+str(list) # listenin yapısını verir
+
+names(list) <- c("numeric","karakter","mantıksal") # liste isimlendirme
+list
+
+list$numeric
+list$karakter
+list$mantıksal
+
+list[[2]]
+
+list$numeric2 <- c(4:10) # listeye eleman ekleme
+list
+
+list$numeric <- NULL # listeden eleman silme
+list
+
+unlist(list) # listeyi vektöre çevirir.
+
+```
+
+### dataframe
+
+Veri çerçevesi, her sütunun bir değişkenin değerlerini ve her satırın her sütundan bir değer kümesini içerdiği bir tablo veya iki boyutlu dizi benzeri bir yapıdır. Bir veri çerçevesinin özellikleri şunlardır:
+
+-   Sütun adları boş olmamalıdır.
+
+-   Satır adları benzersiz olmalıdır.
+
+-   Bir veri çerçevesinde saklanan veriler sayısal, faktör veya karakter tipinde olabilir.
+
+-   Her sütun aynı sayıda veri öğesi içermelidir.
+
+**`data.frame()`** fonksiyonunu uygulayarak bir veri çerçevesi oluşturabiliriz.
+
+```{r}
+
+# data.frame oluşturma
+set.seed(12345)
+
+data <- data.frame(
+  row_num = 1:20,
+  col1 = rnorm(20),
+  col2 = runif(20), # uniform dağılımdam 20 gözlem üret
+  col3 = rbinom(20,size=5,prob = 0.5), # binom dağılımdam 20 gözlem üret
+  col4 = sample(c("TRUE","FALSE"),20,replace = TRUE),
+  col5 = sample(c(rep(c("E","K"),8),rep(NA,4))),
+  stringsAsFactors = TRUE # karakter olanlar faktör olarak değerlendirilsin
+)
+
+class(data)
+head(data) # ilk 6 gözlemi gösterir
+tail(data) # son 6 gözlemi gösterir
+tail(data,10) # son 10 gözlemi gösterir
+
+str(data) # tablonun yapısını gösterir
+summary(data) # tablonun özet istatistiklerini gösterir
+
+# veri çerçevesinden belirli sütun/ları seçmek için $ veya [] kullanılır.
+head(data$col1)
+head(data[,"col1"])
+
+# veri çerçevesinden belirli satır/ları seçmek için [] kullanılır.
+data[1:2,] 
+
+# 3. and 5. satır ile 2. ve 4. kolon
+data[c(3,5),c(2,4)]
+
+# koşula göre veriler seçilebilir
+data$row_num > 12 # TRUE veya FALSE döner
+data[data$row_num > 12,] # koşula göre tablonu değerleri döner
+
+# subset ile tablo filtrelenebilir.
+subset(data, 
+       row_num >= 10 & col4 == 'TRUE',
+       select = c(row_num, col1, col2,col4))
+
+# names veya colnames ile sütun isimleri elde edilir.
+names(data)
+colnames(data)
+
+# vektör ile sütun seçimi
+cols <- c("col1","col2","col5")
+head(data[cols])
+
+# sütun silme
+data$col1 <- NULL
+head(data)
+
+# sütun ekleme
+data$col1 <- rnorm(20)
+head(data)
+
+# sütunları sıralama
+head(data[c("row_num","col1","col2","col3","col4","col5")])
+
+# sıralama
+head(data[order(data$col3),]) # artan
+head(data[order(-data$row_num),]) # azalan
+head(data[order(data$col3,-data$row_num),])
+
+# kayıp gözlemler (missing values)
+tail(is.na(data))
+tail(is.na(data$col5))
+data[is.na(data$col5),]
+data[!is.na(data$col5),]
+
+rowSums(is.na(data)) # satılardaki toplam kayıp gözlem sayısı
+colSums(is.na(data)) # sütunlardaki toplam kayıp gözlem sayısı
+sum(is.na(data)) # tablodaki toplam kayıp gözlem sayısı
+
+complete.cases(data) # satırlarda eksik gözlemlerin durumu
+data[complete.cases(data),]
+data[!complete.cases(data),]
+
+na.omit(data) # NA olan satırları siler.
+
+```
+
+### Tibble
+
+**`tibble`**, Hadley Wickham tarafından geliştirilen ve **`dplyr`** paketi ile sıkça kullanılan bir veri yapısıdır. **`tibble`**, **`data.frame`**'e benzerdir, ancak bazı önemli farklar vardır. **`tibble`**, daha düzenli ve okunabilir bir çıktı üretir ve bazı varsayılan davranışları **`data.frame`**'den farklıdır. Modern data.frame olarak tanımlanmaktadır.
+
+```{r}
+
+# tibble örneği
+library(tibble)
+
+ogrenciler_tibble <- tribble(
+  ~Ad,     ~Yas, ~Cinsiyet,
+  "Ali",   20,   "Erkek",
+  "Ayşe",  22,   "Kadın",
+  "Mehmet", 21,  "Erkek",
+  "Zeynep", 23,  "Kadın"
+)
+
+# tibble'ı görüntüleme
+print(ogrenciler_tibble)
+
+```
+
+Yukarıdaki örnekte, "ogrenciler_tibble" adında bir **`tibble`** oluşturuldu. **`tibble`**, sütun adlarını ve içeriği daha okunabilir bir şekilde görüntüler ve sütunların başlık ve veri tipi (**`~Ad`**, **`~Yas`**, **`~Cinsiyet`**) gibi özelliklerini korur.
+
+::: callout-note
+### Not
+
+Hem **`dataframe`** hem de **`tibble`** veri analizi ve işleme işlemlerinde kullanışlıdır. Hangi veri yapısını kullanacağınız, projenizin gereksinimlerine ve kişisel tercihinize bağlıdır. Özellikle veri analizi için **`dplyr`** gibi paketlerle çalışırken **`tibble`** tercih edilir.
+:::
+
+### Faktörler
+
+-   Faktörler, verileri kategorilere ayırmak ve düzeyler halinde depolamak için kullanılan veri nesneleridir. Hem karakter hem de tam sayıları depolayabilirler.
+
+-   "Erkek,"Kadın" ve Doğru, Yanlış vb. gibi istatistiksel modelleme için veri analizinde faydalıdırlar.
+
+-   Faktörler, girdi olarak bir vektör alınarak **`factor()`** işlevi kullanılarak oluşturulur.
+
+```{r}
+
+data <- c(rep("erkek",5),rep("kadın",7))
+print(data)
+is.factor(data)
+
+# veriyi faktöre çevirme
+factor_data <- factor(data)
+
+print(factor_data)
+print(is.factor(factor_data))
+
+as.numeric(factor_data)
+
+# data frame için vektörler oluşturalım
+boy <- c(132,151,162,139,166,147,122)
+kilo <- c(48,49,66,53,67,52,40)
+cinsiyet <- c("erkek","erkek","kadın","kadın","erkek","kadın","erkek")
+
+# data frame
+df <- data.frame(boy,kilo,cinsiyet)
+str(df)
+df$cinsiyet <- factor(cinsiyet)
+str(df)
+
+print(is.factor(df$cinsiyet))
+
+# cinsiyet kolononun seviyeleri
+print(df$cinsiyet)
+
+# seviyelerin sırası değiştirilebilir.
+
+df2 <- c(rep("düşük",4),rep("orta",5),rep("yüksek",2))
+
+factor_df2 <- factor(df2)
+print(factor_df2)
+
+order_df2 <- factor(factor_df2,levels = c("yüksek","orta","düşük"))
+print(order_df2)
+
+# ordered=TRUE ile seviyelerin sıralı olduğu ifade edilir
+order_df2 <- factor(factor_df2,levels = c("yüksek","orta","düşük"),ordered = TRUE)
+print(order_df2)
+
+# Faktör seviyesi üretme
+
+# gl() fonksiyonunu kullanarak faktör seviyeleri üretebiliriz. 
+# Girdi olarak kaç seviye ve her seviyeden kaç tane sayı oalcağı belirtilir.
+
+faktor <- gl(n=3, k=4, labels = c("level1", "level2","level3"),ordered = TRUE)
+print(faktor)
+
+```
+
+## Fonksiyonlar
+
+Fonksiyonlar çoğu programlama dillerinin çok önemli bir özelliğidir. Yalnızca mevcut fonksiyonları kullanmak yerine, belirli işleri yapmak için kendimize ait fonksiyonlar yazabiliriz. Ama neden fonksiyon yazmalıyız?
+
+-   Tekrarlardan kaçınmanızı sağlar.
+
+-   Yeniden kullanımı kolaylaştırır.
+
+-   Karmaşık komut dosyalarından kaçınmanıza yardımcı olur.
+
+-   Hata ayıklamayı kolaylaştırır.
+
+Bir fonksiyonun temel kod yapısı aşağıdak gibidir:
+
+```         
+function_name <- function(arg_1, arg_2, ...) {
+   Function body
+}
+```
+
+```{r}
+
+# kare alma fonksiyonu
+f_kare <- function(x) {
+   x^2
+ }
+
+f_kare(15)
+f_kare(x=20)
+
+# standart sapma fonksiyonu
+
+# Standart sapmanın hesaplanması
+# sqrt(sum((x - mean(x))^2) / (length(x) - 1))
+
+set.seed(123) # Pseudo-randomization
+x1 <- rnorm(1000, 0, 1.0)
+x2 <- rnorm(1000, 0, 1.5)
+x3 <- rnorm(1000, 0, 5.0)
+
+# her serinin ayrı ayrı standart sapmasının hesaplanması
+sd1 <- sqrt(sum((x1 - mean(x1))^2) / (length(x1) - 1))
+sd2 <- sqrt(sum((x2 - mean(x2))^2) / (length(x2) - 1))
+sd3 <- sqrt(sum((x3 - mean(x1))^2) / (length(x3) - 1))
+c(sd1 = sd1, sd2 = sd2, sd3 = sd3)
+
+# fonksiyonu oluşturalım
+f_sd <- function(x) {
+  result <- sqrt(sum((x - mean(x))^2) / (length(x) - 1))
+  return(result)
+}
+
+sd1 <- f_sd(x1)
+sd2 <- f_sd(x2)
+sd3 <- f_sd(x3)
+c(sd1 = sd1, sd2 = sd2, sd3 = sd3)
+
+# standartlaştırma fonksiyonu
+f_std <- function(x) {
+m <- mean(x)
+s <- sd(x)
+(x - m) / s
+}
+
+x4 <- rnorm(10,5,10)
+x4
+f_std(x4)
+
+```
+
+## Kontrol İfadeleri
+
+Kontrol ifadeleri ve döngüler R içerisinde sıklıkla kullanılan yapılardır. Belirli şartlara bağlı olan ya da tekrarlı işlemler için oldukça faydalıdırlar. R programlama dilinde en çok kullanılan **if-else, for, while, next, break** gibi kontrol döngüleridir.
+
+### if-else
+
+Bu kombinasyon R'de en sık kullanılan kontrol yapılarındandır. Bu yapıda, bir koşulu test edebilir ve doğru veya yanlış olmasına bağlı olarak ona göre hareket edebilirsiniz. if-else kombinasyonlarında aşağıdaki yapılar kullanılmaktadır.
+
+```         
+if (condition){
+#do something if condition is true
+}
+
+
+if (condition){
+#do something if condition is true
+}
+else{
+#do someting if condition is not true
+}
+
+if (condition){
+
+#do something if condition is true
+
+} else if (condition2) {
+
+#do someting if condition2 is true
+
+} else {
+
+#do something if neither condition 1 nor condition 2 is true
+
+}
+```
+
+```{r}
+
+x <- 8
+
+if (x < 10) {
+    print("x 10'dan küçüktür")
+} else {
+    print("x 10'dan büyüktür ya da 10'a eşittir")
+}
+
+# ifelse 
+# ifelse(condition, do_if_true, do_if_false)
+df <- data.frame(value = 1:9)
+df$group <- ifelse(df$value <= 3,1,ifelse(df$value > 3 & df$value <= 6,2,3))
+df
+
+```
+
+### Döngüler
+
+-   **for** döngüleri bir tekrarlayıcı değişken alır ve ona bir diziden veya vektörden ardışık değerler atar. En yaygın olarak bir nesnenin öğeleri üzerinde tekrarlayan işlem yapmak için kullanılır.
+
+-   **while** döngüleri bir şartı test ederek başlar. Eğer denenecek şart doğru ise istenilen komutlar yerine getirilir. Döngü şartın doğru olmadığı ana kadar devam eder.
+
+-   **repeat** sonsuz bir döngü oluşturur. Döngüden çıkmak için **break** kullanılır.
+
+-   **next** ifadesi ile bir döngüdeki belirli tekrarlar atlanabilir.
+
+```{r}
+
+for (i in 1:5) {
+    print(i)
+}
+
+v <- LETTERS[1:4]
+for ( i in v) {
+   print(i)
+}
+
+# dataframe içerisinde for
+for (i in 1:nrow(df)){
+  
+  df[i,"multiply"] <- df[i,"value"] * df[i,"group"]
+}
+
+# i yerine farklı ifade de kullanılabilir
+(x <- data.frame(age=c(28, 35, 13, 13),
+                height=c(1.62, 1.53, 1.83, 1.71),
+                weight=c(65, 59, 72, 83)))
+
+for (var in colnames(x)) {
+    m <- mean(x[, var])
+    print(paste("Average", var, "is", m))
+}
+
+# while
+
+x <- 0
+
+while (x^2 < 20) {
+  print(x)      # Print x
+  x <- x + 1    # x'i bir artır
+}
+
+# repeat
+
+x <- 0
+
+repeat {
+    if (x^2 > 20) break     # bu koşul sağlandığında döngüyü bitir
+    print(x)               
+    x <- x + 1              # x'i bir artır
+}
+
+# next
+
+for(i in 1:7) {
+if (i==4) next # i=4 olduğunda atla
+print(1:i)
+}
+
+
+(s <- seq(1,10,1))
+
+for (i in s) {
+    if (i%%2 == 1) { # mod
+        next
+    } else {
+        print(i)
+    }
+}
+
+# döngü içinde döngü
+
+(mat <- matrix(nrow=4, ncol=4))
+
+nr <-  nrow(mat)
+nc <-  ncol(mat)
+
+# matrisin içini dolduralım
+for(i in 1:nr) {
+  for (j in 1:nc) {
+    mat[i, j] = i * j
+  }
+}
+
+mat
+
+```
+
+## Tarih ve Zaman İşlemleri
+
+Tarihler, Date sınıfı tarafından temsil edilir ve **`as.Date()`** işlevi kullanılarak bir karakter dizesinden oluşturulabilir. Bu, R'de bir Date nesnesi elde etmenin yaygın bir yoludur. Date sınıfı varsayılan olarak tarihleri 1 Ocak 1970'den bu yana geçen günlerin sayısı olarak temsil eder. **`as.Date()`** işlevinin kullanılması bir karakter dizesinden Date nesneleri oluşturmamıza olanak tanır. Varsayılan biçim "YYYY/m/d" veya "YYYY-m-d" şeklindedir.
+
+```{r}
+
+Sys.Date()
+class(Sys.Date())
+
+myDate <- as.Date("2022-01-04")
+
+class(myDate)
+
+# format argümanı ile tarih formatı tanımlanabilir
+as.Date("12/31/2021", format = "%m/%d/%Y")
+
+
+# year
+format(myDate, "%Y")
+as.numeric(format(myDate, "%Y"))
+
+# weekday
+weekdays(myDate)
+
+# month
+months(myDate)
+
+# quarters
+quarters(myDate)
+
+# create date sequence 
+date_week <- seq(from = as.Date("2021-10-1"), 
+    to = as.Date("2021/12/31"), 
+    by = "1 week")
+
+date_week
+
+date_day <- seq(from = as.Date("2021-12-15"), 
+    to = as.Date("2021/12/31"), 
+    by = "day")
+
+date_day
+
+date_month <- seq(from = as.Date("2021-1-15"), 
+    to = as.Date("2021/12/31"), 
+    by = "month")
+
+date_month
+
+```
+
+Temel R **POSIXt** sınıfları, saat dilimlerini kontrol ederek tarih ve saatlere izin verir. R'de kullanılabilen iki POSIXt alt sınıfı vardır: **POSIXct ve POSIXlt.** POSIXct sınıfı, GMT (UTC -- evrensel saat, koordineli) 1970-01-01 gece yarısından bu yana işaretli saniye sayısı olarak tarih-saat değerlerini temsil eder. POSIXlt sınıfı, tarih-saat değerlerini, saniye (sn), dakika (dk), saat (saat), ayın günü (mday), ay (mon), yıl (yıl), gün için öğeleri içeren adlandırılmış bir liste olarak temsil eder.
+
+Tarih-saatleri temsil eden en yaygın format kodları seti, `strptime()` işlevinin yardım dosyasında listelenmiştir (konsolunuza `help(strptime)` yazın).
+
+```{r}
+
+Sys.time()
+class(Sys.time())
+
+myDateTime <- "2021-12-11 22:10:35"
+myDateTime
+class(myDateTime)
+
+as.POSIXct(myDateTime)
+class(as.POSIXct(myDateTime))
+
+
+Sys.timezone()
+
+as.POSIXct("30-12-2021 23:25", format = "%d-%m-%Y %H:%M")
+
+myDateTime.POSIXlt <- as.POSIXlt(myDateTime)
+
+# seconds
+myDateTime.POSIXlt$sec
+
+# minutes
+myDateTime.POSIXlt$min
+
+# hours
+myDateTime.POSIXlt$hour
+
+# POSIXt nesneleri tarih formatına dönüştürülebilir.
+as.Date(myDateTime.POSIXlt)
+
+```
+
+**lubridate** paketi, R'de tarih ve saatlerle çalışmayı kolaylaştıran çeşitli işlevler sağlar. Lubridate paketi, `ymd()`, `ymd_hms()`,`dmy()`, `dmy_hms()`,`mdy()`gibi işlevler sağlayarak tarih-zamanların ayrıştırılmasını kolay ve hızlı hale getirir.
+
+```{r}
+
+library(lubridate)
+# convert a number into a data object
+ymd(20211215) # year-month-date
+
+ymd_hm(202112121533) # year-month-date-hour-minute
+
+mdy("Aralık 13, 2021") # month date year
+mdy("12 18, 2021") # month date year
+
+dmy(241221) # day-month-year
+dmy(24122021) # day-month-year
+
+today <- Sys.time()
+today
+
+year(today) # year
+
+month(today) # month
+month(today, label = TRUE) # labeled month
+month(today,label = TRUE, abbr = FALSE) # labeled month
+
+week(today) # week
+mday(today) # day
+wday(today) # weekday
+wday(today, label = TRUE) # labeled weekday
+wday(today, label = TRUE, abbr = FALSE) # labeled weekday
+yday(today) # day of the year
+hour(today) # hour
+minute(today) # minute
+second(today) # second
+
+```
+
+Yukarıda listelenen çeşitli işlevlere ek olarak, **`zoo`** paketindeki **`as.yearmon()`** ve **`as.yearqtr()`** işlevleri, düzenli aralıklarla aylık ve üç aylık verilerle çalışırken uygundur.
+
+```{r}
+
+library(zoo)
+as.yearmon(today)
+
+format(as.yearmon(today), "%B %Y")
+format(as.yearmon(today), "%Y-%m")
+as.yearqtr(today)
+
+# dataframe içerisinde tarih kullanmak
+df <-
+  data.frame(date = c(
+    "2010-02-01",
+    "20110522",
+    "2009/04/30",
+    "2012 11 05",
+    "11-9-2015"
+  ))
+
+df$date2 <- as.Date(parse_date_time(df$date, c("ymd", "mdy")))            
+df
+
+```
+
+## Metin İşlemleri
+
+R'de bir çift tek tırnak veya çift tırnak içine yazılan herhangi bir değer, bir karakter olarak kabul edilir. Karakter yapısına sahip olan verilerin analizi özellikle metin madenciliği konusunda kullanışlıdır. Karakter nesneleri üzerinde çalışmak için kullanılabilecek birçok fonksiyon vardır.
+
+```{r}
+
+# as.character
+as.character(3.14)
+class(as.character(3.14))
+
+# paste and paste0 karakter verilerini birleştirir
+
+first <- "Fatih"
+last <- "Tüzen"
+paste(first,last) # default olarak arada boşluk bırakır
+paste0(first,last) # default olarak arada boşluk yoktur
+paste("R","Python","SPSS",sep = "-")
+
+# grep fonksiyonu metin vektörünün içinde belirli bir deseni arar
+
+x <- c("R programı","program","istatistik","programlama dili","bilgisayar","matematik")
+grep("program",x)
+grep("^ist",x) # ist ile başlayan ifdelerin olduğu yerler
+grep("tik$",x) # tik ile biten ifdelerin olduğu yerler
+
+# grepl TRUE-FALSE olarak sonuç döndürür
+grepl("tik$",x) # tik ile biten ifdelerin olduğu yerler
+x[grep("tik$",x)] # tik ile biten ifdelerin olduğu yerler
+x[grepl("tik$",x)] # tik ile biten ifdelerin olduğu yerler
+
+# nchar karakter uzunluğunu verir
+nchar(x)
+nchar("R Programlama") # boşluklar da sayılır!
+
+# tolower ve toupper 
+toupper("program") # karakteri büyük harf yapar
+tolower(c("SPSS","R","PYTHON")) # karakteri küçük harf yapar
+
+# substr ve substring ile karakter parçalama yapılır
+substr("123456789",start = 3, stop = 6)
+substring("123456789", first =3, last = 6)
+
+x <- "R Programlama"
+substr(x,nchar(x)-3,nchar(x)) # son 4 karakteri getir
+
+# strsplit karakteri bölme işini yapar
+strsplit("Ankara;İstanbul;İzmir",split = ";")
+
+```
+
+## Apply Ailesi
+
+**`Apply()`** ailesi, matrislerden, dizilerden, listelerden ve veri çerçevelerinden tekrarlayan bir şekilde veri dilimlerini işlemek için fonksiyonlarla doldurulur. Bu fonksiyonlar sayesinde döngü yapılarının kullanılmasından kaçınır. Bir girdi listesi, matris veya dizi üzerinde hareket ederler ve bir veya birkaç isteğe bağlı argümanla adlandırılmış bir fonksiyon uygularlar.
+
+-   `apply()`: bir dizinin ya da matrisin satır ya da sütunlarına fonksiyon uygular.
+
+-   `lapply()`: liste üzerindeki her elemana fonksiyon uygular.
+
+-   `sapply()`: lapply fonksiyonu ile aynıdır ancak çıktısı matris ya da veri çerçevesidir.
+
+-   `mapply()`: lapply fonksiyonunun çoklu versiyonudur.
+
+-   `tapply()`: faktör ya da grup düzeyinde fonksiyon uygular.
+
+```{r}
+
+# apply
+x <-matrix(rnorm(30), nrow=5, ncol=6)
+x
+
+apply(x, 2 ,sum) # sütunlar üzerinde işlem yapar
+apply(x, 1 ,sum) # satırlar üzerinde işlem yapar
+
+apply(x, 2 ,sd)
+apply(x, 1 ,mean)
+
+mat <- matrix(c(1:12),nrow=4)
+mat
+
+apply(mat,2,function(x) x^2) # gözlemlerin karesi alınır
+apply(mat,2, quantile,probs=c(0.25,0.5,0.75)) # extra argüman eklenebilir
+
+
+# lapply
+
+a <-matrix(1:9, 3,3)
+b <-matrix(4:15, 4,3)
+c <-matrix(8:10, 3,2)
+mylist<-list(a,b,c)
+mylist
+
+lapply(mylist,mean)
+lapply(mylist,sum)
+
+lapply(mylist, function(x) x[,1]) # listedeki her matrisin ilk kolonunu çıkar
+
+mylist2 <- list(a = 1:4, b = rnorm(10), c = rnorm(20, 1), d = rnorm(100, 5))
+mylist2
+lapply(mylist2, mean)
+
+# sapply
+
+head(cars)
+
+lapply(cars,sum)
+sapply(cars,sum)
+sapply(cars,median)
+sapply(cars,mean)
+
+# mapply
+
+l1 <- list(a=c(1:5),b=c(6:10))
+l2 <- list(c=c(11:15),d=c(16:20))
+
+mapply(sum,l1$a,l1$b,l2$c,l2$d) # gözlemlerin toplamı
+mapply(prod,l1$a,l1$b,l2$c,l2$d) # gözlemlerin çarpımı
+
+# tapply
+
+df <- data.frame(x =round(runif(15,min=1,max=10)),
+                 group=sample(c(1:3),15,replace = TRUE))
+df
+
+tapply(df$x,df$group, FUN = mean)
+tapply(df$x,df$group, FUN = sum)
+tapply(df$x,df$group, FUN = length)
+tapply(df$x,df$group, FUN = range)
+
+```
+
+## Verilerin İçe ve Dışa Aktarılması
+
+Temel anlamda R içerisinde excel ortamından (virgül ya da noktalı virgül ile ayrılmış) veri aktarımı (import) için `read.table, read.csv, read.csv2` fonksiyonları kullanılmaktadır. Excel'den veri aktarımı için `readxl` veya `openxlsx`paketi kullanılabilir. Verilerin dışa aktarılması için ise `write.csv, write.table` fonksiyonları kullanılabilir.
+
+```{r}
+
+# delimiter/separator , ise
+mtcars_csv <- read.csv("datasets/mtcars_csv.csv")
+str(mtcars_csv)
+# stringsAsFactors karakter kolonları faktöre çevirir
+mtcars_csv <- read.csv("datasets/mtcars_csv.csv",
+                       stringsAsFactors = TRUE)
+str(mtcars_csv)
+
+# delimiter/separator ; ise
+
+mtcars_csv2 <- read.csv2("datasets/mtcars_csv2.csv")
+str(mtcars_csv2)
+
+# read.table
+
+mtcars_csv <- read.table("datasets/mtcars_csv.csv",
+                         sep = ",",
+                         header = TRUE)
+
+mtcars_csv2 <- read.table("datasets/mtcars_csv2.csv",
+                          sep = ";",
+                          header = TRUE)
+
+# txt uzantılı dosyalar
+
+mtcars_txt <- read.table("datasets/mtcars_txt.txt",
+                          sep = ";",
+                          header = TRUE)
+
+# excel dosyaları için
+library(readxl)
+mtcars_excel <- read_excel("datasets/mtcars_excel.xlsx",
+                           sheet = "mtcars")
+str(mtcars_excel)
+
+
+mtcars_excel2 <- read_excel("datasets/mtcars_excel.xlsx",
+                            sheet = "mtcars2")
+str(mtcars_excel2) # tablo 2. satırdan başlıyor o yüzden tablo başlıkları hatalı
+
+# istenilen satırı atlayarak istenilen sheet adı için,
+mtcars_excel2 <- read_excel("datasets/mtcars_excel.xlsx",
+                            sheet = "mtcars2",
+                            skip = 1)
+str(mtcars_excel2)
+
+# export
+
+write.csv(mtcars_csv,"write_mtcars.csv",
+          row.names = FALSE)
+
+write.table(mtcars_csv,"write_mtcars.csv",
+            row.names = FALSE,
+            sep = ";")
+
+openxlsx::write.xlsx(mtcars_csv,"write_mtcars.xlsx")
+
+```
+
+R içerisinde yer alan hazır veri setlerine erişim için `data()` fonksiyonu kulanılır. Bu fonksyion R ortamınızdaki aktif kutuphanelerin icindeki veri setlerini listeler. Tüm veri setlerine erişim için `data(package = .packages(all.available =  TRUE))` kodu çalıştırılır.
+
+Dosyaları Excel gibi yazılımlarla açmak istiyorsanız, txt, csv veya Excel dosya formatlarında veri yazmak en iyi çözümdür. Ancak bu çözüm, sütun veri türleri (sayısal, karakter veya faktör) gibi veri yapılarını korumaz. Bunun için veriler R data formatında yazılmalıdır. Bu amaçla R ortamındaki verilerinizi tekil olarak saklamak ya da içeri aktarmak için **`saveRDS()`** ve **`readRDS()`** fonksiyonları kullanılır. Bu fonksiyonlar ile **`rds`(**serialized *R* data**)** uzantılı R formatındaki dosyalar kullanılır.
+
+```{r}
+
+# Tek bir dosyayı rds formatında saklamak
+saveRDS(mtcars, "datasets/mtcars.rds")
+
+# rds uzantılı dosyayı yüklemek
+my_data <- readRDS("datasets/mtcars.rds")
+
+```
+
+Eğer birden fazla dosya aynı anda saklanmak ya da içeri aktarılmak isteniyorsa **`save`** ve **`load`** fonksiyonları kullanılır. Bu fonksiyonlar ile **`RData`** uzantılı dosyalar elde edilir. Ayrıca **`rda`(Rdata)** uzantılı dosyalar da bir veya daha fazla farklı R nesnesi alabilir.
+
+```{r}
+
+# RData formatında tek dosya saklamak
+save(my_data, file = "datasets/my_data.RData")
+
+# RData formatında birden fazla dosya saklamak
+save(my_data, mtcars_csv, file = "datasets/data.RData")
+
+# RData formatındaki verileri yüklemek
+load("datasets/data.RData")
+
+```
+
+RStudio'yu kapattığınızda, çalışma alanınızı kaydetmek isteyip istemediğinizi sorar. Evet derseniz, RStudio'yu bir sonraki başlatışınızda o çalışma alanı yüklenecektir. Bu kaydedilen dosya da .RData olarak adlandırılacaktır. Çalışma alanınızı kaydetmek için dosya adını belirtmek de mümkündür. Bunun için **`save.image()`** fonksiyonu kullanılır.
+
+```{r}
+
+# workspace saklamak
+save.image(file = "datasets/my_work_space.RData")
+
+# workspace yüklemek
+load("datasets/my_work_space.RData")
+
+```
+
+Ayrıca aşağıdaki programlar ile üretilmiş veriler için **`haven`** ya da **`foreign`** paketleri kullanılabilir.
+
+-   **SAS (**sas7bdat, sas7bcat)
+
+-   **SPSS** (sav, por)
+
+-   **STATA** (dta)
+
+\newpage
+
+# Veri Manipulasyonu
+
+![](images/dplyr2.jpg){fig-align="center" width="495"}
+
+Veri manipülasyonu, veri çerçeveleri üzerinde verileri dönüştürmek, filtrelemek, birleştirmek veya yeniden düzenlemek gibi işlemleri içeren önemli bir veri bilimi becerisidir. R programlama dili, veri manipülasyonu için oldukça güçlü ve esnek bir araç sunar. Bu yazıda, R kullanarak veri manipülasyonunu nasıl yapabileceğinizi öğreneceğiz.
+
+Veri manipülasyonu için R'da yaygın olarak kullanılan iki ana kavram, "veri çerçeveleri" ve "paketler"dir. Veri çerçeveleri, verileri tablo şeklinde düzenleyen ve işleyen veri yapılarıdır. R'da veri çerçeveleri, **`data.frame`** türünden nesnelerdir. Veri manipülasyonu için kullanabileceğiniz birçok paket vardır, ancak en yaygın kullanılanlar arasında **`dplyr`** ve **`tidyr`** bulunur. Bu paketler, veri manipülasyonunu kolaylaştırmak için bir dizi işlev içerir.
+
+**`dplyr`**, RStudio'dan Hadley Wickham tarafından geliştirilmiş ve en yaygın veri işleme zorluklarını çözmenize yardımcı olan bir veri işleme dilbilgisidir. **`dplyr`** paketi, **`devtools`** paketi ve `install_github()` fonksiyonu kullanılarak **CRAN**'**dan** veya **GitHub'dan** kurulabilir. GitHub deposu genellikle paketteki en son güncellemeleri ve geliştirme sürümünü içerir.
+
+CRAN sayfasından yüklemek için;
+
+```         
+> install.packages("dplyr")
+```
+
+GitHub sayfasından yüklemek için;
+
+```         
+> install_github("hadley/dplyr")
+```
+
+dplyr paketinde sıklıkla kullanılan fonksiyonlar şunlardır:
+
+-   **`select`** : veri çerçevesinden istenilen sütunları seçer.
+
+-   **`filter`** : mantıksal koşullara dayalı olarak bir veri çerçevesinden satırları filtreler.
+
+-   **`arrange`** : satıları sıralar.
+
+-   **`rename`** : sütun isimlerini yeniden isimlendirir.
+
+-   **`mutate`** : yeni değişkenler/sütunlar ekler veya mevcut değişkenleri dönüştürür.
+
+-   **`summarise/ summarize`** : veri çerçevesindeki farklı değişkenlerin özet istatistiklerini oluşturur
+
+-   **`%>%`** (pipe) operatörü birden çok eylemi ardışık düzende zincirleme şekilde birbirine bağlamak için kullanılır.
+
+Veri manipülasyonu ile örnekler bazen küçük veri setleri oluşturulacaktır bazen de 2015 yılı ABD nüfus sayımına ilişkin **counties** veri seti kullanılacaktır. Bu veri setinde eyalet ve şehir detayında nüfus, gelir, ırk, coğrafi yapı, işgücü gibi değişkenler yer almaktadır.
+
+```{r}
+
+library(dplyr)
+counties <- readRDS("datasets/counties.rds")
+
+# veri setinin yapısı hakkında bilgi sağlar
+glimpse(counties)
+
+```
+
+## select
+
+Tabloyu (veri çerçevesi) seçmek ve dönüştürmek için R'da **`dplyr`** paketinde bulunan **`select()`** fonksiyonu oldukça kullanışlıdır. Bu fonksiyon, belirli sütunları seçmek veya sütun adlarını değiştirmek için kullanılır. **`select()`** fonksiyonunu kullanarak veri çerçevesinde sütunları seçme ve dönüştürme işlemlerinin nasıl yapıldığına dair aşağıda örnekler mevcuttur.
+
+::: {.callout-note appearance="minimal"}
+### Not
+
+**`select()`** fonksiyonu ayrıca sütunları seçerken veya döndürürken bazı özel işlevler de kullanmanıza olanak tanır. Örneğin, **`starts_with()`**, **`ends_with()`**, **`contains()`** gibi işlevleri kullanarak sütun adlarının belirli bir örüntüyü karşılayanları seçebilirsiniz. Bu fonksiyon, veri manipülasyonu işlemlerinde oldukça kullanışlıdır ve veri çerçevelerini istediğiniz şekilde özelleştirmenize yardımcı olur.
+:::
+
+```{r}
+
+# belirli sütunları seçmek
+counties %>%
+select(state, county, population, unemployment)
+
+# belli aralıkta bütün sütunların seçilmesi
+counties %>%
+select(state, county, drive:work_at_home)
+
+# belirli bir ifadeyi içeren sütunları seçmek
+counties %>%
+select(state, county, contains("employed"))
+
+# belirli bir ifade ile başyalan sütunları seçmek
+counties %>%
+select(state, county, starts_with("income"))
+
+# belirli bir ifade ile biten sütunları seçmek
+counties %>%
+select(state, county, ends_with("work"))
+
+# belirli sütunları hariç tutarak seçmek
+counties %>%
+select(census_id:population,-c(men:land_area))
+
+# belirli veri tipindeki sütunları seçmek
+counties %>%
+select(where(is.character))
+
+# select ile kolon adı değiştirmek
+counties %>%
+select(census_id,pop = population)
+```
+
+## arrange
+
+**`dplyr`** paketinde bulunan **`arrange()`** fonksiyonu, veri çerçevesindeki satırları belirli bir sıraya göre düzenlemek için kullanılır. Bu sıralama işlemi, bir veya daha fazla sütunun değerlerine göre yapılabilir. **`arrange()`** fonksiyonu, veri analizi ve veri keşfi sırasında verilerinizi anlamak ve analiz etmek için önemli bir araçtır.
+
+```{r}
+
+counties_selected <- counties %>%
+select(state, county, population, unemployment)
+
+# artan sıralama (ascending)
+counties_selected %>%
+arrange(population)
+
+# azalan sıralama (descending)
+counties_selected %>%
+arrange(desc(population))
+
+# birden fazla sütun seçerek sıralama
+counties_selected %>%
+arrange(state,desc(population))
+
+
+```
+
+## filter
+
+**`dplyr`** paketindeki **`filter()`** fonksiyonu, veri çerçevesinde belirli bir koşulu karşılayan satırları seçmek için kullanılır. Bu fonksiyon, veri analizi sırasında verilerinizi filtrelemek ve istediğiniz verileri elde etmek için oldukça kullanışlıdır. **`filter()`** fonksiyonu, veri çerçevesindeki satırları seçerken belirli sütunlardaki değerlere dayalı koşulları uygulamanıza olanak tanır.
+
+```{r}
+
+# sadece New York'u filtrele
+counties_selected %>%
+arrange(desc(population)) %>%
+filter(state == "New York")
+
+# işsizlik oranı 6'dan küçük olanları filtrele
+counties_selected %>%
+arrange(desc(population)) %>%
+filter(unemployment < 6)
+
+# birden fazla koşul
+counties_selected %>%
+arrange(desc(population)) %>%
+filter(state == "New York",unemployment < 6)
+
+# veya kullanımı
+counties_selected %>%
+arrange(desc(population)) %>%
+filter(state == "New York"| unemployment < 6)
+
+```
+
+## mutate
+
+**`dplyr`** paketindeki **`mutate()`** fonksiyonu, bir veri çerçevesinde yeni sütunlar oluşturmak veya mevcut sütunları dönüştürmek için kullanılır. Bu fonksiyon, veri çerçevesindeki herhangi bir sütunu işleyerek yeni bilgiler eklemenize veya mevcut sütunları değiştirmenize olanak tanır. **`mutate()`** fonksiyonu, veri analizi sırasında verilerinizi özelleştirmek için oldukça kullanışlıdır.
+
+```{r}
+
+# işsiz nüfus sayısına ilişkin değişken üretme
+counties_selected %>%
+mutate(unemployed_population = population * unemployment / 100)
+
+# yeni sütun ekle
+counties_selected %>%
+mutate(unemployed_population = population * unemployment / 100) %>%
+arrange(desc(unemployed_population))
+
+# var olan sütunu güncelle
+counties %>%
+  select(state, county, population, men,women) %>% 
+mutate(population = men + women)
+
+# birden fazla yeni değişken üretme
+counties %>%
+  select(state, county, population, men,women) %>% 
+mutate(men_ratio = men/population*100,
+       women_ratio = women/population*100)
+
+# transmute sadece yeni eklenen değişkenleri gösterir
+
+counties %>%
+  select(state, county, population, men,women) %>% 
+transmute(men_ratio = men/population*100,
+       women_ratio = women/population*100)
+
+# mutate_at ile koşula göre birden fazla değişkene aynı fonksiyon uygulanabilir.
+scale2 <- function(x, na.rm = FALSE) (x - mean(x, na.rm = na.rm)) / sd(x, na.rm)
+
+counties_selected %>% 
+  mutate_at(c("population","unemployment"),scale2)
+
+counties_selected %>% # birden fazla argüman kullanımı
+  mutate_at(c("population","unemployment"),scale2,na.rm = TRUE)
+
+# mutate_if ile koşula göre birden fazla değişkende değişiklik yapılabilir.
+str(counties_selected)
+
+counties_selected <- counties_selected %>% 
+  mutate_if(is.character,as.factor)
+
+str(counties_selected)
+
+counties_selected %>% 
+  mutate_if(is.numeric, scale2, na.rm = TRUE)
+
+```
+
+::: callout-warning
+### Dikkat
+
+**`mutate()`** ve **`transmute()`** fonksiyonları, **`dplyr`** paketinde veri çerçevelerini işlerken kullanılan iki farklı fonksiyondur. Her ikisi de yeni sütunlar oluşturmanıza veya mevcut sütunları dönüştürmenize olanak tanır, ancak aralarındaki temel fark işlevlerinin dönüş değerleridir. Ancak kullanırken aşağıda belirtilen hususlara dikkat etmek gerekir:
+
+-   **`mutate()`**, veri çerçevesine yeni sütunlar eklerken, orijinal veri çerçevesini değiştirmez. Yani, yeni sütunlar eklerken orijinal veri çerçevesinin boyutu artar. **`mutate()`** fonksiyonu, orijinal veri çerçevesini döndürürken eklenen sütunlarla birlikte veriyi içeren yeni bir veri çerçevesi döndürür.
+
+-   **`transmute()`**, yeni sütunlar oluştururken orijinal veri çerçevesini değiştirmez. Ancak, **`transmute()`** fonksiyonu yalnızca belirtilen sütunları ve yeni sütunları içeren bir veri çerçevesi döndürür. Diğer orijinal sütunlar bu yeni veri çerçevesinde yer almaz. Bu, veri çerçevesini daha küçük ve özgünleştirilmiş bir hale getirir.
+:::
+
+## rename
+
+**`rename()`** fonksiyonu, R programlama dilinde veri çerçevesi içindeki sütunların adlarını değiştirmek için kullanılır. Veri çerçevesi sütunlarının daha açıklayıcı veya kullanıcı dostu adlara sahip olmasını sağlar. Bu, veri analizi ve raporlama süreçlerini daha anlaşılır ve düzenli hale getirmenize yardımcı olabilir.
+
+```{r}
+
+# yeniden isimlendirmede eşitliği sol tarafı yeni isim olmalı
+counties_selected %>%
+rename(unemployment_rate = unemployment)
+
+# select ile beraber de yeniden isimlendirme yapılabilir
+counties_selected %>%
+select(state, county, population, unemployment_rate = unemployment)
+
+```
+
+::: callout-caution
+### Dikkat
+
+**`rename`** fonksiyonunda eşitliğin sol tarafına yeni isim, sağ tarafına ise önceki isim yazılır.
+:::
+
+## count
+
+**`count()`** fonksiyonu, R programlama dilindeki **`dplyr`** paketinde bulunan ve belirli bir sütuna göre veri çerçevesindeki gözlemlerin sayısını hesaplamak için kullanılan bir fonksiyondur. Bu fonksiyon, veri çerçevesindeki belirli bir kategorik değişkenin benzersiz değerlerini ve her bir değer için kaç gözlemin olduğunu hesaplamak için oldukça kullanışlıdır.
+
+**`count()`** fonksiyonu, veri analizi sürecinde veri özeti oluşturmak ve belirli bir değişkenin frekansını görmek için sıkça kullanılır. Ayrıca, veri çerçevesindeki her bir kategorik değeri ve bu değerlere ait gözlem sayılarını içeren yeni bir veri çerçevesi döndürür.
+
+```{r}
+
+# count ile veri setinde sayma işlemleri yapılır
+counties %>%
+count()
+
+# state dağılımını elde etmek
+counties %>%
+count(state)
+
+# sort = TRUE ile büyükten küçüge sıralama yapılabilir
+counties %>%
+count(state, sort = TRUE)
+
+# wt argümanı ile değişken toplamları hesaplanabilir
+counties %>%
+count(state, wt = population, sort = TRUE)
+
+```
+
+## group_by ve summarize
+
+**`group_by()`** ve **`summarize()`** fonksiyonları, R programlama dilinde veri çerçevesi üzerinde gruplama ve özetleme işlemleri yapmak için kullanılan önemli **`dplyr`** fonksiyonlarıdır. Bu fonksiyonlar, veri analizi sürecinde verilerinizi daha iyi anlamak ve özetlemek için oldukça güçlü araçlardır.
+
+**`group_by()`** fonksiyonu, veri çerçevesindeki verileri belirli bir sütuna veya birden fazla sütuna göre gruplamak için kullanılır. Bu gruplandırma işlemi, veriyi belirli bir kategoriye veya sınıfa göre ayırmak için kullanılır.
+
+**`summarize()`** fonksiyonu, gruplanmış veri üzerinde istatistiksel veya özetleyici işlemler yapmak için kullanılır. Bu fonksiyon, belirli bir grup için özet bilgileri hesaplamak için kullanılır.
+
+```{r}
+
+counties %>%
+summarize(total_population = sum(population))
+
+counties %>%
+summarize(total_population = sum(population),
+average_unemployment = mean(unemployment))
+
+# istenilen düzeye göre hesaplamalar group_by ile yapılır
+counties %>%
+group_by(state) %>%
+summarize(total_pop = sum(population),
+average_unemployment = sum(unemployment))
+
+counties %>%
+group_by(state) %>%
+summarize(total_pop = sum(population),
+average_unemployment = mean(unemployment)) %>%
+arrange(desc(average_unemployment))
+
+# birden fazla değişken düzeyinde gruplama
+counties %>%
+group_by(state, metro) %>%
+summarize(total_pop = sum(population))
+
+# elde edilen veri üzerinden devam edilecekse ungroup kullanılmalı.
+# ungroup kullanılmazsa sonradan yapılan işlemler group_by değişkenleri düzeyinde
+# devam eder
+
+counties %>%
+group_by(state, metro) %>%
+summarize(total_pop = sum(population)) %>%
+ungroup()
+
+# top_n en yüksek ya da en düşük sonuçları listeleme
+counties_selected %>%
+group_by(state) %>%
+top_n(1, population) # her eyaletteki en yüksek nüfuslu yer
+
+counties_selected %>%
+group_by(state) %>%
+top_n(-1, population) # her eyaletteki en düşük nüfuslu yer
+
+counties_selected %>%
+group_by(state) %>%
+top_n(2, population) # her eyaletteki en yüksek nüfuslu 2 yer
+
+# summarise_all bütün değişkenler için özetleme yapar
+counties_selected %>% summarise_all(nlevels)
+
+counties_selected %>% 
+  select(-county) %>% 
+  group_by(state) %>% 
+  summarise_all(mean)
+
+# summarise_at belli değişkenler için özetleme yapar
+counties_selected %>% 
+  select(-county) %>% 
+  group_by(state) %>% 
+  summarise_at("population",mean)
+
+# summarise_if ile koşula göre özetleme yapar
+counties_selected %>% 
+  summarize_if(is.numeric, mean, na.rm = TRUE)
+
+```
+
+::: callout-caution
+### Dikkat
+
+**`ungroup()`** fonksiyonu, **`dplyr`** paketinde kullanılan bir işlevdir ve bir veri çerçevesini veya gruplanmış bir veri çerçevesini gruplardan çıkarmak için kullanılır. **`group_by()`** fonksiyonu ile gruplanmış bir veri çerçevesini oluşturduğunuzda, veri çerçevesi belirli sütunlar üzerinde gruplama yapar ve her grup için ayrı işlemler yapmanıza olanak tanır. Ancak bazen gruplamadan çıkmak ve orijinal veri çerçevesini elde etmek isteyebilirsiniz.
+:::
+
+```{r}
+
+# Örnek bir veri çerçevesi oluşturalım
+veri <- data.frame(
+  Sehir = c("İstanbul", "Ankara", "İstanbul", "Ankara", "İzmir"),
+  Cinsiyet = c("Erkek", "Kadın", "Erkek", "Kadın", "Erkek"),
+  Yas = c(28, 32, 22, 24, 30),
+  Puan = c(90, 85, 78, 92, 88)
+)
+
+# Şehir sütununa göre veriyi grupla
+gruplu_veri <- group_by(veri, Sehir)
+gruplu_veri |> summarise(mean(Puan))
+
+# Grubu çıkarma
+gruplu_veri <- ungroup(gruplu_veri)
+gruplu_veri |> summarise(mean(Puan))
+
+```
+
+Aynı veri setinde farklı sonuçlar elde edildiğine dikkat edelim. Eğer **`group_by`** ile oluşturulan veri setinde başka işlemler yapacaksanız öncesinde **`ungroup()`** yapmayı ihmal etmeyin.
+
+::: callout-note
+## Not
+
+**`group_by`** sadece `summarize` fonksiyonu ile değil `mutate`, `transmute` gibi diğer fonksiyonlar ile birlikte de kullanılabilir.
+:::
+
+## case when
+
+**`case_when()`** fonksiyonu, R programlama dilinde **`dplyr`** paketi içinde bulunan ve çoklu koşullara dayalı olarak yeni bir sütun oluşturmak veya mevcut bir sütunu dönüştürmek için kullanılan bir fonksiyondur. Bu fonksiyon, özellikle veri çerçevelerinde veya veri tablolarında, belirli koşullara dayalı olarak işlem yapmanız gerektiğinde oldukça kullanışlıdır. **`case_when()`** fonksiyonu, birden fazla koşulu kontrol ederek her bir koşula uygun bir değer veya işlem döndürmenizi sağlar. **`case_when()`** fonksiyonu, bir veya daha fazla koşul ifadesi ve bu koşullara karşılık gelecek değerler içeren çiftlerin bir listesini alır. Bu çiftler, **`~`** operatörü ile ayrılır.
+
+```{r}
+
+# Örnek bir veri çerçevesi oluşturalım
+veri <- data.frame(
+  Ogrenci_Ad = c("Ali", "Esra", "Erkan", "Derya"),
+  Puan = c(90, 75, 60, 80)
+)
+
+# Yeni bir sütun oluşturma: Puan kategorisi
+veri <- veri %>%
+  mutate(Puan_Kategorisi = case_when(
+    Puan >= 90 ~ "AA",
+    Puan >= 80 ~ "BA",
+    Puan >= 70 ~ "BB",
+    Puan >= 60 ~ "CB",
+    TRUE ~ "FF"  # Tüm diğer durumlar için
+  ))
+
+print(veri)
+
+```
+
+**`case_when()`** fonksiyonunu birden fazla koşul ile kullanabilirsiniz. Koşullar yukarıdan aşağıya sırayla kontrol edilir ve ilk koşulu sağlayan değer kullanılır.
+
+```{r}
+
+veri <- veri %>%
+  mutate(Not_Durumu = case_when(
+    Puan >= 90 ~ "Geçti",
+    Puan >= 60 & Puan < 70 ~ "Şartlı Geçti",
+    Puan < 60 ~ "Kaldı",
+    TRUE ~ "Bilinmiyor"  # Tüm diğer durumlar için
+  ))
+
+veri
+```
+
+## reshaping
+
+![](images/reshape.jpg){fig-align="center"}
+
+R programlama dilinde **`tidyr`** paketinin içinde bulunan **`gather()`**, **`spread()`**, **`unite()`**, ve **`separate()`** gibi fonksiyonlar, veri manipülasyonu ve veri dönüşümü işlemlerinde kullanılır. Bu fonksiyonlar, veri çerçevesi içindeki verileri yeniden düzenlemek, sütunları birleştirmek veya bölmek, veriyi daha uygun bir yapıya getirmek için kullanılır.
+
+**`gather()`** fonksiyonu, geniş formatlı (wide format) veriyi uzun formatlı (long format) bir yapıya dönüştürmek için kullanılır. Genellikle sütun adlarını bir "anahtar" sütununda toplamak için kullanılır.
+
+```{r}
+
+library(tidyr)
+
+veri <- data.frame(
+  isim = c("Ali", "Esra"),
+  Matematik = c(90, 85),
+  Fizik = c(88, 76)
+)
+
+uzun_format_veri <- gather(veri, Ders, Not, -isim)
+
+print(uzun_format_veri)
+
+```
+
+Bu kod, **`Matematik`** ve **`Fizik`** sütunlarını toplar ve bir "Ders" sütunu oluşturur.
+
+**`spread()`** fonksiyonu, uzun formatlı veriyi geniş formatlı bir yapıya dönüştürmek için kullanılır. Genellikle "anahtar" sütunu içindeki değerleri sütun adları olarak kullanmak için kullanılır.
+
+```{r}
+
+genis_format_veri <- spread(uzun_format_veri, Ders, Not)
+
+print(genis_format_veri)
+
+```
+
+Bu kod, "Ders" sütunundaki değerleri sütun adlarına dönüştürür.
+
+**`unite()`** fonksiyonu, iki veya daha fazla sütunu birleştirerek yeni bir sütun oluşturmak için kullanılır.
+
+```{r}
+
+veri <- data.frame(
+  Ad = c("Ali", "Esra"),
+  Soyad = c("Yılmaz", "Mutlu")
+)
+
+veri <- unite(veri, AdSoyad, Ad, Soyad, sep = " ")
+
+print(veri)
+
+```
+
+Bu kod, "Ad" ve "Soyad" sütunlarını birleştirerek "AdSoyad" sütununu oluşturur.
+
+**`separate()`** fonksiyonu, bir sütunu belirli bir ayırıcı karakterle bölmek için kullanılır. Bölen değerleri yeni sütunlarda saklar.
+
+```{r}
+
+veri <- data.frame(
+  AdSoyad = c("Ali Yılmaz", "Esra Mutlu")
+)
+
+veri <- separate(veri, AdSoyad, c("Ad", "Soyad"), sep = " ")
+
+print(veri)
+
+```
+
+Bu kod, "AdSoyad" sütununu boşluk karakterine göre böler ve "Ad" ve "Soyad" sütunlarını oluşturur.
+
+::: callout-tip
+### Tavsiye
+
+Bu fonksiyonlar, veri çerçevesi içindeki verileri dönüştürmek ve düzenlemek için oldukça kullanışlıdır. Veri analizi sürecinde veri çerçevesini istediğiniz formata getirmek ve veriyi daha iyi anlamak için bu fonksiyonları kullanabilirsiniz. Daha ileri seviyede kullanmak için fonksiyonların argümanlarının nasıl kullanıldığını help kısmından ya da internetten araştırmanızı tavsiye ederim.
+
+Ayrıca **`gather`** ve **`spread`** fonksiyonları yerine bunların daha kullanışlı bir karşılığı olan **`pivot_longer`** ve **`pivot_wider`** fonksiyonlarını da tercih edebilirsiniz. Bu konudaki örnekleri incelemenizi tavisye ederim. Belki bunları daha çok sevebilirsiniz.
+:::
+
+## join
+
+![](images/join.jpg){fig-align="center"}
+
+R programlama dilinde **`dplyr`** paketinde bulunan **`left_join()`**, **`right_join()`**, **`inner_join()`**, ve **`full_join()`** gibi fonksiyonlar, veri çerçeveleri veya veri tabloları arasında birleştirme (join) işlemleri yapmak için kullanılır. Bu fonksiyonlar, farklı veri kaynaklarını birleştirmenizi veya ilişkilendirmenizi sağlar.
+
+**`left_join()`** fonksiyonu, sol veri çerçevesi ile sağ veri çerçevesi arasında birleştirme işlemi yapar ve sol veri çerçevesindeki tüm gözlemleri korur. Eğer sağ veri çerçevesinde eşleşen gözlem yoksa, NA değerleri ile doldurulur.
+
+```{r}
+
+veri1 <- data.frame(
+  Oğrenci = c("Ali", "Esra", "Osman"),
+  Puan1 = c(90, 85, 78)
+)
+
+veri2 <- data.frame(
+  Oğrenci = c("Ali", "Derya", "Merve"),
+  Puan2 = c(88, 92, 85)
+)
+
+birlesik_veri <- left_join(veri1, veri2, by = "Oğrenci")
+
+print(birlesik_veri)
+
+```
+
+Bu kod, "Öğrenci" sütununa göre iki veri çerçevesini birleştirir. Sol veri çerçevesi (**`veri1`**) tüm gözlemleri içerir ve sağ veri çerçevesinde (**`veri2`**) eşleşen değerler varsa birleştirir.
+
+**`right_join()`** fonksiyonu, **`left_join()`** ile benzerdir, ancak sağ veri çerçevesindeki tüm gözlemleri korur. Eğer sol veri çerçevesinde eşleşen gözlem yoksa, NA değerleri ile doldurulur.
+
+```{r}
+
+birlesik_veri <- right_join(veri1, veri2, by = "Oğrenci")
+
+print(birlesik_veri)
+
+```
+
+Bu kod, sağ veri çerçevesi (**`veri2`**) tüm gözlemleri içerir ve sol veri çerçevesinde (**`veri1`**) eşleşen değerler varsa birleştirir.
+
+**`inner_join()`** fonksiyonu, sol ve sağ veri çerçeveleri arasında iç birleştirme yapar ve yalnızca ortak gözlemleri korur. Ortak gözlemleri içermeyen diğer gözlemleri atar.
+
+```{r}
+
+birlesik_veri <- inner_join(veri1, veri2, by = "Oğrenci")
+
+print(birlesik_veri)
+
+```
+
+Bu kod, sadece sol ve sağ veri çerçevelerinde (**`veri1`** ve **`veri2`**) ortak olan gözlemleri korur.
+
+**`full_join()`** fonksiyonu, sol ve sağ veri çerçeveleri arasında tam birleştirme yapar ve tüm gözlemleri korur. Ortak olmayan değerler NA ile doldurulur.
+
+```{r}
+
+birlesik_veri <- full_join(veri1, veri2, by = "Oğrenci")
+
+print(birlesik_veri)
+
+```
+
+Bu kod, sol ve sağ veri çerçevelerini (**`veri1`** ve **`veri2`**) tamamen birleştirir ve tüm gözlemleri içerir.
+
+::: callout-note
+### Not
+
+Bu dört join fonksiyonu, farklı veri kaynaklarını birleştirme işlemlerinde kullanılır ve veri analizi sürecinde verileri daha kapsamlı bir şekilde incelemek için oldukça kullanışlıdır. Hangi join işleminin kullanılacağı, veri yapısına ve ihtiyaca bağlı olarak değişebilir.
+:::
+
+\newpage
+
+# Keşifçi Veri Analizi
+
+Keşifçi Veri Analizi (Exploratory Data Analysis veya kısaca EDA), veri setinizi anlamak, içindeki örüntüleri ve ilişkileri belirlemek ve olası sorunları tanımlamak amacıyla veriye yakından bakmanızı sağlayan bir veri analizi yaklaşımıdır. EDA, verileri tanımanıza veya verilerdeki olası özellikler ve ilişkiler hakkında daha derin bir anlayış kazanmanıza yardımcı olabilir. EDA, yeni bir şey değildir, ancak EDA, birkaç nedenden dolayı yakın geçmişte önemli ölçüde büyümüştür:
+
+-   Veriler her zamankinden daha hızlı ve daha büyük miktarlarda üretiliyor, bu yüzden incelememiz gereken çok şey var.
+
+-   Bilgisayarlar ve yazılımlar (R gibi) EDA yapma fırsatlarını genişletmiştir.
+
+-   İstatistiksel model seçeneklerindeki artış, genellikle doğrudan geleneksel bir modele gitmek yerine verilerimize daha yakından bakmamızı gerektirmektedir.
+
+EDA, verilerinizin nihai analizi açısından genellikle istatistiksel değildir, ancak EDA'nın geçiş süreci olarak düşünülmesi gerekir. EDA'dan öğrendikleriniz modellemenize rehberlik edecek ve istatistiksel araçlar hakkında verdiğiniz kararları doğrudan bilgilendirecektir. R gibi programlama dilleri ve istatistiksel araçlar, EDA sürecini kolaylaştırmak ve verileri görselleştirmek için kullanışlıdır. EDA, veri madenciliği ve veri bilimi projelerinin başlangıcında sıklıkla kullanılır ve aşağıdaki adımları içerir:
+
+1.  **Veri İçe Aktarma:** İlk adım, analiz yapmak için veriyi içe aktarmaktır. Veriyi R ortamına çeşitli formatlardan (CSV, Excel, SQL veritabanları, vb.) içe aktarabilirsiniz.
+
+2.  **Veriye Genel Bakış:** Veri setinize ilk bakışta, kaç gözlem ve değişken olduğunu, değişken türlerini (sayısal, kategorik, metinsel vb.) ve eksik verilerin varlığını incelemelisiniz. Bu bilgi, veri hakkında ilk fikirlerinizi oluşturmanıza yardımcı olur.
+
+3.  **Veri Görselleştirme:** Verileri görselleştirmek, EDA'nın önemli bir parçasıdır. R'nin ggplot2 gibi kütüphaneleri, verilerinizi grafiklerle görselleştirmek için kullanışlı araçlar sunar. Histogramlar, kutu grafikleri, çubuk grafikleri ve dağılım grafikleri gibi grafikler oluşturarak verilerinizi daha iyi anlayabilirsiniz.
+
+4.  **Merkezi Eğilim ve Dağılım Ölçüleri:** Veri setinizin merkezi eğilimini (ortalama, medyan, mod) ve dağılımını (standart sapma, varyans, çeyrekler arası aralık) hesaplayarak verilerinizin genel özelliklerini değerlendirebilirsiniz.
+
+5.  **Değişkenler Arası İlişkiler:** Değişkenler arasındaki ilişkileri anlamak için korelasyon analizi, scatter plotlar ve faktör analizi gibi teknikleri kullanabilirsiniz.
+
+6.  **Aykırı Değerler ve Eksik Veriler:** Aykırı değerleri tanımlayın ve bunların analiz üzerindeki etkilerini değerlendirin. Ayrıca eksik verileri ele alın (örneğin, eksik verileri doldurma veya eksik gözlemleri çıkarma).
+
+7.  **Veri Gruplama ve Alt Kümelere Bölme:** İhtiyaca göre veriyi gruplara ayırabilir veya alt kümeler oluşturabilirsiniz. Bu, farklı veri alt kümeleri arasındaki farkları incelemek için kullanışlı olabilir.
+
+8.  **Hipotez Testleri ve İstatistiksel Analiz:** EDA süreci sırasında, veriler üzerinde belirli hipotezleri test etmek için istatistiksel testler (t-test, ANOVA, vb.) uygulayabilirsiniz. Bu, verilerinizde anlamlı farklılıkları veya özellikleri tespit etmenize yardımcı olur.
+
+9.  **Sonuçların Yorumlanması:** EDA sürecinin sonunda, elde edilen sonuçları yorumlamalı ve bulgularınızı raporlamalısınız. Bulgularınız, daha sonraki analiz aşamaları veya veri madenciliği projeleri için temel oluşturur.
+
+EDA, veri analizi sürecinin önemli bir parçasıdır çünkü veriyi daha iyi anlamanızı ve daha ileri analizler için yol haritasını belirlemenizi sağlar. Aynı zamanda veri setinizdeki hataları veya tutarsızlıkları tespit etmenize ve düzeltmenize de yardımcı olur.
+
+## Veri ile Tanışma
+
+Veri analizinin başlangıç aşamasında, verinin yapısına, ne tür değişkenler içerdiğine, çeşitli özet istatistiklerine bakmak ve gerekli ise ne tür dönüşümler yapmak gerektiğini bilmek önemlidir. Bu süreçler daha derin analizlere daha kolay devam edebilmek için de önemlidir. Bunları gerçekleştirmek için hem özet tablolar hem de grafikler yardımıyla verileri tanımak gerekmektedir.
+
+Tek ve iki değişkenli olarak sayısal ve kategorik veri analizi [[**mpg**]{.underline}](https://ggplot2.tidyverse.org/reference/mpg.html) verisi kullanılarak yapılacaktır. Bu veri setinde 38 farklı aracın yakıt verileri bulunmaktadır.
+
+```{r}
+
+# mpg verisi ggplot2 paketinde olduğundan paketi çağırıyoruz
+library(ggplot2)
+
+head(mpg)
+nrow(mpg)
+ncol(mpg)
+str(mpg)
+colnames(mpg)
+summary(mpg)
+df <- mpg
+
+# class değişkenini faktöre çevirip, kategorilerine bakalım
+df$class <- factor(df$class)
+levels(df$class)
+dplyr::glimpse(df)
+
+```
+
+## Sürekli Değişkenler
+
+Veri analizi, birçok farklı değişken türünün incelenmesini gerektirir. Bu değişkenler arasında sürekli değişkenler özellikle önemlidir. Sürekli değişkenler, belirli bir aralıktaki değerleri alabilen ve sonsuz sayıda mümkün değer içeren değişkenlerdir. Örnek olarak, yaş, gelir, sıcaklık gibi değerler sürekli değişkenlere örnektir. Sürekli değişkenlerin analizi, verileri anlamak ve içindeki örüntüleri keşfetmek için kullanılır. Bu analiz, genellikle aşağıdaki adımları içerir:
+
+1.  **Veri Görselleştirme:**Sürekli değişkenlerin analizine başlamak için verilerinizi görselleştirmek önemlidir. Histogramlar, kutu grafikleri, yoğunluk grafikleri ve saçılım grafikleri gibi grafikler, veri dağılımını ve örüntülerini görsel olarak incelemenize yardımcı olur. Bu grafikler, veri setinizin merkezi eğilimini (ortalama veya medyan), yayılımını ve aykırı değerleri hızla görmeye yardımcı olur.
+
+2.  **Merkezi Eğilim ve Dağılım Ölçüleri:** Sürekli değişkenlerin merkezi eğilimini ve dağılımını hesaplamak verileri özetlemenin önemli bir yoludur. Bu ölçümler, veri setinin merkezi noktasını ve veri noktalarının nasıl dağıldığını anlamamıza yardımcı olur. Örnek olarak, ortalama (mean), medyan (median), standart sapma (standard deviation) ve varyans (variance) gibi ölçümler bu aşamada kullanılır.
+
+3.  **Korelasyon Analizi:** Eğer birden fazla sürekli değişken arasındaki ilişkiyi anlamak istiyorsanız, korelasyon analizi yapabilirsiniz. Korelasyon, iki değişken arasındaki ilişkinin gücünü ve yönünü ölçer. Korelasyon katsayısı, bu ilişkiyi değerlendirmek için kullanılır. Pozitif bir korelasyon, iki değişkenin aynı yönde değiştiğini, negatif bir korelasyon ise iki değişkenin ters yönde değiştiğini gösterir.
+
+4.  **Hipotez Testleri:** Sürekli değişkenler arasındaki farklılıkları değerlendirmek için hipotez testleri kullanılabilir. Örneğin, iki grup arasındaki ortalama değerlerin istatistiksel olarak anlamlı bir farklılık gösterip göstermediğini belirlemek için t-testleri veya ANOVA analizi kullanılabilir.
+
+5.  **Güven Aralıkları:** Sürekli değişkenlerin analizi sırasında, belirli bir parametre (örneğin, ortalama) hakkında güven aralıkları hesaplanabilir. Bu güven aralıkları, parametrenin belirli bir güven düzeyinde bulunduğu aralığı gösterir. Bu, parametrenin tahmini kesinliğini değerlendirmek için kullanışlıdır.
+
+Sürekli değişkenlerin analizi, verileri anlama ve kararlarınızı destekleme sürecinin önemli bir parçasıdır. İyi bir analiz, veri setinizdeki örüntüleri ve ilişkileri açığa çıkarmanıza yardımcı olur ve bilinçli kararlar almanıza yardımcı olur. Bu nedenle, sürekli değişkenlerin analizi yaparken yukarıda belirtilen adımları takip etmek önemlidir.
+
+```{r}
+
+# cty ve hwy değişkenlerini inceleyelim. 
+# cty şehiriçi, hwy şehirarasını ifade ediyor.
+
+summary(df$cty)
+var(df$cty)
+mean(df$cty)
+
+summary(df$hwy)
+var(df$hwy)
+mean(df$hwy)
+
+# 1 mile= 1.609 km
+# 1 galon = 3.79 lt
+
+# litre başına km hesaplama
+galonmil_to_ltkm <- function(x){
+  
+  km <- x * 1.609/3.79
+  return(km)
+}
+
+df$cty_ltkm <- galonmil_to_ltkm(df$cty)
+df$hwy_ltkm <- galonmil_to_ltkm(df$hwy)
+quantile(df$cty_ltkm) 
+# şehiriçi araçların % 75'i 1 lt ile 8.06 km den az yol alıyor.
+quantile(df$hwy_ltkm)
+# şehirlerarası araçların % 75'i 1 lt ile 11.46 km den az yol alıyor.
+
+
+# değişken dağılımı için histogram grafiği kullanılabilir.
+hist(df$cty_ltkm,freq = FALSE,col = "red",border = "blue")
+lines(density(df$cty_ltkm), col = "black", lwd = 2,)
+
+hist(df$hwy_ltkm,xlim = c(4,20), ylim = c(0,60), breaks = 10)
+
+
+# Boxplot
+boxplot(df$cty_ltkm, main = "Boxplot cty")
+fivenum(df$cty_ltkm) # minimum, Q1, median, Q3, maximum
+
+# outliers 
+boxplot(df$cty_ltkm)$out
+
+# outliers hangi sıralarda
+which(df$cty_ltkm %in% boxplot(df$cty_ltkm)$out)
+
+boxplot(df$hwy_ltkm, main = "Boxplot cty")
+fivenum(df$hwy_ltkm) # minimum, Q1, median, Q3, maximum
+
+boxplot(hwy_ltkm ~ cyl, data = df, xlab = "Silindir Sayısı",
+   ylab = "Litre Başına KM", main = "Mileage Data")
+
+boxplot(hwy_ltkm ~ cyl, data = df, 
+   xlab = "Silindir Sayısı",
+   ylab = "Litre Başına KM", 
+   main = "Mileage Data",
+   notch = TRUE, 
+   varwidth = TRUE, 
+   col = c("green","yellow","purple","blue"),
+   names = c("2 Silindir","4 Silindir","6 Silindir","8 Silindir")
+)
+
+# Sürekli iki değişken incelemek istersek;
+
+# displ ve cty_ltkm değişkenlerini inceleyelim
+# displ motor hacmini ifade ediyor
+
+summary(df$displ)
+
+with(df,cor(displ,cty_ltkm))
+# motor hacmi ile lt başına km ters ilişkili
+
+plot(df$displ,df$cty_ltkm, 
+     main = "Motor Hacmi- Yakıt Tüketimi Saçılım Grafiği",
+     col="red",
+     xlab = "Motor Hacmi",
+     ylab = "Yakıt Tüketimi")
+
+# birden fazla değişkenin saçılım grafiği
+pairs(~hwy_ltkm+cty_ltkm+displ+cyl,data = df,main = "Scatterplot Matrix")
+```
+
+## Kategorik Değişkenler
+
+Veri analizi sürecinde, kategorik değişkenler (veya gruplar) genellikle çok önemli bir rol oynar. Kategorik değişkenler, belirli bir sınıfı veya kategoriyi temsil eden değişkenlerdir ve tipik olarak metin veya sembollerle ifade edilirler. Örnek olarak, cinsiyet, eğitim seviyesi, ürün kategorileri gibi değişkenler kategorik değişkenlere örnektir. Kategorik değişkenlerin analizi, bu değişkenlerin içindeki örüntüleri, dağılımları ve ilişkileri anlamamıza yardımcı olur. Aşağıda, kategorik değişkenlerin analizi için izlenebilecek temel adımları bulabilirsiniz:
+
+1.  **Frekans Tabloları ve Görselleştirme:** Kategorik değişkenlerin frekans tablolarını ve grafiklerini oluşturarak, her kategori veya sınıfın veri setinde ne kadar sık görüldüğünü anlayabilirsiniz. Örneğin, bar grafikleri, pasta grafikleri veya çubuk grafikleri kullanarak kategori frekanslarını görselleştirebilirsiniz. **`summary()`** ve **`table()`** gibi R fonksiyonları ile bu verileri inceleyebilirsiniz.
+
+2.  **İlişkileri İnceleme:** Kategorik değişkenler arasındaki ilişkileri anlamak önemlidir. İki kategorik değişken arasındaki ilişkiyi değerlendirmek için çapraz tablolar (cross-tabulation) ve ki-kare (chi-squared) istatistiksel testleri kullanabilirsiniz. Bu testler, iki değişken arasındaki bağımlılığı değerlendirmek için kullanılır.
+
+3.  **İstatistiksel Testler:** Kategorik değişkenlerin analizi sırasında, gruplar arasındaki farkları değerlendirmek için hipotez testleri kullanabilirsiniz. İki kategorik değişken arasındaki ilişkinin istatistiksel olarak anlamlı olup olmadığını belirlemek için ki-kare testi veya Fisher'in kesin testi gibi testler kullanabilirsiniz. Ayrıca ANOVA gibi testler, bir kategorik değişkenin birden fazla grup üzerindeki etkisini değerlendirmek için kullanılabilir.
+
+4.  **Veri Görselleştirme:** Kategorik değişkenlerin analizinde, gruplar arasındaki farkları daha iyi anlamak için grafikler kullanabilirsiniz. Bar grafikleri, grupların frekanslarını görselleştirmek için sıklıkla kullanılırken, gruplar arasındaki ilişkiyi anlamak için mozaik grafikleri veya heatmap'leri de kullanabilirsiniz.
+
+Kategorik değişkenlerin analizi, veri setinizin içindeki desenleri ve ilişkileri anlamanıza yardımcı olur. Bu analiz, kararlarınızı desteklemek ve veriyi daha iyi anlamak için önemlidir. R programlama dili, kategorik değişkenlerin analizi için bir dizi kullanışlı fonksiyon ve paket sunar. Bu adımları takip ederek, veri analiz projelerinizde kategorik değişkenleri etkili bir şekilde analiz edebilirsiniz.
+
+```{r}
+
+
+# class ve trans değişkenlerine bakalım
+# class araç sınıfı, trans ise vites türünü ifade ediyor.
+
+summary(df$class)
+table(df$class)
+xtabs(~class,data=df)
+
+table(df$trans)
+
+prop.table(table(df$class))
+
+tab <- table(df$class)
+barplot(tab,col="blue",border="red")
+pie(tab)
+
+par(mfrow = c(1, 2))
+barplot(tab)
+pie(tab)
+
+# Kategorik iki değişken incelemek istersek;
+
+xtabs(~trans+class,data=df)
+prop.table(table(df$year,df$class),1) # satır toplamları 1' eşittir
+prop.table(table(df$year,df$class),2) # sütun toplamları 1' eşittir
+
+proportions(xtabs(~ manufacturer + year, data = df), 1)
+
+# araç sınıfı ile drv değişkenine birlikte bakalım
+# f = front-wheel drive (önden çekiş), 
+# r = rear wheel drive (arkadan çekiş), 
+# 4 = 4wd (4 çeker)
+
+plot(class ~ factor(drv), data = df)
+
+```
+
+Eğer hem sürekli hem de kategorik değişkenleri incelemek istersek, benzer şekilde görselleştirme ve kategoriler arasında merkezi eğilim ölçüleri hesaplanabilir. Bunlar dışında uygun istatistiksel testler de gerçekleştirilebilir.
+
+```{r}
+
+# Silindir düzeyinde yakıt tüketimi 
+tapply(df$cty_ltkm, df$cyl, mean)
+
+# Same using aggregate()
+aggregate(cty_ltkm ~ cyl, data = df, FUN = mean)
+
+
+boxplot(cty_ltkm ~ cyl, data = df)
+
+```
+
+## Zaman Serileri
+
+R programlama dili, zaman serileri analizi için kapsamlı bir dizi fonksiyon ve paket sunar. Zaman serileri analizi, zaman içindeki veri noktalarının örüntülerini ve trendlerini incelemeyi amaçlar. R'de zaman serileri ile çalışmak için **`ts`** (time series) nesnesi kullanılır. Bu nesne, zaman serisi verilerini zaman dilimleri (örneğin aylar, yıllar) veya tarihler ile ilişkilendirerek işlem yapmanıza olanak tanır.
+
+```{r}
+
+AirPassengers
+class(AirPassengers)
+
+diff(AirPassengers) # fark alma
+stats::lag(AirPassengers,-1) # 1. gecikmesini alma
+
+plot(AirPassengers,type = "p", col = "red") # points
+plot(AirPassengers,type = "l", col = "red") # line
+plot(AirPassengers,type = "o", col = "red") # points and line
+
+plot(log(AirPassengers),type = "l", col = "red") # line
+plot(diff(AirPassengers),type = "l", col = "red") # line
+plot(diff(log(AirPassengers)),type = "l", col = "red") # line
+
+# çoklu zaman serisi
+ts <- ts(rnorm(length(AirPassengers),250,100),start = c(1949,1),frequency=12)
+ts
+
+plot(AirPassengers,type = "l",col = "red")
+lines(ts, type = "l", col = "blue")
+
+# yüzde değişim
+growth <- AirPassengers/stats::lag(AirPassengers,-1)*100-100
+growth
+plot(growth,type = "l", col = "red")
+
+```
+
+\newpage
+
+# ggplot2 ile Veri Görselleştirme
+
+![](images/ggplot2.png){fig-align="center" width="426" height="308"}
+
+Bu bölümde ggplot2 paketi ile verilerin nasıl görselleştirldiğine bakacağız. ggplot2 grafiklerin dil bilgisi **(grammar of graphics)** prensiplerini temel alarak oluşturulmuştur. Bu prensiplere göre her grafik aynı parçalardan oluşturulabilir: bir veri seti, koordinat sistemi, ve "geom"lar - veri noktalarını temsil eden görsel işaretler.
+
+ggplot2 ile veri görselleştirebilmemiz için önce grafik yapısını iyi tanımamız gerekiyor. Yatay eksen x ekseni, dikey eksen ise y ekseni olarak kabul ediliyor. Veri görselleştirmede **`ggplot`**`()` fonksiyonunu kullanıyoruz. ggplot() fonksiyonu içinde veri seti ismi ve **`aes`**`()` adlı estetik argümanına yatay ve dikey eksende kullanacağımız değişkenler (sütun isimleri) ile yer veriyoruz. Sonrasında, tercih edeceğimiz grafik tipine göre, **`geom`** fonksiyonlarından birini kullanacağız. Sıklıkla kullanılan geom fonksiyonları şunlardır:
+
+-   Nokta grafiği için `geom_point()`
+
+-   Çubuk veya sütun grafik için `geom_col()` ve `geom_bar()`
+
+-   Çizgi grafiği için `geom_line()`
+
+-   Histogram grafiği için `geom_histogram()`
+
+-   Boxplot grafiği için `geom_boxplot()`
+
+## Saçılım Grafikleri
+
+Saçılım grafiği, genellikle fizik ve istatistik gibi bilimlerde kullanılan bir grafik türüdür. Saçılım grafiği, iki değişken arasındaki ilişkiyi görsel olarak göstermek için kullanılır. Bir eksende bir değişkenin değerleri, diğer eksende ise diğer değişkenin değerleri yer alır, ve her veri noktası bu iki değişkenin birleşimini temsil eder. Saçılım grafiği, veri noktalarının dağılımını, yoğunluklarını, odaklanma noktalarını ve olası eğilimleri anlamak için kullanılır. Bu grafik, veri setindeki aykırı değerleri tespit etmek, iki değişken arasındaki ilişkiyi değerlendirmek ve korelasyonu görsel olarak incelemek için oldukça kullanışlıdır.
+
+Saçılım grafiği kullanarak, iki değişken arasındaki ilişkinin doğası hakkında bilgi edinebilirsiniz. Örneğin, pozitif bir korelasyon varsa, veri noktaları genellikle yukarı doğru bir eğilim gösterirken, negatif bir korelasyon varsa, veri noktaları genellikle aşağı doğru bir eğilim gösterir. Korelasyon olmaması durumunda ise veri noktaları dağınık bir şekilde yayılmış olur. Saçılım grafiği, istatistiksel analizlerde veri keşfi yapmak ve ilişkileri anlamak için önemli bir araçtır.
+
+```{r}
+
+library(ggplot2)
+library(dplyr)
+
+p1 <- ggplot(df,aes(x=displ,y=cty_ltkm)) +
+  geom_point(size=2,color="red")
+p1
+
+# gruplar düzeyinde grafiği çizdirme
+p2 <- ggplot(df,aes(x=displ,y=cty_ltkm,colour=as.factor(year))) +
+  geom_point(size=2) +
+  # grafiğe başlık ekleme
+  ggtitle("Motor Hacmi ve Yakıt Tüketimi Saçılım Grafiği") +
+  #eksenleri isimlendirme
+  xlab("Motor Hacmi") + 
+  ylab("Yakıt Tüketimi")+
+  theme_bw() + # tema değiştirme
+  theme(legend.position = "bottom",  # gruplama değişkeninin poziyounun değiştirme
+        plot.title = element_text(face = "bold"), # kalın başlık
+        legend.title = element_blank()) # grup başlığını kaldırma
+p2  
+
+ggplot(df,aes(x=displ,y=cty_ltkm)) +
+  geom_point(aes(size=factor(cyl)),color="red")
+
+# grafiğe model eğrisi ekleme
+p1 + geom_smooth(method = lm, se = TRUE)
+p1 + geom_smooth(method = loess, se = TRUE)
+
+# grup düzeyinde model eğrileri ve saçılım grafiği
+p3 <- df %>% 
+  ggplot(aes(x=displ,y=cty_ltkm,color=as.factor(cyl))) +
+  geom_point()  + 
+  geom_smooth(method = lm, se = TRUE)
+p3
+
+# grup ve yıl düzeyinde model eğrileri ve saçılım grafiği
+p3 + facet_wrap(~ year)
+p3 + facet_wrap(~ year+drv)
+p3 + facet_grid(drv ~ year) # eksen aralıkları sabit
+p3 + facet_grid(drv ~ year,scales = "free") # eksen aralıkları değişken
+
+```
+
+## Zaman Serisi Grafikleri
+
+Zaman serisi grafikleri, zamanla değişen verileri görsel olarak temsil etmek için kullanılan grafiklerdir. Bu tür grafikler, belirli bir süre boyunca gözlemlenen verileri analiz etmek, eğilimleri belirlemek, dönemsel desenleri tanımak ve istatistiksel analizler yapmak için yaygın olarak kullanılır. Zaman serisi verileri genellikle sabit aralıklarla veya farklı zaman dilimlerinde toplanır. En yaygın olan türü çizgi grafikleri olmakla birlikte sütun ve alan grafikleri de zaman serilerinin görselleştirilmesinde kullanılabilmektedir.
+
+Örnekler ggplot2 paketi ile birlikte gelen [**`economics`**](https://ggplot2.tidyverse.org/reference/economics.html) veri seti ile yapılacaktır.
+
+```{r}
+
+economics
+summary(economics)
+
+p4 <- economics %>% 
+  ggplot(aes(x=date,y=pce)) +
+  geom_line(color="blue") +
+  theme_minimal() +
+  labs(x = "",
+       y = "Personal Consumption Expenditures",
+       title = "Personal Consumption Expenditures Time Series",
+       caption = "Economics Data",
+       subtitle = "Economics Data (1967-2015)")
+p4
+
+# zaman eksenini ayarlama
+p4 + 
+  scale_x_date(date_breaks = "1 year", date_labels = "%Y") +
+  theme(axis.text.x = element_text(angle = 45), legend.position = "top")
+
+p4 + 
+  scale_x_date(date_breaks = "2 year", date_labels = "%Y",expand = c(0,0)) +
+  theme(axis.text.x = element_text(angle = 45), legend.position = "top")
+
+# çizgi türü değiştirilebilir
+economics %>% 
+  ggplot(aes(x=date,y=pce)) +
+  geom_line(linetype = "dashed", size = 1, colour = "blue")
+
+economics %>% 
+  ggplot(aes(x=date,y=pce)) +
+  geom_line(linetype = "dotted", size = 2, colour = "blue")
+
+# zaman grafiğine noktalar ekleme
+economics %>% 
+  filter(lubridate::year(date) >= 2010) %>% 
+  ggplot(aes(x=date,y=pce)) +
+  geom_line()+
+  geom_point(size = 3, shape= 7, colour = "red")
+
+# gölgeli zaman grafiği
+economics %>% 
+  ggplot(aes(x=date,y=pce)) +
+  geom_area(color="blue",fill="red",alpha=0.6) +
+  # y ekseni aralıklarını ayarlama
+  scale_y_continuous(breaks = seq(0, max(economics$pce), by = 1000))
+
+economics %>% 
+  ggplot(aes(x=date,y=uempmed )) +
+  geom_area(color="blue",fill="red",alpha=0.5) +
+  theme_light()
+
+# çoklu zaman serisi grafiği
+economics_long
+
+# serilerin ölçekleri farklı 
+economics_long %>% 
+  ggplot(aes(x=date,y=value,color=variable))+
+  geom_line()
+
+economics_long %>% 
+  ggplot(aes(x=date,y=value))+
+  geom_line() +
+  facet_wrap(~variable,scales = "free_y")
+
+economics_long %>% 
+  ggplot(aes(x=date,y=value))+
+  geom_line() +
+  facet_wrap(~variable,scales = "free_y")+
+  scale_y_log10() # y eksenlerinin logatirması alınır
+
+```
+
+## Sütun Grafikleri
+
+Sütun grafikleri, verileri kategorik veya gruplara göre temsil etmek için kullanılan bir grafik türüdür. Bu grafik türü, farklı kategorilerin veya grupların sayısal değerlerini karşılaştırmak veya görselleştirmek için kullanılır. Sütun grafikleri dikey çubuklardan oluşur ve her çubuk, bir kategori veya grup için bir değeri temsil eder. Sütun grafiklerinin temel bileşenleri şunlardır:
+
+1.  **Yatay Eksen (X-Eksen):** Bu eksende kategoriler veya gruplar yer alır. Örneğin, bir yıl boyunca aylar, ürün kategorileri, bölgeler veya şirket departmanları gibi farklı kategoriler olabilir.
+
+2.  **Dikey Eksen (Y-Eksen):** Bu eksende sayısal değerler yer alır ve sütunların yükseklikleri bu değerleri temsil eder. Değerler genellikle sayısal verilerdir ve karşılaştırılabilir bir ölçü birimi içinde bulunurlar.
+
+3.  **Sütunlar:** Sütunlar, her bir kategori veya grup için bir değeri temsil eder. Sütunların yükseklikleri, karşılaştırılan değerlerin büyüklüğünü veya ilişkilerini gösterir.
+
+Sütun grafikleri, aşağıdaki amaçlar için kullanılır:
+
+-   Karşılaştırmalar: Farklı kategorilerin veya grupların değerlerini karşılaştırmak için kullanılır. Örneğin, farklı ülkelerin gayri safi yurtiçi hasıla (GSYİH) değerlerini karşılaştırmak için sütun grafikleri kullanılabilir.
+
+-   Zaman İçi Değişim: Zaman serisi verilerini temsil etmek için kullanılabilir. Her sütun, belirli bir zaman dilimindeki değerleri gösterebilir.
+
+-   Kategorik Verilerin İncelenmesi: Ürün kategorileri, şirket departmanları veya müşteri segmentleri gibi kategorik verilerin analizi için kullanılabilir.
+
+Sütun grafikleri, verileri görsel olarak anlamak ve veriler arasındaki farkları veya eğilimleri vurgulamak için etkili bir araçtır. Aynı zamanda verilerin daha kolay anlaşılmasına yardımcı olabilir ve karar verme süreçlerine katkı sağlayabilir.
+
+Örnekler ggplot2 paketi ile birlikte gelen [**`diamonds`**](https://ggplot2.tidyverse.org/reference/diamonds.html) veri seti ile yapılacaktır.
+
+```{r}
+
+diamonds
+glimpse(diamonds)
+summary(diamonds)
+
+# sıklık durumunu görselleştirme
+ggplot(diamonds, aes(cut)) +
+  geom_bar()
+
+ggplot(diamonds, aes(cut, fill = color)) +
+  geom_bar(position = position_dodge()) + 
+  xlab("Pirlanta kaliteleri") + 
+  ylab("Gozlenme Sikliklari")
+
+ggplot(diamonds, aes(x=cut, y=carat,fill = color)) +
+  geom_bar(stat = "identity") 
+
+ggplot(diamonds, aes(x=cut, y=carat,fill = color)) +
+  # fill ile oransal olarak gösterim yapılır
+  geom_bar(stat = "identity",position = "fill") 
+
+
+ggplot(diamonds, aes(x=cut,y=carat, fill = color)) +
+  geom_col() # y ekseni toplanarak yığılmış
+
+ggplot(diamonds, aes(x=cut,y=carat,, fill = color)) +
+  geom_col(position = "dodge") # y ekseni değerleri
+
+ggplot(diamonds, aes(x=cut,y=carat, fill = color)) +
+  geom_col(position = "stack")
+```
+
+## Dağılım Grafikleri
+
+Dağılım grafikleri, veri setinin dağılımını görsel olarak temsil etmek için kullanılan grafik türleridir. Bu grafikler, veri noktalarının, değerlerinin veya gözlemlerinin nasıl dağıldığını incelemek ve veri setindeki desenleri, eğilimleri ve aykırı değerleri anlamak için kullanılır. En yaygın olanı histogram grafikleridir.
+
+Histogram, veri setinin sayısal dağılımını gösteren bir grafiktir. Veri aralığı belli bir aralığa bölen çubuklardan oluşur ve her çubuk, bu aralıktaki veri noktalarının sayısını temsil eder. Histogramlar genellikle sürekli verilerin dağılımını göstermek için kullanılır.
+
+Bunun dışında boxplot (kutu) grafikleri de dağılımı görselleştirmek için kullanılmaktadır. Boxplot, veri setinin beş özet istatistiği (minimum, ilk çeyrek, medyan, üçüncü çeyrek, maksimum) kullanarak veri dağılımını temsil eder. Bu grafik, aykırı değerleri tanımlamak ve merkezi eğilim ile dağılımın yayılmasını görsel olarak incelemek için kullanılır.
+
+```{r}
+
+ggplot(diamonds, aes(price)) +
+  geom_histogram()
+
+ggplot(diamonds, aes(price)) +
+  geom_histogram(binwidth = 1000,fill = "green")
+
+ggplot(diamonds, aes(price)) +
+  geom_density()
+
+ggplot(diamonds, aes(price)) +
+  geom_density(alpha = .3, fill = "blue")
+
+ggplot(diamonds, aes(price)) +
+  geom_histogram(aes(y = ..density..),fill = "red") +
+  geom_density(size=1,fill = "blue")
+
+ggplot(diamonds, aes(price)) +
+  geom_histogram() + 
+  facet_wrap( ~ cut ,scales = "free" )
+
+ggplot(diamonds, aes(price)) +
+  geom_histogram() + 
+  facet_grid(cut ~ color,scales = "free" )
+
+ggplot(diamonds, aes(x=price,fill=cut)) +
+  geom_density(alpha=.3)
+
+# boxplot
+ggplot(diamonds, aes(x=price)) +
+  geom_boxplot()
+
+# boxplot'a ortalama eklemek
+ggplot(diamonds, aes(x=cut,y=price)) +
+  geom_boxplot(color="blue")+
+  stat_summary(fun = "mean", geom = "point", shape = 5, size = 3)
+
+```
+
+## Grafiklerin Kaydedilmesi
+
+Grafik oluşturulduktan sonra, grafik objesini bir değişkende saklayabilirsiniz (aşağıdaki örnekte "grafik" adını kullandık). Grafik objesini bir değişkende sakladıktan sonra, **`ggsave()`** fonksiyonunu kullanarak grafik dosyasını kaydedebilirsiniz. Grafikleri ayrıca RStudio penceresinin sağ alt kısmında yer alan **Plots** sekmesindeki **`Export`** ile kayıt altına alabilirsiniz.
+
+```{r}
+
+grafik <- economics %>% 
+  mutate(uemploy_mom=unemploy/lag(unemploy ) * 100 - 100,
+         growth=ifelse(uemploy_mom>0,"pozitif","negatif")) %>% 
+  na.omit() %>% 
+  filter(lubridate::year(date)>=2010) %>% 
+  ggplot(aes(x=date,y=uemploy_mom,fill=growth))+
+  geom_col() +
+  theme(legend.position = "none") +
+  labs(y="Aylık Değişim",
+       title="Yıllara göre Aylık İstihdam Değişimi (2010-2015)")
+
+ggsave("grafik1.pdf", grafik, width = 20, height = 8, units = "cm")
+ggsave("grafik1.png", grafik,width = 20, height = 8, unit = "cm", dpi = 300)
+
+```
+
+\newpage
+
+# Veri Ön İşleme
+
+Veri ön işleme; istatistiksel modeller kurulmadan önce veri seti üzerinde yapılan bir takım düzeltme, eksik veriyi tamamlama, tekrarlanan verileri kaldırma, dönüştürme, bütünleştirme, temizleme, normalleştirme, boyut indirgeme vb. işlemlerdir. Bu aşamada ister istemez veri üzerinde bilgi keşfi yapılmış olur. Veri önişleme istatistiksel bir modelleme sürecinin büyük kısmını oluşturmaktadır. Kesin bir rakam olmamakla birlikte modelleme sürecinin yarısından fazlasının bu aşamada harcandığını ifade edebiliriz. Veri ön işleme temel anlamda 4 aşamadan oluşmaktadır. Bunlar sırasıyla şu şekildedir:
+
+1.  **Veri Temizleme :** Eksik verilerin tamamlanması, aykırı değerlerin teşhis edilmesi ve verilerdeki tutarsızlıkların giderilmesi gibi işlemler yapılmaktadır.
+
+2.  **Veri Birleştirme:** Farklı farklı veri tabanlarında bulunan veri setlerinin tek bir yerde toplanması aşamasının düzenli bir şekilde yürütülmesi sağlanır.
+
+3.  **Veri Dönüştürme :** Bu aşamada veriler, modelleme için uygun formlara dönüştürülürler. Veri dönüştürme; düzeltme, birleştirme, genelleştirme ve normalleştirme gibi değişik işlemlerden biri veya bir kaçını içerebilir. Veri normalleştirme , min-max dönüşümü, z standartlaştırması gibi yöntemler en sık kullanılan veri dönüştürme işlemlerinden bazılarıdır.
+
+4.  **Veri İndirgeme :** Daha küçük hacimli olarak veri kümesinin indirgenmiş bir örneğinin elde edilmesi amacıyla uygulanır. Bu sayede elde edilen indirgenmiş veri kümesine modelleme teknikleri uygulanarak daha etkin sonuçlar elde edilebilir. Veri Birleştirme (Data Aggregation), Boyut indirgeme (Dimension Reduction), Veri Sıkıştırma (Data Compression), Kesikli hale getirme (Discretization), Özellik Seçimi (Feature Selection) sık kullanılan veri indirgeme işlemlerindendir.
+
+Bu dokümanda eksik veriler (missing values), aykırı değerler (outliers) ve veri normalleştirme işlemleri R uygulamları ile anlatılacaktır.
+
+## Eksik Veriler
+
+Eksik veriler (kayıp gözlem), veri toplamada kaçınılmaz bir durumdur ve üzerinde dikkatle durulmalıdır. Sistematik bir kayıp gözlem durumu yoksa ortada ciddi bir sorun yoktur. Ama rastgele olmayan bir hata varsa tüm kitleye dair yanlılık olacağı için bu durum göz ardı edilemez.
+
+```{r}
+
+df <- data.frame(weight=c(rnorm(15,70,10),rep(NA,5)),
+height=c(rnorm(17,165,20),rep(NA,3)))
+
+set.seed(12345)
+rows <- sample(nrow(df))
+df2 <- df[rows, ]
+
+# eksik verilerin sorgulanması
+
+is.na(df2) # sorgulanma
+which(is.na(df2)) #konum
+sum(is.na(df2)) # toplam eksik veri sayısı
+colSums(is.na(df2)) # değişken düzeyinde eksik veri sayısı
+
+df2[!complete.cases(df2), ] #en az bir tane eksik olan satırlar
+df2[complete.cases(df2), ]$weight
+
+# eksik veriden tamamen kurtulma
+na.omit(df2)
+complete.cases(df2)
+df2[complete.cases(df2), ] # dolu olanlar satırlar
+df2[complete.cases(df2), ]$weight # değişken bazında dolu olan satırlar
+```
+
+## İmputasyon
+
+İmputasyon terimi, eksik verilerin yerine konulması veya doldurulması işlemine atıfta bulunur. Eksik veriler, bir veri setinde belirli gözlemler veya değişkenler için eksik veya bilinmeyen değerler içeren durumlardır. İstatistiksel analiz yaparken eksik verilerle başa çıkmak önemlidir çünkü eksik veriler, sonuçları yanıltabilir veya analizleri etkileyebilir.
+
+İmputasyon, eksik verileri doldurmak veya tahmin etmek için kullanılan çeşitli istatistiksel yöntemleri ifade eder. İmputasyon işlemi, eksik verileri analizde kullanılabilir hale getirmek amacıyla yapılır. İmputasyon yöntemleri, veri setinin yapısına ve eksik verilerin nedenlerine bağlı olarak değişebilir. İşte bazı yaygın imputasyon yöntemleri:
+
+1.  Ortalama Değer İmputasyonu: Eksik veriler, değişkenin ortalama değeri ile doldurulabilir. Bu yöntem, eksik verilerin diğer gözlemlerdeki ortalama değerlere benzer olduğu varsayımına dayanır.
+
+2.  Medyan Değer İmputasyonu: Eksik veriler, değişkenin medyan değeri ile doldurulabilir. Medyan, verilerdeki aşırı değerlerden etkilenmeyeceği için ortalama değere göre daha dayanıklı bir seçenektir.
+
+3.  En Yakın Komşu İmputasyonu: Eksik veriler, benzer diğer gözlemlerin değerleri ile doldurulabilir. Bu yöntemde, eksik veriye sahip olan gözlem, diğer gözlemlerin benzerliklerine göre doldurulur.
+
+4.  Regresyon İmputasyonu: Eksik veri içeren bir değişken, diğer değişkenlerle ilişkilendirilerek tahmin edilebilir. Bu yöntem, eksik verinin diğer değişkenlerle ilişkisini kullanarak doldurur.
+
+5.  EM (Expectation-Maximization) Algoritması: EM algoritması, eksik veri problemini çözmek için kullanılan bir iteratif istatistiksel yöntemdir. Bu yöntem, eksik verilerin olasılık dağılımlarını tahmin etmek için kullanılır.
+
+İmputasyon yöntemi, veri setinin özelliklerine, eksik verilerin miktarına ve verilerin doğasına bağlı olarak seçilir. Her yöntemin avantajları ve dezavantajları vardır, bu nedenle doğru yöntemi seçmek, analizin doğruluğunu ve güvenilirliğini etkileyebilir. İmputasyonun amacı, eksik verilerin doğru ve güvenilir bir şekilde doldurulmasıdır, böylece analiz sonuçları daha kesin ve anlamlı olur.
+
+```{r}
+
+# eksik verilere basit değer atama
+df2$weight2 <- ifelse(is.na(df2$weight),mean(df2$weight, na.rm = TRUE),df2$weight)
+sapply(df2, function(x) ifelse(is.na(x), mean(x, na.rm = TRUE), x ))
+
+
+library(zoo)
+sapply(df2, function(x) ifelse(is.na(x), na.locf(x), x )) # carry forward
+sapply(df2, function(x) ifelse(is.na(x), na.locf(x,fromlast=TRUE), x ))
+sapply(df2, function(x) ifelse(is.na(x), na.approx(x), x )) # linear interpolation
+sapply(df2, function(x) ifelse(is.na(x), na.approx(x), x )) # cubic interpolation
+
+
+# KNN (k-nearest neighbor) ile Değer Atama
+
+library(DMwR2)
+# airquality verisi
+df_air <- as_tibble(airquality)
+anyNA(df_air)
+
+# airquality verisindeki Wind değişkeninin bazı değerlerini NA yapalım
+set.seed(1234)
+row_num <- sample(1:nrow(airquality),5)
+row_num # bu satırdaki değerlere NA atanacak
+airquality_2 <- airquality
+airquality_2[row_num,"Wind"] <- NA
+airquality_2[row_num,"Wind"]
+head(airquality_2,20)
+
+# k parametresi, verilen bir noktaya en yakın komşuların sayısıdır. 
+# Örneğin: k=5 olsun. Bu durumda mesafeye (öklit) göre en yakın 5 komşu belirlenir
+# ve mesafenin ağırlıklı ortalaması hesaplanır.
+# ağırlıklandırma, her komşuya 1 / d ağırlığının verilmesini içerir.
+# burada d komşuya olan uzaklıktır.
+knn_df_air <- knnImputation(airquality_2, k = 5) # k komşu sayısı
+
+result <- data.frame(row=row_num,
+                     orig=airquality[row_num,"Wind"],
+                     knn=knn_df_air[row_num,"Wind"])
+result
+mean(result$orig-result$knn)
+
+```
+
+::: callout-tip
+### Tavsiye
+
+Eksik verilerin analiz edilmesi ve imputasyon konusunda R içerisinde çeşitli kütühaneler bulunmaktadır. Bunlardan en çok bilinenleri **`mice, VIM, missForest, imputation, mi, Amelia`** ve **`Hmisc`** paketleridir.
+:::
+
+## Aykırı Değer Analizi
+
+Aykırı değer, diğer gözlemlerden uzak olan, yani diğer veri noktalarından önemli ölçüde farklı olan bir veri noktası olan bir değer veya gözlemdir. Bu dokümanda, tanımlayıcı istatistikler (minimum, maksimum, histogram, kutu grafiği ve yüzdelikler dahil) gibi basit teknikler ve Z-Skoru ile aykırı değer analizi anlatılacaktır.
+
+### Minumum ve Maximum
+
+```{r}
+
+library(ggplot2)
+
+# mpg verisindeki hwy değişkeni üzerinden inceleyelim
+summary(mpg$hwy)
+min(mpg$hwy)
+max(mpg$hwy)
+
+```
+
+### Histogram
+
+```{r}
+
+ggplot(mpg) +
+  aes(x = hwy) +
+  geom_histogram(bins = 20, fill = "blue") +
+  theme_minimal()
+# grafiğiin sağ tarafında kalan gözlemler şüpheli görünüyor.
+
+```
+
+### Boxplot
+
+Boxplot, beş konum ölçüsü kullanarak verilerin grafiksel bir sunumunu verir: en küçük değer (min), birinci çeyreklik ($Q_1$) , medyan, üçüncü çeyreklik ($Q_3$) en büyük değer. Kutunun farklı bölümleri arasındaki boşluk, verilerdeki dağılım (yayılma) ve çarpıklık derecesini gösterir. Bir boxplot grafiği, çeyrekler arası aralık (IQR) kriteri kullanılarak şüpheli bir aykırı değer olarak sınıflandırılan herhangi bir gözlemi görüntüleyerek nicel bir değişkeni görselleştirmeye yardımcı olur.
+
+$I = [Q_1-1.5 * IQR ; Q_3 + 1.5 * IQR]$
+
+![](images/boxplot.png){fig-align="center"}
+
+IQR ise üçüncü ve birinci çeyrek arasındaki farktır. R içerisindeki **`IQR()`** fonksiyonu bu amaçla kullanılabilir.
+
+```{r}
+
+# temel istatistiklere erişim
+summary(mpg$hwy)
+fivenum(mpg$hwy)
+
+
+ggplot(mpg) +
+  aes(x = "", y = hwy) +
+  geom_boxplot(fill = "blue") +
+  theme_minimal()
+
+# outlier değrlerine erişim
+boxplot.stats(mpg$hwy)$out
+
+# outier olarak görülen değerlerin konumları
+hwy_out <- boxplot.stats(mpg$hwy)$out
+hwy_out_sira <- which(mpg$hwy %in% c(hwy_out))
+hwy_out_sira
+
+# outlier olarak görülen satırlar
+mpg[hwy_out_sira, ]
+
+```
+
+### Yüzdelikler (Percentiles)
+
+Bu aykırı değer tespiti yöntemi, yüzdelik dilimlere dayalıdır. Yüzdelikler yöntemiyle, 2,5 ve 97,5 yüzdelik dilimlerin oluşturduğu aralığın dışında kalan tüm gözlemler potansiyel aykırı değerler olarak kabul edilecektir. Aralığı oluşturmak için 1 ve 99 veya 5 ve 95 yüzdelikler gibi diğer yüzdelikler de düşünülebilir.
+
+```{r}
+
+alt_sinir <- quantile(mpg$hwy, 0.025)
+alt_sinir
+ust_sinir <- quantile(mpg$hwy, 0.975)
+ust_sinir
+
+# Bu yönteme göre, 14'ün altındaki ve 35.175'in üzerindeki tüm gözlemler,
+# potansiyel aykırı değerler olarak kabul edilecektir.
+
+outlier_sira <- which(mpg$hwy < alt_sinir | mpg$hwy > ust_sinir)
+outlier_sira
+# Bu yönteme göre 11 adet outlier bulunmuştur.
+mpg[outlier_sira,]
+
+# Sınırları biraz daha küçültelim
+alt_sinir <- quantile(mpg$hwy, 0.01)
+ust_sinir <- quantile(mpg$hwy, 0.99)
+
+outlier_sira <- which(mpg$hwy < alt_sinir | mpg$hwy > ust_sinir)
+
+mpg[outlier_sira, ]
+# Buna göre IQR ile elde edildiği gibi 3 adet outlier bulundu.
+
+```
+
+### Z-Skor Yöntemi
+
+Aykırı değerlerin tespitinde ortalama ve standart sapmanın kulllanıldığı en bilinen yöntemlerdendir ve aşağıdaki şekilde hesaplanır.
+
+$Z_i = \frac{(X_i -\mu)}{\sigma}$
+
+![](images/sigma.png){fig-align="center"}
+
+```{r}
+
+std_z <- function(x){
+  
+  z=(x-mean(x))/sd(x)
+  return(z)
+}
+
+mpg$hwy_std <- std_z(mpg$hwy)
+mpg[,c("hwy","hwy_std")]
+
+# -3 ve +3 sapma dışında kalanları aykırı değer olarak kabul ediyoruz.
+outliers_zskor <- which(mpg$hwy_std < -3 | mpg$hwy_std > +3)
+outliers_zskor
+mpg[outliers_zskor,c() ]
+
+# bu yönteme göre 2 adet aykırı değer bulunmuştur.
+
+```
+
+## Veri Normalleştirme
+
+Değişkenler farklı ölçeklerde ölçüldüğünde, genellikle analize eşit katkıda bulunmazlar. Örneğin, bir değişkenin değerleri 0 ile 100.000 arasında ve başka bir değişkenin değerleri 0 ile 100 arasında değişiyorsa, daha büyük aralığa sahip değişkene analizde daha büyük bir ağırlık verilecektir. Değişkenleri normalleştirerek, her bir değişkenin analize eşit katkı sağladığından emin olabiliriz. Değişkenleri normalleştirmek için (veya ölçeklendirmek) genellikle min-max ya da z dönüşümü yöntemleri kullanılır.
+
+```{r, fig.height = 6, fig.width = 10}
+
+# min-max dönüşümleri
+
+# 0 ile 1 arasi dönüşüm
+std_0_1 <- function(x) {
+  (x - min(x)) / (max(x) - min(x))
+}
+
+#-1 ile +1 arası dönüşüm 
+std_1_1 <- function(x) {
+  ((x - mean(x)) / max(abs(x - mean(x))))
+}
+
+# a ile b arası dönüşüm 
+std_min_max <- function(x,a,b) {
+  # a min değer
+  # b max değer
+  (a + ((x - min(x)) * (b - a)) / (max(x) - min(x)))
+}
+
+set.seed(12345)
+dat <- data.frame(x = rnorm(20, 10, 3),
+                  y = rnorm(20, 30, 8),
+                  z = rnorm(20, 25, 5))
+dat
+
+summary(dat)
+apply(dat, 2, std_0_1)
+
+library(dplyr)
+
+dat %>% mutate_all(std_0_1) %>% summary()
+dat %>% mutate_all(std_1_1) %>% summary()
+dat %>% mutate_all(std_min_max, a = -2, b = 2) %>% summary()
+dat %>% mutate_all(std_z) %>% summary()
+
+par(mfrow=c(2,1))
+hist(dat$x,main="original data",col="blue")
+hist(std_0_1(dat$x),main="normalize data",col="red")
+
+# bu dönüşümler verinin dağılımını değiştirmemektedir.
+
+```
+
+\newpage
+
+# R ile Temel İstatistik
+
+İstatistik; amacın belirlenmesi, çalışmanın planlanması, verilerin toplanması, değerlendirilmesi ve karara varılması sürecini içeren bir bilim dalıdır. İstatistik bilimi içinde örneklemden elde edilen bilgileri kitlelere genelleme, tahminler yapma, değişkenler arasındaki ilişkileri ortaya çıkarma gibi konular yer almaktadır.
+
+Uygulamalı istatistikler iki alana ayrılabilir: tanımlayıcı istatistikler ve çıkarımsal istatistikler. Tanımlayıcı istatistikler, tabloları, grafikleri ve özet ölçüleri kullanarak verileri düzenleme, görüntüleme ve tanımlama yöntemlerinden oluşur. Buna karşılık çıkarımsal istatistikler, bir popülasyon hakkında kararlar veya tahminler yapmak için örnek sonuçlarını kullanan yöntemlerden oluşur.
+
+Tanımlayıcı istatistik, bir dizi değeri veya bir veri kümesini özetlemeyi, tanımlamayı ve sunmayı amaçlayan bir istatistik dalıdır. Tanımlayıcı istatistikler genellikle herhangi bir istatistiksel analizin ilk adımı ve önemli bir parçasıdır. Verilerin kalitesini kontrol etmeyi sağlar ve net bir genel bakışa sahip olarak verileri anlamaya yardımcı olur. Tanımlayıcı istatistikler, merkezi eğilim ölçüleri ve dağılım ölçüleri olmak üzere ikiye ayrılır.
+
+## Merkezi Eğilim Ölçüleri
+
+Dağılımın konumu hakkında bilgi veren ölçümlerdir. Aritmetik ortalama, geometrik ortalama, harmonik ortalama, düzeltilmiş ortalama, ortanca, çeyrekler, yüzdelikler konum ölçülerine örnek olarak verilebilir.
+
+### Aritmetik Ortalama
+
+-   Günlük hayatta en sık kullanılan merkezi eğilim ölçüsüdür.
+
+-   Üzerinde inceleme yapılan veri setindeki elemanların toplanıp incelenen eleman sayısına bölünmesiyle elde edilir.
+
+-   Konum olarak verilerin en çok hangi değer etrafında toplandığının ya da yoğunlaştığının sayısal bir ölçüsüdür.
+
+-   Hem kitle hem de örneklem için hesaplanır.
+
+-   Dağılışların yerinin belirlenmesinde en çok kullanılan yer ölçüsü aritmetik ortalamadır; ve tek başına ortalama sözcüğünden aritmetik ortalama anlaşılır.
+
+-   Aritmetik ortalama bütün değerlerin ağırlığını eşit kabul ettiğinden dağılımı her zaman en iyi şekilde temsil etmeyebilir. Ayrıca aritmetik ortalama, veri kümesindeki aşırı değerlerden çok kolay etkilenir.
+
+$$ \mu = \frac{1}{N}\sum_{i=1}^NX_i $$
+
+```{r}
+
+mean(airquality$Wind)
+mean(airquality$Ozone, na.rm = TRUE) # NA'ler kaldırılarak ortalama hesaplanır
+
+```
+
+### Geometrik Ortalama
+
+-   Periyodik artışlar veya azalmalar (değişim oranları) içeren enflasyon veya nüfus değişiklikleri gibi konuları incelerken, geometrik ortalama, incelenen tüm dönem boyunca ortalama değişikliği bulmak için daha uygundur.
+
+-   Eğer veriler sıfır ya da negatif değerler içeriyorsa geometrik ortalama hesaplanamaz.
+
+-   Geometrik ortalama, uç değerlerden aritmetik ortalamaya göre daha az etkilenmektedir.
+
+-   Geometrik Ortalama \<= Aritmetik Ortalama
+
+$$ G.O. = ^n\sqrt{\prod_{i=1}^{n}X_i} $$
+
+```{r}
+
+# R programında hazır geometrik ortalama fonksiyonu yoktur.
+# 1. yol
+geo_mean <- function(x){
+  x <- na.omit(x)
+  (prod(x))^(1/length(x))
+}
+
+round(geo_mean(airquality$Wind),3)
+round(geo_mean(airquality$Ozone),3)
+
+# 2. yol
+library(psych)
+round(geometric.mean(airquality$Wind),3)
+round(geometric.mean(airquality$Ozone),3)
+
+```
+
+### Medyan (Ortanca)
+
+-   Gözlem değerleri küçükten büyüğe sıralandığında ortada kalan gözlem değeridir.
+
+-   Bir seride yer alan gözlemlerin tümünün hesaba katılmadığı ortalamalardan biridir.
+
+-   Basit serilerde seri tek sayıda gözlemden oluşuyorsa serinin gözlem değerleri küçükten büyüğe sıralandığında tam ortada yer alan gözlem değeridir.
+
+-   Seri çift sayıda gözlemden oluşuyorsa ortada kalan iki gözlem değerinin aritmetik ortalaması medyandır.
+
+-   Medyan, ölçümlerin %50'sinin üzerinde, %50'sinin aşağısında yer aldığı merkezi değerdir.
+
+-   Dağılımdaki aşırı değerlerden etkilenmez.
+
+-   Aritmetik ortalamaya kıyasla daha tutarlı bir sonuç elde edilir.
+
+-   Her bir veri seti için bir tek medyan söz konusudur.
+
+-   Medyanın zayıf tarafı serideki bütün değerleri dikkate almaması sebebi ile matematik işlemlere elverişli değildir.
+
+-   Gözlem sayısı (n) tek ise , $\widetilde{X} = X_{\frac{n+1}{2}}$
+
+-   Gözlem sayısı (n) çift ise , $\widetilde{X} = \frac{X_\frac{n}{2}+X_{\frac{n+1}{2}}}{2}$
+
+```{r}
+
+median(airquality$Wind)
+median(airquality$Ozone,na.rm = TRUE)
+
+```
+
+### Mod (Tepe değeri)
+
+-   En sık ortaya çıkan (en yüksek frekanslı) ölçümdür.
+
+-   Dağılımdaki aşırı değerlerden etkilenmez
+
+-   Her dağılımda tepe değeri bulunmayabilir.
+
+-   Bazı dağılımlarda birden fazla tepe değeri bulunabilir.
+
+-   Tepe değeri aritmetik işlemler için elverişli değildir.
+
+-   Tüm veri değerlerini göz önünde bulundurmadığı için tutarlı olmayan bir merkezi eğilim ölçüsüdür.
+
+-   Gözlem sayısı az olduğunda tepe değer güvenilir bir ölçü değildir.
+
+![](images/mode.png){fig-align="center" width="684" height="394"}
+
+```{r}
+
+# R programında hazır mod fonksiyonu yoktur.
+
+library(DescTools)
+Mode(airquality$Wind)
+Mode(airquality$Solar.R,na.rm = TRUE)
+
+```
+
+### Çeyreklikler
+
+-   Birinci Bölen ilk yüzde 25 nci noktadır ve verinin ¼ kadarı birinci bölen içerisinde kalır.
+
+-   İkinci Bölen ilk yüzde 50 nci noktadır ve verinin yarısı bu noktanın altında kalır( ½) aynı zamanda ikinci bölen medyan olarak ta bilinir.
+
+-   Üçüncü Bölen ilk yüzde 75 nci veri kümesidir ve bütün verinin ¾ kadarı bu noktanın altında kalır.
+
+-   Gözlem sayısı (n) tek ise , $Q_1 = X_{\frac{n+1}{4}}$
+
+-   Gözlem sayısı (n) çift ise , $Q_1 = \frac{X_\frac{n}{4}+X_{\frac{n}{4}+1}}{2}$
+
+-   Gözlem sayısı (n) tek ise , $Q_3 = X_{\frac{3(n+1)}{4}}$
+
+-   Gözlem sayısı (n) çift ise , $Q_3 = \frac{X_\frac{3n}{4}+X_{\frac{3n}{4}+1}}{2}$
+
+![](images/quartile.png){fig-align="center"}
+
+```{r}
+
+quantile(airquality$Wind,na.rm = TRUE)
+median(airquality$Wind,na.rm = TRUE)
+quantile(airquality$Wind,na.rm = TRUE,probs = 0.75) #Q3
+quantile(airquality$Wind,na.rm = TRUE,probs = 0.25) #Q1
+quantile(airquality$Wind,na.rm = TRUE,probs = c(0.20,0.50,0.80)) # %20,%50,%80
+
+quantile(airquality$Solar.R,na.rm = TRUE)
+median(airquality$Solar.R,na.rm = TRUE)
+
+```
+
+## Dağılım Ölçüleri
+
+Ortalama, medyan ve mod gibi merkezi eğilim ölçüleri, bir veri setinin dağılımının bütün resmini ortaya koymaz. Aynı ortalamaya sahip iki veri seti tamamen farklı yayılımlara sahip olabilir. Bir veri seti için gözlem değerleri arasındaki farklılık, diğer veri seti için olduğundan çok daha büyük veya daha küçük olabilir. Bu nedenle, ortalama, medyan veya mod tek başına genellikle bir veri kümesinin dağılımının şeklini ortaya çıkarmak için yeterli bir ölçü değildir. Bu yüzden veri değerleri arasındaki varyasyon hakkında bazı bilgiler sağlayabilecek bir ölçülere de ihtiyaç vardır. Bu ölçülere dağılım (yayılım) ölçüleri denir. Birlikte ele alınan merkezi eğilim ve dağılım ölçüleri, tek başına merkezi eğilim ölçülerinden ziyade bir veri setinin daha iyi bir resmini verir. Değişim aralığı, çeyrekler arası genişlik, varyans, standart sapma, basıklık, çarpıklık, min, max başlıca dağılım ölçüleri arasındadır.
+
+### Değişim Aralığı (Açıklık)
+
+-   Veri setindeki en büyük değer ile en küçük değer arasındaki farktır.
+
+-   En basit dağılım ölçüsü olmakla birlikte uç ve aykırı değerlerden etkilenmesi olumsuz yönüdür.
+
+-   Serinin sadece 2 gözlemine bağlı olarak hesaplanan bu ölçü değişkenliğin şekli hakkında çok fazla bilgi vermediğinden diğer değişkenlik ölçüleri kadar sık kullanılmaz.
+
+$$D.A = max(X)-min(X)$$
+
+```{r}
+
+# 1. yol
+max(airquality$Ozone,na.rm = TRUE)-min(airquality$Ozone,na.rm = TRUE)
+
+# 2. yol
+range(airquality$Ozone,na.rm = TRUE)
+range(airquality$Ozone,na.rm = TRUE)[2]-range(airquality$Ozone,na.rm = TRUE)[1]
+
+```
+
+### Çeyrekler Arası Genişlik
+
+-   Dağılımdaki verilerin ortadaki % 50'sinin yer aldığı aralığı belirlemek için kullanılır.
+
+-   Aşırı uç değerlerden etkilenmez. Çünkü çeyreklikler arası genişlik dağılımdaki değerlerin merkezdeki %50'si ile ilgilenir.
+
+-   Çeyrekler arası bir genişlik, değerlerin büyük kısmının nerede olduğunu gösteren bir ölçüdür.
+
+-   Çeyrek Sapma 3. çeyrek ile 1. çeyrek arasındaki farktır.
+
+-   IQR (Interquartile Range) olarak ifade edilir.
+
+$$IQR=Q_3-Q1$$
+
+```{r}
+
+# 1.yol
+q3 <- quantile(airquality$Wind,na.rm = TRUE,probs = 0.75) #Q3
+q1 <- quantile(airquality$Wind,na.rm = TRUE,probs = 0.25) #Q1
+q3-q1
+
+# 2. yol
+IQR(airquality$Wind,na.rm = TRUE)
+
+```
+
+### Varyans ve Standart Sapma
+
+Gözlem değerlerinin aritmetik ortalamadan sapmaları dikkate alınarak farklı değişkenlik ölçüleri geliştirilebilir. Ancak gözlemlerin aritmetik ortalamadan sapmalarının her zaman sıfıra eşittir. Bu sorunu ortadan kaldırmak için gözlemlerin aritmetik ortalamadan olan sapmalarının karelerinin toplamının gözlem sayısına oranı değişkenlik ölçüsü olarak yorumlanabilir. Bu ölçü varyans olarak adlandırılır.
+
+-   Bir dağılımda değerler aritmetik ortalamadan uzaklaştıkça dağılımın yaygınlığı artar.
+
+-   Varyansın karekökü standart sapmadır. Genel olarak, bir veri kümesi için standart sapmanın daha düşük bir değeri, o veri kümesinin değerlerinin ortalama etrafında nispeten daha küçük bir aralığa yayıldığını gösterir. Buna karşılık, bir veri kümesi için standart sapmanın daha büyük bir değeri, o veri kümesinin değerlerinin, ortalama etrafında nispeten daha geniş bir aralığa yayıldığını gösterir.
+
+-   Kitle varyansı $\sigma^2$ ile standart sapma ise $\sigma$ ile gösterilmektedir. Örneklem standart sapması ise $s$ ile ifade edilir.
+
+$$s= \sqrt{\sum_{i=1}^N\frac{(x_i-\bar{x})^2}{n-1}}$$
+
+```{r}
+
+var(airquality$Wind,na.rm=TRUE)
+sd(airquality$Wind,na.rm=TRUE)
+
+var(airquality$Solar.R,na.rm=TRUE)
+sd(airquality$Solar.R,na.rm=TRUE)
+
+```
+
+### Değişim Katsayısı
+
+-   Farklı serilerin değişkenliklerinin karşılaştırılmasında, farklı birimlerle ölçülmüş veri setleri söz konusu olduğundan standart sapma kullanışlı değildir.
+
+-   Bunun yerine ilgili serilerin standart sapmaları serilerin ortalama değerinin yüzdesi olarak ifade edilir ve gözlem değerlerinin büyüklüklerinden kaynaklanan farklılık ortadan kalkmış olur.
+
+-   Elde edilen bu yeni değişkenlik ölçüsü kullanılarak serilerin birbirlerine göre daha değişken ya da daha homojen oldukları konusunda yorum yapılabilir.
+
+-   Bu değer ne kadar küçükse dağılım o kadar homojendir, değişkenlik azdır. Yüzdesel olarak ifade edilir.
+
+-   Değişim Katsayısı standart sapmanın aritmetik ortalamaya bölünüp 100 ile çarpılmasıyla elde edilir.
+
+$$D.K. = \frac{S}{\bar{X}}\times{100}$$
+
+```{r}
+
+dk_wind <- sd(airquality$Wind,na.rm=TRUE)/mean(airquality$Wind,na.rm=TRUE)
+dk_wind
+
+dk_solar <- sd(airquality$Solar.R,na.rm=TRUE)/mean(airquality$Solar.R,na.rm=TRUE)
+dk_solar
+
+```
+
+### Çarpıklık ve Basıklık
+
+-   Bir dağılımın normal dağılıma göre çarpık olup olmadığını belirlemede kullanılır. Simetrik dağılımlarda ortalama, ortanca ve tepe değeri birbirine eşittir.
+
+-   Çarpıklık katsayısı 0 ise dağılım simetriktir, 0'dan küçük ise sola çarpıktır (negatif çarpıklık), 0'dan büyük ise sağa çarpıktır (pozitif çarpıklık).
+
+-   Pozitif çarpıklıkta sağ kuyruk daha uzun iken negatif çarpıklıkta sol kuyruk daha uzundur.
+
+-   Aritmetik Ortalama, Medyan ve Mod arasındaki ilişkilere göre de çarpıklık belirlenebilir.
+
+    -   Mod \< Medyan \< Ortalama ise, dağılım sağa-çarpık yani (+) yöne eğilimli dağılımdır.
+
+    -   Ortalama \< Medyan \< Mod ise, dağılım sola-çarpık yani (-) yöne eğilimli dağılımdır.
+
+    -   Ortalama = Mod = Medyan ise, dağılım simetrik dağılımdır.
+
+![](images/mean_median_mode.png){fig-align="center"}
+
+-   Bir dağılımın normal dağılıma göre basık olup olmadığını belirlemede kullanılır.
+
+-   Basıklık katsayısı sıfırdan büyükse normal dağılıma göre daha sivri, küçük ise daha basıktır.
+
+-   Basıklık katsayısı 3'e eşit ise seri normal dağılıma (mesokurtic) sahiptir. Eğer3'ten küçük ise, bir platykurtik dağılımı gösterir (daha kısa kuyruklu normal dağılımdan daha düz). Eğer 3'ten büyük ise, bir leptokurtik dağılımı gösterir (daha uzun kuyruklu normal dağılımdan daha doruğa).
+
+-   İki veya daha fazla simetrik dağılım karşılaştırıldığında aralarındaki fark basıklık ile incelenir.
+
+![](images/kurtosis.png){fig-align="center"}
+
+```{r}
+
+library(moments)
+skewness(airquality$Ozone,na.rm = TRUE) # sağa çarpık
+kurtosis(airquality$Ozone,na.rm = TRUE) # sivri
+hist(airquality$Ozone,freq = FALSE)
+lines(density(airquality$Ozone,na.rm = TRUE),col = 2, lwd = 2)
+
+skewness(airquality$Solar.R,na.rm = TRUE) # sola çarpık
+kurtosis(airquality$Solar.R,na.rm = TRUE) # sivri
+hist(airquality$Solar.R,freq = FALSE)
+lines(density(airquality$Solar.R,na.rm = TRUE),col = 2, lwd = 2)
+
+# normal dağılımdan veri üretelim
+norm_vec <- rnorm(1000,10,5)
+skewness(norm_vec) # sola çarpık
+kurtosis(norm_vec) # sivri
+hist(norm_vec,freq = FALSE,col="#116AF3") # renk kodları da kullanılabilir.
+lines(density(norm_vec),col = "#F33011", lwd = 2)
+
+```
+
+## İlişki Ölçüleri
+
+Önceki bölümlerde, bir dağılımı tanımlayan ve özet istatistikleri hesaplayan tek bir değişkene odaklanmıştık. Tek bir değişkeni tanımlayan istatistiklere tek değişkenli istatistikler denir. İki değişken arasındaki ilişkiyi incelersek, iki değişkenli istatistiklere atıfta bulunuruz. Birkaç değişken arasındaki ilişkiler aynı anda incelenirse, çok değişkenli istatistiklere atıfta bulunuruz. İlişki ölçüleri, iki değişken arasındaki ilişkinin boyutunu özetlemek için araçlar sağlar.
+
+İlişkiyi ölçmek için birçok araç türü olmasına rağmen, kovaryans ve Pearson korelasyon katsayıları "sayısal" veri türü için en bilinen ve yaygın araçlardır. Kovaryans ve korelasyon arasındaki temel fark, kovaryans, değerin işaretine (+'ve veya -'ve) bağlı olarak ilişkinin yönünü gösterir. Ancak korelasyon, değişkenler arasındaki "**doğrusal**" ilişkinin gücünü gösterir.
+
+Kategorik veriler için ki-kare testi kullanılmkatadır. Spearman rho ve Kendall Tau korelasyon katsayıları da vardır ancak bunlar parametrik olmayan testlerdir ve yaygın olarak kullanılmazlar.
+
+Değişkenler arasındaki ilişkiyi çizgi veya saçılım grafiği çizerek de incelenebilir. Ancak, bu grafiklere bakarak ilişkiden emin olmak her zaman mümkün olmayabilir. İstatistikte testler her zaman görsel araçlardan daha güçlüdür. Görsel araçlar fikir verir, testler ise fikirleri doğrular.
+
+### Kovaryans
+
+Kovaryans, iki değişkenin ortak değişkenliğinin bir ölçüsüdür. Kovaryans (−∞,∞) aralığında herhangi bir değer alabilir. Bir değişkenin büyük/küçük değerleri esas olarak diğer değişkenin daha büyük/küçük değerlerine karşılık geliyorsa kovaryans pozitiftir. Değişkenler zıt davranış gösterme eğilimindeyse kovaryans negatiftir. Kovaryans $s_{xy}$ ile gösterilir ve aşağıdaki şekilde hesaplanır.
+
+$${s}_{xy} = \frac{\sum_{i=1}^n(x_i - \bar{x})(y_i - \bar{y})}{n-1}$$
+
+```{r}
+
+head(iris)
+cov(iris$Sepal.Length,iris$Petal.Length) # pozitif ilişki var
+cov(iris$Sepal.Length,iris$Sepal.Length)
+
+```
+
+### Korelasyon
+
+Korelasyon, nicel değişkenler arasındaki ilişkiyi incelemek için yaygın olarak kullanılan bir yöntemdir. **Karl Pearson'ın** Pearson moment korelasyon katsayısı olarak da bilinen doğrusal korelasyon katsayısı **r**'dir. Doğrusal korelasyon katsayısı, iki değişken arasındaki doğrusal ilişkinin gücünü ölçer.
+
+![](images/korelasyon.png){fig-align="center" width="738" height="495"}
+
+-   Korelasyon, kovaryansın standartlaştırılmış halidir.
+
+-   Standartlaştırmadan kaynaklanan bilgi kaybı vardır.
+
+-   Standartlaştırılmış olduğu için korelasyonun birimi yoktur, birimsizdir.
+
+-   Korelasyon -1 ve +1 arasında değer alır.
+
+-   Korelasyon , ±1'e yakınsa, iki değişken yüksek oranda ilişkilidir ve bir saçılım grafiği üzerinde çizilirse, veri noktaları bir çizgi etrafında kümelenir.
+
+-   Korelasyon , ±1'den uzaksa, veri noktaları daha geniş bir alana dağılır.
+
+-   Korelasyon 0'a yakınsa, veri noktaları esasen yatay bir çizgi etrafında dağılır ve bu, değişkenler arasında neredeyse hiçbir doğrusal ilişki olmadığını gösterir.
+
+-   r=1 ise değişkenler arasında pozitif yönlü tam bir doğrusal ilişki vardır.
+
+-   r=-1 ise değişkenler arasında negatif (ters) yönlü tam bir doğrusal ilişki vardır.
+
+-   r=0 ise değişkenler arasında doğrusal ilişki yoktur.
+
+-   Korelasyon nedensel ilişki değildir.
+
+-   Korelasyon değişkenler arasındaki sebep sonuç ilişkilerini açıklamaz.
+
+-   Korelasyon matematiksel ilişkidir.
+
+$$ r=\frac{\sum_{i=1}^n(x_i - \bar{x})(y_i - \bar{y})}{\sqrt{\sum_{i=1}^n(x_i-\bar{x})^2}\sqrt{\sum_{i=1}^n(y_i-\bar{y})^2}} = \frac{s_{xy}}{s_xs_y} $$
+
+İki değişken arasındaki doğrusal ilişkinin miktarı için açık bir sınıflandırma kuralı yoktur. Bununla birlikte, aşağıdaki tablo, Pearson çarpım momenti korelasyon katsayısının sayısal değerlerinin nasıl ele alınacağı konusunda temel bir fikir verebilir.
+
+| Korelasyon Katsayısı (r) | İlişkinin Derecesi |
+|:------------------------:|:------------------:|
+|        $r > 0.90$        |    Çok kuvvetli    |
+|    $0.70 < r\le 0.90$    |      Kuvvetli      |
+|    $0.50 < r\le 0.70$    |        Orta        |
+|    $0.30 < r\le 0.50$    |       Düşük        |
+|        $r < 0.30$        |       Zayıf        |
+
+```{r}
+
+cor(iris$Sepal.Length,iris$Petal.Length) # kuvvetli ilişki vardır.
+
+plot(iris$Sepal.Length,iris$Petal.Length,
+     col="blue",
+     xlab = "Sepal",
+     ylab = "Petal",
+     main = "Sepal vs Petal Saçılım Grafiği")
+
+```
+
+### Kontenjans Katsayısı
+
+**Kontenjans katsayısı C**, kategorik veriler için $\chi 2$ tabanlı bir ilişki ölçüsüdür. Bağımsızlık için $\chi 2$ testine dayanır. $\chi 2$ istatistiği, kontenjans durum tablolarındaki (iki yönlü tablo, çapraz tablo tablosu veya çapraz tablolar olarak da bilinir) değişkenler arasında istatistiksel bir ilişki olup olmadığını değerlendirmeyi sağlar. Bu tür tablolarda değişkenlerin dağılımı matris formatında gösterilir. İki nominal (kategorik) değişken arasında anlamlı bir ilişki olup olmadığını belirlemek için kullanılır.
+
+$$ \chi 2=\sum\frac{(G-B)^2}{B} $$
+
+Burada G gözlemlenen frekansı ve B ise beklenen frekansı temsil eder . Ki-kare test istatistiği ile iki kategorik değişken arasında ilişki olup olmadığı araştırılır. Hipotez aşağıdaki gibi kurulur:
+
+$H_0:$ Değişkenler arasında ilişki yoktur.
+
+$H_1:$ Değişkenler arasında ilişki vardır.
+
+Kontenjans katsayısı ise şu şekilde elde edilir:
+
+$$ C=\sqrt{\frac{\chi2}{n+\chi2}} $$
+
+Burada n satır ve sütun toplamlarını ifade eder. C katsayısı 0 ile 1 arasında bir değer alır. C=0 olması iki değişken arasında ilişki olmadığına, C=1 olması ile tam ilişkili olduğu anlamına gelir.
+
+```{r}
+
+# öğrencilerin sigara içme alışkanlığının egzersiz düzeyi ile ilişkili
+# olup olmadığını inceleyelim.
+
+library(MASS)
+head(survey)
+nrow(survey)
+
+tbl <-  table(survey$Smoke, survey$Exer) 
+tbl
+
+# 1.yol
+chisq.test(tbl) 
+
+# 0.4828 p değeri .05 anlamlılık düzeyinden büyük olduğu için sigara 
+# içme alışkanlığının öğrencilerin egzersiz düzeyinden bağımsız olduğu 
+# sıfır hipotezini reddedemeyiz.
+
+# 2.yol
+summary(tbl)
+
+
+```
+
+\newpage
+
+# Doğrusal Regresyon
+
+Basit doğrusal regresyon, iki nicel değişken arasındaki doğrusal ilişkiyi değerlendirmeye izin veren istatistiksel bir yaklaşımdır. Daha doğrusu, ilişkinin nicelleştirilmesini ve öneminin değerlendirilmesini sağlar. Çoklu doğrusal regresyon, bu yaklaşımın bir yanıt değişkeni (nicel) ile birkaç açıklayıcı değişken (nicel veya nitel) arasındaki doğrusal ilişkileri değerlendirmeyi mümkün kılması anlamında, basit doğrusal regresyonun bir genellemesidir.
+
+Gerçek dünyada, çoklu doğrusal regresyon, basit doğrusal regresyondan daha sık kullanılır. Bu çoğunlukla böyledir çünkü, Çoklu doğrusal regresyon, diğer değişkenlerin etkisini kontrol ederken (yani etkiyi ortadan kaldırırken) iki değişken arasındaki ilişkiyi değerlendirmeye izin verir. Veri toplamanın da kolaylaşmasıyla, veriler analiz edilirken daha fazla değişken dahil edilebilir ve dikkate alınabilir.
+
+Basit doğrusal regresyon, iki değişken arasında doğrusal bir ilişkinin varlığını değerlendirmeye ve bu bağlantıyı nicelleştirmeye izin verir. Doğrusallığın, iki değişkenin doğrusal olarak bağımlı olup olmadığını test etmesi ve ölçmesi anlamında doğrusal regresyonda güçlü bir varsayım olduğuna dikkat etmek gerekmektedir.
+
+Doğrusal regresyonu güçlü bir istatistiksel araç yapan şey, açıklayıcı/bağımsız değişken bir birim arttığında yanıtın/bağımlı değişkenin hangi nicelikle değiştiğini ölçmeye izin vermesidir. Bu kavram doğrusal regresyonda anahtardır ve aşağıda verilen türde soruları yanıtlamaya yardımcı olur:
+
+-   Reklama harcanan miktar ile belirli bir dönemdeki satışlar arasında bir bağlantı var mı?
+
+-   Tütün vergilerindeki artış tüketimini azaltır mı?
+
+-   Bölgeye bağlı olarak bir konutun en olası fiyatı nedir?
+
+-   Bir kişinin bir uyarana tepki verme süresi cinsiyete bağlı mıdır?
+
+Basit doğrusal regresyon analizinde, bağımlı değişken y ile bağımsız değişken x arasındaki ilişki doğrusal bir denklem şeklinde verilir.
+
+$$ y=\beta_0+\beta_1x $$
+
+Burada, $\beta_0$ sayısına kesme noktası denir ve regresyon doğrusu ile y ekseninin (x=0) kesişme noktasını tanımlar. $\beta_1$ sayısına regresyon katsayısı denir. Regresyon doğrusu eğiminin bir ölçüsüdür. Böylece $\beta_1$, x değeri 1 birim arttığında y değerinin ne kadar değiştiğini gösterir. Model, x ve y arasında kesin bir ilişki verdiği için deterministik bir model olarak kabul edilir.
+
+Ancak birçok durumda, iki değişken x ve y arasındaki ilişki kesin değildir. Bunun nedeni, bağımlı değişken y'nin, tahmin değişkeni x tarafından tam olarak yakalanmayan diğer bilinmeyen ve/veya rastgele süreçlerden etkilenmesidir. Böyle bir durumda veri noktaları düz bir çizgi üzerinde sıralanmaz. Bununla birlikte, veriler hala temeldeki doğrusal bir ilişkiyi takip edebilir. Bu bilinmeyenleri dikkate almak için lineer model denklemine $\varepsilon$ ile gösterilen rastgele bir hata terimi eklenir, böylece yukarıdaki deterministik modelin aksine olasılıklı bir model elde edilir.
+
+$$ y=\beta_0+\beta_1x+\varepsilon $$
+
+Burada hata terimi $\varepsilon_i$'nin bağımsız normal dağılımlı değerlerden oluştuğu varsayılır, $e_i$\~$N(0,\sigma^2)$.
+
+Doğrusal regresyon modeli hakkında aşağıdaki varsayımlar yapılır:
+
+-   Bağımlı değişken tesadüfi bir değişkendir ve normal dağılım göstermektedir.
+
+-   Tahmin hataları tesadüfidir ve normal dağılım gösterirler.
+
+-   Hatalar birbirinden bağımsızdır (otokorelasyon yoktur).
+
+-   Hata varyansı sabittir ve veriler arasında hiç değişmediği varsayılır (eşit varyanslılık-homoscedasticity).
+
+-   Eğer çoklu regresyon analizi yapılıyorsa, bağımsız değişkenlerin birbirleri ile bağlantısının olmaması gereklidir. Buna çoklu bağlantı (multicollinearity) olmaması varsayımı adı verilir.
+
+-   Bağımlı değişken ile bağımsız değişkenler arasında doğrusal bir ilişki olmalıdır.
+
+-   Gözlem sayısı parametre sayısından büyük olmalıdır.
+
+![](images/regresyon.png){fig-align="center" width="900" height="522"}
+
+```{r}
+
+library(gapminder)
+library(dplyr)
+library(ggplot2)
+
+# gapminder veri setine bakalım
+
+glimpse(gapminder)
+summary(gapminder)
+
+# kişi başına milli gelir ile yaşam beklentisi değişkenlerini görselleştirelim.
+
+ggplot(gapminder, aes(gdpPercap, lifeExp)) +
+  geom_point()
+
+ggplot(gapminder, aes(gdpPercap, lifeExp)) +
+  geom_point() + 
+  geom_smooth(method = "lm",se=TRUE)
+
+# regresyon modeli kuralım
+
+model1 <- lm(lifeExp ~ gdpPercap, data = gapminder)
+model1
+
+```
+
+::: callout-note
+### Yorum
+
+Yani burada söyleyebileceğimiz şey, GSYİH'daki her 1 artış için, yaşam beklentisinde 0.0007649 yıllık bir artış görmeyi bekleyebiliriz. Modelimizi daha iyi anlayabilmek için model üzerinde **`summary()`** fonksiyonunu kullanabiliriz. Ayrıca artıkların normalliğini de bakmak da fayda var.
+:::
+
+**`summary`** fonksiyonu ile modelimizin verilere ne kadar iyi uyduğu hakkında biraz daha bilgi alıyoruz. Genel modelimiz ve her değişken için p-değerlerini görebiliriz. $R^2$ değeri, veri kümenizdeki varyansın ne kadarının modeliniz tarafından açıklanabileceğini temel olarak, modelinizin verilere ne kadar iyi uyduğunu gösterir. Bu değer 0 ile 1 arasında değişir ve büyük olması beklenir. Genel olarak, modelinizde kaç değişken kullandığınızı telafi eden düzeltilmiş $R^2$'yi kullanırız. Aksi halde başka bir değişken eklemek her zaman $R^2$'yi artırır.
+
+```{r}
+
+summary(model1)
+
+```
+
+Modele gdp değişkenin logaritmasını alarak ve continent (kıta) ve year (yıl) değişkenlerini de ekleyerek çoklu regresyon analizi sonuçlarına bakalım.
+
+```{r}
+
+model2 <- lm(lifeExp ~ log(gdpPercap) + continent + year, data = gapminder)
+summary(model2)
+
+```
+
+::: callout-note
+### Yorum
+
+Bu sonuçlara göre $R^2$ değeri 0.79'a yükselmiştir. Değişken sayısını artırmak model başarısını artırmış görünüyor. Ayrıca katsayıların hepsinin de anlamlı çıktığı göz ardı edilmemelidir.
+
+Afrika kıtası haricinde, veri kümemizdeki kıtaların her biri için bir satır var. Bunun sebebi Afrika kıtası referans kıta olarak burada belirlenmesinden kaynaklanmaktadır. Yani kıtalara göre verileri yorumlarken Afirika kıtasına göre değerlendirme yapılacaktır. Örneğin Avrupa'da olmak ortalama olarak, Afrika'da olmaktan 12.51 yıl daha fazla yaşam beklentisine sahip olmak anlamına gelmektedir.
+:::
+
+::: callout-tip
+## Tavsiye
+
+Model sonuçlarının daha güzel ve temiz (tidy) bir formatta görünmesi için **`broom`** paketi kullanılabilir.
+:::
+
+```{r}
+
+library(broom)
+
+# gözlem düzeyinde sonuçlar
+augment(model2)
+
+#model düzeyinde sonuçlar
+glance(model2)
+
+```

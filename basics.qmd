@@ -1,0 +1,164 @@
+# Temel Fonksiyonlar
+
+## Çalışma Dizini
+
+Çalışma Dizini, üzerinde çalıştığınız veri kümeleri vb. gibi tüm gerekli dosya ve belgelerinizi içeren yerdir. Çalışma dizininizi ayarlamanın iki yolu vardır. İlk yol [**getwd ve setwd**]{.underline} işlevlerini kullanmaktır. Diğer yol ise RStudio üzerinden [**Session\>Set Working Directory**]{.underline} youluyla yapılabilir.
+
+```{r}
+getwd()
+```
+
+-   [**`dir`**]{.underline} veya [**`list.files`**]{.underline} komutları ile dizinde yer alan dosyalar öğrenilebilir.
+
+-   [**`dir.create`**]{.underline} komutu ile yeni bir klasör oluşturmak mümkündür.
+
+-   [**`file.exists`**]{.underline} kullanılarak klasörün var olup olmadığı sorgulanabilir.
+
+## Yardımcı Bilgiler
+
+**R** komutlarında *Büyük-küçük harf duyarlılığı (case sensitive)* vardır.
+
+```{r}
+a <- 5  
+print(a)  
+A <- 6  
+print(A) 
+```
+
+**Noktalı virgül (;)** işareti ile aynı satırda birden fazla kod çalıştırılabilir hale getirilir.
+
+```{r}
+x <- 1 ; y <- 2 ; z <- 3  
+x; y; z
+```
+
+Komutlar arası açıklamaları ve yorumları **#(hashtag)** ile yazabiliriz. Hastagli satırlar, kod olarak algılanıp çalıştırılmaz. Bu kısımlara yazılan kodlar ile ilgili hatırlatıcı bilgiler (comment) yazılabilir.
+
+```{r}
+#6 ile başyalan ve  10 ile  biten tamsayıları c vektörüne atayalım  
+c <- 6:10 
+c
+```
+
+-   **`ls()`** çalışma alanındaki nesne ve fonksiyonları listeler.
+
+-   **`rm(a)`** çalışma alanından **a** nesnesini siler.
+
+-   **`rm(list=ls())`** bütün çalışma alanını temizler.
+
+-   **`q()`** R'dan çıkış yapmayı sağlar.
+
+-   **`install.packages("package")`** paket yüklemeyi sağlar.
+
+-   **`library("package")`** yüklü olan paketi getirir.
+
+-   **`installed.packages()`** yüklü olan paketleri listeler
+
+-   **`options(digits=10)`** sayılarda ondalık kısmın basamak sayısını ifade eder.
+
+-   **`help()`** fonksiyonu ya da **`?`** ile bir fonksiyon hakkında yardım alınabilir. Örneğin mean fonksiyonu ile ilgili yardım almak için scripte `?mean` ya da help(mean) yazmanız ve çalıştırmanız yeterlidir. Bunun yanı sıra R Studio penceresinin sağ alt kısmındaki help alanını kullanabilirsiniz.
+
+## Atama Operatörü
+
+Bir değişkene, tabloya veya objeye değer atarken **'\<-'** veya **'='** operatörü kullanılır. '**\<-**' atama operatöründe ok hangi yöndeyse o tarafa atama yapılır. Genellikle '**\<-**' operatörü kullanılmaktadır. Çünkü '**=**' operatörü filtrelemelerde veya işlemlerdeki '**==**' ile karıştırılabilmektedir. Ayrıca fonksiyonlar içinde de kullanılabildiği için kod karmaşasına sebebiyet verebilir. Her iki operatör de aynı işlevi görmektedir.
+
+```{r}
+# a'ya 20 değerini atayalım  
+a <- 20    
+# tabloyu ya da değeri görüntülemek için nesnenin kendisi de direkt yazılabilir.  
+# ya da print fonksiyonu kullanılabilir.   
+print(a)    
+# b'ye 12 değerini atayalım  
+b <- 12  
+print(b)   
+# a ve b değerlerinden üretilen bir c değeri üretelim.   
+c <- 2 * a + 3 * b  
+print(c) 
+```
+
+**c()** ile vektör oluştutulabilir. c "combine" (birleştirmek) kelimesinin ilk harfini ifade eder. Bir değişkene birden fazla değer atamak istediğimizde kullanılır.
+
+```{r}
+# d adında bir vektör oluşturalım ve değerler atayalım.   
+d <- c(4,7,13)  
+d 
+```
+
+Bir metini değişkene atamak istersek de aşağıdaki gibi metin "" işareti içine yazılmalıdır.
+
+```{r}
+metin <- "Merhaba Arkadaşlar"  
+print(metin)
+```
+
+## Matematiksel Operatörler
+
+R ve R Studio, güçlü bir hesap makinesi olarak kabul edilebilir.
+
+```{r}
+
+3+5 
+7*8 
+88/2 
+3*(12+(15/3-2)) 
+9^2 # karesini alır 
+a <-  3 
+b <-  a^2 
+print(b) 
+log(15) #ln15 yani doğal logaritma 
+log10(1000) # 10 tabanına göre hesaplama 
+exp(12) #exponential power of the number. e (2.718) üzeri 12 
+factorial(6) # faktöriyel hesaplama yapar 
+sqrt(81) # karekör alma 
+abs(-3) # mutlak değer 
+sign(-5) # işaret bulma 
+sin(45) # sinüs 
+cos(90) # cosinüs 
+pi # pi sayısı 
+tan(pi) # tanjant
+
+```
+
+## Mantıksal Operatörler
+
+Mantıksal sorgulamalar, koşullarda ve filtrelerde kullanılmaktadır. Verilen koşul veya filtre sağlandığında **TRUE**, sağlanmadığında ise **FALSE** değerleri elde edilmektedir. Bu mantıksal operatörler ayrıca komutlar içindeki özellikleri aktifleştirmek ve pasifleştirmek için de kullanılmaktadır.
+
+Mantıksal operatörler aşağıdaki şekilde kullanılmaktadır:
+
+-   eşittir : **==**
+
+-   eşit değildir : **!=**
+
+-   küçüktür : **\<**
+
+-   küçük eşittir : **\<=**
+
+-   büyüktür : **\>**
+
+-   büyük eşittir : **\>=**
+
+-   x değil : **!x**
+
+-   x ve y : **x&y**
+
+-   x veya y: **x\|y**
+
+```{r}
+
+3 > 5
+
+# & (ve) operatörü
+# iki durumda TRUE ise sonuç TRUE döner.
+3 < 5 & 8 > 7
+
+# bir durum FALSE diğer durum TRUE ise sonuç FALSE döner.
+3 < 5 & 6 > 7
+
+# iki durumda FALSE ise sonuç FALSE döner.
+6 < 5 & 6 > 7
+
+# | (veya) operatörü
+# Her iki durumdan birisi TRUE ise TRUE döner
+(5==4) | (3!=4)
+
+```

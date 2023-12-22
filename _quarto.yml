@@ -1,0 +1,43 @@
+project:
+  type: book
+
+book:
+  title: "R Programlama"
+  author: "Muhammed Fatih Tüzen"
+  reader-mode: true
+  page-footer:
+    left: |
+      &copy; 2023, Muhammed Fatih Tüzen
+    right: |
+      Bu kitap [Quarto](https://quarto.org/) ile hazırlanmıştır.
+  cover-image: cover.png
+  chapters:
+    - index.qmd
+    - r_about.qmd
+    
+    - part: R_intro.qmd
+      chapters: 
+        - basics.qmd
+        - data_types.qmd
+        - functions.qmd
+        - if_else_for.qmd
+        - date_time.qmd
+        - strings.qmd
+        - apply.qmd
+        - import_export.qmd
+    - part : data_manipulation.qmd
+      chapters:
+        - select.qmd
+
+
+format:
+  html:
+    theme: 
+      dark: darkly
+      light: flatly
+      
+  pdf:
+    documentclass: scrreprt
+
+editor: visual
+

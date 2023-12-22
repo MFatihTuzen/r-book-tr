@@ -1,0 +1,79 @@
+# Apply Ailesi
+
+**`Apply()`** ailesi, matrislerden, dizilerden, listelerden ve veri çerçevelerinden tekrarlayan bir şekilde veri dilimlerini işlemek için fonksiyonlarla doldurulur. Bu fonksiyonlar sayesinde döngü yapılarının kullanılmasından kaçınır. Bir girdi listesi, matris veya dizi üzerinde hareket ederler ve bir veya birkaç isteğe bağlı argümanla adlandırılmış bir fonksiyon uygularlar.
+
+-   `apply()`: bir dizinin ya da matrisin satır ya da sütunlarına fonksiyon uygular.
+
+-   `lapply()`: liste üzerindeki her elemana fonksiyon uygular.
+
+-   `sapply()`: lapply fonksiyonu ile aynıdır ancak çıktısı matris ya da veri çerçevesidir.
+
+-   `mapply()`: lapply fonksiyonunun çoklu versiyonudur.
+
+-   `tapply()`: faktör ya da grup düzeyinde fonksiyon uygular.
+
+```{r}
+
+# apply
+x <-matrix(rnorm(30), nrow=5, ncol=6)
+x
+
+apply(x, 2 ,sum) # sütunlar üzerinde işlem yapar
+apply(x, 1 ,sum) # satırlar üzerinde işlem yapar
+
+apply(x, 2 ,sd)
+apply(x, 1 ,mean)
+
+mat <- matrix(c(1:12),nrow=4)
+mat
+
+apply(mat,2,function(x) x^2) # gözlemlerin karesi alınır
+apply(mat,2, quantile,probs=c(0.25,0.5,0.75)) # extra argüman eklenebilir
+
+
+# lapply
+
+a <-matrix(1:9, 3,3)
+b <-matrix(4:15, 4,3)
+c <-matrix(8:10, 3,2)
+mylist<-list(a,b,c)
+mylist
+
+lapply(mylist,mean)
+lapply(mylist,sum)
+
+lapply(mylist, function(x) x[,1]) # listedeki her matrisin ilk kolonunu çıkar
+
+mylist2 <- list(a = 1:4, b = rnorm(10), c = rnorm(20, 1), d = rnorm(100, 5))
+mylist2
+lapply(mylist2, mean)
+
+# sapply
+
+head(cars)
+
+lapply(cars,sum)
+sapply(cars,sum)
+sapply(cars,median)
+sapply(cars,mean)
+
+# mapply
+
+l1 <- list(a=c(1:5),b=c(6:10))
+l2 <- list(c=c(11:15),d=c(16:20))
+
+mapply(sum,l1$a,l1$b,l2$c,l2$d) # gözlemlerin toplamı
+mapply(prod,l1$a,l1$b,l2$c,l2$d) # gözlemlerin çarpımı
+
+# tapply
+
+df <- data.frame(x =round(runif(15,min=1,max=10)),
+                 group=sample(c(1:3),15,replace = TRUE))
+df
+
+tapply(df$x,df$group, FUN = mean)
+tapply(df$x,df$group, FUN = sum)
+tapply(df$x,df$group, FUN = length)
+tapply(df$x,df$group, FUN = range)
+
+```

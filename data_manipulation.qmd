@@ -1,0 +1,49 @@
+# Veri Manipulasyonu
+
+![](images/dplyr2.jpg){fig-align="center" width="495"}
+
+Veri manipülasyonu, veri çerçeveleri üzerinde verileri dönüştürmek, filtrelemek, birleştirmek veya yeniden düzenlemek gibi işlemleri içeren önemli bir veri bilimi becerisidir. R programlama dili, veri manipülasyonu için oldukça güçlü ve esnek bir araç sunar. Bu yazıda, R kullanarak veri manipülasyonunu nasıl yapabileceğinizi öğreneceğiz.
+
+Veri manipülasyonu için R'da yaygın olarak kullanılan iki ana kavram, "veri çerçeveleri" ve "paketler"dir. Veri çerçeveleri, verileri tablo şeklinde düzenleyen ve işleyen veri yapılarıdır. R'da veri çerçeveleri, **`data.frame`** türünden nesnelerdir. Veri manipülasyonu için kullanabileceğiniz birçok paket vardır, ancak en yaygın kullanılanlar arasında **`dplyr`** ve **`tidyr`** bulunur. Bu paketler, veri manipülasyonunu kolaylaştırmak için bir dizi işlev içerir.
+
+**`dplyr`**, RStudio'dan Hadley Wickham tarafından geliştirilmiş ve en yaygın veri işleme zorluklarını çözmenize yardımcı olan bir veri işleme dilbilgisidir. **`dplyr`** paketi, **`devtools`** paketi ve `install_github()` fonksiyonu kullanılarak **CRAN**'**dan** veya **GitHub'dan** kurulabilir. GitHub deposu genellikle paketteki en son güncellemeleri ve geliştirme sürümünü içerir.
+
+CRAN sayfasından yüklemek için;
+
+```         
+> install.packages("dplyr")
+```
+
+GitHub sayfasından yüklemek için;
+
+```         
+> install_github("hadley/dplyr")
+```
+
+dplyr paketinde sıklıkla kullanılan fonksiyonlar şunlardır:
+
+-   **`select`** : veri çerçevesinden istenilen sütunları seçer.
+
+-   **`filter`** : mantıksal koşullara dayalı olarak bir veri çerçevesinden satırları filtreler.
+
+-   **`arrange`** : satıları sıralar.
+
+-   **`rename`** : sütun isimlerini yeniden isimlendirir.
+
+-   **`mutate`** : yeni değişkenler/sütunlar ekler veya mevcut değişkenleri dönüştürür.
+
+-   **`summarise/ summarize`** : veri çerçevesindeki farklı değişkenlerin özet istatistiklerini oluşturur
+
+-   **`%>%`** (pipe) operatörü birden çok eylemi ardışık düzende zincirleme şekilde birbirine bağlamak için kullanılır.
+
+Veri manipülasyonu ile örnekler bazen küçük veri setleri oluşturulacaktır bazen de 2015 yılı ABD nüfus sayımına ilişkin **counties** veri seti kullanılacaktır. Bu veri setinde eyalet ve şehir detayında nüfus, gelir, ırk, coğrafi yapı, işgücü gibi değişkenler yer almaktadır.
+
+```{r}
+
+library(dplyr)
+counties <- readRDS("datasets/counties.rds")
+
+# veri setinin yapısı hakkında bilgi sağlar
+glimpse(counties)
+
+```

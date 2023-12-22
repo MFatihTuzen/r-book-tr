@@ -1,0 +1,473 @@
+# Veri Tipleri ve Yapıları
+
+R'da kulllanılan 5 temel veri tipi vardır. Bu veri tipleri atomic vectörler olarak da bilinir. Atomic olması vektörlerin homojen olması anlamına gelmektedir. Yani vektör içerisinde aynı veri tipinden değerler yer alabilir. Veri tipleri;
+
+-   numeric veya double (reel sayılar)
+
+-   integer (tamsayılar)
+
+-   complex (karmaşık sayılar)
+
+-   character (metinsel ifadeler)
+
+-   logical, TRUE ve FALSE (mantıksal)
+
+`typeof()` veya `class()` fonksiyonları ile veri tipi öğrenilebilir.
+
+```{r}
+
+# numeric
+
+a <- 3.5
+class(a)
+typeof(a) # typeof numeriklerin tipini double olarak gösterir.
+
+is.numeric(a) # verinin tipinin numerik olup olmadığı sorgulanır.
+
+# integer
+
+b <- 5
+class(b)
+is.integer(b)
+
+c <- 6L # integer olması için sayının sağına L yazılır.
+class(c)
+is.integer(c)
+
+class(as.integer(b)) # as. ile baslayan fonksiyonlar dönüşüm için kullanılır.
+
+# complex
+
+z <- 4 + 2i
+class(z)
+
+# character
+
+d <- "R Programlama"
+class(d)
+
+e <- "5.5"
+class(e)
+class(as.numeric(e))
+
+# logical
+
+x <- TRUE ; y <- FALSE
+class(c(x,y))
+as.integer(c(x,y)) # TRUE ve FALSE numeric olarak 1 ve 0 değerine karşılık gelir.
+
+```
+
+## Vektörler
+
+-   R'daki en temel nesneler vektörlerdir.
+
+-   Vektörler homojen yapıya sahiptir yani bütün elemanları aynı veri tipinde olmalıdır.
+
+-   Vektörler tek boyutludur.
+
+-   Bir vektör oluşturmak için kullanabilecek en temel fonksiyon **`c()`**'dir.
+
+```{r}
+
+v <- c(1,4,7,2,5,8,3,6,9)
+
+v[1] # 1. elemanını seçer
+v[3] # 3. elemanını seçer
+v[c(3,7)] # 3. ve 7. elemani secer
+v[1:6] # 1. elemandan 6. elemana kadar secer
+v[-2] # 2. elemani haric tutarak secer
+
+length(v) # vektörün uzunluğunu gösterir
+v2 <- c(v,12) # vektöre eleman ekleme
+v2
+
+# : ile başlangıç ve bitiş değerleri belli olan vektörler yaratılabilir.
+
+v3 <- 1:10
+v3
+
+v4 <- 11:20
+v4
+# Vektörler ile matematiksel işlemler yapılabilir.
+
+v3 + v4
+v3 / v4
+2 * v3 - v4
+
+# Vektörler ile ilgili kullanılabilecek bazı fonksiyonlar
+
+# seq () 
+#aritmetik bir diziden meydana gelen bir vektör oluşturmak için kullanılır. 
+seq(from = 5, to = 50, by =5) # 5 ile başlayan 50 ile biten 5şer artan vektör
+seq(from = 5, to = 50, length = 7) # 5 ile başlayan 50 ile 7 elemanlı vektör
+seq(5,1,-1) # 5 ile baslayıp 1'e kadar 1'er azaltarak vektor olusturma
+
+# rep() 
+# tekrarlı sayılar içeren vektörler oluşturulur.
+rep(10,8) # 8 tane 10 değeri olan vektör
+rep(c(1,2,3),4) # 1,2,3 vekrünün 4 defa tekrarlanması
+rep(c(1,2,3), each = 4) # each argünmanı ile sıralı ve tekrarlı vektör
+
+# rev()
+v5 <- c(3,5,6,1,NA,12,NA,8,9) # R'da NA boş gözlemi ifade eder.
+rev(v5) # vektörü tersine çevirir
+
+# rank()
+rank(v5) # elemanların sıra numarasını verir
+rank(v5, na.last = TRUE) # NA leri son sıraya atar.
+rank(v5, na.last = FALSE) # NA leri en başa koyar.
+rank(v5,na.last = NA) # NA değerlere yer verilmez
+rank(v5, na.last = "keep") # NA değerler oldukları gibi görünürler.
+
+# all()
+all(v5>5) # vektördeki tüm elemanların şartı sağlayıp sağlamadıkları test edilir.
+all(v5>0) # vektörde NA varsa sonuç NA döner
+all(v5>0, na.rm = TRUE) # NA gözlemler hariç tutularak sonuç üretir.
+
+# any()
+any(v5>6) # vektördeki en az bir elemanın şartı sağlayıp sağlamadığı test edilir.
+any(v5==9) 
+
+# unique()
+v6 <- rep(1:5,3)
+v6
+unique(v6) # tekrarlı gözlemler temizlenir
+
+# duplicated()
+duplicated(v6) # tekrarlı gözlemlerin varlığını kontrol eder
+v6[duplicated(v6)] # tekrarlı gözlemleri listeler
+
+# sort()
+sort(v5) # küçükten büyüğe sıralama yapar.
+sort(v5,decreasing = TRUE) # azalan sırada sıralama yapar.
+
+# diff()
+diff(v5) # vektörde ardışık elemanlar arasındaki farkı bulur.
+diff(na.omit(v5)) # na.omit vektördeki NA gözlemleri temizler
+
+# is.na()
+is.na(v5) # vektördeki elamanların NA olup olmadığını test eder.
+is.nan(v5) # NaN aynı zamanda bir NA'dir.
+
+# which
+which(v5==12) # 6 sayısının posizyonunu gösterir
+which.max(v5) # vektördeki maximum elemanın posizyonunu gösterir
+which.min(v5) # vektördeki minimum elemanın posizyonunu gösterir
+v5[which.min(v5)] # vektördeki minimum elemanı gösterir
+
+# Temel İstatistiksel Fonksiyonlar
+mean(v5) # NA varsa sonuç NA döner
+mean(v5, na.rm = TRUE) # aritmetik ortalama
+median(v5,na.rm = TRUE) # medyan (ortanca)
+sum(v5,na.rm = TRUE) # vektör toplamını verir
+min(v5,na.rm = TRUE) # vektörün minimum değeri
+max(v5,na.rm = TRUE) # vektörün maximum değeri
+sd(v5,na.rm = TRUE) # standart sapma
+var(v5,na.rm = TRUE) # varyans
+
+```
+
+## Matrisler
+
+-   Matrisler, iki boyutlu yani satır ve sütunları olan atomik vektörlerdir.
+
+-   **`matrix()`** fonksiyonu ile tanımlanmaktadır.
+
+-   Vektörlerin birleştirlmesi ile de matrisler oluşturulabilir. [**rbind**]{.underline}satır bazlı alt alta birleştirme, [**cbind**]{.underline} ise sütun bazlı yanyana birleştirme yapar. Burada vektörlerin aynı boyutlarda olmasına dikkat edilmesi gerekir.
+
+```{r}
+
+v1 <- c(3,4,6,8,5)
+v2 <- c(4,8,4,7,1)
+v3 <- c(2,2,5,4,6)
+v4 <- c(4,7,5,2,5)
+
+matris <- cbind(v1, v2, v3, v4)
+matris
+
+is.matrix(matris)
+dim(matris)
+
+matrix(nrow = 3, ncol = 3, 1:9)
+matrix(1:9, nrow = 3, ncol = 3, byrow = TRUE) # byrow satırlara göre oluşturur.
+
+mat <- seq(3, 21, by = 2)
+mat
+dim(mat) <- c(5,2)
+mat
+matrix(c(1,2,3,11,22,33), nrow = 2, ncol = 3, byrow = TRUE)
+
+# normal dağılımdan 0 ortamalı, 1 standart sapmalı 16 sayı üret
+MA <- rnorm(16, 0, 1)
+MA <- matrix(MA, nrow = 4, ncol = 4)
+
+# normal dağılımdan 90 ortamalı, 10 standart sapmalı 16 sayı üret
+MB <- rnorm(16, 90, 10)
+MB <- matrix(MB, nrow = 4, ncol = 4)
+
+m <- rbind(MA, MB)
+m
+
+# satır ve sütun isimlendirme
+colnames(m) <- LETTERS[1:4]
+rownames(m) <- tail(LETTERS,8)
+m
+
+#Matris Elemanlarina Erismek
+m[1,1] # 1. satır, 1.sütundak, eleman
+m[4,2] # 4. satır, 2.sütundak, eleman
+m[,2] # 2. sütun elemanları
+m[-3,] # 3. satır hariç tüm elemanlar
+
+# köşegen matris oluşturma
+diag(2,nrow=3)
+diag(1,5) # 5*5 birim matris
+
+# transpose
+t(m)
+
+# matris ile işlemler
+
+m1 <- matrix(1:4,nrow=2)
+m2 <- matrix(5:8,nrow=2)
+
+m1;m2
+m1 + m2 # matris elemanları birebir toplanır
+m1 / m2 # matris elemanları birebir toplanır
+m1 * m2 # matris elemanları birebir çarpılır
+m1 %*% m2 # matris çarpımı
+solve(m2) # matrisin tersi
+
+rowSums(m1) # satır toplamları
+rowMeans(m1) # satır ortalaması
+colSums(m1) # sütun toplamları
+colMeans(m1) # sütun ortalaması
+
+```
+
+## Listeler
+
+-   Listeler, birbirinden farklı veri tiplerine sahip vektörler, matrisler vb farklı objeleri birarada tutabilen yapılardır.
+
+-   **`list()`** ile liste oluşturulur.
+
+```{r}
+
+x <- c(3,5,7)
+y <- letters[1:10]
+z <- c(rep(TRUE,3),rep(FALSE,4))
+
+list <- list(x,y,z)
+list
+class(list) # listenin sınıfını verir
+str(list) # listenin yapısını verir
+
+names(list) <- c("numeric","karakter","mantıksal") # liste isimlendirme
+list
+
+list$numeric
+list$karakter
+list$mantıksal
+
+list[[2]]
+
+list$numeric2 <- c(4:10) # listeye eleman ekleme
+list
+
+list$numeric <- NULL # listeden eleman silme
+list
+
+unlist(list) # listeyi vektöre çevirir.
+
+```
+
+## dataframe
+
+Veri çerçevesi (dataframe), her sütunun bir değişkenin değerlerini ve her satırın her sütundan bir değer kümesini içerdiği bir tablo veya iki boyutlu dizi benzeri bir yapıdır. Bir veri çerçevesinin özellikleri şunlardır:
+
+-   Sütun adları boş olmamalıdır.
+
+-   Satır adları benzersiz olmalıdır.
+
+-   Bir veri çerçevesinde saklanan veriler sayısal, faktör veya karakter tipinde olabilir.
+
+-   Her sütun aynı sayıda veri öğesi içermelidir.
+
+**`data.frame()`** fonksiyonunu uygulayarak bir veri çerçevesi oluşturabiliriz.
+
+```{r}
+
+# data.frame oluşturma
+set.seed(12345)
+
+data <- data.frame(
+  row_num = 1:20,
+  col1 = rnorm(20),
+  col2 = runif(20), # uniform dağılımdam 20 gözlem üret
+  col3 = rbinom(20,size=5,prob = 0.5), # binom dağılımdam 20 gözlem üret
+  col4 = sample(c("TRUE","FALSE"),20,replace = TRUE),
+  col5 = sample(c(rep(c("E","K"),8),rep(NA,4))),
+  stringsAsFactors = TRUE # karakter olanlar faktör olarak değerlendirilsin
+)
+
+class(data)
+head(data) # ilk 6 gözlemi gösterir
+tail(data) # son 6 gözlemi gösterir
+tail(data,10) # son 10 gözlemi gösterir
+
+str(data) # tablonun yapısını gösterir
+summary(data) # tablonun özet istatistiklerini gösterir
+
+# veri çerçevesinden belirli sütun/ları seçmek için $ veya [] kullanılır.
+head(data$col1)
+head(data[,"col1"])
+
+# veri çerçevesinden belirli satır/ları seçmek için [] kullanılır.
+data[1:2,] 
+
+# 3. and 5. satır ile 2. ve 4. kolon
+data[c(3,5),c(2,4)]
+
+# koşula göre veriler seçilebilir
+data$row_num > 12 # TRUE veya FALSE döner
+data[data$row_num > 12,] # koşula göre tablonu değerleri döner
+
+# subset ile tablo filtrelenebilir.
+subset(data, 
+       row_num >= 10 & col4 == 'TRUE',
+       select = c(row_num, col1, col2,col4))
+
+# names veya colnames ile sütun isimleri elde edilir.
+names(data)
+colnames(data)
+
+# vektör ile sütun seçimi
+cols <- c("col1","col2","col5")
+head(data[cols])
+
+# sütun silme
+data$col1 <- NULL
+head(data)
+
+# sütun ekleme
+data$col1 <- rnorm(20)
+head(data)
+
+# sütunları sıralama
+head(data[c("row_num","col1","col2","col3","col4","col5")])
+
+# sıralama
+head(data[order(data$col3),]) # artan
+head(data[order(-data$row_num),]) # azalan
+head(data[order(data$col3,-data$row_num),])
+
+# kayıp gözlemler (missing values)
+tail(is.na(data))
+tail(is.na(data$col5))
+data[is.na(data$col5),]
+data[!is.na(data$col5),]
+
+rowSums(is.na(data)) # satılardaki toplam kayıp gözlem sayısı
+colSums(is.na(data)) # sütunlardaki toplam kayıp gözlem sayısı
+sum(is.na(data)) # tablodaki toplam kayıp gözlem sayısı
+
+complete.cases(data) # satırlarda eksik gözlemlerin durumu
+data[complete.cases(data),]
+data[!complete.cases(data),]
+
+na.omit(data) # NA olan satırları siler.
+
+```
+
+## tibble
+
+**`tibble`**, Hadley Wickham tarafından geliştirilen ve **`dplyr`** paketi ile sıkça kullanılan bir veri yapısıdır. **`tibble`**, **`data.frame`**'e benzerdir, ancak bazı önemli farklar vardır. **`tibble`**, daha düzenli ve okunabilir bir çıktı üretir ve bazı varsayılan davranışları **`data.frame`**'den farklıdır. Modern data.frame olarak tanımlanmaktadır.
+
+```{r}
+
+# tibble örneği
+library(tibble)
+
+ogrenciler_tibble <- tribble(
+  ~Ad,     ~Yas, ~Cinsiyet,
+  "Ali",   20,   "Erkek",
+  "Ayşe",  22,   "Kadın",
+  "Mehmet", 21,  "Erkek",
+  "Zeynep", 23,  "Kadın"
+)
+
+# tibble'ı görüntüleme
+print(ogrenciler_tibble)
+
+```
+
+Yukarıdaki örnekte, "ogrenciler_tibble" adında bir **`tibble`** oluşturuldu. **`tibble`**, sütun adlarını ve içeriği daha okunabilir bir şekilde görüntüler ve sütunların başlık ve veri tipi (**`~Ad`**, **`~Yas`**, **`~Cinsiyet`**) gibi özelliklerini korur.
+
+::: callout-note
+## Not
+
+Hem **`dataframe`** hem de **`tibble`** veri analizi ve işleme işlemlerinde kullanışlıdır. Hangi veri yapısını kullanacağınız, projenizin gereksinimlerine ve kişisel tercihinize bağlıdır. Özellikle veri analizi için **`dplyr`** gibi paketlerle çalışırken **`tibble`** tercih edilir.
+:::
+
+## Faktörler
+
+-   Faktörler, verileri kategorilere ayırmak ve düzeyler halinde depolamak için kullanılan veri nesneleridir. Hem karakter hem de tam sayıları depolayabilirler.
+
+-   "Erkek,"Kadın" ve Doğru, Yanlış vb. gibi istatistiksel modelleme için veri analizinde faydalıdırlar.
+
+-   Faktörler, girdi olarak bir vektör alınarak **`factor()`** işlevi kullanılarak oluşturulur.
+
+```{r}
+
+data <- c(rep("erkek",5),rep("kadın",7))
+print(data)
+is.factor(data)
+
+# veriyi faktöre çevirme
+factor_data <- factor(data)
+
+print(factor_data)
+print(is.factor(factor_data))
+
+as.numeric(factor_data)
+
+# data frame için vektörler oluşturalım
+boy <- c(132,151,162,139,166,147,122)
+kilo <- c(48,49,66,53,67,52,40)
+cinsiyet <- c("erkek","erkek","kadın","kadın","erkek","kadın","erkek")
+
+# data frame
+df <- data.frame(boy,kilo,cinsiyet)
+str(df)
+df$cinsiyet <- factor(cinsiyet)
+str(df)
+
+print(is.factor(df$cinsiyet))
+
+# cinsiyet kolononun seviyeleri
+print(df$cinsiyet)
+
+# seviyelerin sırası değiştirilebilir.
+
+df2 <- c(rep("düşük",4),rep("orta",5),rep("yüksek",2))
+
+factor_df2 <- factor(df2)
+print(factor_df2)
+
+order_df2 <- factor(factor_df2,levels = c("yüksek","orta","düşük"))
+print(order_df2)
+
+# ordered=TRUE ile seviyelerin sıralı olduğu ifade edilir
+order_df2 <- factor(factor_df2,levels = c("yüksek","orta","düşük"),ordered = TRUE)
+print(order_df2)
+
+# Faktör seviyesi üretme
+
+# gl() fonksiyonunu kullanarak faktör seviyeleri üretebiliriz. 
+# Girdi olarak kaç seviye ve her seviyeden kaç tane sayı oalcağı belirtilir.
+
+faktor <- gl(n=3, k=4, labels = c("level1", "level2","level3"),ordered = TRUE)
+print(faktor)
+
+```

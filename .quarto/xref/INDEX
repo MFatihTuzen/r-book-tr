@@ -1,0 +1,55 @@
+{
+  "index.qmd": {
+    "index.html": "c5c0c740"
+  },
+  "intro.qmd": {
+    "intro.html": "12c4c4b9"
+  },
+  "summary.qmd": {
+    "summary.html": "3e62d55e"
+  },
+  "references.qmd": {
+    "references.html": "56709075"
+  },
+  "R_intro.qmd": {
+    "R_intro.html": "4c864d6d",
+    "r_intro.html": "0acf59dd"
+  },
+  "r_about.qmd": {
+    "r_about.html": "69bace72"
+  },
+  "r_intro.qmd": {
+    "R_intro.html": "30b9769c",
+    "r_intro.html": "44ce6246"
+  },
+  "data_manipulation.qmd": {
+    "data_manipulation.html": "cbae38e9"
+  },
+  "select.qmd": {
+    "select.html": "69590072"
+  },
+  "basics.qmd": {
+    "basics.html": "8914c3da"
+  },
+  "data_types.qmd": {
+    "data_types.html": "67093727"
+  },
+  "functions.qmd": {
+    "functions.html": "71654b17"
+  },
+  "if_else_for.qmd": {
+    "if_else_for.html": "4f7bf20d"
+  },
+  "date_time.qmd": {
+    "date_time.html": "97d2cc04"
+  },
+  "strings.qmd": {
+    "strings.html": "f6daef37"
+  },
+  "apply.qmd": {
+    "apply.html": "ad26b2bd"
+  },
+  "import_export.qmd": {
+    "import_export.html": "d24ccc49"
+  }
+}

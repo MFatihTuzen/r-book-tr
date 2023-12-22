@@ -1,0 +1,49 @@
+# Metin İşlemleri
+
+R'de bir çift tek tırnak veya çift tırnak içine yazılan herhangi bir değer, bir karakter olarak kabul edilir. Karakter yapısına sahip olan verilerin analizi özellikle metin madenciliği konusunda kullanışlıdır. Karakter nesneleri üzerinde çalışmak için kullanılabilecek birçok fonksiyon vardır.
+
+```{r}
+
+# as.character
+as.character(3.14)
+class(as.character(3.14))
+
+# paste and paste0 karakter verilerini birleştirir
+
+first <- "Fatih"
+last <- "Tüzen"
+paste(first,last) # default olarak arada boşluk bırakır
+paste0(first,last) # default olarak arada boşluk yoktur
+paste("R","Python","SPSS",sep = "-")
+
+# grep fonksiyonu metin vektörünün içinde belirli bir deseni arar
+
+x <- c("R programı","program","istatistik","programlama dili","bilgisayar","matematik")
+grep("program",x)
+grep("^ist",x) # ist ile başlayan ifdelerin olduğu yerler
+grep("tik$",x) # tik ile biten ifdelerin olduğu yerler
+
+# grepl TRUE-FALSE olarak sonuç döndürür
+grepl("tik$",x) # tik ile biten ifdelerin olduğu yerler
+x[grep("tik$",x)] # tik ile biten ifdelerin olduğu yerler
+x[grepl("tik$",x)] # tik ile biten ifdelerin olduğu yerler
+
+# nchar karakter uzunluğunu verir
+nchar(x)
+nchar("R Programlama") # boşluklar da sayılır!
+
+# tolower ve toupper 
+toupper("program") # karakteri büyük harf yapar
+tolower(c("SPSS","R","PYTHON")) # karakteri küçük harf yapar
+
+# substr ve substring ile karakter parçalama yapılır
+substr("123456789",start = 3, stop = 6)
+substring("123456789", first =3, last = 6)
+
+x <- "R Programlama"
+substr(x,nchar(x)-3,nchar(x)) # son 4 karakteri getir
+
+# strsplit karakteri bölme işini yapar
+strsplit("Ankara;İstanbul;İzmir",split = ";")
+
+```
