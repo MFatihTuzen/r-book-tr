@@ -46,7 +46,7 @@ Doğrusal regresyon modeli hakkında aşağıdaki varsayımlar yapılır:
 
 ![](images/regresyon.png){fig-align="center" width="900" height="522"}
 
-```{r}
+```{r message=FALSE}
 
 library(gapminder)
 library(dplyr)
