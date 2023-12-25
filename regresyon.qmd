@@ -76,7 +76,7 @@ model1
 ::: callout-note
 ### Yorum
 
-Yani burada söyleyebileceğimiz şey, GSYİH'daki her 1 artış için, yaşam beklentisinde 0.0007649 yıllık bir artış görmeyi bekleyebiliriz. Modelimizi daha iyi anlayabilmek için model üzerinde **`summary()`** fonksiyonunu kullanabiliriz. Ayrıca artıkların normalliğini de bakmak da fayda var.
+Yani burada söyleyebileceğimiz şey, GSYH'daki her 1 artış için, yaşam beklentisinde 0.0007649 yıllık bir artış görmeyi bekleyebiliriz. Modelimizi daha iyi anlayabilmek için model üzerinde **`summary()`** fonksiyonunu kullanabiliriz. Ayrıca artıkların normalliğini de bakmak da fayda var.
 :::
 
 **`summary`** fonksiyonu ile modelimizin verilere ne kadar iyi uyduğu hakkında biraz daha bilgi alıyoruz. Genel modelimiz ve her değişken için p-değerlerini görebiliriz. $R^2$ değeri, veri kümenizdeki varyansın ne kadarının modeliniz tarafından açıklanabileceğini temel olarak, modelinizin verilere ne kadar iyi uyduğunu gösterir. Bu değer 0 ile 1 arasında değişir ve büyük olması beklenir. Genel olarak, modelinizde kaç değişken kullandığınızı telafi eden düzeltilmiş $R^2$'yi kullanırız. Aksi halde başka bir değişken eklemek her zaman $R^2$'yi artırır.
