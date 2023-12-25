@@ -51,5 +51,20 @@
   },
   "import_export.qmd": {
     "import_export.html": "d24ccc49"
+  },
+  "data_analysis.qmd": {
+    "data_analysis.html": "4a56d4cb"
+  },
+  "ggplot2.qmd": {
+    "ggplot2.html": "11ab2336"
+  },
+  "data_preprocess.qmd": {
+    "data_preprocess.html": "403125aa"
+  },
+  "statistics.qmd": {
+    "statistics.html": "e4b119bd"
+  },
+  "regresyon.qmd": {
+    "regresyon.html": "e59ad82b"
   }
 }

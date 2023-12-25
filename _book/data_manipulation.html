@@ -64,7 +64,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
-<link href="./select.html" rel="next">
+<link href="./data_analysis.html" rel="next">
 <link href="./import_export.html" rel="prev">
 <script src="site_libs/quarto-html/quarto.js"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
@@ -72,11 +72,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="site_libs/quarto-html/anchor.min.js"></script>
 <link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
 <link href="site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-dark.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-dark.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
 <script src="site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
 <link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
-<link href="site_libs/bootstrap/bootstrap-dark.min.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<link href="site_libs/bootstrap/bootstrap-dark.min.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
 <script id="quarto-search-options" type="application/json">{
   "location": "sidebar",
   "copy-button": false,
@@ -99,6 +99,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 }</script>
 
 
+<link rel="stylesheet" href="styles.css">
 </head>
 
 <body class="nav-sidebar floating">
@@ -215,37 +216,71 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
       </ul>
   </li>
-        <li class="sidebar-item sidebar-item-section">
-      <div class="sidebar-item-container"> 
-            <a href="./data_manipulation.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text">Veri Manipulasyonu</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true" aria-label="Toggle section">
-            <i class="bi bi-chevron-right ms-2"></i>
-          </a> 
-      </div>
-      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
-          <li class="sidebar-item">
+        <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./select.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">select</span></span></a>
+  <a href="./data_manipulation.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">Veri Manipulasyonu</span></a>
   </div>
 </li>
-      </ul>
-  </li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./data_analysis.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Keşifçi Veri Analizi</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./ggplot2.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">ggplot2 ile Veri Görselleştirme</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./data_preprocess.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Veri Ön İşleme</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./statistics.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">R ile Temel İstatistik</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./regresyon.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Doğrusal Regresyon</span></span></a>
+  </div>
+</li>
     </ul>
     </div>
 </nav>
 <div id="quarto-sidebar-glass" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass"></div>
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">İçindekiler</h2>
+   
+  <ul>
+  <li><a href="#select" id="toc-select" class="nav-link active" data-scroll-target="#select">select</a></li>
+  <li><a href="#arrange" id="toc-arrange" class="nav-link" data-scroll-target="#arrange">arrange</a></li>
+  <li><a href="#filter" id="toc-filter" class="nav-link" data-scroll-target="#filter">filter</a></li>
+  <li><a href="#mutate" id="toc-mutate" class="nav-link" data-scroll-target="#mutate">mutate</a></li>
+  <li><a href="#rename" id="toc-rename" class="nav-link" data-scroll-target="#rename">rename</a></li>
+  <li><a href="#count" id="toc-count" class="nav-link" data-scroll-target="#count">count</a></li>
+  <li><a href="#group_by-ve-summarize" id="toc-group_by-ve-summarize" class="nav-link" data-scroll-target="#group_by-ve-summarize">group_by ve summarize</a></li>
+  <li><a href="#case-when" id="toc-case-when" class="nav-link" data-scroll-target="#case-when">case when</a></li>
+  <li><a href="#reshaping" id="toc-reshaping" class="nav-link" data-scroll-target="#reshaping">reshaping</a></li>
+  <li><a href="#join" id="toc-join" class="nav-link" data-scroll-target="#join">join</a></li>
+  </ul>
+<div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.com/MFatihTuzen/r-book-tr/edit/main/data_manipulation.qmd" class="toc-action">Edit this page</a></p><p><a href="https://github.com/MFatihTuzen/r-book-tr/issues/new" class="toc-action">Report an issue</a></p></div></div></nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Veri Manipulasyonu</h1>
+<h1 class="title"><span id="part-manipulation" class="quarto-section-identifier">Veri Manipulasyonu</span></h1>
 </div>
 
 
@@ -282,27 +317,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li><p><strong><code>summarise/ summarize</code></strong> : veri çerçevesindeki farklı değişkenlerin özet istatistiklerini oluşturur</p></li>
 <li><p><strong><code>%&gt;%</code></strong> (pipe) operatörü birden çok eylemi ardışık düzende zincirleme şekilde birbirine bağlamak için kullanılır.</p></li>
 </ul>
-<p>Veri manipülasyonu ile örnekler bazen küçük veri setleri oluşturulacaktır bazen de 2015 yılı ABD nüfus sayımına ilişkin <strong>counties</strong> veri seti kullanılacaktır. Bu veri setinde eyalet ve şehir detayında nüfus, gelir, ırk, coğrafi yapı, işgücü gibi değişkenler yer almaktadır.</p>
+<p>Veri manipülasyonu ile örnekler için bazen küçük veri setleri oluşturulacaktır bazen de 2015 yılı ABD nüfus sayımına ilişkin <a href="https://github.com/MFatihTuzen/r-book-tr/blob/main/datasets/counties.rds">counties</a> veri seti kullanılacaktır. Bu veri setinde eyalet ve şehir detayında nüfus, gelir, ırk, coğrafi yapı, işgücü gibi değişkenler yer almaktadır.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stderr">
-<pre><code>
-Attaching package: 'dplyr'</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>The following objects are masked from 'package:stats':
-
-    filter, lag</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>The following objects are masked from 'package:base':
-
-    intersect, setdiff, setequal, union</code></pre>
-</div>
-<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>counties <span class="ot">&lt;-</span> <span class="fu">readRDS</span>(<span class="st">"datasets/counties.rds"</span>)</span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="co"># veri setinin yapısı hakkında bilgi sağlar</span></span>
-<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a><span class="fu">glimpse</span>(counties)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>counties <span class="ot">&lt;-</span> <span class="fu">readRDS</span>(<span class="st">"datasets/counties.rds"</span>)</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="co"># veri setinin yapısı hakkında bilgi sağlar</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="fu">glimpse</span>(counties)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Rows: 3,138
 Columns: 40
@@ -348,8 +369,1176 @@ $ unemployment       &lt;dbl&gt; 7.6, 7.5, 17.6, 8.3, 7.7, 18.0, 10.9, 12.3, 8.9
 $ land_area          &lt;dbl&gt; 594.44, 1589.78, 884.88, 622.58, 644.78, 622.81, 77…</code></pre>
 </div>
 </div>
+<section id="select" class="level2">
+<h2 class="anchored" data-anchor-id="select">select</h2>
+<p>Tabloyu (veri çerçevesi) seçmek ve dönüştürmek için R’da <strong><code>dplyr</code></strong> paketinde bulunan <strong><code>select()</code></strong> fonksiyonu oldukça kullanışlıdır. Bu fonksiyon, belirli sütunları seçmek veya sütun adlarını değiştirmek için kullanılır. <strong><code>select()</code></strong> fonksiyonunu kullanarak veri çerçevesinde sütunları seçme ve dönüştürme işlemlerinin nasıl yapıldığına dair aşağıda örnekler mevcuttur.</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Not
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><strong><code>select()</code></strong> fonksiyonu ayrıca sütunları seçerken veya döndürürken bazı özel işlevler de kullanmanıza olanak tanır. Örneğin, <strong><code>starts_with()</code></strong>, <strong><code>ends_with()</code></strong>, <strong><code>contains()</code></strong> gibi işlevleri kullanarak sütun adlarının belirli bir örüntüyü karşılayanları seçebilirsiniz. Bu fonksiyon, veri manipülasyonu işlemlerinde oldukça kullanışlıdır ve veri çerçevelerini istediğiniz şekilde özelleştirmenize yardımcı olur.</p>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># belirli sütunları seçmek</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>counties <span class="sc">%&gt;%</span></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="fu">select</span>(state, county, population, unemployment)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 3,138 × 4
+   state   county   population unemployment
+   &lt;chr&gt;   &lt;chr&gt;         &lt;dbl&gt;        &lt;dbl&gt;
+ 1 Alabama Autauga       55221          7.6
+ 2 Alabama Baldwin      195121          7.5
+ 3 Alabama Barbour       26932         17.6
+ 4 Alabama Bibb          22604          8.3
+ 5 Alabama Blount        57710          7.7
+ 6 Alabama Bullock       10678         18  
+ 7 Alabama Butler        20354         10.9
+ 8 Alabama Calhoun      116648         12.3
+ 9 Alabama Chambers      34079          8.9
+10 Alabama Cherokee      26008          7.9
+# ℹ 3,128 more rows</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># belli aralıkta bütün sütunların seçilmesi</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>counties <span class="sc">%&gt;%</span></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="fu">select</span>(state, county, drive<span class="sc">:</span>work_at_home)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 3,138 × 8
+   state   county   drive carpool transit  walk other_transp work_at_home
+   &lt;chr&gt;   &lt;chr&gt;    &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt; &lt;dbl&gt;        &lt;dbl&gt;        &lt;dbl&gt;
+ 1 Alabama Autauga   87.5     8.8     0.1   0.5          1.3          1.8
+ 2 Alabama Baldwin   84.7     8.8     0.1   1            1.4          3.9
+ 3 Alabama Barbour   83.8    10.9     0.4   1.8          1.5          1.6
+ 4 Alabama Bibb      83.2    13.5     0.5   0.6          1.5          0.7
+ 5 Alabama Blount    84.9    11.2     0.4   0.9          0.4          2.3
+ 6 Alabama Bullock   74.9    14.9     0.7   5            1.7          2.8
+ 7 Alabama Butler    84.5    12.4     0     0.8          0.6          1.7
+ 8 Alabama Calhoun   85.3     9.4     0.2   1.2          1.2          2.7
+ 9 Alabama Chambers  85.1    11.9     0.2   0.3          0.4          2.1
+10 Alabama Cherokee  83.9    12.1     0.2   0.6          0.7          2.5
+# ℹ 3,128 more rows</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co"># belirli bir ifadeyi içeren sütunları seçmek</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>counties <span class="sc">%&gt;%</span></span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a><span class="fu">select</span>(state, county, <span class="fu">contains</span>(<span class="st">"employed"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 3,138 × 4
+   state   county   employed self_employed
+   &lt;chr&gt;   &lt;chr&gt;       &lt;dbl&gt;         &lt;dbl&gt;
+ 1 Alabama Autauga     23986           5.5
+ 2 Alabama Baldwin     85953           5.8
+ 3 Alabama Barbour      8597           7.3
+ 4 Alabama Bibb         8294           6.7
+ 5 Alabama Blount      22189           4.2
+ 6 Alabama Bullock      3865           5.4
+ 7 Alabama Butler       7813           6.2
+ 8 Alabama Calhoun     47401           5  
+ 9 Alabama Chambers    13689           2.8
+10 Alabama Cherokee    10155           7.9
+# ℹ 3,128 more rows</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co"># belirli bir ifade ile başyalan sütunları seçmek</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>counties <span class="sc">%&gt;%</span></span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a><span class="fu">select</span>(state, county, <span class="fu">starts_with</span>(<span class="st">"income"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 3,138 × 6
+   state   county   income income_err income_per_cap income_per_cap_err
+   &lt;chr&gt;   &lt;chr&gt;     &lt;dbl&gt;      &lt;dbl&gt;          &lt;dbl&gt;              &lt;dbl&gt;
+ 1 Alabama Autauga   51281       2391          24974               1080
+ 2 Alabama Baldwin   50254       1263          27317                711
+ 3 Alabama Barbour   32964       2973          16824                798
+ 4 Alabama Bibb      38678       3995          18431               1618
+ 5 Alabama Blount    45813       3141          20532                708
+ 6 Alabama Bullock   31938       5884          17580               2055
+ 7 Alabama Butler    32229       1793          18390                714
+ 8 Alabama Calhoun   41703        925          21374                489
+ 9 Alabama Chambers  34177       2949          21071               1366
+10 Alabama Cherokee  36296       1710          21811               1556
+# ℹ 3,128 more rows</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="co"># belirli bir ifade ile biten sütunları seçmek</span></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>counties <span class="sc">%&gt;%</span></span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a><span class="fu">select</span>(state, county, <span class="fu">ends_with</span>(<span class="st">"work"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 3,138 × 5
+   state   county   private_work public_work family_work
+   &lt;chr&gt;   &lt;chr&gt;           &lt;dbl&gt;       &lt;dbl&gt;       &lt;dbl&gt;
+ 1 Alabama Autauga          73.6        20.9         0  
+ 2 Alabama Baldwin          81.5        12.3         0.4
+ 3 Alabama Barbour          71.8        20.8         0.1
+ 4 Alabama Bibb             76.8        16.1         0.4
+ 5 Alabama Blount           82          13.5         0.4
+ 6 Alabama Bullock          79.5        15.1         0  
+ 7 Alabama Butler           77.4        16.2         0.2
+ 8 Alabama Calhoun          74.1        20.8         0.1
+ 9 Alabama Chambers         85.1        12.1         0  
+10 Alabama Cherokee         73.1        18.5         0.5
+# ℹ 3,128 more rows</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="co"># belirli sütunları hariç tutarak seçmek</span></span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>counties <span class="sc">%&gt;%</span></span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a><span class="fu">select</span>(census_id<span class="sc">:</span>population,<span class="sc">-</span><span class="fu">c</span>(men<span class="sc">:</span>land_area))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 3,138 × 6
+   census_id state   county   region metro    population
+   &lt;chr&gt;     &lt;chr&gt;   &lt;chr&gt;    &lt;chr&gt;  &lt;chr&gt;         &lt;dbl&gt;
+ 1 1001      Alabama Autauga  South  Metro         55221
+ 2 1003      Alabama Baldwin  South  Metro        195121
+ 3 1005      Alabama Barbour  South  Nonmetro      26932
+ 4 1007      Alabama Bibb     South  Metro         22604
+ 5 1009      Alabama Blount   South  Metro         57710
+ 6 1011      Alabama Bullock  South  Nonmetro      10678
+ 7 1013      Alabama Butler   South  Nonmetro      20354
+ 8 1015      Alabama Calhoun  South  Metro        116648
+ 9 1017      Alabama Chambers South  Nonmetro      34079
+10 1019      Alabama Cherokee South  Nonmetro      26008
+# ℹ 3,128 more rows</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="co"># belirli veri tipindeki sütunları seçmek</span></span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>counties <span class="sc">%&gt;%</span></span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a><span class="fu">select</span>(<span class="fu">where</span>(is.character))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 3,138 × 5
+   census_id state   county   region metro   
+   &lt;chr&gt;     &lt;chr&gt;   &lt;chr&gt;    &lt;chr&gt;  &lt;chr&gt;   
+ 1 1001      Alabama Autauga  South  Metro   
+ 2 1003      Alabama Baldwin  South  Metro   
+ 3 1005      Alabama Barbour  South  Nonmetro
+ 4 1007      Alabama Bibb     South  Metro   
+ 5 1009      Alabama Blount   South  Metro   
+ 6 1011      Alabama Bullock  South  Nonmetro
+ 7 1013      Alabama Butler   South  Nonmetro
+ 8 1015      Alabama Calhoun  South  Metro   
+ 9 1017      Alabama Chambers South  Nonmetro
+10 1019      Alabama Cherokee South  Nonmetro
+# ℹ 3,128 more rows</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="co"># select ile kolon adı değiştirmek</span></span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>counties <span class="sc">%&gt;%</span></span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a><span class="fu">select</span>(census_id,<span class="at">pop =</span> population)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 3,138 × 2
+   census_id    pop
+   &lt;chr&gt;      &lt;dbl&gt;
+ 1 1001       55221
+ 2 1003      195121
+ 3 1005       26932
+ 4 1007       22604
+ 5 1009       57710
+ 6 1011       10678
+ 7 1013       20354
+ 8 1015      116648
+ 9 1017       34079
+10 1019       26008
+# ℹ 3,128 more rows</code></pre>
+</div>
+</div>
+</section>
+<section id="arrange" class="level2">
+<h2 class="anchored" data-anchor-id="arrange">arrange</h2>
+<p><strong><code>dplyr</code></strong> paketinde bulunan <strong><code>arrange()</code></strong> fonksiyonu, veri çerçevesindeki satırları belirli bir sıraya göre düzenlemek için kullanılır. Bu sıralama işlemi, bir veya daha fazla sütunun değerlerine göre yapılabilir. <strong><code>arrange()</code></strong> fonksiyonu, veri analizi ve veri keşfi sırasında verilerinizi anlamak ve analiz etmek için önemli bir araçtır.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>counties_selected <span class="ot">&lt;-</span> counties <span class="sc">%&gt;%</span></span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a><span class="fu">select</span>(state, county, population, unemployment)</span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a><span class="co"># artan sıralama (ascending)</span></span>
+<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a>counties_selected <span class="sc">%&gt;%</span></span>
+<span id="cb21-6"><a href="#cb21-6" aria-hidden="true" tabindex="-1"></a><span class="fu">arrange</span>(population)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 3,138 × 4
+   state      county    population unemployment
+   &lt;chr&gt;      &lt;chr&gt;          &lt;dbl&gt;        &lt;dbl&gt;
+ 1 Hawaii     Kalawao           85          0  
+ 2 Texas      King             267          5.1
+ 3 Nebraska   McPherson        433          0.9
+ 4 Montana    Petroleum        443          6.6
+ 5 Nebraska   Arthur           448          4  
+ 6 Nebraska   Loup             548          0.7
+ 7 Nebraska   Blaine           551          0.7
+ 8 New Mexico Harding          565          6  
+ 9 Texas      Kenedy           565          0  
+10 Colorado   San Juan         606         13.8
+# ℹ 3,128 more rows</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="co"># azalan sıralama (descending)</span></span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>counties_selected <span class="sc">%&gt;%</span></span>
+<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a><span class="fu">arrange</span>(<span class="fu">desc</span>(population))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 3,138 × 4
+   state      county      population unemployment
+   &lt;chr&gt;      &lt;chr&gt;            &lt;dbl&gt;        &lt;dbl&gt;
+ 1 California Los Angeles   10038388         10  
+ 2 Illinois   Cook           5236393         10.7
+ 3 Texas      Harris         4356362          7.5
+ 4 Arizona    Maricopa       4018143          7.7
+ 5 California San Diego      3223096          8.7
+ 6 California Orange         3116069          7.6
+ 7 Florida    Miami-Dade     2639042         10  
+ 8 New York   Kings          2595259         10  
+ 9 Texas      Dallas         2485003          7.6
+10 New York   Queens         2301139          8.6
+# ℹ 3,128 more rows</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="co"># birden fazla sütun seçerek sıralama</span></span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>counties_selected <span class="sc">%&gt;%</span></span>
+<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a><span class="fu">arrange</span>(state,<span class="fu">desc</span>(population))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 3,138 × 4
+   state   county     population unemployment
+   &lt;chr&gt;   &lt;chr&gt;           &lt;dbl&gt;        &lt;dbl&gt;
+ 1 Alabama Jefferson      659026          9.1
+ 2 Alabama Mobile         414251          9.8
+ 3 Alabama Madison        346438          8.5
+ 4 Alabama Montgomery     228138          8.8
+ 5 Alabama Shelby         203530          5.5
+ 6 Alabama Tuscaloosa     200458          7.6
+ 7 Alabama Baldwin        195121          7.5
+ 8 Alabama Lee            150982          7.3
+ 9 Alabama Morgan         119786          9.9
+10 Alabama Calhoun        116648         12.3
+# ℹ 3,128 more rows</code></pre>
+</div>
+</div>
+</section>
+<section id="filter" class="level2">
+<h2 class="anchored" data-anchor-id="filter">filter</h2>
+<p><strong><code>dplyr</code></strong> paketindeki <strong><code>filter()</code></strong> fonksiyonu, veri çerçevesinde belirli bir koşulu karşılayan satırları seçmek için kullanılır. Bu fonksiyon, veri analizi sırasında verilerinizi filtrelemek ve istediğiniz verileri elde etmek için oldukça kullanışlıdır. <strong><code>filter()</code></strong> fonksiyonu, veri çerçevesindeki satırları seçerken belirli sütunlardaki değerlere dayalı koşulları uygulamanıza olanak tanır.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="co"># sadece New York'u filtrele</span></span>
+<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a>counties_selected <span class="sc">%&gt;%</span></span>
+<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a><span class="fu">arrange</span>(<span class="fu">desc</span>(population)) <span class="sc">%&gt;%</span></span>
+<span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a><span class="fu">filter</span>(state <span class="sc">==</span> <span class="st">"New York"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 62 × 4
+   state    county      population unemployment
+   &lt;chr&gt;    &lt;chr&gt;            &lt;dbl&gt;        &lt;dbl&gt;
+ 1 New York Kings          2595259         10  
+ 2 New York Queens         2301139          8.6
+ 3 New York New York       1629507          7.5
+ 4 New York Suffolk        1501373          6.4
+ 5 New York Bronx          1428357         14  
+ 6 New York Nassau         1354612          6.4
+ 7 New York Westchester     967315          7.6
+ 8 New York Erie            921584          7  
+ 9 New York Monroe          749356          7.7
+10 New York Richmond        472481          6.9
+# ℹ 52 more rows</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="co"># işsizlik oranı 6'dan küçük olanları filtrele</span></span>
+<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a>counties_selected <span class="sc">%&gt;%</span></span>
+<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a><span class="fu">arrange</span>(<span class="fu">desc</span>(population)) <span class="sc">%&gt;%</span></span>
+<span id="cb29-4"><a href="#cb29-4" aria-hidden="true" tabindex="-1"></a><span class="fu">filter</span>(unemployment <span class="sc">&lt;</span> <span class="dv">6</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 949 × 4
+   state    county       population unemployment
+   &lt;chr&gt;    &lt;chr&gt;             &lt;dbl&gt;        &lt;dbl&gt;
+ 1 Virginia Fairfax         1128722          4.9
+ 2 Utah     Salt Lake       1078958          5.8
+ 3 Hawaii   Honolulu         984178          5.6
+ 4 Texas    Collin           862215          4.9
+ 5 Texas    Denton           731851          5.7
+ 6 Texas    Fort Bend        658331          5.1
+ 7 Kansas   Johnson          566814          4.5
+ 8 Maryland Anne Arundel     555280          5.9
+ 9 Colorado Jefferson        552344          5.9
+10 Utah     Utah             551957          5.5
+# ℹ 939 more rows</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="co"># birden fazla koşul</span></span>
+<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a>counties_selected <span class="sc">%&gt;%</span></span>
+<span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a><span class="fu">arrange</span>(<span class="fu">desc</span>(population)) <span class="sc">%&gt;%</span></span>
+<span id="cb31-4"><a href="#cb31-4" aria-hidden="true" tabindex="-1"></a><span class="fu">filter</span>(state <span class="sc">==</span> <span class="st">"New York"</span>,unemployment <span class="sc">&lt;</span> <span class="dv">6</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 5 × 4
+  state    county     population unemployment
+  &lt;chr&gt;    &lt;chr&gt;           &lt;dbl&gt;        &lt;dbl&gt;
+1 New York Tompkins       103855          5.9
+2 New York Chemung         88267          5.4
+3 New York Madison         72427          5.1
+4 New York Livingston      64801          5.4
+5 New York Seneca          35144          5.5</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="co"># veya kullanımı</span></span>
+<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a>counties_selected <span class="sc">%&gt;%</span></span>
+<span id="cb33-3"><a href="#cb33-3" aria-hidden="true" tabindex="-1"></a><span class="fu">arrange</span>(<span class="fu">desc</span>(population)) <span class="sc">%&gt;%</span></span>
+<span id="cb33-4"><a href="#cb33-4" aria-hidden="true" tabindex="-1"></a><span class="fu">filter</span>(state <span class="sc">==</span> <span class="st">"New York"</span><span class="sc">|</span> unemployment <span class="sc">&lt;</span> <span class="dv">6</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 1,006 × 4
+   state    county      population unemployment
+   &lt;chr&gt;    &lt;chr&gt;            &lt;dbl&gt;        &lt;dbl&gt;
+ 1 New York Kings          2595259         10  
+ 2 New York Queens         2301139          8.6
+ 3 New York New York       1629507          7.5
+ 4 New York Suffolk        1501373          6.4
+ 5 New York Bronx          1428357         14  
+ 6 New York Nassau         1354612          6.4
+ 7 Virginia Fairfax        1128722          4.9
+ 8 Utah     Salt Lake      1078958          5.8
+ 9 Hawaii   Honolulu        984178          5.6
+10 New York Westchester     967315          7.6
+# ℹ 996 more rows</code></pre>
+</div>
+</div>
+</section>
+<section id="mutate" class="level2">
+<h2 class="anchored" data-anchor-id="mutate">mutate</h2>
+<p><strong><code>dplyr</code></strong> paketindeki <strong><code>mutate()</code></strong> fonksiyonu, bir veri çerçevesinde yeni sütunlar oluşturmak veya mevcut sütunları dönüştürmek için kullanılır. Bu fonksiyon, veri çerçevesindeki herhangi bir sütunu işleyerek yeni bilgiler eklemenize veya mevcut sütunları değiştirmenize olanak tanır. <strong><code>mutate()</code></strong> fonksiyonu, veri analizi sırasında verilerinizi özelleştirmek için oldukça kullanışlıdır.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="co"># işsiz nüfus sayısına ilişkin değişken üretme</span></span>
+<span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a>counties_selected <span class="sc">%&gt;%</span></span>
+<span id="cb35-3"><a href="#cb35-3" aria-hidden="true" tabindex="-1"></a><span class="fu">mutate</span>(<span class="at">unemployed_population =</span> population <span class="sc">*</span> unemployment <span class="sc">/</span> <span class="dv">100</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 3,138 × 5
+   state   county   population unemployment unemployed_population
+   &lt;chr&gt;   &lt;chr&gt;         &lt;dbl&gt;        &lt;dbl&gt;                 &lt;dbl&gt;
+ 1 Alabama Autauga       55221          7.6                 4197.
+ 2 Alabama Baldwin      195121          7.5                14634.
+ 3 Alabama Barbour       26932         17.6                 4740.
+ 4 Alabama Bibb          22604          8.3                 1876.
+ 5 Alabama Blount        57710          7.7                 4444.
+ 6 Alabama Bullock       10678         18                   1922.
+ 7 Alabama Butler        20354         10.9                 2219.
+ 8 Alabama Calhoun      116648         12.3                14348.
+ 9 Alabama Chambers      34079          8.9                 3033.
+10 Alabama Cherokee      26008          7.9                 2055.
+# ℹ 3,128 more rows</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb37"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="co"># yeni sütun ekle</span></span>
+<span id="cb37-2"><a href="#cb37-2" aria-hidden="true" tabindex="-1"></a>counties_selected <span class="sc">%&gt;%</span></span>
+<span id="cb37-3"><a href="#cb37-3" aria-hidden="true" tabindex="-1"></a><span class="fu">mutate</span>(<span class="at">unemployed_population =</span> population <span class="sc">*</span> unemployment <span class="sc">/</span> <span class="dv">100</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb37-4"><a href="#cb37-4" aria-hidden="true" tabindex="-1"></a><span class="fu">arrange</span>(<span class="fu">desc</span>(unemployed_population))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 3,138 × 5
+   state      county         population unemployment unemployed_population
+   &lt;chr&gt;      &lt;chr&gt;               &lt;dbl&gt;        &lt;dbl&gt;                 &lt;dbl&gt;
+ 1 California Los Angeles      10038388         10                1003839.
+ 2 Illinois   Cook              5236393         10.7               560294.
+ 3 Texas      Harris            4356362          7.5               326727.
+ 4 Arizona    Maricopa          4018143          7.7               309397.
+ 5 California Riverside         2298032         12.9               296446.
+ 6 California San Diego         3223096          8.7               280409.
+ 7 Michigan   Wayne             1778969         14.9               265066.
+ 8 California San Bernardino    2094769         12.6               263941.
+ 9 Florida    Miami-Dade        2639042         10                 263904.
+10 New York   Kings             2595259         10                 259526.
+# ℹ 3,128 more rows</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb39"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a><span class="co"># var olan sütunu güncelle</span></span>
+<span id="cb39-2"><a href="#cb39-2" aria-hidden="true" tabindex="-1"></a>counties <span class="sc">%&gt;%</span></span>
+<span id="cb39-3"><a href="#cb39-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(state, county, population, men,women) <span class="sc">%&gt;%</span> </span>
+<span id="cb39-4"><a href="#cb39-4" aria-hidden="true" tabindex="-1"></a><span class="fu">mutate</span>(<span class="at">population =</span> men <span class="sc">+</span> women)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 3,138 × 5
+   state   county   population   men women
+   &lt;chr&gt;   &lt;chr&gt;         &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
+ 1 Alabama Autauga       55221 26745 28476
+ 2 Alabama Baldwin      195121 95314 99807
+ 3 Alabama Barbour       26932 14497 12435
+ 4 Alabama Bibb          22604 12073 10531
+ 5 Alabama Blount        57710 28512 29198
+ 6 Alabama Bullock       10678  5660  5018
+ 7 Alabama Butler        20354  9502 10852
+ 8 Alabama Calhoun      116648 56274 60374
+ 9 Alabama Chambers      34079 16258 17821
+10 Alabama Cherokee      26008 12975 13033
+# ℹ 3,128 more rows</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb41"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a><span class="co"># birden fazla yeni değişken üretme</span></span>
+<span id="cb41-2"><a href="#cb41-2" aria-hidden="true" tabindex="-1"></a>counties <span class="sc">%&gt;%</span></span>
+<span id="cb41-3"><a href="#cb41-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(state, county, population, men,women) <span class="sc">%&gt;%</span> </span>
+<span id="cb41-4"><a href="#cb41-4" aria-hidden="true" tabindex="-1"></a><span class="fu">mutate</span>(<span class="at">men_ratio =</span> men<span class="sc">/</span>population<span class="sc">*</span><span class="dv">100</span>,</span>
+<span id="cb41-5"><a href="#cb41-5" aria-hidden="true" tabindex="-1"></a>       <span class="at">women_ratio =</span> women<span class="sc">/</span>population<span class="sc">*</span><span class="dv">100</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 3,138 × 7
+   state   county   population   men women men_ratio women_ratio
+   &lt;chr&gt;   &lt;chr&gt;         &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;     &lt;dbl&gt;       &lt;dbl&gt;
+ 1 Alabama Autauga       55221 26745 28476      48.4        51.6
+ 2 Alabama Baldwin      195121 95314 99807      48.8        51.2
+ 3 Alabama Barbour       26932 14497 12435      53.8        46.2
+ 4 Alabama Bibb          22604 12073 10531      53.4        46.6
+ 5 Alabama Blount        57710 28512 29198      49.4        50.6
+ 6 Alabama Bullock       10678  5660  5018      53.0        47.0
+ 7 Alabama Butler        20354  9502 10852      46.7        53.3
+ 8 Alabama Calhoun      116648 56274 60374      48.2        51.8
+ 9 Alabama Chambers      34079 16258 17821      47.7        52.3
+10 Alabama Cherokee      26008 12975 13033      49.9        50.1
+# ℹ 3,128 more rows</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb43"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a><span class="co"># transmute sadece yeni eklenen değişkenleri gösterir</span></span>
+<span id="cb43-2"><a href="#cb43-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb43-3"><a href="#cb43-3" aria-hidden="true" tabindex="-1"></a>counties <span class="sc">%&gt;%</span></span>
+<span id="cb43-4"><a href="#cb43-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(state, county, population, men,women) <span class="sc">%&gt;%</span> </span>
+<span id="cb43-5"><a href="#cb43-5" aria-hidden="true" tabindex="-1"></a><span class="fu">transmute</span>(<span class="at">men_ratio =</span> men<span class="sc">/</span>population<span class="sc">*</span><span class="dv">100</span>,</span>
+<span id="cb43-6"><a href="#cb43-6" aria-hidden="true" tabindex="-1"></a>       <span class="at">women_ratio =</span> women<span class="sc">/</span>population<span class="sc">*</span><span class="dv">100</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 3,138 × 2
+   men_ratio women_ratio
+       &lt;dbl&gt;       &lt;dbl&gt;
+ 1      48.4        51.6
+ 2      48.8        51.2
+ 3      53.8        46.2
+ 4      53.4        46.6
+ 5      49.4        50.6
+ 6      53.0        47.0
+ 7      46.7        53.3
+ 8      48.2        51.8
+ 9      47.7        52.3
+10      49.9        50.1
+# ℹ 3,128 more rows</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb45"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a><span class="co"># mutate_at ile koşula göre birden fazla değişkene aynı fonksiyon uygulanabilir.</span></span>
+<span id="cb45-2"><a href="#cb45-2" aria-hidden="true" tabindex="-1"></a>scale2 <span class="ot">&lt;-</span> <span class="cf">function</span>(x, <span class="at">na.rm =</span> <span class="cn">FALSE</span>) (x <span class="sc">-</span> <span class="fu">mean</span>(x, <span class="at">na.rm =</span> na.rm)) <span class="sc">/</span> <span class="fu">sd</span>(x, na.rm)</span>
+<span id="cb45-3"><a href="#cb45-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb45-4"><a href="#cb45-4" aria-hidden="true" tabindex="-1"></a>counties_selected <span class="sc">%&gt;%</span> </span>
+<span id="cb45-5"><a href="#cb45-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate_at</span>(<span class="fu">c</span>(<span class="st">"population"</span>,<span class="st">"unemployment"</span>),scale2)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 3,138 × 4
+   state   county   population unemployment
+   &lt;chr&gt;   &lt;chr&gt;         &lt;dbl&gt;        &lt;dbl&gt;
+ 1 Alabama Autauga     -0.141       -0.0563
+ 2 Alabama Baldwin      0.292       -0.0846
+ 3 Alabama Barbour     -0.228        2.78  
+ 4 Alabama Bibb        -0.242        0.142 
+ 5 Alabama Blount      -0.133       -0.0279
+ 6 Alabama Bullock     -0.278        2.89  
+ 7 Alabama Butler      -0.249        0.880 
+ 8 Alabama Calhoun      0.0495       1.28  
+ 9 Alabama Chambers    -0.206        0.313 
+10 Alabama Cherokee    -0.231        0.0288
+# ℹ 3,128 more rows</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb47"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a>counties_selected <span class="sc">%&gt;%</span> <span class="co"># birden fazla argüman kullanımı</span></span>
+<span id="cb47-2"><a href="#cb47-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate_at</span>(<span class="fu">c</span>(<span class="st">"population"</span>,<span class="st">"unemployment"</span>),scale2,<span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 3,138 × 4
+   state   county   population unemployment
+   &lt;chr&gt;   &lt;chr&gt;         &lt;dbl&gt;        &lt;dbl&gt;
+ 1 Alabama Autauga     -0.141       -0.0563
+ 2 Alabama Baldwin      0.292       -0.0846
+ 3 Alabama Barbour     -0.228        2.78  
+ 4 Alabama Bibb        -0.242        0.142 
+ 5 Alabama Blount      -0.133       -0.0279
+ 6 Alabama Bullock     -0.278        2.89  
+ 7 Alabama Butler      -0.249        0.880 
+ 8 Alabama Calhoun      0.0495       1.28  
+ 9 Alabama Chambers    -0.206        0.313 
+10 Alabama Cherokee    -0.231        0.0288
+# ℹ 3,128 more rows</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb49"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb49-1"><a href="#cb49-1" aria-hidden="true" tabindex="-1"></a><span class="co"># mutate_if ile koşula göre birden fazla değişkende değişiklik yapılabilir.</span></span>
+<span id="cb49-2"><a href="#cb49-2" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(counties_selected)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>spc_tbl_ [3,138 × 4] (S3: spec_tbl_df/tbl_df/tbl/data.frame)
+ $ state       : chr [1:3138] "Alabama" "Alabama" "Alabama" "Alabama" ...
+ $ county      : chr [1:3138] "Autauga" "Baldwin" "Barbour" "Bibb" ...
+ $ population  : num [1:3138] 55221 195121 26932 22604 57710 ...
+ $ unemployment: num [1:3138] 7.6 7.5 17.6 8.3 7.7 18 10.9 12.3 8.9 7.9 ...</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb51"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb51-1"><a href="#cb51-1" aria-hidden="true" tabindex="-1"></a>counties_selected <span class="ot">&lt;-</span> counties_selected <span class="sc">%&gt;%</span> </span>
+<span id="cb51-2"><a href="#cb51-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate_if</span>(is.character,as.factor)</span>
+<span id="cb51-3"><a href="#cb51-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb51-4"><a href="#cb51-4" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(counties_selected)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>spc_tbl_ [3,138 × 4] (S3: spec_tbl_df/tbl_df/tbl/data.frame)
+ $ state       : Factor w/ 50 levels "Alabama","Alaska",..: 1 1 1 1 1 1 1 1 1 1 ...
+ $ county      : Factor w/ 1847 levels "Abbeville","Acadia",..: 82 89 100 149 164 225 235 246 293 315 ...
+ $ population  : num [1:3138] 55221 195121 26932 22604 57710 ...
+ $ unemployment: num [1:3138] 7.6 7.5 17.6 8.3 7.7 18 10.9 12.3 8.9 7.9 ...</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb53"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb53-1"><a href="#cb53-1" aria-hidden="true" tabindex="-1"></a>counties_selected <span class="sc">%&gt;%</span> </span>
+<span id="cb53-2"><a href="#cb53-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate_if</span>(is.numeric, scale2, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 3,138 × 4
+   state   county   population unemployment
+   &lt;fct&gt;   &lt;fct&gt;         &lt;dbl&gt;        &lt;dbl&gt;
+ 1 Alabama Autauga     -0.141       -0.0563
+ 2 Alabama Baldwin      0.292       -0.0846
+ 3 Alabama Barbour     -0.228        2.78  
+ 4 Alabama Bibb        -0.242        0.142 
+ 5 Alabama Blount      -0.133       -0.0279
+ 6 Alabama Bullock     -0.278        2.89  
+ 7 Alabama Butler      -0.249        0.880 
+ 8 Alabama Calhoun      0.0495       1.28  
+ 9 Alabama Chambers    -0.206        0.313 
+10 Alabama Cherokee    -0.231        0.0288
+# ℹ 3,128 more rows</code></pre>
+</div>
+</div>
+<div class="callout callout-style-default callout-warning callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Dikkat
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><strong><code>mutate()</code></strong> ve <strong><code>transmute()</code></strong> fonksiyonları, <strong><code>dplyr</code></strong> paketinde veri çerçevelerini işlerken kullanılan iki farklı fonksiyondur. Her ikisi de yeni sütunlar oluşturmanıza veya mevcut sütunları dönüştürmenize olanak tanır, ancak aralarındaki temel fark işlevlerinin dönüş değerleridir. Ancak kullanırken aşağıda belirtilen hususlara dikkat etmek gerekir:</p>
+<ul>
+<li><p><strong><code>mutate()</code></strong>, veri çerçevesine yeni sütunlar eklerken, orijinal veri çerçevesini değiştirmez. Yani, yeni sütunlar eklerken orijinal veri çerçevesinin boyutu artar. <strong><code>mutate()</code></strong> fonksiyonu, orijinal veri çerçevesini döndürürken eklenen sütunlarla birlikte veriyi içeren yeni bir veri çerçevesi döndürür.</p></li>
+<li><p><strong><code>transmute()</code></strong>, yeni sütunlar oluştururken orijinal veri çerçevesini değiştirmez. Ancak, <strong><code>transmute()</code></strong> fonksiyonu yalnızca belirtilen sütunları ve yeni sütunları içeren bir veri çerçevesi döndürür. Diğer orijinal sütunlar bu yeni veri çerçevesinde yer almaz. Bu, veri çerçevesini daha küçük ve özgünleştirilmiş bir hale getirir.</p></li>
+</ul>
+</div>
+</div>
+</section>
+<section id="rename" class="level2">
+<h2 class="anchored" data-anchor-id="rename">rename</h2>
+<p><strong><code>rename()</code></strong> fonksiyonu, R programlama dilinde veri çerçevesi içindeki sütunların adlarını değiştirmek için kullanılır. Veri çerçevesi sütunlarının daha açıklayıcı veya kullanıcı dostu adlara sahip olmasını sağlar. Bu, veri analizi ve raporlama süreçlerini daha anlaşılır ve düzenli hale getirmenize yardımcı olabilir.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb55"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb55-1"><a href="#cb55-1" aria-hidden="true" tabindex="-1"></a><span class="co"># yeniden isimlendirmede eşitliği sol tarafı yeni isim olmalı</span></span>
+<span id="cb55-2"><a href="#cb55-2" aria-hidden="true" tabindex="-1"></a>counties_selected <span class="sc">%&gt;%</span></span>
+<span id="cb55-3"><a href="#cb55-3" aria-hidden="true" tabindex="-1"></a><span class="fu">rename</span>(<span class="at">unemployment_rate =</span> unemployment)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 3,138 × 4
+   state   county   population unemployment_rate
+   &lt;fct&gt;   &lt;fct&gt;         &lt;dbl&gt;             &lt;dbl&gt;
+ 1 Alabama Autauga       55221               7.6
+ 2 Alabama Baldwin      195121               7.5
+ 3 Alabama Barbour       26932              17.6
+ 4 Alabama Bibb          22604               8.3
+ 5 Alabama Blount        57710               7.7
+ 6 Alabama Bullock       10678              18  
+ 7 Alabama Butler        20354              10.9
+ 8 Alabama Calhoun      116648              12.3
+ 9 Alabama Chambers      34079               8.9
+10 Alabama Cherokee      26008               7.9
+# ℹ 3,128 more rows</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb57"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb57-1"><a href="#cb57-1" aria-hidden="true" tabindex="-1"></a><span class="co"># select ile beraber de yeniden isimlendirme yapılabilir</span></span>
+<span id="cb57-2"><a href="#cb57-2" aria-hidden="true" tabindex="-1"></a>counties_selected <span class="sc">%&gt;%</span></span>
+<span id="cb57-3"><a href="#cb57-3" aria-hidden="true" tabindex="-1"></a><span class="fu">select</span>(state, county, population, <span class="at">unemployment_rate =</span> unemployment)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 3,138 × 4
+   state   county   population unemployment_rate
+   &lt;fct&gt;   &lt;fct&gt;         &lt;dbl&gt;             &lt;dbl&gt;
+ 1 Alabama Autauga       55221               7.6
+ 2 Alabama Baldwin      195121               7.5
+ 3 Alabama Barbour       26932              17.6
+ 4 Alabama Bibb          22604               8.3
+ 5 Alabama Blount        57710               7.7
+ 6 Alabama Bullock       10678              18  
+ 7 Alabama Butler        20354              10.9
+ 8 Alabama Calhoun      116648              12.3
+ 9 Alabama Chambers      34079               8.9
+10 Alabama Cherokee      26008               7.9
+# ℹ 3,128 more rows</code></pre>
+</div>
+</div>
+<div class="callout callout-style-default callout-caution callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Dikkat
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><strong><code>rename</code></strong> fonksiyonunda eşitliğin sol tarafına yeni isim, sağ tarafına ise önceki isim yazılır.</p>
+</div>
+</div>
+</section>
+<section id="count" class="level2">
+<h2 class="anchored" data-anchor-id="count">count</h2>
+<p><strong><code>count()</code></strong> fonksiyonu, R programlama dilindeki <strong><code>dplyr</code></strong> paketinde bulunan ve belirli bir sütuna göre veri çerçevesindeki gözlemlerin sayısını hesaplamak için kullanılan bir fonksiyondur. Bu fonksiyon, veri çerçevesindeki belirli bir kategorik değişkenin benzersiz değerlerini ve her bir değer için kaç gözlemin olduğunu hesaplamak için oldukça kullanışlıdır.</p>
+<p><strong><code>count()</code></strong> fonksiyonu, veri analizi sürecinde veri özeti oluşturmak ve belirli bir değişkenin frekansını görmek için sıkça kullanılır. Ayrıca, veri çerçevesindeki her bir kategorik değeri ve bu değerlere ait gözlem sayılarını içeren yeni bir veri çerçevesi döndürür.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb59"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb59-1"><a href="#cb59-1" aria-hidden="true" tabindex="-1"></a><span class="co"># count ile veri setinde sayma işlemleri yapılır</span></span>
+<span id="cb59-2"><a href="#cb59-2" aria-hidden="true" tabindex="-1"></a>counties <span class="sc">%&gt;%</span></span>
+<span id="cb59-3"><a href="#cb59-3" aria-hidden="true" tabindex="-1"></a><span class="fu">count</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 1 × 1
+      n
+  &lt;int&gt;
+1  3138</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb61"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb61-1"><a href="#cb61-1" aria-hidden="true" tabindex="-1"></a><span class="co"># state dağılımını elde etmek</span></span>
+<span id="cb61-2"><a href="#cb61-2" aria-hidden="true" tabindex="-1"></a>counties <span class="sc">%&gt;%</span></span>
+<span id="cb61-3"><a href="#cb61-3" aria-hidden="true" tabindex="-1"></a><span class="fu">count</span>(state)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 50 × 2
+   state           n
+   &lt;chr&gt;       &lt;int&gt;
+ 1 Alabama        67
+ 2 Alaska         28
+ 3 Arizona        15
+ 4 Arkansas       75
+ 5 California     58
+ 6 Colorado       64
+ 7 Connecticut     8
+ 8 Delaware        3
+ 9 Florida        67
+10 Georgia       159
+# ℹ 40 more rows</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb63"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb63-1"><a href="#cb63-1" aria-hidden="true" tabindex="-1"></a><span class="co"># sort = TRUE ile büyükten küçüge sıralama yapılabilir</span></span>
+<span id="cb63-2"><a href="#cb63-2" aria-hidden="true" tabindex="-1"></a>counties <span class="sc">%&gt;%</span></span>
+<span id="cb63-3"><a href="#cb63-3" aria-hidden="true" tabindex="-1"></a><span class="fu">count</span>(state, <span class="at">sort =</span> <span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 50 × 2
+   state              n
+   &lt;chr&gt;          &lt;int&gt;
+ 1 Texas            253
+ 2 Georgia          159
+ 3 Virginia         133
+ 4 Kentucky         120
+ 5 Missouri         115
+ 6 Kansas           105
+ 7 Illinois         102
+ 8 North Carolina   100
+ 9 Iowa              99
+10 Tennessee         95
+# ℹ 40 more rows</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb65"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb65-1"><a href="#cb65-1" aria-hidden="true" tabindex="-1"></a><span class="co"># wt argümanı ile değişken toplamları hesaplanabilir</span></span>
+<span id="cb65-2"><a href="#cb65-2" aria-hidden="true" tabindex="-1"></a>counties <span class="sc">%&gt;%</span></span>
+<span id="cb65-3"><a href="#cb65-3" aria-hidden="true" tabindex="-1"></a><span class="fu">count</span>(state, <span class="at">wt =</span> population, <span class="at">sort =</span> <span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 50 × 2
+   state                 n
+   &lt;chr&gt;             &lt;dbl&gt;
+ 1 California     38421464
+ 2 Texas          26538497
+ 3 New York       19673174
+ 4 Florida        19645772
+ 5 Illinois       12873761
+ 6 Pennsylvania   12779559
+ 7 Ohio           11575977
+ 8 Georgia        10006693
+ 9 Michigan        9900571
+10 North Carolina  9845333
+# ℹ 40 more rows</code></pre>
+</div>
+</div>
+</section>
+<section id="group_by-ve-summarize" class="level2">
+<h2 class="anchored" data-anchor-id="group_by-ve-summarize">group_by ve summarize</h2>
+<p><strong><code>group_by()</code></strong> ve <strong><code>summarize()</code></strong> fonksiyonları, R programlama dilinde veri çerçevesi üzerinde gruplama ve özetleme işlemleri yapmak için kullanılan önemli <strong><code>dplyr</code></strong> fonksiyonlarıdır. Bu fonksiyonlar, veri analizi sürecinde verilerinizi daha iyi anlamak ve özetlemek için oldukça güçlü araçlardır.</p>
+<p><strong><code>group_by()</code></strong> fonksiyonu, veri çerçevesindeki verileri belirli bir sütuna veya birden fazla sütuna göre gruplamak için kullanılır. Bu gruplandırma işlemi, veriyi belirli bir kategoriye veya sınıfa göre ayırmak için kullanılır.</p>
+<p><strong><code>summarize()</code></strong> fonksiyonu, gruplanmış veri üzerinde istatistiksel veya özetleyici işlemler yapmak için kullanılır. Bu fonksiyon, belirli bir grup için özet bilgileri hesaplamak için kullanılır.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb67"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb67-1"><a href="#cb67-1" aria-hidden="true" tabindex="-1"></a>counties <span class="sc">%&gt;%</span></span>
+<span id="cb67-2"><a href="#cb67-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summarize</span>(<span class="at">total_population =</span> <span class="fu">sum</span>(population))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 1 × 1
+  total_population
+             &lt;dbl&gt;
+1        315845353</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb69"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb69-1"><a href="#cb69-1" aria-hidden="true" tabindex="-1"></a>counties <span class="sc">%&gt;%</span></span>
+<span id="cb69-2"><a href="#cb69-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summarize</span>(<span class="at">total_population =</span> <span class="fu">sum</span>(population),</span>
+<span id="cb69-3"><a href="#cb69-3" aria-hidden="true" tabindex="-1"></a><span class="at">average_unemployment =</span> <span class="fu">mean</span>(unemployment))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 1 × 2
+  total_population average_unemployment
+             &lt;dbl&gt;                &lt;dbl&gt;
+1        315845353                 7.80</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb71"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb71-1"><a href="#cb71-1" aria-hidden="true" tabindex="-1"></a><span class="co"># istenilen düzeye göre hesaplamalar group_by ile yapılır</span></span>
+<span id="cb71-2"><a href="#cb71-2" aria-hidden="true" tabindex="-1"></a>counties <span class="sc">%&gt;%</span></span>
+<span id="cb71-3"><a href="#cb71-3" aria-hidden="true" tabindex="-1"></a><span class="fu">group_by</span>(state) <span class="sc">%&gt;%</span></span>
+<span id="cb71-4"><a href="#cb71-4" aria-hidden="true" tabindex="-1"></a><span class="fu">summarize</span>(<span class="at">total_pop =</span> <span class="fu">sum</span>(population),</span>
+<span id="cb71-5"><a href="#cb71-5" aria-hidden="true" tabindex="-1"></a><span class="at">average_unemployment =</span> <span class="fu">sum</span>(unemployment))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 50 × 3
+   state       total_pop average_unemployment
+   &lt;chr&gt;           &lt;dbl&gt;                &lt;dbl&gt;
+ 1 Alabama       4830620                758. 
+ 2 Alaska         725461                257. 
+ 3 Arizona       6641928                180. 
+ 4 Arkansas      2958208                674. 
+ 5 California   38421464                626. 
+ 6 Colorado      5278906                477. 
+ 7 Connecticut   3593222                 65.3
+ 8 Delaware       926454                 23.8
+ 9 Florida      19645772                696. 
+10 Georgia      10006693               1586. 
+# ℹ 40 more rows</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb73"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb73-1"><a href="#cb73-1" aria-hidden="true" tabindex="-1"></a>counties <span class="sc">%&gt;%</span></span>
+<span id="cb73-2"><a href="#cb73-2" aria-hidden="true" tabindex="-1"></a><span class="fu">group_by</span>(state) <span class="sc">%&gt;%</span></span>
+<span id="cb73-3"><a href="#cb73-3" aria-hidden="true" tabindex="-1"></a><span class="fu">summarize</span>(<span class="at">total_pop =</span> <span class="fu">sum</span>(population),</span>
+<span id="cb73-4"><a href="#cb73-4" aria-hidden="true" tabindex="-1"></a><span class="at">average_unemployment =</span> <span class="fu">mean</span>(unemployment)) <span class="sc">%&gt;%</span></span>
+<span id="cb73-5"><a href="#cb73-5" aria-hidden="true" tabindex="-1"></a><span class="fu">arrange</span>(<span class="fu">desc</span>(average_unemployment))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 50 × 3
+   state          total_pop average_unemployment
+   &lt;chr&gt;              &lt;dbl&gt;                &lt;dbl&gt;
+ 1 Mississippi      2988081                12.0 
+ 2 Arizona          6641928                12.0 
+ 3 South Carolina   4777576                11.3 
+ 4 Alabama          4830620                11.3 
+ 5 California      38421464                10.8 
+ 6 Nevada           2798636                10.5 
+ 7 North Carolina   9845333                10.5 
+ 8 Florida         19645772                10.4 
+ 9 Georgia         10006693                 9.97
+10 Michigan         9900571                 9.96
+# ℹ 40 more rows</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb75"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb75-1"><a href="#cb75-1" aria-hidden="true" tabindex="-1"></a><span class="co"># birden fazla değişken düzeyinde gruplama</span></span>
+<span id="cb75-2"><a href="#cb75-2" aria-hidden="true" tabindex="-1"></a>counties <span class="sc">%&gt;%</span></span>
+<span id="cb75-3"><a href="#cb75-3" aria-hidden="true" tabindex="-1"></a><span class="fu">group_by</span>(state, metro) <span class="sc">%&gt;%</span></span>
+<span id="cb75-4"><a href="#cb75-4" aria-hidden="true" tabindex="-1"></a><span class="fu">summarize</span>(<span class="at">total_pop =</span> <span class="fu">sum</span>(population))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>`summarise()` has grouped output by 'state'. You can override using the
+`.groups` argument.</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 97 × 3
+# Groups:   state [50]
+   state      metro    total_pop
+   &lt;chr&gt;      &lt;chr&gt;        &lt;dbl&gt;
+ 1 Alabama    Metro      3671377
+ 2 Alabama    Nonmetro   1159243
+ 3 Alaska     Metro       494990
+ 4 Alaska     Nonmetro    230471
+ 5 Arizona    Metro      6295145
+ 6 Arizona    Nonmetro    346783
+ 7 Arkansas   Metro      1806867
+ 8 Arkansas   Nonmetro   1151341
+ 9 California Metro     37587429
+10 California Nonmetro    834035
+# ℹ 87 more rows</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb78"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb78-1"><a href="#cb78-1" aria-hidden="true" tabindex="-1"></a><span class="co"># elde edilen veri üzerinden devam edilecekse ungroup kullanılmalı.</span></span>
+<span id="cb78-2"><a href="#cb78-2" aria-hidden="true" tabindex="-1"></a><span class="co"># ungroup kullanılmazsa sonradan yapılan işlemler group_by değişkenleri düzeyinde</span></span>
+<span id="cb78-3"><a href="#cb78-3" aria-hidden="true" tabindex="-1"></a><span class="co"># devam eder</span></span>
+<span id="cb78-4"><a href="#cb78-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb78-5"><a href="#cb78-5" aria-hidden="true" tabindex="-1"></a>counties <span class="sc">%&gt;%</span></span>
+<span id="cb78-6"><a href="#cb78-6" aria-hidden="true" tabindex="-1"></a><span class="fu">group_by</span>(state, metro) <span class="sc">%&gt;%</span></span>
+<span id="cb78-7"><a href="#cb78-7" aria-hidden="true" tabindex="-1"></a><span class="fu">summarize</span>(<span class="at">total_pop =</span> <span class="fu">sum</span>(population)) <span class="sc">%&gt;%</span></span>
+<span id="cb78-8"><a href="#cb78-8" aria-hidden="true" tabindex="-1"></a><span class="fu">ungroup</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>`summarise()` has grouped output by 'state'. You can override using the
+`.groups` argument.</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 97 × 3
+   state      metro    total_pop
+   &lt;chr&gt;      &lt;chr&gt;        &lt;dbl&gt;
+ 1 Alabama    Metro      3671377
+ 2 Alabama    Nonmetro   1159243
+ 3 Alaska     Metro       494990
+ 4 Alaska     Nonmetro    230471
+ 5 Arizona    Metro      6295145
+ 6 Arizona    Nonmetro    346783
+ 7 Arkansas   Metro      1806867
+ 8 Arkansas   Nonmetro   1151341
+ 9 California Metro     37587429
+10 California Nonmetro    834035
+# ℹ 87 more rows</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb81"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb81-1"><a href="#cb81-1" aria-hidden="true" tabindex="-1"></a><span class="co"># top_n en yüksek ya da en düşük sonuçları listeleme</span></span>
+<span id="cb81-2"><a href="#cb81-2" aria-hidden="true" tabindex="-1"></a>counties_selected <span class="sc">%&gt;%</span></span>
+<span id="cb81-3"><a href="#cb81-3" aria-hidden="true" tabindex="-1"></a><span class="fu">group_by</span>(state) <span class="sc">%&gt;%</span></span>
+<span id="cb81-4"><a href="#cb81-4" aria-hidden="true" tabindex="-1"></a><span class="fu">top_n</span>(<span class="dv">1</span>, population) <span class="co"># her eyaletteki en yüksek nüfuslu yer</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 50 × 4
+# Groups:   state [50]
+   state       county                 population unemployment
+   &lt;fct&gt;       &lt;fct&gt;                       &lt;dbl&gt;        &lt;dbl&gt;
+ 1 Alabama     Jefferson                  659026          9.1
+ 2 Alaska      Anchorage Municipality     299107          6.7
+ 3 Arizona     Maricopa                  4018143          7.7
+ 4 Arkansas    Pulaski                    390463          7.5
+ 5 California  Los Angeles              10038388         10  
+ 6 Colorado    El Paso                    655024          8.4
+ 7 Connecticut Fairfield                  939983          9  
+ 8 Delaware    New Castle                 549643          7.4
+ 9 Florida     Miami-Dade                2639042         10  
+10 Georgia     Fulton                     983903          9.9
+# ℹ 40 more rows</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb83"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb83-1"><a href="#cb83-1" aria-hidden="true" tabindex="-1"></a>counties_selected <span class="sc">%&gt;%</span></span>
+<span id="cb83-2"><a href="#cb83-2" aria-hidden="true" tabindex="-1"></a><span class="fu">group_by</span>(state) <span class="sc">%&gt;%</span></span>
+<span id="cb83-3"><a href="#cb83-3" aria-hidden="true" tabindex="-1"></a><span class="fu">top_n</span>(<span class="sc">-</span><span class="dv">1</span>, population) <span class="co"># her eyaletteki en düşük nüfuslu yer</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 50 × 4
+# Groups:   state [50]
+   state       county                   population unemployment
+   &lt;fct&gt;       &lt;fct&gt;                         &lt;dbl&gt;        &lt;dbl&gt;
+ 1 Alabama     Greene                         8697         20.4
+ 2 Alaska      Yakutat City and Borough        643          7.9
+ 3 Arizona     Greenlee                       9023         10  
+ 4 Arkansas    Calhoun                        5245          7.2
+ 5 California  Alpine                         1131         10.7
+ 6 Colorado    San Juan                        606         13.8
+ 7 Connecticut Windham                      117470          9.3
+ 8 Delaware    Kent                         169509          8.4
+ 9 Florida     Liberty                        8295         10.2
+10 Georgia     Taliaferro                     1721         12.1
+# ℹ 40 more rows</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb85"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb85-1"><a href="#cb85-1" aria-hidden="true" tabindex="-1"></a>counties_selected <span class="sc">%&gt;%</span></span>
+<span id="cb85-2"><a href="#cb85-2" aria-hidden="true" tabindex="-1"></a><span class="fu">group_by</span>(state) <span class="sc">%&gt;%</span></span>
+<span id="cb85-3"><a href="#cb85-3" aria-hidden="true" tabindex="-1"></a><span class="fu">top_n</span>(<span class="dv">2</span>, population) <span class="co"># her eyaletteki en yüksek nüfuslu 2 yer</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 100 × 4
+# Groups:   state [50]
+   state      county                       population unemployment
+   &lt;fct&gt;      &lt;fct&gt;                             &lt;dbl&gt;        &lt;dbl&gt;
+ 1 Alabama    Jefferson                        659026          9.1
+ 2 Alabama    Mobile                           414251          9.8
+ 3 Alaska     Anchorage Municipality           299107          6.7
+ 4 Alaska     Fairbanks North Star Borough      99705          7.9
+ 5 Arizona    Maricopa                        4018143          7.7
+ 6 Arizona    Pima                             998537         10  
+ 7 Arkansas   Benton                           238198          4.2
+ 8 Arkansas   Pulaski                          390463          7.5
+ 9 California Los Angeles                    10038388         10  
+10 California San Diego                       3223096          8.7
+# ℹ 90 more rows</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb87"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb87-1"><a href="#cb87-1" aria-hidden="true" tabindex="-1"></a><span class="co"># summarise_all bütün değişkenler için özetleme yapar</span></span>
+<span id="cb87-2"><a href="#cb87-2" aria-hidden="true" tabindex="-1"></a>counties_selected <span class="sc">%&gt;%</span> <span class="fu">summarise_all</span>(nlevels)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 1 × 4
+  state county population unemployment
+  &lt;int&gt;  &lt;int&gt;      &lt;int&gt;        &lt;int&gt;
+1    50   1847          0            0</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb89"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb89-1"><a href="#cb89-1" aria-hidden="true" tabindex="-1"></a>counties_selected <span class="sc">%&gt;%</span> </span>
+<span id="cb89-2"><a href="#cb89-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="sc">-</span>county) <span class="sc">%&gt;%</span> </span>
+<span id="cb89-3"><a href="#cb89-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(state) <span class="sc">%&gt;%</span> </span>
+<span id="cb89-4"><a href="#cb89-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise_all</span>(mean)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 50 × 3
+   state       population unemployment
+   &lt;fct&gt;            &lt;dbl&gt;        &lt;dbl&gt;
+ 1 Alabama         72099.        11.3 
+ 2 Alaska          25909.         9.19
+ 3 Arizona        442795.        12.0 
+ 4 Arkansas        39443.         8.98
+ 5 California     662439.        10.8 
+ 6 Colorado        82483.         7.46
+ 7 Connecticut    449153.         8.16
+ 8 Delaware       308818          7.93
+ 9 Florida        293220.        10.4 
+10 Georgia         62935.         9.97
+# ℹ 40 more rows</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb91"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb91-1"><a href="#cb91-1" aria-hidden="true" tabindex="-1"></a><span class="co"># summarise_at belli değişkenler için özetleme yapar</span></span>
+<span id="cb91-2"><a href="#cb91-2" aria-hidden="true" tabindex="-1"></a>counties_selected <span class="sc">%&gt;%</span> </span>
+<span id="cb91-3"><a href="#cb91-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="sc">-</span>county) <span class="sc">%&gt;%</span> </span>
+<span id="cb91-4"><a href="#cb91-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(state) <span class="sc">%&gt;%</span> </span>
+<span id="cb91-5"><a href="#cb91-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise_at</span>(<span class="st">"population"</span>,mean)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 50 × 2
+   state       population
+   &lt;fct&gt;            &lt;dbl&gt;
+ 1 Alabama         72099.
+ 2 Alaska          25909.
+ 3 Arizona        442795.
+ 4 Arkansas        39443.
+ 5 California     662439.
+ 6 Colorado        82483.
+ 7 Connecticut    449153.
+ 8 Delaware       308818 
+ 9 Florida        293220.
+10 Georgia         62935.
+# ℹ 40 more rows</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb93"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb93-1"><a href="#cb93-1" aria-hidden="true" tabindex="-1"></a><span class="co"># summarise_if ile koşula göre özetleme yapar</span></span>
+<span id="cb93-2"><a href="#cb93-2" aria-hidden="true" tabindex="-1"></a>counties_selected <span class="sc">%&gt;%</span> </span>
+<span id="cb93-3"><a href="#cb93-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize_if</span>(is.numeric, mean, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 1 × 2
+  population unemployment
+       &lt;dbl&gt;        &lt;dbl&gt;
+1    100652.         7.80</code></pre>
+</div>
+</div>
+<div class="callout callout-style-default callout-caution callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Dikkat
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><strong><code>ungroup()</code></strong> fonksiyonu, <strong><code>dplyr</code></strong> paketinde kullanılan bir işlevdir ve bir veri çerçevesini veya gruplanmış bir veri çerçevesini gruplardan çıkarmak için kullanılır. <strong><code>group_by()</code></strong> fonksiyonu ile gruplanmış bir veri çerçevesini oluşturduğunuzda, veri çerçevesi belirli sütunlar üzerinde gruplama yapar ve her grup için ayrı işlemler yapmanıza olanak tanır. Ancak bazen gruplamadan çıkmak ve orijinal veri çerçevesini elde etmek isteyebilirsiniz.</p>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb95"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb95-1"><a href="#cb95-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Örnek bir veri çerçevesi oluşturalım</span></span>
+<span id="cb95-2"><a href="#cb95-2" aria-hidden="true" tabindex="-1"></a>veri <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
+<span id="cb95-3"><a href="#cb95-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">Sehir =</span> <span class="fu">c</span>(<span class="st">"İstanbul"</span>, <span class="st">"Ankara"</span>, <span class="st">"İstanbul"</span>, <span class="st">"Ankara"</span>, <span class="st">"İzmir"</span>),</span>
+<span id="cb95-4"><a href="#cb95-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">Cinsiyet =</span> <span class="fu">c</span>(<span class="st">"Erkek"</span>, <span class="st">"Kadın"</span>, <span class="st">"Erkek"</span>, <span class="st">"Kadın"</span>, <span class="st">"Erkek"</span>),</span>
+<span id="cb95-5"><a href="#cb95-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">Yas =</span> <span class="fu">c</span>(<span class="dv">28</span>, <span class="dv">32</span>, <span class="dv">22</span>, <span class="dv">24</span>, <span class="dv">30</span>),</span>
+<span id="cb95-6"><a href="#cb95-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">Puan =</span> <span class="fu">c</span>(<span class="dv">90</span>, <span class="dv">85</span>, <span class="dv">78</span>, <span class="dv">92</span>, <span class="dv">88</span>)</span>
+<span id="cb95-7"><a href="#cb95-7" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb95-8"><a href="#cb95-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb95-9"><a href="#cb95-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Şehir sütununa göre veriyi grupla</span></span>
+<span id="cb95-10"><a href="#cb95-10" aria-hidden="true" tabindex="-1"></a>gruplu_veri <span class="ot">&lt;-</span> <span class="fu">group_by</span>(veri, Sehir)</span>
+<span id="cb95-11"><a href="#cb95-11" aria-hidden="true" tabindex="-1"></a>gruplu_veri <span class="sc">|&gt;</span> <span class="fu">summarise</span>(<span class="fu">mean</span>(Puan))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 3 × 2
+  Sehir    `mean(Puan)`
+  &lt;chr&gt;           &lt;dbl&gt;
+1 Ankara           88.5
+2 İstanbul         84  
+3 İzmir            88  </code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb97"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb97-1"><a href="#cb97-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Grubu çıkarma</span></span>
+<span id="cb97-2"><a href="#cb97-2" aria-hidden="true" tabindex="-1"></a>gruplu_veri <span class="ot">&lt;-</span> <span class="fu">ungroup</span>(gruplu_veri)</span>
+<span id="cb97-3"><a href="#cb97-3" aria-hidden="true" tabindex="-1"></a>gruplu_veri <span class="sc">|&gt;</span> <span class="fu">summarise</span>(<span class="fu">mean</span>(Puan))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 1 × 1
+  `mean(Puan)`
+         &lt;dbl&gt;
+1         86.6</code></pre>
+</div>
+</div>
+<p>Aynı veri setinde farklı sonuçlar elde edildiğine dikkat edelim. Eğer <strong><code>group_by</code></strong> ile oluşturulan veri setinde başka işlemler yapacaksanız öncesinde <strong><code>ungroup()</code></strong> yapmayı ihmal etmeyin.</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Not
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><strong><code>group_by</code></strong> sadece <code>summarize</code> fonksiyonu ile değil <code>mutate</code>, <code>transmute</code> gibi diğer fonksiyonlar ile birlikte de kullanılabilir.</p>
+</div>
+</div>
+</section>
+<section id="case-when" class="level2">
+<h2 class="anchored" data-anchor-id="case-when">case when</h2>
+<p><strong><code>case_when()</code></strong> fonksiyonu, R programlama dilinde <strong><code>dplyr</code></strong> paketi içinde bulunan ve çoklu koşullara dayalı olarak yeni bir sütun oluşturmak veya mevcut bir sütunu dönüştürmek için kullanılan bir fonksiyondur. Bu fonksiyon, özellikle veri çerçevelerinde veya veri tablolarında, belirli koşullara dayalı olarak işlem yapmanız gerektiğinde oldukça kullanışlıdır. <strong><code>case_when()</code></strong> fonksiyonu, birden fazla koşulu kontrol ederek her bir koşula uygun bir değer veya işlem döndürmenizi sağlar. <strong><code>case_when()</code></strong> fonksiyonu, bir veya daha fazla koşul ifadesi ve bu koşullara karşılık gelecek değerler içeren çiftlerin bir listesini alır. Bu çiftler, <strong><code>~</code></strong> operatörü ile ayrılır.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb99"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb99-1"><a href="#cb99-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Örnek bir veri çerçevesi oluşturalım</span></span>
+<span id="cb99-2"><a href="#cb99-2" aria-hidden="true" tabindex="-1"></a>veri <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
+<span id="cb99-3"><a href="#cb99-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">Ogrenci_Ad =</span> <span class="fu">c</span>(<span class="st">"Ali"</span>, <span class="st">"Esra"</span>, <span class="st">"Erkan"</span>, <span class="st">"Derya"</span>),</span>
+<span id="cb99-4"><a href="#cb99-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">Puan =</span> <span class="fu">c</span>(<span class="dv">90</span>, <span class="dv">75</span>, <span class="dv">60</span>, <span class="dv">80</span>)</span>
+<span id="cb99-5"><a href="#cb99-5" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb99-6"><a href="#cb99-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb99-7"><a href="#cb99-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Yeni bir sütun oluşturma: Puan kategorisi</span></span>
+<span id="cb99-8"><a href="#cb99-8" aria-hidden="true" tabindex="-1"></a>veri <span class="ot">&lt;-</span> veri <span class="sc">%&gt;%</span></span>
+<span id="cb99-9"><a href="#cb99-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Puan_Kategorisi =</span> <span class="fu">case_when</span>(</span>
+<span id="cb99-10"><a href="#cb99-10" aria-hidden="true" tabindex="-1"></a>    Puan <span class="sc">&gt;=</span> <span class="dv">90</span> <span class="sc">~</span> <span class="st">"AA"</span>,</span>
+<span id="cb99-11"><a href="#cb99-11" aria-hidden="true" tabindex="-1"></a>    Puan <span class="sc">&gt;=</span> <span class="dv">80</span> <span class="sc">~</span> <span class="st">"BA"</span>,</span>
+<span id="cb99-12"><a href="#cb99-12" aria-hidden="true" tabindex="-1"></a>    Puan <span class="sc">&gt;=</span> <span class="dv">70</span> <span class="sc">~</span> <span class="st">"BB"</span>,</span>
+<span id="cb99-13"><a href="#cb99-13" aria-hidden="true" tabindex="-1"></a>    Puan <span class="sc">&gt;=</span> <span class="dv">60</span> <span class="sc">~</span> <span class="st">"CB"</span>,</span>
+<span id="cb99-14"><a href="#cb99-14" aria-hidden="true" tabindex="-1"></a>    <span class="cn">TRUE</span> <span class="sc">~</span> <span class="st">"FF"</span>  <span class="co"># Tüm diğer durumlar için</span></span>
+<span id="cb99-15"><a href="#cb99-15" aria-hidden="true" tabindex="-1"></a>  ))</span>
+<span id="cb99-16"><a href="#cb99-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb99-17"><a href="#cb99-17" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(veri)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>  Ogrenci_Ad Puan Puan_Kategorisi
+1        Ali   90              AA
+2       Esra   75              BB
+3      Erkan   60              CB
+4      Derya   80              BA</code></pre>
+</div>
+</div>
+<p><strong><code>case_when()</code></strong> fonksiyonunu birden fazla koşul ile kullanabilirsiniz. Koşullar yukarıdan aşağıya sırayla kontrol edilir ve ilk koşulu sağlayan değer kullanılır.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb101"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb101-1"><a href="#cb101-1" aria-hidden="true" tabindex="-1"></a>veri <span class="ot">&lt;-</span> veri <span class="sc">%&gt;%</span></span>
+<span id="cb101-2"><a href="#cb101-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Not_Durumu =</span> <span class="fu">case_when</span>(</span>
+<span id="cb101-3"><a href="#cb101-3" aria-hidden="true" tabindex="-1"></a>    Puan <span class="sc">&gt;=</span> <span class="dv">90</span> <span class="sc">~</span> <span class="st">"Geçti"</span>,</span>
+<span id="cb101-4"><a href="#cb101-4" aria-hidden="true" tabindex="-1"></a>    Puan <span class="sc">&gt;=</span> <span class="dv">60</span> <span class="sc">&amp;</span> Puan <span class="sc">&lt;</span> <span class="dv">70</span> <span class="sc">~</span> <span class="st">"Şartlı Geçti"</span>,</span>
+<span id="cb101-5"><a href="#cb101-5" aria-hidden="true" tabindex="-1"></a>    Puan <span class="sc">&lt;</span> <span class="dv">60</span> <span class="sc">~</span> <span class="st">"Kaldı"</span>,</span>
+<span id="cb101-6"><a href="#cb101-6" aria-hidden="true" tabindex="-1"></a>    <span class="cn">TRUE</span> <span class="sc">~</span> <span class="st">"Bilinmiyor"</span>  <span class="co"># Tüm diğer durumlar için</span></span>
+<span id="cb101-7"><a href="#cb101-7" aria-hidden="true" tabindex="-1"></a>  ))</span>
+<span id="cb101-8"><a href="#cb101-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb101-9"><a href="#cb101-9" aria-hidden="true" tabindex="-1"></a>veri</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>  Ogrenci_Ad Puan Puan_Kategorisi   Not_Durumu
+1        Ali   90              AA        Geçti
+2       Esra   75              BB   Bilinmiyor
+3      Erkan   60              CB Şartlı Geçti
+4      Derya   80              BA   Bilinmiyor</code></pre>
+</div>
+</div>
+</section>
+<section id="reshaping" class="level2">
+<h2 class="anchored" data-anchor-id="reshaping">reshaping</h2>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/reshape.jpg" class="img-fluid figure-img"></p>
+</figure>
+</div>
+<p>R programlama dilinde <strong><code>tidyr</code></strong> paketinin içinde bulunan <strong><code>gather()</code></strong>, <strong><code>spread()</code></strong>, <strong><code>unite()</code></strong>, ve <strong><code>separate()</code></strong> gibi fonksiyonlar, veri manipülasyonu ve veri dönüşümü işlemlerinde kullanılır. Bu fonksiyonlar, veri çerçevesi içindeki verileri yeniden düzenlemek, sütunları birleştirmek veya bölmek, veriyi daha uygun bir yapıya getirmek için kullanılır.</p>
+<p><strong><code>gather()</code></strong> fonksiyonu, geniş formatlı (wide format) veriyi uzun formatlı (long format) bir yapıya dönüştürmek için kullanılır. Genellikle sütun adlarını bir “anahtar” sütununda toplamak için kullanılır.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb103"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb103-1"><a href="#cb103-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyr)</span>
+<span id="cb103-2"><a href="#cb103-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb103-3"><a href="#cb103-3" aria-hidden="true" tabindex="-1"></a>veri <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
+<span id="cb103-4"><a href="#cb103-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">isim =</span> <span class="fu">c</span>(<span class="st">"Ali"</span>, <span class="st">"Esra"</span>),</span>
+<span id="cb103-5"><a href="#cb103-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">Matematik =</span> <span class="fu">c</span>(<span class="dv">90</span>, <span class="dv">85</span>),</span>
+<span id="cb103-6"><a href="#cb103-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">Fizik =</span> <span class="fu">c</span>(<span class="dv">88</span>, <span class="dv">76</span>)</span>
+<span id="cb103-7"><a href="#cb103-7" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb103-8"><a href="#cb103-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb103-9"><a href="#cb103-9" aria-hidden="true" tabindex="-1"></a>uzun_format_veri <span class="ot">&lt;-</span> <span class="fu">gather</span>(veri, Ders, Not, <span class="sc">-</span>isim)</span>
+<span id="cb103-10"><a href="#cb103-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb103-11"><a href="#cb103-11" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(uzun_format_veri)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>  isim      Ders Not
+1  Ali Matematik  90
+2 Esra Matematik  85
+3  Ali     Fizik  88
+4 Esra     Fizik  76</code></pre>
+</div>
+</div>
+<p>Bu kod, <strong><code>Matematik</code></strong> ve <strong><code>Fizik</code></strong> sütunlarını toplar ve bir “Ders” sütunu oluşturur.</p>
+<p><strong><code>spread()</code></strong> fonksiyonu, uzun formatlı veriyi geniş formatlı bir yapıya dönüştürmek için kullanılır. Genellikle “anahtar” sütunu içindeki değerleri sütun adları olarak kullanmak için kullanılır.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb105"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb105-1"><a href="#cb105-1" aria-hidden="true" tabindex="-1"></a>genis_format_veri <span class="ot">&lt;-</span> <span class="fu">spread</span>(uzun_format_veri, Ders, Not)</span>
+<span id="cb105-2"><a href="#cb105-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb105-3"><a href="#cb105-3" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(genis_format_veri)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>  isim Fizik Matematik
+1  Ali    88        90
+2 Esra    76        85</code></pre>
+</div>
+</div>
+<p>Bu kod, “Ders” sütunundaki değerleri sütun adlarına dönüştürür.</p>
+<p><strong><code>unite()</code></strong> fonksiyonu, iki veya daha fazla sütunu birleştirerek yeni bir sütun oluşturmak için kullanılır.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb107"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb107-1"><a href="#cb107-1" aria-hidden="true" tabindex="-1"></a>veri <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
+<span id="cb107-2"><a href="#cb107-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">Ad =</span> <span class="fu">c</span>(<span class="st">"Ali"</span>, <span class="st">"Esra"</span>),</span>
+<span id="cb107-3"><a href="#cb107-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">Soyad =</span> <span class="fu">c</span>(<span class="st">"Yılmaz"</span>, <span class="st">"Mutlu"</span>)</span>
+<span id="cb107-4"><a href="#cb107-4" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb107-5"><a href="#cb107-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb107-6"><a href="#cb107-6" aria-hidden="true" tabindex="-1"></a>veri <span class="ot">&lt;-</span> <span class="fu">unite</span>(veri, AdSoyad, Ad, Soyad, <span class="at">sep =</span> <span class="st">" "</span>)</span>
+<span id="cb107-7"><a href="#cb107-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb107-8"><a href="#cb107-8" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(veri)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>     AdSoyad
+1 Ali Yılmaz
+2 Esra Mutlu</code></pre>
+</div>
+</div>
+<p>Bu kod, “Ad” ve “Soyad” sütunlarını birleştirerek “AdSoyad” sütununu oluşturur.</p>
+<p><strong><code>separate()</code></strong> fonksiyonu, bir sütunu belirli bir ayırıcı karakterle bölmek için kullanılır. Bölen değerleri yeni sütunlarda saklar.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb109"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb109-1"><a href="#cb109-1" aria-hidden="true" tabindex="-1"></a>veri <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
+<span id="cb109-2"><a href="#cb109-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">AdSoyad =</span> <span class="fu">c</span>(<span class="st">"Ali Yılmaz"</span>, <span class="st">"Esra Mutlu"</span>)</span>
+<span id="cb109-3"><a href="#cb109-3" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb109-4"><a href="#cb109-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb109-5"><a href="#cb109-5" aria-hidden="true" tabindex="-1"></a>veri <span class="ot">&lt;-</span> <span class="fu">separate</span>(veri, AdSoyad, <span class="fu">c</span>(<span class="st">"Ad"</span>, <span class="st">"Soyad"</span>), <span class="at">sep =</span> <span class="st">" "</span>)</span>
+<span id="cb109-6"><a href="#cb109-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb109-7"><a href="#cb109-7" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(veri)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>    Ad  Soyad
+1  Ali Yılmaz
+2 Esra  Mutlu</code></pre>
+</div>
+</div>
+<p>Bu kod, “AdSoyad” sütununu boşluk karakterine göre böler ve “Ad” ve “Soyad” sütunlarını oluşturur.</p>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Tavsiye
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Bu fonksiyonlar, veri çerçevesi içindeki verileri dönüştürmek ve düzenlemek için oldukça kullanışlıdır. Veri analizi sürecinde veri çerçevesini istediğiniz formata getirmek ve veriyi daha iyi anlamak için bu fonksiyonları kullanabilirsiniz. Daha ileri seviyede kullanmak için fonksiyonların argümanlarının nasıl kullanıldığını help kısmından ya da internetten araştırmanızı tavsiye ederim.</p>
+<p>Ayrıca <strong><code>gather</code></strong> ve <strong><code>spread</code></strong> fonksiyonları yerine bunların daha kullanışlı bir karşılığı olan <strong><code>pivot_longer</code></strong> ve <strong><code>pivot_wider</code></strong> fonksiyonlarını da tercih edebilirsiniz. Bu konudaki örnekleri incelemenizi tavisye ederim. Belki bunları daha çok sevebilirsiniz.</p>
+</div>
+</div>
+</section>
+<section id="join" class="level2">
+<h2 class="anchored" data-anchor-id="join">join</h2>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/join.jpg" class="img-fluid figure-img"></p>
+</figure>
+</div>
+<p>R programlama dilinde <strong><code>dplyr</code></strong> paketinde bulunan <strong><code>left_join()</code></strong>, <strong><code>right_join()</code></strong>, <strong><code>inner_join()</code></strong>, ve <strong><code>full_join()</code></strong> gibi fonksiyonlar, veri çerçeveleri veya veri tabloları arasında birleştirme (join) işlemleri yapmak için kullanılır. Bu fonksiyonlar, farklı veri kaynaklarını birleştirmenizi veya ilişkilendirmenizi sağlar.</p>
+<p><strong><code>left_join()</code></strong> fonksiyonu, sol veri çerçevesi ile sağ veri çerçevesi arasında birleştirme işlemi yapar ve sol veri çerçevesindeki tüm gözlemleri korur. Eğer sağ veri çerçevesinde eşleşen gözlem yoksa, NA değerleri ile doldurulur.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb111"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb111-1"><a href="#cb111-1" aria-hidden="true" tabindex="-1"></a>veri1 <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
+<span id="cb111-2"><a href="#cb111-2" aria-hidden="true" tabindex="-1"></a>  Oğrenci <span class="ot">=</span> <span class="fu">c</span>(<span class="st">"Ali"</span>, <span class="st">"Esra"</span>, <span class="st">"Osman"</span>),</span>
+<span id="cb111-3"><a href="#cb111-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">Puan1 =</span> <span class="fu">c</span>(<span class="dv">90</span>, <span class="dv">85</span>, <span class="dv">78</span>)</span>
+<span id="cb111-4"><a href="#cb111-4" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb111-5"><a href="#cb111-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb111-6"><a href="#cb111-6" aria-hidden="true" tabindex="-1"></a>veri2 <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
+<span id="cb111-7"><a href="#cb111-7" aria-hidden="true" tabindex="-1"></a>  Oğrenci <span class="ot">=</span> <span class="fu">c</span>(<span class="st">"Ali"</span>, <span class="st">"Derya"</span>, <span class="st">"Merve"</span>),</span>
+<span id="cb111-8"><a href="#cb111-8" aria-hidden="true" tabindex="-1"></a>  <span class="at">Puan2 =</span> <span class="fu">c</span>(<span class="dv">88</span>, <span class="dv">92</span>, <span class="dv">85</span>)</span>
+<span id="cb111-9"><a href="#cb111-9" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb111-10"><a href="#cb111-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb111-11"><a href="#cb111-11" aria-hidden="true" tabindex="-1"></a>birlesik_veri <span class="ot">&lt;-</span> <span class="fu">left_join</span>(veri1, veri2, <span class="at">by =</span> <span class="st">"Oğrenci"</span>)</span>
+<span id="cb111-12"><a href="#cb111-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb111-13"><a href="#cb111-13" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(birlesik_veri)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>  Oğrenci Puan1 Puan2
+1     Ali    90    88
+2    Esra    85    NA
+3   Osman    78    NA</code></pre>
+</div>
+</div>
+<p>Bu kod, “Öğrenci” sütununa göre iki veri çerçevesini birleştirir. Sol veri çerçevesi (<strong><code>veri1</code></strong>) tüm gözlemleri içerir ve sağ veri çerçevesinde (<strong><code>veri2</code></strong>) eşleşen değerler varsa birleştirir.</p>
+<p><strong><code>right_join()</code></strong> fonksiyonu, <strong><code>left_join()</code></strong> ile benzerdir, ancak sağ veri çerçevesindeki tüm gözlemleri korur. Eğer sol veri çerçevesinde eşleşen gözlem yoksa, NA değerleri ile doldurulur.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb113"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb113-1"><a href="#cb113-1" aria-hidden="true" tabindex="-1"></a>birlesik_veri <span class="ot">&lt;-</span> <span class="fu">right_join</span>(veri1, veri2, <span class="at">by =</span> <span class="st">"Oğrenci"</span>)</span>
+<span id="cb113-2"><a href="#cb113-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb113-3"><a href="#cb113-3" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(birlesik_veri)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>  Oğrenci Puan1 Puan2
+1     Ali    90    88
+2   Derya    NA    92
+3   Merve    NA    85</code></pre>
+</div>
+</div>
+<p>Bu kod, sağ veri çerçevesi (<strong><code>veri2</code></strong>) tüm gözlemleri içerir ve sol veri çerçevesinde (<strong><code>veri1</code></strong>) eşleşen değerler varsa birleştirir.</p>
+<p><strong><code>inner_join()</code></strong> fonksiyonu, sol ve sağ veri çerçeveleri arasında iç birleştirme yapar ve yalnızca ortak gözlemleri korur. Ortak gözlemleri içermeyen diğer gözlemleri atar.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb115"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb115-1"><a href="#cb115-1" aria-hidden="true" tabindex="-1"></a>birlesik_veri <span class="ot">&lt;-</span> <span class="fu">inner_join</span>(veri1, veri2, <span class="at">by =</span> <span class="st">"Oğrenci"</span>)</span>
+<span id="cb115-2"><a href="#cb115-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb115-3"><a href="#cb115-3" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(birlesik_veri)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>  Oğrenci Puan1 Puan2
+1     Ali    90    88</code></pre>
+</div>
+</div>
+<p>Bu kod, sadece sol ve sağ veri çerçevelerinde (<strong><code>veri1</code></strong> ve <strong><code>veri2</code></strong>) ortak olan gözlemleri korur.</p>
+<p><strong><code>full_join()</code></strong> fonksiyonu, sol ve sağ veri çerçeveleri arasında tam birleştirme yapar ve tüm gözlemleri korur. Ortak olmayan değerler NA ile doldurulur.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb117"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb117-1"><a href="#cb117-1" aria-hidden="true" tabindex="-1"></a>birlesik_veri <span class="ot">&lt;-</span> <span class="fu">full_join</span>(veri1, veri2, <span class="at">by =</span> <span class="st">"Oğrenci"</span>)</span>
+<span id="cb117-2"><a href="#cb117-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb117-3"><a href="#cb117-3" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(birlesik_veri)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>  Oğrenci Puan1 Puan2
+1     Ali    90    88
+2    Esra    85    NA
+3   Osman    78    NA
+4   Derya    NA    92
+5   Merve    NA    85</code></pre>
+</div>
+</div>
+<p>Bu kod, sol ve sağ veri çerçevelerini (<strong><code>veri1</code></strong> ve <strong><code>veri2</code></strong>) tamamen birleştirir ve tüm gözlemleri içerir.</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Not
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Bu dört join fonksiyonu, farklı veri kaynaklarını birleştirme işlemlerinde kullanılır ve veri analizi sürecinde verileri daha kapsamlı bir şekilde incelemek için oldukça kullanışlıdır. Hangi join işleminin kullanılacağı, veri yapısına ve ihtiyaca bağlı olarak değişebilir.</p>
+</div>
+</div>
 
 
+</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
@@ -461,7 +1650,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       return localAlternateSentinel;
     }
   }
-  let localAlternateSentinel = 'alternate';
+  let localAlternateSentinel = 'default';
   // Dark / light mode switch
   window.quartoToggleColorScheme = () => {
     // Read the current dark / light value 
@@ -707,8 +1896,8 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./select.html" class="pagination-link">
-        <span class="nav-page-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">select</span></span> <i class="bi bi-arrow-right-short"></i>
+      <a href="./data_analysis.html" class="pagination-link">
+        <span class="nav-page-text">Keşifçi Veri Analizi</span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>
@@ -718,7 +1907,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     <div class="nav-footer-left">© 2023, Muhammed Fatih Tüzen</div>   
     <div class="nav-footer-center">
       &nbsp;
-    <div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.com/MFatihTuzen/r-book-tr/edit/main/data_manipulation.qmd" class="toc-action">Edit this page</a></p><p><a href="https://github.com/MFatihTuzen/r-book-tr/issues/new" class="toc-action">Report an issue</a></p></div></div></div>
+    </div>
     <div class="nav-footer-right">Bu kitap <a href="https://quarto.org/">Quarto</a> ile hazırlanmıştır.</div>
   </div>
 </footer>

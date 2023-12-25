@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>R Programlama - 9&nbsp; select</title>
+<title>R Programlama - 9&nbsp; Doğrusal Regresyon</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -64,18 +64,18 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
-<link href="./data_manipulation.html" rel="prev">
+<link href="./statistics.html" rel="prev">
 <script src="site_libs/quarto-html/quarto.js"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="site_libs/quarto-html/anchor.min.js"></script>
 <link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
 <link href="site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-dark.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-dark.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
 <script src="site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
 <link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
-<link href="site_libs/bootstrap/bootstrap-dark.min.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<link href="site_libs/bootstrap/bootstrap-dark.min.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
 <script id="quarto-search-options" type="application/json">{
   "location": "sidebar",
   "copy-button": false,
@@ -97,7 +97,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   }
 }</script>
 
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
 
+<link rel="stylesheet" href="styles.css">
 </head>
 
 <body class="nav-sidebar floating">
@@ -109,7 +112,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./data_manipulation.html">Veri Manipulasyonu</a></li><li class="breadcrumb-item"><a href="./select.html"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">select</span></a></li></ol></nav>
+      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./regresyon.html"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Doğrusal Regresyon</span></a></li></ol></nav>
       <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
       </a>
       <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
@@ -214,23 +217,42 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
       </ul>
   </li>
-        <li class="sidebar-item sidebar-item-section">
-      <div class="sidebar-item-container"> 
-            <a href="./data_manipulation.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Veri Manipulasyonu</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true" aria-label="Toggle section">
-            <i class="bi bi-chevron-right ms-2"></i>
-          </a> 
-      </div>
-      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
-          <li class="sidebar-item">
+        <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./select.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">select</span></span></a>
+  <a href="./data_manipulation.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Veri Manipulasyonu</span></a>
   </div>
 </li>
-      </ul>
-  </li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./data_analysis.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Keşifçi Veri Analizi</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./ggplot2.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">ggplot2 ile Veri Görselleştirme</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./data_preprocess.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Veri Ön İşleme</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./statistics.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">R ile Temel İstatistik</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./regresyon.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Doğrusal Regresyon</span></span></a>
+  </div>
+</li>
     </ul>
     </div>
 </nav>
@@ -244,7 +266,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">select</span></h1>
+<h1 class="title"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Doğrusal Regresyon</span></h1>
 </div>
 
 
@@ -259,167 +281,242 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 </header>
 
-<p>Tabloyu (veri çerçevesi) seçmek ve dönüştürmek için R’da <strong><code>dplyr</code></strong> paketinde bulunan <strong><code>select()</code></strong> fonksiyonu oldukça kullanışlıdır. Bu fonksiyon, belirli sütunları seçmek veya sütun adlarını değiştirmek için kullanılır. <strong><code>select()</code></strong> fonksiyonunu kullanarak veri çerçevesinde sütunları seçme ve dönüştürme işlemlerinin nasıl yapıldığına dair aşağıda örnekler mevcuttur.</p>
+<p>Basit doğrusal regresyon, iki nicel değişken arasındaki doğrusal ilişkiyi değerlendirmeye izin veren istatistiksel bir yaklaşımdır. Daha doğrusu, ilişkinin nicelleştirilmesini ve öneminin değerlendirilmesini sağlar. Çoklu doğrusal regresyon, bu yaklaşımın bir yanıt değişkeni (nicel) ile birkaç açıklayıcı değişken (nicel veya nitel) arasındaki doğrusal ilişkileri değerlendirmeyi mümkün kılması anlamında, basit doğrusal regresyonun bir genellemesidir.</p>
+<p>Gerçek dünyada, çoklu doğrusal regresyon, basit doğrusal regresyondan daha sık kullanılır. Bu çoğunlukla böyledir çünkü, Çoklu doğrusal regresyon, diğer değişkenlerin etkisini kontrol ederken (yani etkiyi ortadan kaldırırken) iki değişken arasındaki ilişkiyi değerlendirmeye izin verir. Veri toplamanın da kolaylaşmasıyla, veriler analiz edilirken daha fazla değişken dahil edilebilir ve dikkate alınabilir.</p>
+<p>Basit doğrusal regresyon, iki değişken arasında doğrusal bir ilişkinin varlığını değerlendirmeye ve bu bağlantıyı nicelleştirmeye izin verir. Doğrusallığın, iki değişkenin doğrusal olarak bağımlı olup olmadığını test etmesi ve ölçmesi anlamında doğrusal regresyonda güçlü bir varsayım olduğuna dikkat etmek gerekmektedir.</p>
+<p>Doğrusal regresyonu güçlü bir istatistiksel araç yapan şey, açıklayıcı/bağımsız değişken bir birim arttığında yanıtın/bağımlı değişkenin hangi nicelikle değiştiğini ölçmeye izin vermesidir. Bu kavram doğrusal regresyonda anahtardır ve aşağıda verilen türde soruları yanıtlamaya yardımcı olur:</p>
+<ul>
+<li><p>Reklama harcanan miktar ile belirli bir dönemdeki satışlar arasında bir bağlantı var mı?</p></li>
+<li><p>Tütün vergilerindeki artış tüketimini azaltır mı?</p></li>
+<li><p>Bölgeye bağlı olarak bir konutun en olası fiyatı nedir?</p></li>
+<li><p>Bir kişinin bir uyarana tepki verme süresi cinsiyete bağlı mıdır?</p></li>
+</ul>
+<p>Basit doğrusal regresyon analizinde, bağımlı değişken y ile bağımsız değişken x arasındaki ilişki doğrusal bir denklem şeklinde verilir.</p>
+<p><span class="math display">\[ y=\beta_0+\beta_1x \]</span></p>
+<p>Burada, <span class="math inline">\(\beta_0\)</span> sayısına kesme noktası denir ve regresyon doğrusu ile y ekseninin (x=0) kesişme noktasını tanımlar. <span class="math inline">\(\beta_1\)</span> sayısına regresyon katsayısı denir. Regresyon doğrusu eğiminin bir ölçüsüdür. Böylece <span class="math inline">\(\beta_1\)</span>, x değeri 1 birim arttığında y değerinin ne kadar değiştiğini gösterir. Model, x ve y arasında kesin bir ilişki verdiği için deterministik bir model olarak kabul edilir.</p>
+<p>Ancak birçok durumda, iki değişken x ve y arasındaki ilişki kesin değildir. Bunun nedeni, bağımlı değişken y’nin, tahmin değişkeni x tarafından tam olarak yakalanmayan diğer bilinmeyen ve/veya rastgele süreçlerden etkilenmesidir. Böyle bir durumda veri noktaları düz bir çizgi üzerinde sıralanmaz. Bununla birlikte, veriler hala temeldeki doğrusal bir ilişkiyi takip edebilir. Bu bilinmeyenleri dikkate almak için lineer model denklemine <span class="math inline">\(\varepsilon\)</span> ile gösterilen rastgele bir hata terimi eklenir, böylece yukarıdaki deterministik modelin aksine olasılıklı bir model elde edilir.</p>
+<p><span class="math display">\[ y=\beta_0+\beta_1x+\varepsilon \]</span></p>
+<p>Burada hata terimi <span class="math inline">\(\varepsilon_i\)</span>’nin bağımsız normal dağılımlı değerlerden oluştuğu varsayılır, <span class="math inline">\(e_i\)</span>~<span class="math inline">\(N(0,\sigma^2)\)</span>.</p>
+<p>Doğrusal regresyon modeli hakkında aşağıdaki varsayımlar yapılır:</p>
+<ul>
+<li><p>Bağımlı değişken tesadüfi bir değişkendir ve normal dağılım göstermektedir.</p></li>
+<li><p>Tahmin hataları tesadüfidir ve normal dağılım gösterirler.</p></li>
+<li><p>Hatalar birbirinden bağımsızdır (otokorelasyon yoktur).</p></li>
+<li><p>Hata varyansı sabittir ve veriler arasında hiç değişmediği varsayılır (eşit varyanslılık-homoscedasticity).</p></li>
+<li><p>Eğer çoklu regresyon analizi yapılıyorsa, bağımsız değişkenlerin birbirleri ile bağlantısının olmaması gereklidir. Buna çoklu bağlantı (multicollinearity) olmaması varsayımı adı verilir.</p></li>
+<li><p>Bağımlı değişken ile bağımsız değişkenler arasında doğrusal bir ilişki olmalıdır.</p></li>
+<li><p>Gözlem sayısı parametre sayısından büyük olmalıdır.</p></li>
+</ul>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/regresyon.png" width="900" height="522" class="figure-img"></p>
+</figure>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(gapminder)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>
+Attaching package: 'dplyr'</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>The following objects are masked from 'package:stats':
+
+    filter, lag</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>The following objects are masked from 'package:base':
+
+    intersect, setdiff, setequal, union</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="co"># gapminder veri setine bakalım</span></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a><span class="fu">glimpse</span>(gapminder)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Rows: 1,704
+Columns: 6
+$ country   &lt;fct&gt; "Afghanistan", "Afghanistan", "Afghanistan", "Afghanistan", …
+$ continent &lt;fct&gt; Asia, Asia, Asia, Asia, Asia, Asia, Asia, Asia, Asia, Asia, …
+$ year      &lt;int&gt; 1952, 1957, 1962, 1967, 1972, 1977, 1982, 1987, 1992, 1997, …
+$ lifeExp   &lt;dbl&gt; 28.801, 30.332, 31.997, 34.020, 36.088, 38.438, 39.854, 40.8…
+$ pop       &lt;int&gt; 8425333, 9240934, 10267083, 11537966, 13079460, 14880372, 12…
+$ gdpPercap &lt;dbl&gt; 779.4453, 820.8530, 853.1007, 836.1971, 739.9811, 786.1134, …</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(gapminder)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>        country        continent        year         lifeExp     
+ Afghanistan:  12   Africa  :624   Min.   :1952   Min.   :23.60  
+ Albania    :  12   Americas:300   1st Qu.:1966   1st Qu.:48.20  
+ Algeria    :  12   Asia    :396   Median :1980   Median :60.71  
+ Angola     :  12   Europe  :360   Mean   :1980   Mean   :59.47  
+ Argentina  :  12   Oceania : 24   3rd Qu.:1993   3rd Qu.:70.85  
+ Australia  :  12                  Max.   :2007   Max.   :82.60  
+ (Other)    :1632                                                
+      pop              gdpPercap       
+ Min.   :6.001e+04   Min.   :   241.2  
+ 1st Qu.:2.794e+06   1st Qu.:  1202.1  
+ Median :7.024e+06   Median :  3531.8  
+ Mean   :2.960e+07   Mean   :  7215.3  
+ 3rd Qu.:1.959e+07   3rd Qu.:  9325.5  
+ Max.   :1.319e+09   Max.   :113523.1  
+                                       </code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co"># kişi başına milli gelir ile yaşam beklentisi değişkenlerini görselleştirelim.</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(gapminder, <span class="fu">aes</span>(gdpPercap, lifeExp)) <span class="sc">+</span></span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="regresyon_files/figure-html/unnamed-chunk-1-1.png" class="img-fluid" width="672"></p>
+</div>
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(gapminder, <span class="fu">aes</span>(gdpPercap, lifeExp)) <span class="sc">+</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span> </span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">"lm"</span>,<span class="at">se=</span><span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>`geom_smooth()` using formula = 'y ~ x'</code></pre>
+</div>
+<div class="cell-output-display">
+<p><img src="regresyon_files/figure-html/unnamed-chunk-1-2.png" class="img-fluid" width="672"></p>
+</div>
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="co"># regresyon modeli kuralım</span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>model1 <span class="ot">&lt;-</span> <span class="fu">lm</span>(lifeExp <span class="sc">~</span> gdpPercap, <span class="at">data =</span> gapminder)</span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>model1</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Call:
+lm(formula = lifeExp ~ gdpPercap, data = gapminder)
+
+Coefficients:
+(Intercept)    gdpPercap  
+  5.396e+01    7.649e-04  </code></pre>
+</div>
+</div>
 <div class="callout callout-style-default callout-note callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-Not
+Yorum
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p><strong><code>select()</code></strong> fonksiyonu ayrıca sütunları seçerken veya döndürürken bazı özel işlevler de kullanmanıza olanak tanır. Örneğin, <strong><code>starts_with()</code></strong>, <strong><code>ends_with()</code></strong>, <strong><code>contains()</code></strong> gibi işlevleri kullanarak sütun adlarının belirli bir örüntüyü karşılayanları seçebilirsiniz. Bu fonksiyon, veri manipülasyonu işlemlerinde oldukça kullanışlıdır ve veri çerçevelerini istediğiniz şekilde özelleştirmenize yardımcı olur.</p>
+<p>Yani burada söyleyebileceğimiz şey, GSYİH’daki her 1 artış için, yaşam beklentisinde 0.0007649 yıllık bir artış görmeyi bekleyebiliriz. Modelimizi daha iyi anlayabilmek için model üzerinde <strong><code>summary()</code></strong> fonksiyonunu kullanabiliriz. Ayrıca artıkların normalliğini de bakmak da fayda var.</p>
+</div>
+</div>
+<p><strong><code>summary</code></strong> fonksiyonu ile modelimizin verilere ne kadar iyi uyduğu hakkında biraz daha bilgi alıyoruz. Genel modelimiz ve her değişken için p-değerlerini görebiliriz. <span class="math inline">\(R^2\)</span> değeri, veri kümenizdeki varyansın ne kadarının modeliniz tarafından açıklanabileceğini temel olarak, modelinizin verilere ne kadar iyi uyduğunu gösterir. Bu değer 0 ile 1 arasında değişir ve büyük olması beklenir. Genel olarak, modelinizde kaç değişken kullandığınızı telafi eden düzeltilmiş <span class="math inline">\(R^2\)</span>’yi kullanırız. Aksi halde başka bir değişken eklemek her zaman <span class="math inline">\(R^2\)</span>’yi artırır.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(model1)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Call:
+lm(formula = lifeExp ~ gdpPercap, data = gapminder)
+
+Residuals:
+    Min      1Q  Median      3Q     Max 
+-82.754  -7.758   2.176   8.225  18.426 
+
+Coefficients:
+             Estimate Std. Error t value Pr(&gt;|t|)    
+(Intercept) 5.396e+01  3.150e-01  171.29   &lt;2e-16 ***
+gdpPercap   7.649e-04  2.579e-05   29.66   &lt;2e-16 ***
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+Residual standard error: 10.49 on 1702 degrees of freedom
+Multiple R-squared:  0.3407,    Adjusted R-squared:  0.3403 
+F-statistic: 879.6 on 1 and 1702 DF,  p-value: &lt; 2.2e-16</code></pre>
+</div>
+</div>
+<p>Modele gdp değişkenin logaritmasını alarak ve continent (kıta) ve year (yıl) değişkenlerini de ekleyerek çoklu regresyon analizi sonuçlarına bakalım.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>model2 <span class="ot">&lt;-</span> <span class="fu">lm</span>(lifeExp <span class="sc">~</span> <span class="fu">log</span>(gdpPercap) <span class="sc">+</span> continent <span class="sc">+</span> year, <span class="at">data =</span> gapminder)</span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(model2)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Call:
+lm(formula = lifeExp ~ log(gdpPercap) + continent + year, data = gapminder)
+
+Residuals:
+     Min       1Q   Median       3Q      Max 
+-25.0433  -3.2175   0.3482   3.6657  15.1321 
+
+Coefficients:
+                    Estimate Std. Error t value Pr(&gt;|t|)    
+(Intercept)       -4.659e+02  1.667e+01  -27.94   &lt;2e-16 ***
+log(gdpPercap)     5.024e+00  1.595e-01   31.50   &lt;2e-16 ***
+continentAmericas  8.926e+00  4.630e-01   19.28   &lt;2e-16 ***
+continentAsia      7.063e+00  3.959e-01   17.84   &lt;2e-16 ***
+continentEurope    1.251e+01  5.097e-01   24.54   &lt;2e-16 ***
+continentOceania   1.275e+01  1.275e+00   10.00   &lt;2e-16 ***
+year               2.416e-01  8.586e-03   28.14   &lt;2e-16 ***
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+Residual standard error: 5.813 on 1697 degrees of freedom
+Multiple R-squared:  0.7982,    Adjusted R-squared:  0.7975 
+F-statistic:  1119 on 6 and 1697 DF,  p-value: &lt; 2.2e-16</code></pre>
+</div>
+</div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Yorum
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Bu sonuçlara göre <span class="math inline">\(R^2\)</span> değeri 0.79’a yükselmiştir. Değişken sayısını artırmak model başarısını artırmış görünüyor. Ayrıca katsayıların hepsinin de anlamlı çıktığı göz ardı edilmemelidir.</p>
+<p>Afrika kıtası haricinde, veri kümemizdeki kıtaların her biri için bir satır var. Bunun sebebi Afrika kıtası referans kıta olarak burada belirlenmesinden kaynaklanmaktadır. Yani kıtalara göre verileri yorumlarken Afirika kıtasına göre değerlendirme yapılacaktır. Örneğin Avrupa’da olmak ortalama olarak, Afrika’da olmaktan 12.51 yıl daha fazla yaşam beklentisine sahip olmak anlamına gelmektedir.</p>
+</div>
+</div>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Tavsiye
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Model sonuçlarının daha güzel ve temiz (tidy) bir formatta görünmesi için <strong><code>broom</code></strong> paketi kullanılabilir.</p>
 </div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># library(dplyr)</span></span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="co"># counties &lt;- readRDS("datasets/counties.rds")</span></span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="co"># belirli sütunları seçmek </span></span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>counties <span class="sc">%&gt;%</span> <span class="fu">select</span>(state, county, population, unemployment)  </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(broom)</span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a><span class="co"># gözlem düzeyinde sonuçlar</span></span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a><span class="fu">augment</span>(model2)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 3,138 × 4
-   state   county   population unemployment
-   &lt;chr&gt;   &lt;chr&gt;         &lt;dbl&gt;        &lt;dbl&gt;
- 1 Alabama Autauga       55221          7.6
- 2 Alabama Baldwin      195121          7.5
- 3 Alabama Barbour       26932         17.6
- 4 Alabama Bibb          22604          8.3
- 5 Alabama Blount        57710          7.7
- 6 Alabama Bullock       10678         18  
- 7 Alabama Butler        20354         10.9
- 8 Alabama Calhoun      116648         12.3
- 9 Alabama Chambers      34079          8.9
-10 Alabama Cherokee      26008          7.9
-# ℹ 3,128 more rows</code></pre>
+<pre><code># A tibble: 1,704 × 10
+   lifeExp `log(gdpPercap)` continent  year .fitted .resid    .hat .sigma
+     &lt;dbl&gt;            &lt;dbl&gt; &lt;fct&gt;     &lt;int&gt;   &lt;dbl&gt;  &lt;dbl&gt;   &lt;dbl&gt;  &lt;dbl&gt;
+ 1    28.8             6.66 Asia       1952    46.3  -17.5 0.00470   5.80
+ 2    30.3             6.71 Asia       1957    47.8  -17.5 0.00425   5.80
+ 3    32.0             6.75 Asia       1962    49.2  -17.2 0.00393   5.80
+ 4    34.0             6.73 Asia       1967    50.3  -16.3 0.00380   5.80
+ 5    36.1             6.61 Asia       1972    50.9  -14.8 0.00399   5.80
+ 6    38.4             6.67 Asia       1977    52.4  -14.0 0.00393   5.81
+ 7    39.9             6.89 Asia       1982    54.7  -14.9 0.00367   5.80
+ 8    40.8             6.75 Asia       1987    55.2  -14.4 0.00422   5.80
+ 9    41.7             6.48 Asia       1992    55.1  -13.4 0.00529   5.81
+10    41.8             6.45 Asia       1997    56.2  -14.4 0.00588   5.80
+# ℹ 1,694 more rows
+# ℹ 2 more variables: .cooksd &lt;dbl&gt;, .std.resid &lt;dbl&gt;</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># belli aralıkta bütün sütunların seçilmesi </span></span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>counties <span class="sc">%&gt;%</span> <span class="fu">select</span>(state, county, drive<span class="sc">:</span>work_at_home)  </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="co">#model düzeyinde sonuçlar</span></span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a><span class="fu">glance</span>(model2)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 3,138 × 8
-   state   county   drive carpool transit  walk other_transp work_at_home
-   &lt;chr&gt;   &lt;chr&gt;    &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt; &lt;dbl&gt;        &lt;dbl&gt;        &lt;dbl&gt;
- 1 Alabama Autauga   87.5     8.8     0.1   0.5          1.3          1.8
- 2 Alabama Baldwin   84.7     8.8     0.1   1            1.4          3.9
- 3 Alabama Barbour   83.8    10.9     0.4   1.8          1.5          1.6
- 4 Alabama Bibb      83.2    13.5     0.5   0.6          1.5          0.7
- 5 Alabama Blount    84.9    11.2     0.4   0.9          0.4          2.3
- 6 Alabama Bullock   74.9    14.9     0.7   5            1.7          2.8
- 7 Alabama Butler    84.5    12.4     0     0.8          0.6          1.7
- 8 Alabama Calhoun   85.3     9.4     0.2   1.2          1.2          2.7
- 9 Alabama Chambers  85.1    11.9     0.2   0.3          0.4          2.1
-10 Alabama Cherokee  83.9    12.1     0.2   0.6          0.7          2.5
-# ℹ 3,128 more rows</code></pre>
-</div>
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># belirli bir ifadeyi içeren sütunları seçmek </span></span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>counties <span class="sc">%&gt;%</span> <span class="fu">select</span>(state, county, <span class="fu">contains</span>(<span class="st">"employed"</span>))  </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 3,138 × 4
-   state   county   employed self_employed
-   &lt;chr&gt;   &lt;chr&gt;       &lt;dbl&gt;         &lt;dbl&gt;
- 1 Alabama Autauga     23986           5.5
- 2 Alabama Baldwin     85953           5.8
- 3 Alabama Barbour      8597           7.3
- 4 Alabama Bibb         8294           6.7
- 5 Alabama Blount      22189           4.2
- 6 Alabama Bullock      3865           5.4
- 7 Alabama Butler       7813           6.2
- 8 Alabama Calhoun     47401           5  
- 9 Alabama Chambers    13689           2.8
-10 Alabama Cherokee    10155           7.9
-# ℹ 3,128 more rows</code></pre>
-</div>
-<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># belirli bir ifade ile başyalan sütunları seçmek </span></span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>counties <span class="sc">%&gt;%</span> <span class="fu">select</span>(state, county, <span class="fu">starts_with</span>(<span class="st">"income"</span>))  </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 3,138 × 6
-   state   county   income income_err income_per_cap income_per_cap_err
-   &lt;chr&gt;   &lt;chr&gt;     &lt;dbl&gt;      &lt;dbl&gt;          &lt;dbl&gt;              &lt;dbl&gt;
- 1 Alabama Autauga   51281       2391          24974               1080
- 2 Alabama Baldwin   50254       1263          27317                711
- 3 Alabama Barbour   32964       2973          16824                798
- 4 Alabama Bibb      38678       3995          18431               1618
- 5 Alabama Blount    45813       3141          20532                708
- 6 Alabama Bullock   31938       5884          17580               2055
- 7 Alabama Butler    32229       1793          18390                714
- 8 Alabama Calhoun   41703        925          21374                489
- 9 Alabama Chambers  34177       2949          21071               1366
-10 Alabama Cherokee  36296       1710          21811               1556
-# ℹ 3,128 more rows</code></pre>
-</div>
-<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co"># belirli bir ifade ile biten sütunları seçmek </span></span>
-<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>counties <span class="sc">%&gt;%</span> <span class="fu">select</span>(state, county, <span class="fu">ends_with</span>(<span class="st">"work"</span>))  </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 3,138 × 5
-   state   county   private_work public_work family_work
-   &lt;chr&gt;   &lt;chr&gt;           &lt;dbl&gt;       &lt;dbl&gt;       &lt;dbl&gt;
- 1 Alabama Autauga          73.6        20.9         0  
- 2 Alabama Baldwin          81.5        12.3         0.4
- 3 Alabama Barbour          71.8        20.8         0.1
- 4 Alabama Bibb             76.8        16.1         0.4
- 5 Alabama Blount           82          13.5         0.4
- 6 Alabama Bullock          79.5        15.1         0  
- 7 Alabama Butler           77.4        16.2         0.2
- 8 Alabama Calhoun          74.1        20.8         0.1
- 9 Alabama Chambers         85.1        12.1         0  
-10 Alabama Cherokee         73.1        18.5         0.5
-# ℹ 3,128 more rows</code></pre>
-</div>
-<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co"># belirli sütunları hariç tutarak seçmek </span></span>
-<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>counties <span class="sc">%&gt;%</span> <span class="fu">select</span>(census_id<span class="sc">:</span>population,<span class="sc">-</span><span class="fu">c</span>(men<span class="sc">:</span>land_area))  </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 3,138 × 6
-   census_id state   county   region metro    population
-   &lt;chr&gt;     &lt;chr&gt;   &lt;chr&gt;    &lt;chr&gt;  &lt;chr&gt;         &lt;dbl&gt;
- 1 1001      Alabama Autauga  South  Metro         55221
- 2 1003      Alabama Baldwin  South  Metro        195121
- 3 1005      Alabama Barbour  South  Nonmetro      26932
- 4 1007      Alabama Bibb     South  Metro         22604
- 5 1009      Alabama Blount   South  Metro         57710
- 6 1011      Alabama Bullock  South  Nonmetro      10678
- 7 1013      Alabama Butler   South  Nonmetro      20354
- 8 1015      Alabama Calhoun  South  Metro        116648
- 9 1017      Alabama Chambers South  Nonmetro      34079
-10 1019      Alabama Cherokee South  Nonmetro      26008
-# ℹ 3,128 more rows</code></pre>
-</div>
-<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="co"># belirli veri tipindeki sütunları seçmek </span></span>
-<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>counties <span class="sc">%&gt;%</span> <span class="fu">select</span>(<span class="fu">where</span>(is.character))  </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 3,138 × 5
-   census_id state   county   region metro   
-   &lt;chr&gt;     &lt;chr&gt;   &lt;chr&gt;    &lt;chr&gt;  &lt;chr&gt;   
- 1 1001      Alabama Autauga  South  Metro   
- 2 1003      Alabama Baldwin  South  Metro   
- 3 1005      Alabama Barbour  South  Nonmetro
- 4 1007      Alabama Bibb     South  Metro   
- 5 1009      Alabama Blount   South  Metro   
- 6 1011      Alabama Bullock  South  Nonmetro
- 7 1013      Alabama Butler   South  Nonmetro
- 8 1015      Alabama Calhoun  South  Metro   
- 9 1017      Alabama Chambers South  Nonmetro
-10 1019      Alabama Cherokee South  Nonmetro
-# ℹ 3,128 more rows</code></pre>
-</div>
-<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="co"># select ile kolon adı değiştirmek </span></span>
-<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>counties <span class="sc">%&gt;%</span> <span class="fu">select</span>(census_id,<span class="at">pop =</span> population)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 3,138 × 2
-   census_id    pop
-   &lt;chr&gt;      &lt;dbl&gt;
- 1 1001       55221
- 2 1003      195121
- 3 1005       26932
- 4 1007       22604
- 5 1009       57710
- 6 1011       10678
- 7 1013       20354
- 8 1015      116648
- 9 1017       34079
-10 1019       26008
-# ℹ 3,128 more rows</code></pre>
+<pre><code># A tibble: 1 × 12
+  r.squared adj.r.squared sigma statistic p.value    df logLik    AIC    BIC
+      &lt;dbl&gt;         &lt;dbl&gt; &lt;dbl&gt;     &lt;dbl&gt;   &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;
+1     0.798         0.797  5.81     1119.       0     6 -5414. 10843. 10887.
+# ℹ 3 more variables: deviance &lt;dbl&gt;, df.residual &lt;int&gt;, nobs &lt;int&gt;</code></pre>
 </div>
 </div>
 
@@ -535,7 +632,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       return localAlternateSentinel;
     }
   }
-  let localAlternateSentinel = 'alternate';
+  let localAlternateSentinel = 'default';
   // Dark / light mode switch
   window.quartoToggleColorScheme = () => {
     // Read the current dark / light value 
@@ -776,8 +873,8 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="./data_manipulation.html" class="pagination-link">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Veri Manipulasyonu</span>
+      <a href="./statistics.html" class="pagination-link">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">R ile Temel İstatistik</span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
@@ -789,7 +886,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     <div class="nav-footer-left">© 2023, Muhammed Fatih Tüzen</div>   
     <div class="nav-footer-center">
       &nbsp;
-    <div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.com/MFatihTuzen/r-book-tr/edit/main/select.qmd" class="toc-action">Edit this page</a></p><p><a href="https://github.com/MFatihTuzen/r-book-tr/issues/new" class="toc-action">Report an issue</a></p></div></div></div>
+    <div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.com/MFatihTuzen/r-book-tr/edit/main/regresyon.qmd" class="toc-action">Edit this page</a></p><p><a href="https://github.com/MFatihTuzen/r-book-tr/issues/new" class="toc-action">Report an issue</a></p></div></div></div>
     <div class="nav-footer-right">Bu kitap <a href="https://quarto.org/">Quarto</a> ile hazırlanmıştır.</div>
   </div>
 </footer>

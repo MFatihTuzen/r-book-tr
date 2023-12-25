@@ -1,0 +1,123 @@
+# Doğrusal Regresyon {.unnumbered}
+
+Basit doğrusal regresyon, iki nicel değişken arasındaki doğrusal ilişkiyi değerlendirmeye izin veren istatistiksel bir yaklaşımdır. Daha doğrusu, ilişkinin nicelleştirilmesini ve öneminin değerlendirilmesini sağlar. Çoklu doğrusal regresyon, bu yaklaşımın bir yanıt değişkeni (nicel) ile birkaç açıklayıcı değişken (nicel veya nitel) arasındaki doğrusal ilişkileri değerlendirmeyi mümkün kılması anlamında, basit doğrusal regresyonun bir genellemesidir.
+
+Gerçek dünyada, çoklu doğrusal regresyon, basit doğrusal regresyondan daha sık kullanılır. Bu çoğunlukla böyledir çünkü, Çoklu doğrusal regresyon, diğer değişkenlerin etkisini kontrol ederken (yani etkiyi ortadan kaldırırken) iki değişken arasındaki ilişkiyi değerlendirmeye izin verir. Veri toplamanın da kolaylaşmasıyla, veriler analiz edilirken daha fazla değişken dahil edilebilir ve dikkate alınabilir.
+
+Basit doğrusal regresyon, iki değişken arasında doğrusal bir ilişkinin varlığını değerlendirmeye ve bu bağlantıyı nicelleştirmeye izin verir. Doğrusallığın, iki değişkenin doğrusal olarak bağımlı olup olmadığını test etmesi ve ölçmesi anlamında doğrusal regresyonda güçlü bir varsayım olduğuna dikkat etmek gerekmektedir.
+
+Doğrusal regresyonu güçlü bir istatistiksel araç yapan şey, açıklayıcı/bağımsız değişken bir birim arttığında yanıtın/bağımlı değişkenin hangi nicelikle değiştiğini ölçmeye izin vermesidir. Bu kavram doğrusal regresyonda anahtardır ve aşağıda verilen türde soruları yanıtlamaya yardımcı olur:
+
+-   Reklama harcanan miktar ile belirli bir dönemdeki satışlar arasında bir bağlantı var mı?
+
+-   Tütün vergilerindeki artış tüketimini azaltır mı?
+
+-   Bölgeye bağlı olarak bir konutun en olası fiyatı nedir?
+
+-   Bir kişinin bir uyarana tepki verme süresi cinsiyete bağlı mıdır?
+
+Basit doğrusal regresyon analizinde, bağımlı değişken y ile bağımsız değişken x arasındaki ilişki doğrusal bir denklem şeklinde verilir.
+
+$$ y=\beta_0+\beta_1x $$
+
+Burada, $\beta_0$ sayısına kesme noktası denir ve regresyon doğrusu ile y ekseninin (x=0) kesişme noktasını tanımlar. $\beta_1$ sayısına regresyon katsayısı denir. Regresyon doğrusu eğiminin bir ölçüsüdür. Böylece $\beta_1$, x değeri 1 birim arttığında y değerinin ne kadar değiştiğini gösterir. Model, x ve y arasında kesin bir ilişki verdiği için deterministik bir model olarak kabul edilir.
+
+Ancak birçok durumda, iki değişken x ve y arasındaki ilişki kesin değildir. Bunun nedeni, bağımlı değişken y'nin, tahmin değişkeni x tarafından tam olarak yakalanmayan diğer bilinmeyen ve/veya rastgele süreçlerden etkilenmesidir. Böyle bir durumda veri noktaları düz bir çizgi üzerinde sıralanmaz. Bununla birlikte, veriler hala temeldeki doğrusal bir ilişkiyi takip edebilir. Bu bilinmeyenleri dikkate almak için lineer model denklemine $\varepsilon$ ile gösterilen rastgele bir hata terimi eklenir, böylece yukarıdaki deterministik modelin aksine olasılıklı bir model elde edilir.
+
+$$ y=\beta_0+\beta_1x+\varepsilon $$
+
+Burada hata terimi $\varepsilon_i$'nin bağımsız normal dağılımlı değerlerden oluştuğu varsayılır, $e_i$\~$N(0,\sigma^2)$.
+
+Doğrusal regresyon modeli hakkında aşağıdaki varsayımlar yapılır:
+
+-   Bağımlı değişken tesadüfi bir değişkendir ve normal dağılım göstermektedir.
+
+-   Tahmin hataları tesadüfidir ve normal dağılım gösterirler.
+
+-   Hatalar birbirinden bağımsızdır (otokorelasyon yoktur).
+
+-   Hata varyansı sabittir ve veriler arasında hiç değişmediği varsayılır (eşit varyanslılık-homoscedasticity).
+
+-   Eğer çoklu regresyon analizi yapılıyorsa, bağımsız değişkenlerin birbirleri ile bağlantısının olmaması gereklidir. Buna çoklu bağlantı (multicollinearity) olmaması varsayımı adı verilir.
+
+-   Bağımlı değişken ile bağımsız değişkenler arasında doğrusal bir ilişki olmalıdır.
+
+-   Gözlem sayısı parametre sayısından büyük olmalıdır.
+
+![](images/regresyon.png){fig-align="center" width="900" height="522"}
+
+```{r}
+
+library(gapminder)
+library(dplyr)
+library(ggplot2)
+
+# gapminder veri setine bakalım
+
+glimpse(gapminder)
+summary(gapminder)
+
+# kişi başına milli gelir ile yaşam beklentisi değişkenlerini görselleştirelim.
+
+ggplot(gapminder, aes(gdpPercap, lifeExp)) +
+  geom_point()
+
+ggplot(gapminder, aes(gdpPercap, lifeExp)) +
+  geom_point() + 
+  geom_smooth(method = "lm",se=TRUE)
+
+# regresyon modeli kuralım
+
+model1 <- lm(lifeExp ~ gdpPercap, data = gapminder)
+model1
+
+```
+
+::: callout-note
+### Yorum
+
+Yani burada söyleyebileceğimiz şey, GSYİH'daki her 1 artış için, yaşam beklentisinde 0.0007649 yıllık bir artış görmeyi bekleyebiliriz. Modelimizi daha iyi anlayabilmek için model üzerinde **`summary()`** fonksiyonunu kullanabiliriz. Ayrıca artıkların normalliğini de bakmak da fayda var.
+:::
+
+**`summary`** fonksiyonu ile modelimizin verilere ne kadar iyi uyduğu hakkında biraz daha bilgi alıyoruz. Genel modelimiz ve her değişken için p-değerlerini görebiliriz. $R^2$ değeri, veri kümenizdeki varyansın ne kadarının modeliniz tarafından açıklanabileceğini temel olarak, modelinizin verilere ne kadar iyi uyduğunu gösterir. Bu değer 0 ile 1 arasında değişir ve büyük olması beklenir. Genel olarak, modelinizde kaç değişken kullandığınızı telafi eden düzeltilmiş $R^2$'yi kullanırız. Aksi halde başka bir değişken eklemek her zaman $R^2$'yi artırır.
+
+```{r}
+
+summary(model1)
+
+```
+
+Modele gdp değişkenin logaritmasını alarak ve continent (kıta) ve year (yıl) değişkenlerini de ekleyerek çoklu regresyon analizi sonuçlarına bakalım.
+
+```{r}
+
+model2 <- lm(lifeExp ~ log(gdpPercap) + continent + year, data = gapminder)
+summary(model2)
+
+```
+
+::: callout-note
+### Yorum
+
+Bu sonuçlara göre $R^2$ değeri 0.79'a yükselmiştir. Değişken sayısını artırmak model başarısını artırmış görünüyor. Ayrıca katsayıların hepsinin de anlamlı çıktığı göz ardı edilmemelidir.
+
+Afrika kıtası haricinde, veri kümemizdeki kıtaların her biri için bir satır var. Bunun sebebi Afrika kıtası referans kıta olarak burada belirlenmesinden kaynaklanmaktadır. Yani kıtalara göre verileri yorumlarken Afirika kıtasına göre değerlendirme yapılacaktır. Örneğin Avrupa'da olmak ortalama olarak, Afrika'da olmaktan 12.51 yıl daha fazla yaşam beklentisine sahip olmak anlamına gelmektedir.
+:::
+
+::: callout-tip
+## Tavsiye
+
+Model sonuçlarının daha güzel ve temiz (tidy) bir formatta görünmesi için **`broom`** paketi kullanılabilir.
+:::
+
+```{r}
+
+library(broom)
+
+# gözlem düzeyinde sonuçlar
+augment(model2)
+
+#model düzeyinde sonuçlar
+glance(model2)
+
+```

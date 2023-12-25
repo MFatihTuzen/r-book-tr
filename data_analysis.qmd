@@ -1,0 +1,269 @@
+# Keşifçi Veri Analizi {.unnumbered}
+
+Keşifçi Veri Analizi (Exploratory Data Analysis veya kısaca EDA), veri setinizi anlamak, içindeki örüntüleri ve ilişkileri belirlemek ve olası sorunları tanımlamak amacıyla veriye yakından bakmanızı sağlayan bir veri analizi yaklaşımıdır. EDA, verileri tanımanıza veya verilerdeki olası özellikler ve ilişkiler hakkında daha derin bir anlayış kazanmanıza yardımcı olabilir. EDA, yeni bir şey değildir, ancak EDA, birkaç nedenden dolayı yakın geçmişte önemli ölçüde büyümüştür:
+
+-   Veriler her zamankinden daha hızlı ve daha büyük miktarlarda üretiliyor, bu yüzden incelememiz gereken çok şey var.
+
+-   Bilgisayarlar ve yazılımlar (R gibi) EDA yapma fırsatlarını genişletmiştir.
+
+-   İstatistiksel model seçeneklerindeki artış, genellikle doğrudan geleneksel bir modele gitmek yerine verilerimize daha yakından bakmamızı gerektirmektedir.
+
+EDA, verilerinizin nihai analizi açısından genellikle istatistiksel değildir, ancak EDA'nın geçiş süreci olarak düşünülmesi gerekir. EDA'dan öğrendikleriniz modellemenize rehberlik edecek ve istatistiksel araçlar hakkında verdiğiniz kararları doğrudan bilgilendirecektir. R gibi programlama dilleri ve istatistiksel araçlar, EDA sürecini kolaylaştırmak ve verileri görselleştirmek için kullanışlıdır. EDA, veri madenciliği ve veri bilimi projelerinin başlangıcında sıklıkla kullanılır ve aşağıdaki adımları içerir:
+
+1.  **Veri İçe Aktarma:** İlk adım, analiz yapmak için veriyi içe aktarmaktır. Veriyi R ortamına çeşitli formatlardan (CSV, Excel, SQL veritabanları, vb.) içe aktarabilirsiniz.
+
+2.  **Veriye Genel Bakış:** Veri setinize ilk bakışta, kaç gözlem ve değişken olduğunu, değişken türlerini (sayısal, kategorik, metinsel vb.) ve eksik verilerin varlığını incelemelisiniz. Bu bilgi, veri hakkında ilk fikirlerinizi oluşturmanıza yardımcı olur.
+
+3.  **Veri Görselleştirme:** Verileri görselleştirmek, EDA'nın önemli bir parçasıdır. R'nin ggplot2 gibi kütüphaneleri, verilerinizi grafiklerle görselleştirmek için kullanışlı araçlar sunar. Histogramlar, kutu grafikleri, çubuk grafikleri ve dağılım grafikleri gibi grafikler oluşturarak verilerinizi daha iyi anlayabilirsiniz.
+
+4.  **Merkezi Eğilim ve Dağılım Ölçüleri:** Veri setinizin merkezi eğilimini (ortalama, medyan, mod) ve dağılımını (standart sapma, varyans, çeyrekler arası aralık) hesaplayarak verilerinizin genel özelliklerini değerlendirebilirsiniz.
+
+5.  **Değişkenler Arası İlişkiler:** Değişkenler arasındaki ilişkileri anlamak için korelasyon analizi, scatter plotlar ve faktör analizi gibi teknikleri kullanabilirsiniz.
+
+6.  **Aykırı Değerler ve Eksik Veriler:** Aykırı değerleri tanımlayın ve bunların analiz üzerindeki etkilerini değerlendirin. Ayrıca eksik verileri ele alın (örneğin, eksik verileri doldurma veya eksik gözlemleri çıkarma).
+
+7.  **Veri Gruplama ve Alt Kümelere Bölme:** İhtiyaca göre veriyi gruplara ayırabilir veya alt kümeler oluşturabilirsiniz. Bu, farklı veri alt kümeleri arasındaki farkları incelemek için kullanışlı olabilir.
+
+8.  **Hipotez Testleri ve İstatistiksel Analiz:** EDA süreci sırasında, veriler üzerinde belirli hipotezleri test etmek için istatistiksel testler (t-test, ANOVA, vb.) uygulayabilirsiniz. Bu, verilerinizde anlamlı farklılıkları veya özellikleri tespit etmenize yardımcı olur.
+
+9.  **Sonuçların Yorumlanması:** EDA sürecinin sonunda, elde edilen sonuçları yorumlamalı ve bulgularınızı raporlamalısınız. Bulgularınız, daha sonraki analiz aşamaları veya veri madenciliği projeleri için temel oluşturur.
+
+EDA, veri analizi sürecinin önemli bir parçasıdır çünkü veriyi daha iyi anlamanızı ve daha ileri analizler için yol haritasını belirlemenizi sağlar. Aynı zamanda veri setinizdeki hataları veya tutarsızlıkları tespit etmenize ve düzeltmenize de yardımcı olur.
+
+## Veri ile Tanışma
+
+Veri analizinin başlangıç aşamasında, verinin yapısına, ne tür değişkenler içerdiğine, çeşitli özet istatistiklerine bakmak ve gerekli ise ne tür dönüşümler yapmak gerektiğini bilmek önemlidir. Bu süreçler daha derin analizlere daha kolay devam edebilmek için de önemlidir. Bunları gerçekleştirmek için hem özet tablolar hem de grafikler yardımıyla verileri tanımak gerekmektedir.
+
+Tek ve iki değişkenli olarak sayısal ve kategorik veri analizi [[**mpg**]{.underline}](https://ggplot2.tidyverse.org/reference/mpg.html) verisi kullanılarak yapılacaktır. Bu veri setinde 38 farklı aracın yakıt verileri bulunmaktadır.
+
+```{r}
+
+# mpg verisi ggplot2 paketinde olduğundan paketi çağırıyoruz
+library(ggplot2)
+
+head(mpg)
+nrow(mpg)
+ncol(mpg)
+str(mpg)
+colnames(mpg)
+summary(mpg)
+df <- mpg
+
+# class değişkenini faktöre çevirip, kategorilerine bakalım
+df$class <- factor(df$class)
+levels(df$class)
+dplyr::glimpse(df)
+
+```
+
+::: callout-tip
+## Tavsiye
+
+Veri analizi için **`skimr`** paketi de kullanılabilir. **`skimr`**, R programlama dilinde veri setlerinin hızlı bir şekilde özetlenmesini sağlayan bir pakettir. Veri setlerinin yapısını, özelliklerini ve bazı istatistiksel özetlerini görsel ve açıklayıcı bir şekilde sunar. Bu paket, veri keşfi aşamasında veri setinin genel özelliklerini anlamak için kullanılır.
+
+**`skimr`** paketi, veri setinizdeki değişkenlerin türlerine göre istatistiksel özetler sunar. Örneğin, sayısal değişkenler için merkezi eğilim ölçüleri (ortalama, medyan), dağılım (standart sapma, min-max değerleri), faktör değişkenleri için sınıf sayısı, en sık rastlanan sınıf ve eksik veri durumları gibi bilgileri sunar.
+
+Bu paket, veri setinin yapısını hızlıca anlamak ve önemli özelliklerini keşfetmek için kullanılır. Özellikle veri setlerinin keşfedilmesi, temizlenmesi ve analiz edilmesi aşamalarında oldukça faydalıdır. Bu, veri analiz sürecinde veriye daha derinlemesine bakmayı ve hangi analiz tekniklerinin kullanılacağına dair daha iyi bir anlayış geliştirmeyi sağlar.
+:::
+
+## Sürekli Değişkenler
+
+Veri analizi, birçok farklı değişken türünün incelenmesini gerektirir. Bu değişkenler arasında sürekli değişkenler özellikle önemlidir. Sürekli değişkenler, belirli bir aralıktaki değerleri alabilen ve sonsuz sayıda mümkün değer içeren değişkenlerdir. Örnek olarak, yaş, gelir, sıcaklık gibi değerler sürekli değişkenlere örnektir. Sürekli değişkenlerin analizi, verileri anlamak ve içindeki örüntüleri keşfetmek için kullanılır. Bu analiz, genellikle aşağıdaki adımları içerir:
+
+1.  **Veri Görselleştirme:**Sürekli değişkenlerin analizine başlamak için verilerinizi görselleştirmek önemlidir. Histogramlar, kutu grafikleri, yoğunluk grafikleri ve saçılım grafikleri gibi grafikler, veri dağılımını ve örüntülerini görsel olarak incelemenize yardımcı olur. Bu grafikler, veri setinizin merkezi eğilimini (ortalama veya medyan), yayılımını ve aykırı değerleri hızla görmeye yardımcı olur.
+
+2.  **Merkezi Eğilim ve Dağılım Ölçüleri:** Sürekli değişkenlerin merkezi eğilimini ve dağılımını hesaplamak verileri özetlemenin önemli bir yoludur. Bu ölçümler, veri setinin merkezi noktasını ve veri noktalarının nasıl dağıldığını anlamamıza yardımcı olur. Örnek olarak, ortalama (mean), medyan (median), standart sapma (standard deviation) ve varyans (variance) gibi ölçümler bu aşamada kullanılır.
+
+3.  **Korelasyon Analizi:** Eğer birden fazla sürekli değişken arasındaki ilişkiyi anlamak istiyorsanız, korelasyon analizi yapabilirsiniz. Korelasyon, iki değişken arasındaki ilişkinin gücünü ve yönünü ölçer. Korelasyon katsayısı, bu ilişkiyi değerlendirmek için kullanılır. Pozitif bir korelasyon, iki değişkenin aynı yönde değiştiğini, negatif bir korelasyon ise iki değişkenin ters yönde değiştiğini gösterir.
+
+4.  **Hipotez Testleri:** Sürekli değişkenler arasındaki farklılıkları değerlendirmek için hipotez testleri kullanılabilir. Örneğin, iki grup arasındaki ortalama değerlerin istatistiksel olarak anlamlı bir farklılık gösterip göstermediğini belirlemek için t-testleri veya ANOVA analizi kullanılabilir.
+
+5.  **Güven Aralıkları:** Sürekli değişkenlerin analizi sırasında, belirli bir parametre (örneğin, ortalama) hakkında güven aralıkları hesaplanabilir. Bu güven aralıkları, parametrenin belirli bir güven düzeyinde bulunduğu aralığı gösterir. Bu, parametrenin tahmini kesinliğini değerlendirmek için kullanışlıdır.
+
+Sürekli değişkenlerin analizi, verileri anlama ve kararlarınızı destekleme sürecinin önemli bir parçasıdır. İyi bir analiz, veri setinizdeki örüntüleri ve ilişkileri açığa çıkarmanıza yardımcı olur ve bilinçli kararlar almanıza yardımcı olur. Bu nedenle, sürekli değişkenlerin analizi yaparken yukarıda belirtilen adımları takip etmek önemlidir.
+
+```{r}
+
+# cty ve hwy değişkenlerini inceleyelim. 
+# cty şehiriçi, hwy şehirarasını ifade ediyor.
+
+summary(df$cty)
+var(df$cty)
+mean(df$cty)
+
+summary(df$hwy)
+var(df$hwy)
+mean(df$hwy)
+
+# 1 mile= 1.609 km
+# 1 galon = 3.79 lt
+
+# litre başına km hesaplama
+galonmil_to_ltkm <- function(x){
+  
+  km <- x * 1.609/3.79
+  return(km)
+}
+
+df$cty_ltkm <- galonmil_to_ltkm(df$cty)
+df$hwy_ltkm <- galonmil_to_ltkm(df$hwy)
+quantile(df$cty_ltkm) 
+# şehiriçi araçların % 75'i 1 lt ile 8.06 km den az yol alıyor.
+quantile(df$hwy_ltkm)
+# şehirlerarası araçların % 75'i 1 lt ile 11.46 km den az yol alıyor.
+
+
+# değişken dağılımı için histogram grafiği kullanılabilir.
+hist(df$cty_ltkm,freq = FALSE,col = "red",border = "blue")
+lines(density(df$cty_ltkm), col = "black", lwd = 2,)
+
+hist(df$hwy_ltkm,xlim = c(4,20), ylim = c(0,60), breaks = 10)
+
+
+# Boxplot
+boxplot(df$cty_ltkm, main = "Boxplot cty")
+fivenum(df$cty_ltkm) # minimum, Q1, median, Q3, maximum
+
+# outliers 
+boxplot(df$cty_ltkm)$out
+
+# outliers hangi sıralarda
+which(df$cty_ltkm %in% boxplot(df$cty_ltkm)$out)
+
+boxplot(df$hwy_ltkm, main = "Boxplot cty")
+fivenum(df$hwy_ltkm) # minimum, Q1, median, Q3, maximum
+
+boxplot(hwy_ltkm ~ cyl, data = df, xlab = "Silindir Sayısı",
+   ylab = "Litre Başına KM", main = "Mileage Data")
+
+boxplot(hwy_ltkm ~ cyl, data = df, 
+   xlab = "Silindir Sayısı",
+   ylab = "Litre Başına KM", 
+   main = "Mileage Data",
+   notch = TRUE, 
+   varwidth = TRUE, 
+   col = c("green","yellow","purple","blue"),
+   names = c("2 Silindir","4 Silindir","6 Silindir","8 Silindir")
+)
+
+# Sürekli iki değişken incelemek istersek;
+
+# displ ve cty_ltkm değişkenlerini inceleyelim
+# displ motor hacmini ifade ediyor
+
+summary(df$displ)
+
+with(df,cor(displ,cty_ltkm))
+# motor hacmi ile lt başına km ters ilişkili
+
+plot(df$displ,df$cty_ltkm, 
+     main = "Motor Hacmi- Yakıt Tüketimi Saçılım Grafiği",
+     col="red",
+     xlab = "Motor Hacmi",
+     ylab = "Yakıt Tüketimi")
+
+# birden fazla değişkenin saçılım grafiği
+pairs(~hwy_ltkm+cty_ltkm+displ+cyl,data = df,main = "Scatterplot Matrix")
+```
+
+## Kategorik Değişkenler
+
+Veri analizi sürecinde, kategorik değişkenler (veya gruplar) genellikle çok önemli bir rol oynar. Kategorik değişkenler, belirli bir sınıfı veya kategoriyi temsil eden değişkenlerdir ve tipik olarak metin veya sembollerle ifade edilirler. Örnek olarak, cinsiyet, eğitim seviyesi, ürün kategorileri gibi değişkenler kategorik değişkenlere örnektir. Kategorik değişkenlerin analizi, bu değişkenlerin içindeki örüntüleri, dağılımları ve ilişkileri anlamamıza yardımcı olur. Aşağıda, kategorik değişkenlerin analizi için izlenebilecek temel adımları bulabilirsiniz:
+
+1.  **Frekans Tabloları ve Görselleştirme:** Kategorik değişkenlerin frekans tablolarını ve grafiklerini oluşturarak, her kategori veya sınıfın veri setinde ne kadar sık görüldüğünü anlayabilirsiniz. Örneğin, bar grafikleri, pasta grafikleri veya çubuk grafikleri kullanarak kategori frekanslarını görselleştirebilirsiniz. **`summary()`** ve **`table()`** gibi R fonksiyonları ile bu verileri inceleyebilirsiniz.
+
+2.  **İlişkileri İnceleme:** Kategorik değişkenler arasındaki ilişkileri anlamak önemlidir. İki kategorik değişken arasındaki ilişkiyi değerlendirmek için çapraz tablolar (cross-tabulation) ve ki-kare (chi-squared) istatistiksel testleri kullanabilirsiniz. Bu testler, iki değişken arasındaki bağımlılığı değerlendirmek için kullanılır.
+
+3.  **İstatistiksel Testler:** Kategorik değişkenlerin analizi sırasında, gruplar arasındaki farkları değerlendirmek için hipotez testleri kullanabilirsiniz. İki kategorik değişken arasındaki ilişkinin istatistiksel olarak anlamlı olup olmadığını belirlemek için ki-kare testi veya Fisher'in kesin testi gibi testler kullanabilirsiniz. Ayrıca ANOVA gibi testler, bir kategorik değişkenin birden fazla grup üzerindeki etkisini değerlendirmek için kullanılabilir.
+
+4.  **Veri Görselleştirme:** Kategorik değişkenlerin analizinde, gruplar arasındaki farkları daha iyi anlamak için grafikler kullanabilirsiniz. Bar grafikleri, grupların frekanslarını görselleştirmek için sıklıkla kullanılırken, gruplar arasındaki ilişkiyi anlamak için mozaik grafikleri veya heatmap'leri de kullanabilirsiniz.
+
+Kategorik değişkenlerin analizi, veri setinizin içindeki desenleri ve ilişkileri anlamanıza yardımcı olur. Bu analiz, kararlarınızı desteklemek ve veriyi daha iyi anlamak için önemlidir. R programlama dili, kategorik değişkenlerin analizi için bir dizi kullanışlı fonksiyon ve paket sunar. Bu adımları takip ederek, veri analiz projelerinizde kategorik değişkenleri etkili bir şekilde analiz edebilirsiniz.
+
+```{r}
+
+
+# class ve trans değişkenlerine bakalım
+# class araç sınıfı, trans ise vites türünü ifade ediyor.
+
+summary(df$class)
+table(df$class)
+xtabs(~class,data=df)
+
+table(df$trans)
+
+prop.table(table(df$class))
+
+tab <- table(df$class)
+barplot(tab,col="blue",border="red")
+pie(tab)
+
+par(mfrow = c(1, 2))
+barplot(tab)
+pie(tab)
+
+# Kategorik iki değişken incelemek istersek;
+
+xtabs(~trans+class,data=df)
+prop.table(table(df$year,df$class),1) # satır toplamları 1' eşittir
+prop.table(table(df$year,df$class),2) # sütun toplamları 1' eşittir
+
+proportions(xtabs(~ manufacturer + year, data = df), 1)
+
+# araç sınıfı ile drv değişkenine birlikte bakalım
+# f = front-wheel drive (önden çekiş), 
+# r = rear wheel drive (arkadan çekiş), 
+# 4 = 4wd (4 çeker)
+
+plot(class ~ factor(drv), data = df)
+
+```
+
+Eğer hem sürekli hem de kategorik değişkenleri incelemek istersek, benzer şekilde görselleştirme ve kategoriler arasında merkezi eğilim ölçüleri hesaplanabilir. Bunlar dışında uygun istatistiksel testler de gerçekleştirilebilir.
+
+```{r}
+
+# Silindir düzeyinde yakıt tüketimi 
+tapply(df$cty_ltkm, df$cyl, mean)
+
+# Same using aggregate()
+aggregate(cty_ltkm ~ cyl, data = df, FUN = mean)
+
+
+boxplot(cty_ltkm ~ cyl, data = df)
+
+```
+
+## Zaman Serileri
+
+R programlama dili, zaman serileri analizi için kapsamlı bir dizi fonksiyon ve paket sunar. Zaman serileri analizi, zaman içindeki veri noktalarının örüntülerini ve trendlerini incelemeyi amaçlar. R'de zaman serileri ile çalışmak için **`ts`** (time series) nesnesi kullanılır. Bu nesne, zaman serisi verilerini zaman dilimleri (örneğin aylar, yıllar) veya tarihler ile ilişkilendirerek işlem yapmanıza olanak tanır.
+
+```{r}
+
+AirPassengers
+class(AirPassengers)
+
+diff(AirPassengers) # fark alma
+stats::lag(AirPassengers,-1) # 1. gecikmesini alma
+
+plot(AirPassengers,type = "p", col = "red") # points
+plot(AirPassengers,type = "l", col = "red") # line
+plot(AirPassengers,type = "o", col = "red") # points and line
+
+plot(log(AirPassengers),type = "l", col = "red") # line
+plot(diff(AirPassengers),type = "l", col = "red") # line
+plot(diff(log(AirPassengers)),type = "l", col = "red") # line
+
+# çoklu zaman serisi
+ts <- ts(rnorm(length(AirPassengers),250,100),start = c(1949,1),frequency=12)
+ts
+
+plot(AirPassengers,type = "l",col = "red")
+lines(ts, type = "l", col = "blue")
+
+# yüzde değişim
+growth <- AirPassengers/stats::lag(AirPassengers,-1)*100-100
+growth
+plot(growth,type = "l", col = "red")
+
+```

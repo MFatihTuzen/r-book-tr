@@ -3,7 +3,9 @@ project:
 
 book:
   title: "R Programlama"
-  author: "Muhammed Fatih Tüzen"
+  author: 
+    name: "Muhammed Fatih Tüzen"
+    url: https://www.linkedin.com/in/dr-m-fatih-t-2b2a4328/
   reader-mode: true
   page-footer:
     left: |
@@ -28,17 +30,24 @@ book:
         - strings.qmd
         - apply.qmd
         - import_export.qmd
-    - part : data_manipulation.qmd
-      chapters:
-        - select.qmd
+    - data_manipulation.qmd
+    - data_analysis.qmd
+    - ggplot2.qmd
+    - data_preprocess.qmd
+    - statistics.qmd
+    - regresyon.qmd
+
+language: 
+  title-block-author-single: "Yazar"
+  toc-title-document: "İçindekiler"
 
 
 format:
   html:
     theme: 
-      dark: darkly
-      light: flatly
-      
+      light: [flatly,custom.scss]
+      dark: [darkly,custom.scss]
+    css: styles.css
   pdf:
     documentclass: scrreprt
 

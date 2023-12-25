@@ -1,0 +1,284 @@
+# Veri Ön İşleme {.unnumbered}
+
+Veri ön işleme; istatistiksel modeller kurulmadan önce veri seti üzerinde yapılan bir takım düzeltme, eksik veriyi tamamlama, tekrarlanan verileri kaldırma, dönüştürme, bütünleştirme, temizleme, normalleştirme, boyut indirgeme vb. işlemlerdir. Bu aşamada ister istemez veri üzerinde bilgi keşfi yapılmış olur. Veri önişleme istatistiksel bir modelleme sürecinin büyük kısmını oluşturmaktadır. Kesin bir rakam olmamakla birlikte modelleme sürecinin yarısından fazlasının bu aşamada harcandığını ifade edebiliriz. Veri ön işleme temel anlamda 4 aşamadan oluşmaktadır. Bunlar sırasıyla şu şekildedir:
+
+1.  **Veri Temizleme :** Eksik verilerin tamamlanması, aykırı değerlerin teşhis edilmesi ve verilerdeki tutarsızlıkların giderilmesi gibi işlemler yapılmaktadır.
+
+2.  **Veri Birleştirme:** Farklı farklı veri tabanlarında bulunan veri setlerinin tek bir yerde toplanması aşamasının düzenli bir şekilde yürütülmesi sağlanır.
+
+3.  **Veri Dönüştürme :** Bu aşamada veriler, modelleme için uygun formlara dönüştürülürler. Veri dönüştürme; düzeltme, birleştirme, genelleştirme ve normalleştirme gibi değişik işlemlerden biri veya bir kaçını içerebilir. Veri normalleştirme , min-max dönüşümü, z standartlaştırması gibi yöntemler en sık kullanılan veri dönüştürme işlemlerinden bazılarıdır.
+
+4.  **Veri İndirgeme :** Daha küçük hacimli olarak veri kümesinin indirgenmiş bir örneğinin elde edilmesi amacıyla uygulanır. Bu sayede elde edilen indirgenmiş veri kümesine modelleme teknikleri uygulanarak daha etkin sonuçlar elde edilebilir. Veri Birleştirme (Data Aggregation), Boyut indirgeme (Dimension Reduction), Veri Sıkıştırma (Data Compression), Kesikli hale getirme (Discretization), Özellik Seçimi (Feature Selection) sık kullanılan veri indirgeme işlemlerindendir.
+
+Bu dokümanda eksik veriler (missing values), aykırı değerler (outliers) ve veri normalleştirme işlemleri R uygulamları ile anlatılacaktır.
+
+## Eksik Veriler
+
+Eksik veriler (kayıp gözlem), veri toplamada kaçınılmaz bir durumdur ve üzerinde dikkatle durulmalıdır. Sistematik bir kayıp gözlem durumu yoksa ortada ciddi bir sorun yoktur. Ama rastgele olmayan bir hata varsa tüm kitleye dair yanlılık olacağı için bu durum göz ardı edilemez.
+
+```{r}
+
+df <- data.frame(weight = c(rnorm(15, 70, 10), rep(NA, 5)),
+                 height = c(rnorm(17, 165, 20), rep(NA, 3)))
+
+set.seed(12345)
+rows <- sample(nrow(df))
+df2 <- df[rows, ]
+
+# eksik verilerin sorgulanması
+
+is.na(df2) # sorgulanma
+which(is.na(df2)) #konum
+sum(is.na(df2)) # toplam eksik veri sayısı
+colSums(is.na(df2)) # değişken düzeyinde eksik veri sayısı
+
+df2[!complete.cases(df2), ] #en az bir tane eksik olan satırlar
+df2[complete.cases(df2), ]$weight
+
+# eksik veriden tamamen kurtulma
+na.omit(df2)
+complete.cases(df2)
+df2[complete.cases(df2), ] # dolu olanlar satırlar
+df2[complete.cases(df2), ]$weight # değişken bazında dolu olan satırlar
+```
+
+## İmputasyon
+
+İmputasyon terimi, eksik verilerin yerine konulması veya doldurulması işlemine atıfta bulunur. Eksik veriler, bir veri setinde belirli gözlemler veya değişkenler için eksik veya bilinmeyen değerler içeren durumlardır. İstatistiksel analiz yaparken eksik verilerle başa çıkmak önemlidir çünkü eksik veriler, sonuçları yanıltabilir veya analizleri etkileyebilir.
+
+İmputasyon, eksik verileri doldurmak veya tahmin etmek için kullanılan çeşitli istatistiksel yöntemleri ifade eder. İmputasyon işlemi, eksik verileri analizde kullanılabilir hale getirmek amacıyla yapılır. İmputasyon yöntemleri, veri setinin yapısına ve eksik verilerin nedenlerine bağlı olarak değişebilir. İşte bazı yaygın imputasyon yöntemleri:
+
+1.  Ortalama Değer İmputasyonu: Eksik veriler, değişkenin ortalama değeri ile doldurulabilir. Bu yöntem, eksik verilerin diğer gözlemlerdeki ortalama değerlere benzer olduğu varsayımına dayanır.
+
+2.  Medyan Değer İmputasyonu: Eksik veriler, değişkenin medyan değeri ile doldurulabilir. Medyan, verilerdeki aşırı değerlerden etkilenmeyeceği için ortalama değere göre daha dayanıklı bir seçenektir.
+
+3.  En Yakın Komşu İmputasyonu: Eksik veriler, benzer diğer gözlemlerin değerleri ile doldurulabilir. Bu yöntemde, eksik veriye sahip olan gözlem, diğer gözlemlerin benzerliklerine göre doldurulur.
+
+4.  Regresyon İmputasyonu: Eksik veri içeren bir değişken, diğer değişkenlerle ilişkilendirilerek tahmin edilebilir. Bu yöntem, eksik verinin diğer değişkenlerle ilişkisini kullanarak doldurur.
+
+5.  EM (Expectation-Maximization) Algoritması: EM algoritması, eksik veri problemini çözmek için kullanılan bir iteratif istatistiksel yöntemdir. Bu yöntem, eksik verilerin olasılık dağılımlarını tahmin etmek için kullanılır.
+
+İmputasyon yöntemi, veri setinin özelliklerine, eksik verilerin miktarına ve verilerin doğasına bağlı olarak seçilir. Her yöntemin avantajları ve dezavantajları vardır, bu nedenle doğru yöntemi seçmek, analizin doğruluğunu ve güvenilirliğini etkileyebilir. İmputasyonun amacı, eksik verilerin doğru ve güvenilir bir şekilde doldurulmasıdır, böylece analiz sonuçları daha kesin ve anlamlı olur.
+
+```{r message=FALSE}
+
+# eksik verilere basit değer atama
+df2$weight2 <- ifelse(is.na(df2$weight),mean(df2$weight, na.rm = TRUE),df2$weight)
+df2
+# tek seferde bütün kolonlardaki eksik verileri ortamala ile doldurmak için
+sapply(df2, function(x) ifelse(is.na(x), mean(x, na.rm = TRUE), x ))
+
+
+library(zoo)
+sapply(df2, function(x) ifelse(is.na(x), na.locf(x), x )) # carry forward
+sapply(df2, function(x) ifelse(is.na(x), na.locf(x,fromlast=TRUE), x ))
+sapply(df2, function(x) ifelse(is.na(x), na.approx(x), x )) # linear interpolation
+sapply(df2, function(x) ifelse(is.na(x), na.approx(x), x )) # cubic interpolation
+
+
+# KNN (k-nearest neighbor) ile Değer Atama
+
+library(DMwR2)
+# airquality verisi
+df_air <- tibble::as_tibble(airquality)
+anyNA(df_air)
+
+# airquality verisindeki Wind değişkeninin bazı değerlerini NA yapalım
+set.seed(1234)
+row_num <- sample(1:nrow(airquality),5)
+row_num # bu satırdaki değerlere NA atanacak
+airquality_2 <- airquality
+airquality_2[row_num,"Wind"] <- NA
+airquality_2[row_num,"Wind"]
+head(airquality_2,20)
+
+# k parametresi, verilen bir noktaya en yakın komşuların sayısıdır. 
+# Örneğin: k=5 olsun. Bu durumda mesafeye (öklit) göre en yakın 5 komşu belirlenir
+# ve mesafenin ağırlıklı ortalaması hesaplanır.
+# ağırlıklandırma, her komşuya 1 / d ağırlığının verilmesini içerir.
+# burada d komşuya olan uzaklıktır.
+knn_df_air <- knnImputation(airquality_2, k = 5) # k komşu sayısı
+
+result <- data.frame(row=row_num,
+                     orig=airquality[row_num,"Wind"],
+                     knn=knn_df_air[row_num,"Wind"])
+result
+mean(result$orig-result$knn)
+
+```
+
+::: callout-tip
+### Tavsiye
+
+Eksik verilerin analiz edilmesi ve imputasyon konusunda R içerisinde çeşitli kütühaneler bulunmaktadır. Bunlardan en çok bilinenleri **`mice, VIM, missForest, imputation, mi, Amelia`** ve **`Hmisc`** paketleridir.
+:::
+
+## Aykırı Değer Analizi
+
+Aykırı değer, diğer gözlemlerden uzak olan, yani diğer veri noktalarından önemli ölçüde farklı olan bir veri noktası olan bir değer veya gözlemdir. Bu dokümanda, tanımlayıcı istatistikler (minimum, maksimum, histogram, kutu grafiği ve yüzdelikler dahil) gibi basit teknikler ve Z-Skoru ile aykırı değer analizi anlatılacaktır.
+
+### Minumum ve Maximum
+
+```{r}
+
+library(ggplot2)
+
+# mpg verisindeki hwy değişkeni üzerinden inceleyelim
+summary(mpg$hwy)
+min(mpg$hwy)
+max(mpg$hwy)
+
+```
+
+### Histogram
+
+```{r}
+
+ggplot(mpg) +
+  aes(x = hwy) +
+  geom_histogram(bins = 20, fill = "blue") +
+  theme_minimal()
+# grafiğiin sağ tarafında kalan gözlemler şüpheli görünüyor.
+
+```
+
+### Boxplot
+
+Boxplot, beş konum ölçüsü kullanarak verilerin grafiksel bir sunumunu verir: en küçük değer (min), birinci çeyreklik ($Q_1$) , medyan, üçüncü çeyreklik ($Q_3$) en büyük değer. Kutunun farklı bölümleri arasındaki boşluk, verilerdeki dağılım (yayılma) ve çarpıklık derecesini gösterir. Bir boxplot grafiği, çeyrekler arası aralık (IQR) kriteri kullanılarak şüpheli bir aykırı değer olarak sınıflandırılan herhangi bir gözlemi görüntüleyerek nicel bir değişkeni görselleştirmeye yardımcı olur.
+
+$I = [Q_1-1.5 * IQR ; Q_3 + 1.5 * IQR]$
+
+![](images/boxplot.png){fig-align="center"}
+
+IQR ise üçüncü ve birinci çeyrek arasındaki farktır. R içerisindeki **`IQR()`** fonksiyonu bu amaçla kullanılabilir.
+
+```{r}
+
+# temel istatistiklere erişim
+summary(mpg$hwy)
+fivenum(mpg$hwy)
+
+
+ggplot(mpg) +
+  aes(x = "", y = hwy) +
+  geom_boxplot(fill = "blue") +
+  theme_minimal()
+
+# outlier değerlerine erişim
+boxplot.stats(mpg$hwy)$out
+
+# outier olarak görülen değerlerin konumları
+hwy_out <- boxplot.stats(mpg$hwy)$out
+hwy_out_sira <- which(mpg$hwy %in% c(hwy_out))
+hwy_out_sira
+
+# outlier olarak görülen satırlar
+mpg[hwy_out_sira, ]
+
+```
+
+### Yüzdelikler (Percentiles)
+
+Bu aykırı değer tespiti yöntemi, yüzdelik dilimlere dayalıdır. Yüzdelikler yöntemiyle, 2,5 ve 97,5 yüzdelik dilimlerin oluşturduğu aralığın dışında kalan tüm gözlemler potansiyel aykırı değerler olarak kabul edilecektir. Aralığı oluşturmak için 1 ve 99 veya 5 ve 95 yüzdelikler gibi diğer yüzdelikler de düşünülebilir.
+
+```{r}
+
+alt_sinir <- quantile(mpg$hwy, 0.025)
+alt_sinir
+ust_sinir <- quantile(mpg$hwy, 0.975)
+ust_sinir
+
+# Bu yönteme göre, 14'ün altındaki ve 35.175'in üzerindeki tüm gözlemler,
+# potansiyel aykırı değerler olarak kabul edilecektir.
+
+outlier_sira <- which(mpg$hwy < alt_sinir | mpg$hwy > ust_sinir)
+outlier_sira
+# Bu yönteme göre 11 adet outlier bulunmuştur.
+mpg[outlier_sira,]
+
+# Sınırları biraz daha küçültelim
+alt_sinir <- quantile(mpg$hwy, 0.01)
+ust_sinir <- quantile(mpg$hwy, 0.99)
+
+outlier_sira <- which(mpg$hwy < alt_sinir | mpg$hwy > ust_sinir)
+
+mpg[outlier_sira, ]
+# Buna göre IQR ile elde edildiği gibi 3 adet outlier bulundu.
+
+```
+
+### Z-Skor Yöntemi
+
+Aykırı değerlerin tespitinde ortalama ve standart sapmanın kulllanıldığı en bilinen yöntemlerdendir ve aşağıdaki şekilde hesaplanır.
+
+$Z_i = \frac{(X_i -\mu)}{\sigma}$
+
+![](images/sigma.png){fig-align="center"}
+
+```{r}
+
+std_z <- function(x){
+  
+  z=(x-mean(x))/sd(x)
+  return(z)
+}
+
+mpg$hwy_std <- std_z(mpg$hwy)
+mpg[,c("hwy","hwy_std")]
+
+# -3 ve +3 sapma dışında kalanları aykırı değer olarak kabul ediyoruz.
+outliers_zskor <- which(mpg$hwy_std < -3 | mpg$hwy_std > +3)
+outliers_zskor
+mpg[outliers_zskor,c() ]
+
+# bu yönteme göre 2 adet aykırı değer bulunmuştur.
+
+```
+
+## Veri Normalleştirme
+
+Değişkenler farklı ölçeklerde ölçüldüğünde, genellikle analize eşit katkıda bulunmazlar. Örneğin, bir değişkenin değerleri 0 ile 100.000 arasında ve başka bir değişkenin değerleri 0 ile 100 arasında değişiyorsa, daha büyük aralığa sahip değişkene analizde daha büyük bir ağırlık verilecektir. Değişkenleri normalleştirerek, her bir değişkenin analize eşit katkı sağladığından emin olabiliriz. Değişkenleri normalleştirmek için (veya ölçeklendirmek) genellikle min-max ya da z dönüşümü yöntemleri kullanılır.
+
+```{r, fig.height = 6, fig.width = 10}
+
+# min-max dönüşümleri
+
+# 0 ile 1 arasi dönüşüm
+std_0_1 <- function(x) {
+  (x - min(x)) / (max(x) - min(x))
+}
+
+#-1 ile +1 arası dönüşüm 
+std_1_1 <- function(x) {
+  ((x - mean(x)) / max(abs(x - mean(x))))
+}
+
+# a ile b arası dönüşüm 
+std_min_max <- function(x,a,b) {
+  # a min değer
+  # b max değer
+  (a + ((x - min(x)) * (b - a)) / (max(x) - min(x)))
+}
+
+set.seed(12345)
+dat <- data.frame(x = rnorm(20, 10, 3),
+                  y = rnorm(20, 30, 8),
+                  z = rnorm(20, 25, 5))
+dat
+
+summary(dat)
+apply(dat, 2, std_0_1)
+
+library(dplyr)
+
+dat %>% mutate_all(std_0_1) %>% summary()
+dat %>% mutate_all(std_1_1) %>% summary()
+dat %>% mutate_all(std_min_max, a = -2, b = 2) %>% summary()
+dat %>% mutate_all(std_z) %>% summary()
+
+# Yapılan dönüşümler verinin dağılımını değiştirmemektedir.
+par(mfrow=c(2,1))
+hist(dat$x,main="original data",col="blue")
+hist(std_0_1(dat$x),main="normalize data",col="red")
+
+```

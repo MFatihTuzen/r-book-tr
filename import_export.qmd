@@ -50,6 +50,10 @@ mtcars_excel2 <- read_excel("datasets/mtcars_excel.xlsx",
                             skip = 1)
 str(mtcars_excel2)
 
+```
+
+```{r}
+#| eval: false
 # export
 
 write.csv(mtcars_csv,"write_mtcars.csv",
@@ -60,5 +64,6 @@ write.table(mtcars_csv,"write_mtcars.csv",
             sep = ";")
 
 openxlsx::write.xlsx(mtcars_csv,"write_mtcars.xlsx")
+
 
 ```
