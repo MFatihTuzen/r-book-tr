@@ -79,6 +79,8 @@ for (i in 1:nrow(df)){
   df[i,"multiply"] <- df[i,"value"] * df[i,"group"]
 }
 
+df
+
 # i yerine farklı ifade de kullanılabilir
 (x <- data.frame(age=c(28, 35, 13, 13),
                 height=c(1.62, 1.53, 1.83, 1.71),

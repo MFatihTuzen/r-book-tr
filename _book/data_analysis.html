@@ -98,6 +98,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   }
 }</script>
 
+<script src="site_libs/kePrint-0.0.1/kePrint.js"></script>
+<link href="site_libs/lightable-0.0.1/lightable.css" rel="stylesheet">
+
 
 <link rel="stylesheet" href="styles.css">
 </head>
@@ -266,6 +269,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#sürekli-değişkenler" id="toc-sürekli-değişkenler" class="nav-link" data-scroll-target="#sürekli-değişkenler">Sürekli Değişkenler</a></li>
   <li><a href="#kategorik-değişkenler" id="toc-kategorik-değişkenler" class="nav-link" data-scroll-target="#kategorik-değişkenler">Kategorik Değişkenler</a></li>
   <li><a href="#zaman-serileri" id="toc-zaman-serileri" class="nav-link" data-scroll-target="#zaman-serileri">Zaman Serileri</a></li>
+  <li><a href="#veri-analizi-bazı-paketler" id="toc-veri-analizi-bazı-paketler" class="nav-link" data-scroll-target="#veri-analizi-bazı-paketler">Veri Analizi Bazı Paketler</a></li>
   </ul>
 <div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.com/MFatihTuzen/r-book-tr/edit/main/data_analysis.qmd" class="toc-action">Edit this page</a></p><p><a href="https://github.com/MFatihTuzen/r-book-tr/issues/new" class="toc-action">Report an issue</a></p></div></div></nav>
     </div>
@@ -405,21 +409,6 @@ $ cty          &lt;int&gt; 18, 21, 20, 21, 16, 18, 18, 18, 16, 20, 19, 15, 17, 1
 $ hwy          &lt;int&gt; 29, 29, 31, 30, 26, 26, 27, 26, 25, 28, 27, 25, 25, 25, 2…
 $ fl           &lt;chr&gt; "p", "p", "p", "p", "p", "p", "p", "p", "p", "p", "p", "p…
 $ class        &lt;fct&gt; compact, compact, compact, compact, compact, compact, com…</code></pre>
-</div>
-</div>
-<div class="callout callout-style-default callout-tip callout-titled">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-Tavsiye
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p>Veri analizi için <strong><code>skimr</code></strong> paketi de kullanılabilir. <strong><code>skimr</code></strong>, R programlama dilinde veri setlerinin hızlı bir şekilde özetlenmesini sağlayan bir pakettir. Veri setlerinin yapısını, özelliklerini ve bazı istatistiksel özetlerini görsel ve açıklayıcı bir şekilde sunar. Bu paket, veri keşfi aşamasında veri setinin genel özelliklerini anlamak için kullanılır.</p>
-<p><strong><code>skimr</code></strong> paketi, veri setinizdeki değişkenlerin türlerine göre istatistiksel özetler sunar. Örneğin, sayısal değişkenler için merkezi eğilim ölçüleri (ortalama, medyan), dağılım (standart sapma, min-max değerleri), faktör değişkenleri için sınıf sayısı, en sık rastlanan sınıf ve eksik veri durumları gibi bilgileri sunar.</p>
-<p>Bu paket, veri setinin yapısını hızlıca anlamak ve önemli özelliklerini keşfetmek için kullanılır. Özellikle veri setlerinin keşfedilmesi, temizlenmesi ve analiz edilmesi aşamalarında oldukça faydalıdır. Bu, veri analiz sürecinde veriye daha derinlemesine bakmayı ve hangi analiz tekniklerinin kullanılacağına dair daha iyi bir anlayış geliştirmeyi sağlar.</p>
 </div>
 </div>
 </section>
@@ -815,32 +804,32 @@ manufacturer      1999      2008
 <span id="cb95-2"><a href="#cb95-2" aria-hidden="true" tabindex="-1"></a>ts <span class="ot">&lt;-</span> <span class="fu">ts</span>(<span class="fu">rnorm</span>(<span class="fu">length</span>(AirPassengers),<span class="dv">250</span>,<span class="dv">100</span>),<span class="at">start =</span> <span class="fu">c</span>(<span class="dv">1949</span>,<span class="dv">1</span>),<span class="at">frequency=</span><span class="dv">12</span>)</span>
 <span id="cb95-3"><a href="#cb95-3" aria-hidden="true" tabindex="-1"></a>ts</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>           Jan       Feb       Mar       Apr       May       Jun       Jul
-1949 135.53137 327.64094  69.15398 464.09781 228.32999 262.16140 116.18678
-1950 230.43053 174.47654 188.21327 319.01549 275.80876 212.93325 349.71644
-1951 277.41596 302.93668 301.07805  93.42741 181.78729 271.29800 424.26812
-1952 143.81985 208.87147 258.61594 421.85757 275.59256 274.59456  85.63749
-1953 300.83708 249.43981 137.74227 138.91932 249.87795 299.86874 276.42801
-1954  94.66880 261.48684 257.29462 266.04759 398.84048 246.61638 335.56854
-1955 231.78722 164.99213  27.77736 150.72656 169.05285 188.45915 254.29632
-1956 245.52512 283.46781 214.88838 313.27591 123.83002 384.15590 360.84436
-1957  85.72410  34.72814 270.69202 266.55691 208.92828 296.49425 365.68779
-1958 394.13743 236.23169 232.20926 233.92622 279.06924 363.16681 222.01576
-1959 346.02447 262.30153 172.13785 220.44854 368.58494  20.09809 312.19135
-1960 296.75642 218.38325 126.97421 424.11549 270.97965 374.78519 138.89021
-           Aug       Sep       Oct       Nov       Dec
-1949 166.39933 191.28628 278.21791 206.80241 203.45641
-1950 285.79457  73.99159 191.79491 234.61882 127.09214
-1951  61.01409 260.48274 328.37915 278.46715 204.05575
-1952 246.71569 174.83397 157.10477 300.97800 177.78603
-1953 257.88727 268.36664 320.15066  35.12243 318.39775
-1954 133.81203 357.11026 285.50638 384.78194 402.93779
-1955  91.46521 144.05784 278.53839 177.14463 188.91649
-1956 200.18223 185.74128 358.63085 324.81210 208.85241
-1957 139.95074 124.26519 307.55715 166.52147 242.37555
-1958 301.85592 211.57359 232.58085 254.45342 284.21787
-1959 222.99523 282.27016 357.87168 316.73866 169.91047
-1960 272.94473 215.18813 175.00454 373.53335 293.95612</code></pre>
+<pre><code>            Jan        Feb        Mar        Apr        May        Jun
+1949 395.734546 496.843934 223.470700 234.344376 109.924116 228.524738
+1950 498.461942  81.246212 170.536688 183.901717 207.576053 334.165681
+1951  22.038078  16.607329 217.549999 162.019954  62.035862 196.124789
+1952 267.029099 367.621497 259.156128 142.365250 264.326552 343.431377
+1953 216.092513 316.503092 341.971677 371.846465 275.947658 223.860359
+1954 356.105336 234.108063 255.941734 239.543904  93.201832 199.873830
+1955 287.058156 259.135223 214.302831 154.201429 333.817844 253.803488
+1956 140.958314 237.420903 270.570656 125.976343 157.528383 331.164105
+1957 259.287052 291.093629 196.733306 358.144769 236.910289 324.815369
+1958 132.807258 180.362409  70.451278 212.387924 102.747919 325.034777
+1959 253.707605 292.770719 214.820878 315.864021 287.141323 133.549500
+1960  42.747593 247.240811 189.256638 456.378975   7.238438 463.743341
+            Jul        Aug        Sep        Oct        Nov        Dec
+1949 221.787673 235.385400 497.156215 296.397491 213.952238 427.894307
+1950  86.658792 307.773243  73.702098 352.838848 225.288075  96.486073
+1951 231.642597 314.595465 155.596909 270.227909 210.124914  60.228321
+1952  66.668596 337.398470 275.878193 162.037438 390.813943 198.211797
+1953 111.778098 307.234175 137.965004 254.281006 301.935662 262.905013
+1954 200.234111 278.498570 247.382595  88.700506 347.392222 305.697847
+1955 114.713038 446.511322 150.431381 370.666480 270.270975 344.442092
+1956 213.812367 216.932915 190.243646 218.305487 137.860508 152.073902
+1957 319.656480 330.873865 257.345914 177.192524 149.990863 280.350464
+1958 250.657859 386.445202 295.868535 228.464848 158.407273 206.476861
+1959 321.624033 238.726700 132.963498 316.190732 252.122043 298.218126
+1960 213.619258 363.838677 344.490238 261.901808  25.691325 192.175773</code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb97"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb97-1"><a href="#cb97-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(AirPassengers,<span class="at">type =</span> <span class="st">"l"</span>,<span class="at">col =</span> <span class="st">"red"</span>)</span>
 <span id="cb97-2"><a href="#cb97-2" aria-hidden="true" tabindex="-1"></a><span class="fu">lines</span>(ts, <span class="at">type =</span> <span class="st">"l"</span>, <span class="at">col =</span> <span class="st">"blue"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -881,6 +870,585 @@ manufacturer      1999      2008
 <div class="sourceCode cell-code" id="cb100"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb100-1"><a href="#cb100-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(growth,<span class="at">type =</span> <span class="st">"l"</span>, <span class="at">col =</span> <span class="st">"red"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <p><img src="data_analysis_files/figure-html/unnamed-chunk-5-8.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+</section>
+<section id="veri-analizi-bazı-paketler" class="level2">
+<h2 class="anchored" data-anchor-id="veri-analizi-bazı-paketler">Veri Analizi Bazı Paketler</h2>
+<p>Veri analizi için <a href="https://cran.r-project.org/web/packages/skimr/vignettes/skimr.html">skimr</a> paketi de kullanılabilir. <strong><code>skimr</code></strong>, R programlama dilinde veri setlerinin hızlı bir şekilde özetlenmesini sağlayan bir pakettir. Veri setlerinin yapısını, özelliklerini ve bazı istatistiksel özetlerini görsel ve açıklayıcı bir şekilde sunar. Bu paket, veri keşfi aşamasında veri setinin genel özelliklerini anlamak için kullanılır.</p>
+<p><strong><code>skimr</code></strong> paketi, veri setinizdeki değişkenlerin türlerine göre istatistiksel özetler sunar. Örneğin, sayısal değişkenler için merkezi eğilim ölçüleri (ortalama, medyan), dağılım (standart sapma, min-max değerleri), faktör değişkenleri için sınıf sayısı, en sık rastlanan sınıf ve eksik veri durumları gibi bilgileri sunar.</p>
+<p>Bu paket, veri setinin yapısını hızlıca anlamak ve önemli özelliklerini keşfetmek için kullanılır. Özellikle veri setlerinin keşfedilmesi, temizlenmesi ve analiz edilmesi aşamalarında oldukça faydalıdır. Bu, veri analiz sürecinde veriye daha derinlemesine bakmayı ve hangi analiz tekniklerinin kullanılacağına dair daha iyi bir anlayış geliştirmeyi sağlar.</p>
+<p>Bunun yanında, <a href="https://modelsummary.com/">modelsummary</a> paketi de, R programlama dili için geliştirilmiş olan bir pakettir ve istatistiksel modellerin özetlenmesi, karşılaştırılması ve görselleştirilmesi için kullanılır. Bu paket, farklı türdeki modellerin çıktılarını standartlaştırarak, bunları karşılaştırmak ve analiz etmek için kullanıcıya kolaylık sağlar.</p>
+<p>Bu paket genellikle doğrusal regresyon, lojistik regresyon, karar ağaçları, destek vektör makineleri gibi çeşitli istatistiksel ve makine öğrenimi modellerinin özet istatistiklerini, katsayılarını, belirlilik ölçülerini, hata ölçümlerini ve diğer önemli çıktıları sunar. Bunların yanı sıra, çıktıları tablolar halinde gösterir ve görselleştirmeler yaparak model performansını karşılaştırmak için grafikler oluşturabilir.</p>
+<p>Bu paket, araştırmacılar, veri bilimcileri veya istatistikçilerin farklı modelleri anlamak, karşılaştırmak ve raporlamak için verimli bir araç sunar. Model sonuçlarını görselleştirme ve karşılaştırma açısından kullanışlıdır. Paket, model özetlerinin ötesinde, veri kümesine genel bakış, korelasyon matrisleri, (çok seviyeli) çapraz tablolar ve denge tabloları gibi son derece esnek veri özet tabloları üretmek için bir dizi araç da içerir.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb101"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb101-1"><a href="#cb101-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Paketin birkaç özelliğine bakalım</span></span>
+<span id="cb101-2"><a href="#cb101-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb101-3"><a href="#cb101-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(modelsummary)</span>
+<span id="cb101-4"><a href="#cb101-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb101-5"><a href="#cb101-5" aria-hidden="true" tabindex="-1"></a><span class="co"># kategorik verilere hızlı bir bakış</span></span>
+<span id="cb101-6"><a href="#cb101-6" aria-hidden="true" tabindex="-1"></a><span class="fu">datasummary_skim</span>(mpg, <span class="st">"categorical"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<table class="table table-sm table-striped small" data-quarto-postprocess="true">
+<thead>
+<tr class="header">
+<th style="text-align: left;" data-quarto-table-cell-role="th"></th>
+<th style="text-align: left;" data-quarto-table-cell-role="th"></th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">N</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">%</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">manufacturer</td>
+<td style="text-align: left;">audi</td>
+<td style="text-align: right;">18</td>
+<td style="text-align: right;">7.7</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"></td>
+<td style="text-align: left;">chevrolet</td>
+<td style="text-align: right;">19</td>
+<td style="text-align: right;">8.1</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"></td>
+<td style="text-align: left;">dodge</td>
+<td style="text-align: right;">37</td>
+<td style="text-align: right;">15.8</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"></td>
+<td style="text-align: left;">ford</td>
+<td style="text-align: right;">25</td>
+<td style="text-align: right;">10.7</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"></td>
+<td style="text-align: left;">honda</td>
+<td style="text-align: right;">9</td>
+<td style="text-align: right;">3.8</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"></td>
+<td style="text-align: left;">hyundai</td>
+<td style="text-align: right;">14</td>
+<td style="text-align: right;">6.0</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"></td>
+<td style="text-align: left;">jeep</td>
+<td style="text-align: right;">8</td>
+<td style="text-align: right;">3.4</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"></td>
+<td style="text-align: left;">land rover</td>
+<td style="text-align: right;">4</td>
+<td style="text-align: right;">1.7</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"></td>
+<td style="text-align: left;">lincoln</td>
+<td style="text-align: right;">3</td>
+<td style="text-align: right;">1.3</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"></td>
+<td style="text-align: left;">mercury</td>
+<td style="text-align: right;">4</td>
+<td style="text-align: right;">1.7</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"></td>
+<td style="text-align: left;">nissan</td>
+<td style="text-align: right;">13</td>
+<td style="text-align: right;">5.6</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"></td>
+<td style="text-align: left;">pontiac</td>
+<td style="text-align: right;">5</td>
+<td style="text-align: right;">2.1</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"></td>
+<td style="text-align: left;">subaru</td>
+<td style="text-align: right;">14</td>
+<td style="text-align: right;">6.0</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"></td>
+<td style="text-align: left;">toyota</td>
+<td style="text-align: right;">34</td>
+<td style="text-align: right;">14.5</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"></td>
+<td style="text-align: left;">volkswagen</td>
+<td style="text-align: right;">27</td>
+<td style="text-align: right;">11.5</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">model</td>
+<td style="text-align: left;">4runner 4wd</td>
+<td style="text-align: right;">6</td>
+<td style="text-align: right;">2.6</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"></td>
+<td style="text-align: left;">a4</td>
+<td style="text-align: right;">7</td>
+<td style="text-align: right;">3.0</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"></td>
+<td style="text-align: left;">a4 quattro</td>
+<td style="text-align: right;">8</td>
+<td style="text-align: right;">3.4</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"></td>
+<td style="text-align: left;">a6 quattro</td>
+<td style="text-align: right;">3</td>
+<td style="text-align: right;">1.3</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"></td>
+<td style="text-align: left;">altima</td>
+<td style="text-align: right;">6</td>
+<td style="text-align: right;">2.6</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"></td>
+<td style="text-align: left;">c1500 suburban 2wd</td>
+<td style="text-align: right;">5</td>
+<td style="text-align: right;">2.1</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"></td>
+<td style="text-align: left;">camry</td>
+<td style="text-align: right;">7</td>
+<td style="text-align: right;">3.0</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"></td>
+<td style="text-align: left;">camry solara</td>
+<td style="text-align: right;">7</td>
+<td style="text-align: right;">3.0</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"></td>
+<td style="text-align: left;">caravan 2wd</td>
+<td style="text-align: right;">11</td>
+<td style="text-align: right;">4.7</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"></td>
+<td style="text-align: left;">civic</td>
+<td style="text-align: right;">9</td>
+<td style="text-align: right;">3.8</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"></td>
+<td style="text-align: left;">corolla</td>
+<td style="text-align: right;">5</td>
+<td style="text-align: right;">2.1</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"></td>
+<td style="text-align: left;">corvette</td>
+<td style="text-align: right;">5</td>
+<td style="text-align: right;">2.1</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"></td>
+<td style="text-align: left;">dakota pickup 4wd</td>
+<td style="text-align: right;">9</td>
+<td style="text-align: right;">3.8</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"></td>
+<td style="text-align: left;">durango 4wd</td>
+<td style="text-align: right;">7</td>
+<td style="text-align: right;">3.0</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"></td>
+<td style="text-align: left;">expedition 2wd</td>
+<td style="text-align: right;">3</td>
+<td style="text-align: right;">1.3</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"></td>
+<td style="text-align: left;">explorer 4wd</td>
+<td style="text-align: right;">6</td>
+<td style="text-align: right;">2.6</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"></td>
+<td style="text-align: left;">f150 pickup 4wd</td>
+<td style="text-align: right;">7</td>
+<td style="text-align: right;">3.0</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"></td>
+<td style="text-align: left;">forester awd</td>
+<td style="text-align: right;">6</td>
+<td style="text-align: right;">2.6</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"></td>
+<td style="text-align: left;">grand cherokee 4wd</td>
+<td style="text-align: right;">8</td>
+<td style="text-align: right;">3.4</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"></td>
+<td style="text-align: left;">grand prix</td>
+<td style="text-align: right;">5</td>
+<td style="text-align: right;">2.1</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"></td>
+<td style="text-align: left;">gti</td>
+<td style="text-align: right;">5</td>
+<td style="text-align: right;">2.1</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"></td>
+<td style="text-align: left;">impreza awd</td>
+<td style="text-align: right;">8</td>
+<td style="text-align: right;">3.4</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"></td>
+<td style="text-align: left;">jetta</td>
+<td style="text-align: right;">9</td>
+<td style="text-align: right;">3.8</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"></td>
+<td style="text-align: left;">k1500 tahoe 4wd</td>
+<td style="text-align: right;">4</td>
+<td style="text-align: right;">1.7</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"></td>
+<td style="text-align: left;">land cruiser wagon 4wd</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">0.9</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"></td>
+<td style="text-align: left;">malibu</td>
+<td style="text-align: right;">5</td>
+<td style="text-align: right;">2.1</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"></td>
+<td style="text-align: left;">maxima</td>
+<td style="text-align: right;">3</td>
+<td style="text-align: right;">1.3</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"></td>
+<td style="text-align: left;">mountaineer 4wd</td>
+<td style="text-align: right;">4</td>
+<td style="text-align: right;">1.7</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"></td>
+<td style="text-align: left;">mustang</td>
+<td style="text-align: right;">9</td>
+<td style="text-align: right;">3.8</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"></td>
+<td style="text-align: left;">navigator 2wd</td>
+<td style="text-align: right;">3</td>
+<td style="text-align: right;">1.3</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"></td>
+<td style="text-align: left;">new beetle</td>
+<td style="text-align: right;">6</td>
+<td style="text-align: right;">2.6</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"></td>
+<td style="text-align: left;">passat</td>
+<td style="text-align: right;">7</td>
+<td style="text-align: right;">3.0</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"></td>
+<td style="text-align: left;">pathfinder 4wd</td>
+<td style="text-align: right;">4</td>
+<td style="text-align: right;">1.7</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"></td>
+<td style="text-align: left;">ram 1500 pickup 4wd</td>
+<td style="text-align: right;">10</td>
+<td style="text-align: right;">4.3</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"></td>
+<td style="text-align: left;">range rover</td>
+<td style="text-align: right;">4</td>
+<td style="text-align: right;">1.7</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"></td>
+<td style="text-align: left;">sonata</td>
+<td style="text-align: right;">7</td>
+<td style="text-align: right;">3.0</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"></td>
+<td style="text-align: left;">tiburon</td>
+<td style="text-align: right;">7</td>
+<td style="text-align: right;">3.0</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"></td>
+<td style="text-align: left;">toyota tacoma 4wd</td>
+<td style="text-align: right;">7</td>
+<td style="text-align: right;">3.0</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">trans</td>
+<td style="text-align: left;">auto(av)</td>
+<td style="text-align: right;">5</td>
+<td style="text-align: right;">2.1</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"></td>
+<td style="text-align: left;">auto(l3)</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">0.9</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"></td>
+<td style="text-align: left;">auto(l4)</td>
+<td style="text-align: right;">83</td>
+<td style="text-align: right;">35.5</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"></td>
+<td style="text-align: left;">auto(l5)</td>
+<td style="text-align: right;">39</td>
+<td style="text-align: right;">16.7</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"></td>
+<td style="text-align: left;">auto(l6)</td>
+<td style="text-align: right;">6</td>
+<td style="text-align: right;">2.6</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"></td>
+<td style="text-align: left;">auto(s4)</td>
+<td style="text-align: right;">3</td>
+<td style="text-align: right;">1.3</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"></td>
+<td style="text-align: left;">auto(s5)</td>
+<td style="text-align: right;">3</td>
+<td style="text-align: right;">1.3</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"></td>
+<td style="text-align: left;">auto(s6)</td>
+<td style="text-align: right;">16</td>
+<td style="text-align: right;">6.8</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"></td>
+<td style="text-align: left;">manual(m5)</td>
+<td style="text-align: right;">58</td>
+<td style="text-align: right;">24.8</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"></td>
+<td style="text-align: left;">manual(m6)</td>
+<td style="text-align: right;">19</td>
+<td style="text-align: right;">8.1</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">drv</td>
+<td style="text-align: left;">4</td>
+<td style="text-align: right;">103</td>
+<td style="text-align: right;">44.0</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"></td>
+<td style="text-align: left;">f</td>
+<td style="text-align: right;">106</td>
+<td style="text-align: right;">45.3</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"></td>
+<td style="text-align: left;">r</td>
+<td style="text-align: right;">25</td>
+<td style="text-align: right;">10.7</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">fl</td>
+<td style="text-align: left;">c</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">0.4</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"></td>
+<td style="text-align: left;">d</td>
+<td style="text-align: right;">5</td>
+<td style="text-align: right;">2.1</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"></td>
+<td style="text-align: left;">e</td>
+<td style="text-align: right;">8</td>
+<td style="text-align: right;">3.4</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"></td>
+<td style="text-align: left;">p</td>
+<td style="text-align: right;">52</td>
+<td style="text-align: right;">22.2</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"></td>
+<td style="text-align: left;">r</td>
+<td style="text-align: right;">168</td>
+<td style="text-align: right;">71.8</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">class</td>
+<td style="text-align: left;">2seater</td>
+<td style="text-align: right;">5</td>
+<td style="text-align: right;">2.1</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"></td>
+<td style="text-align: left;">compact</td>
+<td style="text-align: right;">47</td>
+<td style="text-align: right;">20.1</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"></td>
+<td style="text-align: left;">midsize</td>
+<td style="text-align: right;">41</td>
+<td style="text-align: right;">17.5</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"></td>
+<td style="text-align: left;">minivan</td>
+<td style="text-align: right;">11</td>
+<td style="text-align: right;">4.7</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"></td>
+<td style="text-align: left;">pickup</td>
+<td style="text-align: right;">33</td>
+<td style="text-align: right;">14.1</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"></td>
+<td style="text-align: left;">subcompact</td>
+<td style="text-align: right;">35</td>
+<td style="text-align: right;">15.0</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"></td>
+<td style="text-align: left;">suv</td>
+<td style="text-align: right;">62</td>
+<td style="text-align: right;">26.5</td>
+</tr>
+</tbody>
+</table>
+
+
+</div>
+<div class="sourceCode cell-code" id="cb102"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb102-1"><a href="#cb102-1" aria-hidden="true" tabindex="-1"></a><span class="co"># nümerik verilere hızlı bir bakış</span></span>
+<span id="cb102-2"><a href="#cb102-2" aria-hidden="true" tabindex="-1"></a><span class="fu">datasummary_skim</span>(mpg, <span class="st">"numeric"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<table class="table table-sm table-striped small" data-quarto-postprocess="true">
+<thead>
+<tr class="header">
+<th style="text-align: left;" data-quarto-table-cell-role="th"></th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">Unique (#)</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">Missing (%)</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">Mean</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">SD</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">Min</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">Median</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">Max</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th"></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">displ</td>
+<td style="text-align: right;">35</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">3.5</td>
+<td style="text-align: right;">1.3</td>
+<td style="text-align: right;">1.6</td>
+<td style="text-align: right;">3.3</td>
+<td style="text-align: right;">7.0</td>
+<td style="text-align: right;"><img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbG5zOnhsaW5rPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rIiBjbGFzcz0ic3ZnbGl0ZSIgd2lkdGg9IjQ4LjAwcHQiIGhlaWdodD0iMTIuMDBwdCIgdmlld2JveD0iMCAwIDQ4LjAwIDEyLjAwIj48ZGVmcz48c3R5bGUgdHlwZT0idGV4dC9jc3MiPgogICAgLnN2Z2xpdGUgbGluZSwgLnN2Z2xpdGUgcG9seWxpbmUsIC5zdmdsaXRlIHBvbHlnb24sIC5zdmdsaXRlIHBhdGgsIC5zdmdsaXRlIHJlY3QsIC5zdmdsaXRlIGNpcmNsZSB7CiAgICAgIGZpbGw6IG5vbmU7CiAgICAgIHN0cm9rZTogIzAwMDAwMDsKICAgICAgc3Ryb2tlLWxpbmVjYXA6IHJvdW5kOwogICAgICBzdHJva2UtbGluZWpvaW46IHJvdW5kOwogICAgICBzdHJva2UtbWl0ZXJsaW1pdDogMTAuMDA7CiAgICB9CiAgICAuc3ZnbGl0ZSB0ZXh0IHsKICAgICAgd2hpdGUtc3BhY2U6IHByZTsKICAgIH0KICA8L3N0eWxlPjwvZGVmcz48cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBzdHlsZT0ic3Ryb2tlOiBub25lOyBmaWxsOiBub25lOyI+PC9yZWN0PjxkZWZzPjxjbGlwcGF0aCBpZD0iY3BNQzR3TUh3ME9DNHdNSHd3TGpBd2ZERXlMakF3Ij48cmVjdCB4PSIwLjAwIiB5PSIwLjAwIiB3aWR0aD0iNDguMDAiIGhlaWdodD0iMTIuMDAiPjwvcmVjdD48L2NsaXBwYXRoPjwvZGVmcz48ZyBjbGlwLXBhdGg9InVybCgjY3BNQzR3TUh3ME9DNHdNSHd3TGpBd2ZERXlMakF3KSI+CjwvZz48ZGVmcz48Y2xpcHBhdGggaWQ9ImNwTUM0d01IdzBPQzR3TUh3eUxqZzRmREV5TGpBdyI+PHJlY3QgeD0iMC4wMCIgeT0iMi44OCIgd2lkdGg9IjQ4LjAwIiBoZWlnaHQ9IjkuMTIiPjwvcmVjdD48L2NsaXBwYXRoPjwvZGVmcz48ZyBjbGlwLXBhdGg9InVybCgjY3BNQzR3TUh3ME9DNHdNSHd5TGpnNGZERXlMakF3KSI+PHJlY3QgeD0iMC45NSIgeT0iMy4yMiIgd2lkdGg9IjQuMTIiIGhlaWdodD0iOC40NCIgc3R5bGU9InN0cm9rZS13aWR0aDogMC4zODsgZmlsbDogIzAwMDAwMDsiPjwvcmVjdD48cmVjdCB4PSI1LjA3IiB5PSI0LjAwIiB3aWR0aD0iNC4xMiIgaGVpZ2h0PSI3LjY2IiBzdHlsZT0ic3Ryb2tlLXdpZHRoOiAwLjM4OyBmaWxsOiAjMDAwMDAwOyI+PC9yZWN0PjxyZWN0IHg9IjkuMTkiIHk9IjYuNTYiIHdpZHRoPSI0LjEyIiBoZWlnaHQ9IjUuMTEiIHN0eWxlPSJzdHJva2Utd2lkdGg6IDAuMzg7IGZpbGw6ICMwMDAwMDA7Ij48L3JlY3Q+PHJlY3QgeD0iMTMuMzAiIHk9IjYuOTUiIHdpZHRoPSI0LjEyIiBoZWlnaHQ9IjQuNzEiIHN0eWxlPSJzdHJva2Utd2lkdGg6IDAuMzg7IGZpbGw6ICMwMDAwMDA7Ij48L3JlY3Q+PHJlY3QgeD0iMTcuNDIiIHk9IjUuNTciIHdpZHRoPSI0LjEyIiBoZWlnaHQ9IjYuMDkiIHN0eWxlPSJzdHJva2Utd2lkdGg6IDAuMzg7IGZpbGw6ICMwMDAwMDA7Ij48L3JlY3Q+PHJlY3QgeD0iMjEuNTMiIHk9IjEwLjY4IiB3aWR0aD0iNC4xMiIgaGVpZ2h0PSIwLjk4IiBzdHlsZT0ic3Ryb2tlLXdpZHRoOiAwLjM4OyBmaWxsOiAjMDAwMDAwOyI+PC9yZWN0PjxyZWN0IHg9IjI1LjY1IiB5PSI1Ljc3IiB3aWR0aD0iNC4xMiIgaGVpZ2h0PSI1Ljg5IiBzdHlsZT0ic3Ryb2tlLXdpZHRoOiAwLjM4OyBmaWxsOiAjMDAwMDAwOyI+PC9yZWN0PjxyZWN0IHg9IjI5Ljc2IiB5PSI3LjkzIiB3aWR0aD0iNC4xMiIgaGVpZ2h0PSIzLjczIiBzdHlsZT0ic3Ryb2tlLXdpZHRoOiAwLjM4OyBmaWxsOiAjMDAwMDAwOyI+PC9yZWN0PjxyZWN0IHg9IjMzLjg4IiB5PSI5LjMxIiB3aWR0aD0iNC4xMiIgaGVpZ2h0PSIyLjM2IiBzdHlsZT0ic3Ryb2tlLXdpZHRoOiAwLjM4OyBmaWxsOiAjMDAwMDAwOyI+PC9yZWN0PjxyZWN0IHg9IjM3Ljk5IiB5PSIxMC44OCIgd2lkdGg9IjQuMTIiIGhlaWdodD0iMC43OSIgc3R5bGU9InN0cm9rZS13aWR0aDogMC4zODsgZmlsbDogIzAwMDAwMDsiPjwvcmVjdD48cmVjdCB4PSI0Mi4xMSIgeT0iMTEuNDciIHdpZHRoPSI0LjEyIiBoZWlnaHQ9IjAuMjAiIHN0eWxlPSJzdHJva2Utd2lkdGg6IDAuMzg7IGZpbGw6ICMwMDAwMDA7Ij48L3JlY3Q+PC9nPjwvc3ZnPg==" class="svglite img-fluid"></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">year</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">2003.5</td>
+<td style="text-align: right;">4.5</td>
+<td style="text-align: right;">1999.0</td>
+<td style="text-align: right;">2003.5</td>
+<td style="text-align: right;">2008.0</td>
+<td style="text-align: right;"><img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbG5zOnhsaW5rPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rIiBjbGFzcz0ic3ZnbGl0ZSIgd2lkdGg9IjQ4LjAwcHQiIGhlaWdodD0iMTIuMDBwdCIgdmlld2JveD0iMCAwIDQ4LjAwIDEyLjAwIj48ZGVmcz48c3R5bGUgdHlwZT0idGV4dC9jc3MiPgogICAgLnN2Z2xpdGUgbGluZSwgLnN2Z2xpdGUgcG9seWxpbmUsIC5zdmdsaXRlIHBvbHlnb24sIC5zdmdsaXRlIHBhdGgsIC5zdmdsaXRlIHJlY3QsIC5zdmdsaXRlIGNpcmNsZSB7CiAgICAgIGZpbGw6IG5vbmU7CiAgICAgIHN0cm9rZTogIzAwMDAwMDsKICAgICAgc3Ryb2tlLWxpbmVjYXA6IHJvdW5kOwogICAgICBzdHJva2UtbGluZWpvaW46IHJvdW5kOwogICAgICBzdHJva2UtbWl0ZXJsaW1pdDogMTAuMDA7CiAgICB9CiAgICAuc3ZnbGl0ZSB0ZXh0IHsKICAgICAgd2hpdGUtc3BhY2U6IHByZTsKICAgIH0KICA8L3N0eWxlPjwvZGVmcz48cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBzdHlsZT0ic3Ryb2tlOiBub25lOyBmaWxsOiBub25lOyI+PC9yZWN0PjxkZWZzPjxjbGlwcGF0aCBpZD0iY3BNQzR3TUh3ME9DNHdNSHd3TGpBd2ZERXlMakF3Ij48cmVjdCB4PSIwLjAwIiB5PSIwLjAwIiB3aWR0aD0iNDguMDAiIGhlaWdodD0iMTIuMDAiPjwvcmVjdD48L2NsaXBwYXRoPjwvZGVmcz48ZyBjbGlwLXBhdGg9InVybCgjY3BNQzR3TUh3ME9DNHdNSHd3TGpBd2ZERXlMakF3KSI+CjwvZz48ZGVmcz48Y2xpcHBhdGggaWQ9ImNwTUM0d01IdzBPQzR3TUh3eUxqZzRmREV5TGpBdyI+PHJlY3QgeD0iMC4wMCIgeT0iMi44OCIgd2lkdGg9IjQ4LjAwIiBoZWlnaHQ9IjkuMTIiPjwvcmVjdD48L2NsaXBwYXRoPjwvZGVmcz48ZyBjbGlwLXBhdGg9InVybCgjY3BNQzR3TUh3ME9DNHdNSHd5TGpnNGZERXlMakF3KSI+PHJlY3QgeD0iMS43OCIgeT0iMy4yMiIgd2lkdGg9IjQuOTQiIGhlaWdodD0iOC40NCIgc3R5bGU9InN0cm9rZS13aWR0aDogMC4zODsgZmlsbDogIzAwMDAwMDsiPjwvcmVjdD48cmVjdCB4PSI2LjcyIiB5PSIxMS42NiIgd2lkdGg9IjQuOTQiIGhlaWdodD0iMC4wMCIgc3R5bGU9InN0cm9rZS13aWR0aDogMC4zODsgZmlsbDogIzAwMDAwMDsiPjwvcmVjdD48cmVjdCB4PSIxMS42NSIgeT0iMTEuNjYiIHdpZHRoPSI0Ljk0IiBoZWlnaHQ9IjAuMDAiIHN0eWxlPSJzdHJva2Utd2lkdGg6IDAuMzg7IGZpbGw6ICMwMDAwMDA7Ij48L3JlY3Q+PHJlY3QgeD0iMTYuNTkiIHk9IjExLjY2IiB3aWR0aD0iNC45NCIgaGVpZ2h0PSIwLjAwIiBzdHlsZT0ic3Ryb2tlLXdpZHRoOiAwLjM4OyBmaWxsOiAjMDAwMDAwOyI+PC9yZWN0PjxyZWN0IHg9IjIxLjUzIiB5PSIxMS42NiIgd2lkdGg9IjQuOTQiIGhlaWdodD0iMC4wMCIgc3R5bGU9InN0cm9rZS13aWR0aDogMC4zODsgZmlsbDogIzAwMDAwMDsiPjwvcmVjdD48cmVjdCB4PSIyNi40NyIgeT0iMTEuNjYiIHdpZHRoPSI0Ljk0IiBoZWlnaHQ9IjAuMDAiIHN0eWxlPSJzdHJva2Utd2lkdGg6IDAuMzg7IGZpbGw6ICMwMDAwMDA7Ij48L3JlY3Q+PHJlY3QgeD0iMzEuNDEiIHk9IjExLjY2IiB3aWR0aD0iNC45NCIgaGVpZ2h0PSIwLjAwIiBzdHlsZT0ic3Ryb2tlLXdpZHRoOiAwLjM4OyBmaWxsOiAjMDAwMDAwOyI+PC9yZWN0PjxyZWN0IHg9IjM2LjM1IiB5PSIxMS42NiIgd2lkdGg9IjQuOTQiIGhlaWdodD0iMC4wMCIgc3R5bGU9InN0cm9rZS13aWR0aDogMC4zODsgZmlsbDogIzAwMDAwMDsiPjwvcmVjdD48cmVjdCB4PSI0MS4yOCIgeT0iMy4yMiIgd2lkdGg9IjQuOTQiIGhlaWdodD0iOC40NCIgc3R5bGU9InN0cm9rZS13aWR0aDogMC4zODsgZmlsbDogIzAwMDAwMDsiPjwvcmVjdD48L2c+PC9zdmc+" class="svglite img-fluid"></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">cyl</td>
+<td style="text-align: right;">4</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">5.9</td>
+<td style="text-align: right;">1.6</td>
+<td style="text-align: right;">4.0</td>
+<td style="text-align: right;">6.0</td>
+<td style="text-align: right;">8.0</td>
+<td style="text-align: right;"><img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbG5zOnhsaW5rPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rIiBjbGFzcz0ic3ZnbGl0ZSIgd2lkdGg9IjQ4LjAwcHQiIGhlaWdodD0iMTIuMDBwdCIgdmlld2JveD0iMCAwIDQ4LjAwIDEyLjAwIj48ZGVmcz48c3R5bGUgdHlwZT0idGV4dC9jc3MiPgogICAgLnN2Z2xpdGUgbGluZSwgLnN2Z2xpdGUgcG9seWxpbmUsIC5zdmdsaXRlIHBvbHlnb24sIC5zdmdsaXRlIHBhdGgsIC5zdmdsaXRlIHJlY3QsIC5zdmdsaXRlIGNpcmNsZSB7CiAgICAgIGZpbGw6IG5vbmU7CiAgICAgIHN0cm9rZTogIzAwMDAwMDsKICAgICAgc3Ryb2tlLWxpbmVjYXA6IHJvdW5kOwogICAgICBzdHJva2UtbGluZWpvaW46IHJvdW5kOwogICAgICBzdHJva2UtbWl0ZXJsaW1pdDogMTAuMDA7CiAgICB9CiAgICAuc3ZnbGl0ZSB0ZXh0IHsKICAgICAgd2hpdGUtc3BhY2U6IHByZTsKICAgIH0KICA8L3N0eWxlPjwvZGVmcz48cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBzdHlsZT0ic3Ryb2tlOiBub25lOyBmaWxsOiBub25lOyI+PC9yZWN0PjxkZWZzPjxjbGlwcGF0aCBpZD0iY3BNQzR3TUh3ME9DNHdNSHd3TGpBd2ZERXlMakF3Ij48cmVjdCB4PSIwLjAwIiB5PSIwLjAwIiB3aWR0aD0iNDguMDAiIGhlaWdodD0iMTIuMDAiPjwvcmVjdD48L2NsaXBwYXRoPjwvZGVmcz48ZyBjbGlwLXBhdGg9InVybCgjY3BNQzR3TUh3ME9DNHdNSHd3TGpBd2ZERXlMakF3KSI+CjwvZz48ZGVmcz48Y2xpcHBhdGggaWQ9ImNwTUM0d01IdzBPQzR3TUh3eUxqZzRmREV5TGpBdyI+PHJlY3QgeD0iMC4wMCIgeT0iMi44OCIgd2lkdGg9IjQ4LjAwIiBoZWlnaHQ9IjkuMTIiPjwvcmVjdD48L2NsaXBwYXRoPjwvZGVmcz48ZyBjbGlwLXBhdGg9InVybCgjY3BNQzR3TUh3ME9DNHdNSHd5TGpnNGZERXlMakF3KSI+PHJlY3QgeD0iMS43OCIgeT0iMy4yMiIgd2lkdGg9IjUuNTYiIGhlaWdodD0iOC40NCIgc3R5bGU9InN0cm9rZS13aWR0aDogMC4zODsgZmlsbDogIzAwMDAwMDsiPjwvcmVjdD48cmVjdCB4PSI3LjMzIiB5PSIxMS4yNSIgd2lkdGg9IjUuNTYiIGhlaWdodD0iMC40MiIgc3R5bGU9InN0cm9rZS13aWR0aDogMC4zODsgZmlsbDogIzAwMDAwMDsiPjwvcmVjdD48cmVjdCB4PSIxMi44OSIgeT0iMTEuNjYiIHdpZHRoPSI1LjU2IiBoZWlnaHQ9IjAuMDAiIHN0eWxlPSJzdHJva2Utd2lkdGg6IDAuMzg7IGZpbGw6ICMwMDAwMDA7Ij48L3JlY3Q+PHJlY3QgeD0iMTguNDQiIHk9IjMuNDMiIHdpZHRoPSI1LjU2IiBoZWlnaHQ9IjguMjQiIHN0eWxlPSJzdHJva2Utd2lkdGg6IDAuMzg7IGZpbGw6ICMwMDAwMDA7Ij48L3JlY3Q+PHJlY3QgeD0iMjQuMDAiIHk9IjExLjY2IiB3aWR0aD0iNS41NiIgaGVpZ2h0PSIwLjAwIiBzdHlsZT0ic3Ryb2tlLXdpZHRoOiAwLjM4OyBmaWxsOiAjMDAwMDAwOyI+PC9yZWN0PjxyZWN0IHg9IjI5LjU2IiB5PSIxMS42NiIgd2lkdGg9IjUuNTYiIGhlaWdodD0iMC4wMCIgc3R5bGU9InN0cm9rZS13aWR0aDogMC4zODsgZmlsbDogIzAwMDAwMDsiPjwvcmVjdD48cmVjdCB4PSIzNS4xMSIgeT0iMTEuNjYiIHdpZHRoPSI1LjU2IiBoZWlnaHQ9IjAuMDAiIHN0eWxlPSJzdHJva2Utd2lkdGg6IDAuMzg7IGZpbGw6ICMwMDAwMDA7Ij48L3JlY3Q+PHJlY3QgeD0iNDAuNjciIHk9IjQuMzYiIHdpZHRoPSI1LjU2IiBoZWlnaHQ9IjcuMzAiIHN0eWxlPSJzdHJva2Utd2lkdGg6IDAuMzg7IGZpbGw6ICMwMDAwMDA7Ij48L3JlY3Q+PC9nPjwvc3ZnPg==" class="svglite img-fluid"></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">cty</td>
+<td style="text-align: right;">21</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">16.9</td>
+<td style="text-align: right;">4.3</td>
+<td style="text-align: right;">9.0</td>
+<td style="text-align: right;">17.0</td>
+<td style="text-align: right;">35.0</td>
+<td style="text-align: right;"><img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbG5zOnhsaW5rPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rIiBjbGFzcz0ic3ZnbGl0ZSIgd2lkdGg9IjQ4LjAwcHQiIGhlaWdodD0iMTIuMDBwdCIgdmlld2JveD0iMCAwIDQ4LjAwIDEyLjAwIj48ZGVmcz48c3R5bGUgdHlwZT0idGV4dC9jc3MiPgogICAgLnN2Z2xpdGUgbGluZSwgLnN2Z2xpdGUgcG9seWxpbmUsIC5zdmdsaXRlIHBvbHlnb24sIC5zdmdsaXRlIHBhdGgsIC5zdmdsaXRlIHJlY3QsIC5zdmdsaXRlIGNpcmNsZSB7CiAgICAgIGZpbGw6IG5vbmU7CiAgICAgIHN0cm9rZTogIzAwMDAwMDsKICAgICAgc3Ryb2tlLWxpbmVjYXA6IHJvdW5kOwogICAgICBzdHJva2UtbGluZWpvaW46IHJvdW5kOwogICAgICBzdHJva2UtbWl0ZXJsaW1pdDogMTAuMDA7CiAgICB9CiAgICAuc3ZnbGl0ZSB0ZXh0IHsKICAgICAgd2hpdGUtc3BhY2U6IHByZTsKICAgIH0KICA8L3N0eWxlPjwvZGVmcz48cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBzdHlsZT0ic3Ryb2tlOiBub25lOyBmaWxsOiBub25lOyI+PC9yZWN0PjxkZWZzPjxjbGlwcGF0aCBpZD0iY3BNQzR3TUh3ME9DNHdNSHd3TGpBd2ZERXlMakF3Ij48cmVjdCB4PSIwLjAwIiB5PSIwLjAwIiB3aWR0aD0iNDguMDAiIGhlaWdodD0iMTIuMDAiPjwvcmVjdD48L2NsaXBwYXRoPjwvZGVmcz48ZyBjbGlwLXBhdGg9InVybCgjY3BNQzR3TUh3ME9DNHdNSHd3TGpBd2ZERXlMakF3KSI+CjwvZz48ZGVmcz48Y2xpcHBhdGggaWQ9ImNwTUM0d01IdzBPQzR3TUh3eUxqZzRmREV5TGpBdyI+PHJlY3QgeD0iMC4wMCIgeT0iMi44OCIgd2lkdGg9IjQ4LjAwIiBoZWlnaHQ9IjkuMTIiPjwvcmVjdD48L2NsaXBwYXRoPjwvZGVmcz48ZyBjbGlwLXBhdGg9InVybCgjY3BNQzR3TUh3ME9DNHdNSHd5TGpnNGZERXlMakF3KSI+PHJlY3QgeD0iLTUuMDYiIHk9IjExLjIwIiB3aWR0aD0iOC41NSIgaGVpZ2h0PSIwLjQ2IiBzdHlsZT0ic3Ryb2tlLXdpZHRoOiAwLjM4OyBmaWxsOiAjMDAwMDAwOyI+PC9yZWN0PjxyZWN0IHg9IjMuNDkiIHk9IjMuMjIiIHdpZHRoPSI4LjU1IiBoZWlnaHQ9IjguNDQiIHN0eWxlPSJzdHJva2Utd2lkdGg6IDAuMzg7IGZpbGw6ICMwMDAwMDA7Ij48L3JlY3Q+PHJlY3QgeD0iMTIuMDMiIHk9IjMuMjIiIHdpZHRoPSI4LjU1IiBoZWlnaHQ9IjguNDQiIHN0eWxlPSJzdHJva2Utd2lkdGg6IDAuMzg7IGZpbGw6ICMwMDAwMDA7Ij48L3JlY3Q+PHJlY3QgeD0iMjAuNTgiIHk9IjguMjciIHdpZHRoPSI4LjU1IiBoZWlnaHQ9IjMuNDAiIHN0eWxlPSJzdHJva2Utd2lkdGg6IDAuMzg7IGZpbGw6ICMwMDAwMDA7Ij48L3JlY3Q+PHJlY3QgeD0iMjkuMTMiIHk9IjExLjExIiB3aWR0aD0iOC41NSIgaGVpZ2h0PSIwLjU1IiBzdHlsZT0ic3Ryb2tlLXdpZHRoOiAwLjM4OyBmaWxsOiAjMDAwMDAwOyI+PC9yZWN0PjxyZWN0IHg9IjM3LjY4IiB5PSIxMS40OCIgd2lkdGg9IjguNTUiIGhlaWdodD0iMC4xOCIgc3R5bGU9InN0cm9rZS13aWR0aDogMC4zODsgZmlsbDogIzAwMDAwMDsiPjwvcmVjdD48L2c+PC9zdmc+" class="svglite img-fluid"></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">hwy</td>
+<td style="text-align: right;">27</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">23.4</td>
+<td style="text-align: right;">6.0</td>
+<td style="text-align: right;">12.0</td>
+<td style="text-align: right;">24.0</td>
+<td style="text-align: right;">44.0</td>
+<td style="text-align: right;"><img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbG5zOnhsaW5rPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rIiBjbGFzcz0ic3ZnbGl0ZSIgd2lkdGg9IjQ4LjAwcHQiIGhlaWdodD0iMTIuMDBwdCIgdmlld2JveD0iMCAwIDQ4LjAwIDEyLjAwIj48ZGVmcz48c3R5bGUgdHlwZT0idGV4dC9jc3MiPgogICAgLnN2Z2xpdGUgbGluZSwgLnN2Z2xpdGUgcG9seWxpbmUsIC5zdmdsaXRlIHBvbHlnb24sIC5zdmdsaXRlIHBhdGgsIC5zdmdsaXRlIHJlY3QsIC5zdmdsaXRlIGNpcmNsZSB7CiAgICAgIGZpbGw6IG5vbmU7CiAgICAgIHN0cm9rZTogIzAwMDAwMDsKICAgICAgc3Ryb2tlLWxpbmVjYXA6IHJvdW5kOwogICAgICBzdHJva2UtbGluZWpvaW46IHJvdW5kOwogICAgICBzdHJva2UtbWl0ZXJsaW1pdDogMTAuMDA7CiAgICB9CiAgICAuc3ZnbGl0ZSB0ZXh0IHsKICAgICAgd2hpdGUtc3BhY2U6IHByZTsKICAgIH0KICA8L3N0eWxlPjwvZGVmcz48cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBzdHlsZT0ic3Ryb2tlOiBub25lOyBmaWxsOiBub25lOyI+PC9yZWN0PjxkZWZzPjxjbGlwcGF0aCBpZD0iY3BNQzR3TUh3ME9DNHdNSHd3TGpBd2ZERXlMakF3Ij48cmVjdCB4PSIwLjAwIiB5PSIwLjAwIiB3aWR0aD0iNDguMDAiIGhlaWdodD0iMTIuMDAiPjwvcmVjdD48L2NsaXBwYXRoPjwvZGVmcz48ZyBjbGlwLXBhdGg9InVybCgjY3BNQzR3TUh3ME9DNHdNSHd3TGpBd2ZERXlMakF3KSI+CjwvZz48ZGVmcz48Y2xpcHBhdGggaWQ9ImNwTUM0d01IdzBPQzR3TUh3eUxqZzRmREV5TGpBdyI+PHJlY3QgeD0iMC4wMCIgeT0iMi44OCIgd2lkdGg9IjQ4LjAwIiBoZWlnaHQ9IjkuMTIiPjwvcmVjdD48L2NsaXBwYXRoPjwvZGVmcz48ZyBjbGlwLXBhdGg9InVybCgjY3BNQzR3TUh3ME9DNHdNSHd5TGpnNGZERXlMakF3KSI+PHJlY3QgeD0iLTEuMDAiIHk9IjkuODUiIHdpZHRoPSI2Ljk0IiBoZWlnaHQ9IjEuODIiIHN0eWxlPSJzdHJva2Utd2lkdGg6IDAuMzg7IGZpbGw6ICMwMDAwMDA7Ij48L3JlY3Q+PHJlY3QgeD0iNS45NCIgeT0iMy45NyIgd2lkdGg9IjYuOTQiIGhlaWdodD0iNy43MCIgc3R5bGU9InN0cm9rZS13aWR0aDogMC4zODsgZmlsbDogIzAwMDAwMDsiPjwvcmVjdD48cmVjdCB4PSIxMi44OSIgeT0iNi45NiIgd2lkdGg9IjYuOTQiIGhlaWdodD0iNC43MCIgc3R5bGU9InN0cm9rZS13aWR0aDogMC4zODsgZmlsbDogIzAwMDAwMDsiPjwvcmVjdD48cmVjdCB4PSIxOS44MyIgeT0iMy4yMiIgd2lkdGg9IjYuOTQiIGhlaWdodD0iOC40NCIgc3R5bGU9InN0cm9rZS13aWR0aDogMC4zODsgZmlsbDogIzAwMDAwMDsiPjwvcmVjdD48cmVjdCB4PSIyNi43OCIgeT0iOS45NSIgd2lkdGg9IjYuOTQiIGhlaWdodD0iMS43MSIgc3R5bGU9InN0cm9rZS13aWR0aDogMC4zODsgZmlsbDogIzAwMDAwMDsiPjwvcmVjdD48cmVjdCB4PSIzMy43MiIgeT0iMTEuMzQiIHdpZHRoPSI2Ljk0IiBoZWlnaHQ9IjAuMzIiIHN0eWxlPSJzdHJva2Utd2lkdGg6IDAuMzg7IGZpbGw6ICMwMDAwMDA7Ij48L3JlY3Q+PHJlY3QgeD0iNDAuNjciIHk9IjExLjM0IiB3aWR0aD0iNi45NCIgaGVpZ2h0PSIwLjMyIiBzdHlsZT0ic3Ryb2tlLXdpZHRoOiAwLjM4OyBmaWxsOiAjMDAwMDAwOyI+PC9yZWN0PjwvZz48L3N2Zz4=" class="svglite img-fluid"></td>
+</tr>
+</tbody>
+</table>
+
+
 </div>
 </div>
 

@@ -697,57 +697,57 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb147-9"><a href="#cb147-9" aria-hidden="true" tabindex="-1"></a>m <span class="ot">&lt;-</span> <span class="fu">rbind</span>(MA, MB)</span>
 <span id="cb147-10"><a href="#cb147-10" aria-hidden="true" tabindex="-1"></a>m</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>           [,1]       [,2]        [,3]       [,4]
-[1,]  1.5071894 -1.1873811   1.4208796  1.3825700
-[2,] -0.9057765 -0.9852271  -0.2308865  0.3472688
-[3,] -1.1403280  0.5470924   0.9526553 -1.1735852
-[4,]  0.5246599 -0.1641956   2.4372992 -0.2349135
-[5,] 96.9893491 75.6789368 103.7030714 78.7606980
-[6,] 81.4379367 93.3741574 107.5346640 79.3702444
-[7,] 77.7885766 78.4340742  91.8313991 96.3055202
-[8,] 94.8605594 88.6898043 109.4826577 88.9347809</code></pre>
+<pre><code>           [,1]       [,2]         [,3]       [,4]
+[1,] -2.7422098 -1.4163350  -0.00103911  0.9903439
+[2,] -0.1693145  2.0058397   0.06649095  1.5445084
+[3,] -0.6969008 -1.8466393   0.89273348  0.1851512
+[4,]  0.3730141 -0.6739837   0.31230967  0.2720687
+[5,] 89.8911957 99.3469225 100.48904338 94.9279147
+[6,] 65.9782845 74.2975456  99.67870402 96.2728542
+[7,] 90.2686534 81.1444004 104.17006658 82.3052223
+[8,] 99.4748640 99.1515783  88.73672436 97.8566265</code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb149"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb149-1"><a href="#cb149-1" aria-hidden="true" tabindex="-1"></a><span class="co"># satır ve sütun isimlendirme</span></span>
 <span id="cb149-2"><a href="#cb149-2" aria-hidden="true" tabindex="-1"></a><span class="fu">colnames</span>(m) <span class="ot">&lt;-</span> LETTERS[<span class="dv">1</span><span class="sc">:</span><span class="dv">4</span>]</span>
 <span id="cb149-3"><a href="#cb149-3" aria-hidden="true" tabindex="-1"></a><span class="fu">rownames</span>(m) <span class="ot">&lt;-</span> <span class="fu">tail</span>(LETTERS,<span class="dv">8</span>)</span>
 <span id="cb149-4"><a href="#cb149-4" aria-hidden="true" tabindex="-1"></a>m</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>           A          B           C          D
-S  1.5071894 -1.1873811   1.4208796  1.3825700
-T -0.9057765 -0.9852271  -0.2308865  0.3472688
-U -1.1403280  0.5470924   0.9526553 -1.1735852
-V  0.5246599 -0.1641956   2.4372992 -0.2349135
-W 96.9893491 75.6789368 103.7030714 78.7606980
-X 81.4379367 93.3741574 107.5346640 79.3702444
-Y 77.7885766 78.4340742  91.8313991 96.3055202
-Z 94.8605594 88.6898043 109.4826577 88.9347809</code></pre>
+<pre><code>           A          B            C          D
+S -2.7422098 -1.4163350  -0.00103911  0.9903439
+T -0.1693145  2.0058397   0.06649095  1.5445084
+U -0.6969008 -1.8466393   0.89273348  0.1851512
+V  0.3730141 -0.6739837   0.31230967  0.2720687
+W 89.8911957 99.3469225 100.48904338 94.9279147
+X 65.9782845 74.2975456  99.67870402 96.2728542
+Y 90.2686534 81.1444004 104.17006658 82.3052223
+Z 99.4748640 99.1515783  88.73672436 97.8566265</code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb151"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb151-1"><a href="#cb151-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Matris Elemanlarina Erismek</span></span>
 <span id="cb151-2"><a href="#cb151-2" aria-hidden="true" tabindex="-1"></a>m[<span class="dv">1</span>,<span class="dv">1</span>] <span class="co"># 1. satır, 1.sütundak, eleman</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] 1.507189</code></pre>
+<pre><code>[1] -2.74221</code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb153"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb153-1"><a href="#cb153-1" aria-hidden="true" tabindex="-1"></a>m[<span class="dv">4</span>,<span class="dv">2</span>] <span class="co"># 4. satır, 2.sütundak, eleman</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] -0.1641956</code></pre>
+<pre><code>[1] -0.6739837</code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb155"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb155-1"><a href="#cb155-1" aria-hidden="true" tabindex="-1"></a>m[,<span class="dv">2</span>] <span class="co"># 2. sütun elemanları</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>         S          T          U          V          W          X          Y 
--1.1873811 -0.9852271  0.5470924 -0.1641956 75.6789368 93.3741574 78.4340742 
+-1.4163350  2.0058397 -1.8466393 -0.6739837 99.3469225 74.2975456 81.1444004 
          Z 
-88.6898043 </code></pre>
+99.1515783 </code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb157"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb157-1"><a href="#cb157-1" aria-hidden="true" tabindex="-1"></a>m[<span class="sc">-</span><span class="dv">3</span>,] <span class="co"># 3. satır hariç tüm elemanlar</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>           A          B           C          D
-S  1.5071894 -1.1873811   1.4208796  1.3825700
-T -0.9057765 -0.9852271  -0.2308865  0.3472688
-V  0.5246599 -0.1641956   2.4372992 -0.2349135
-W 96.9893491 75.6789368 103.7030714 78.7606980
-X 81.4379367 93.3741574 107.5346640 79.3702444
-Y 77.7885766 78.4340742  91.8313991 96.3055202
-Z 94.8605594 88.6898043 109.4826577 88.9347809</code></pre>
+<pre><code>           A          B            C          D
+S -2.7422098 -1.4163350  -0.00103911  0.9903439
+T -0.1693145  2.0058397   0.06649095  1.5445084
+V  0.3730141 -0.6739837   0.31230967  0.2720687
+W 89.8911957 99.3469225 100.48904338 94.9279147
+X 65.9782845 74.2975456  99.67870402 96.2728542
+Y 90.2686534 81.1444004 104.17006658 82.3052223
+Z 99.4748640 99.1515783  88.73672436 97.8566265</code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb159"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb159-1"><a href="#cb159-1" aria-hidden="true" tabindex="-1"></a><span class="co"># köşegen matris oluşturma</span></span>
 <span id="cb159-2"><a href="#cb159-2" aria-hidden="true" tabindex="-1"></a><span class="fu">diag</span>(<span class="dv">2</span>,<span class="at">nrow=</span><span class="dv">3</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -769,16 +769,16 @@ Z 94.8605594 88.6898043 109.4826577 88.9347809</code></pre>
 <div class="sourceCode cell-code" id="cb163"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb163-1"><a href="#cb163-1" aria-hidden="true" tabindex="-1"></a><span class="co"># transpose</span></span>
 <span id="cb163-2"><a href="#cb163-2" aria-hidden="true" tabindex="-1"></a><span class="fu">t</span>(m)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>          S          T          U          V         W         X        Y
-A  1.507189 -0.9057765 -1.1403280  0.5246599  96.98935  81.43794 77.78858
-B -1.187381 -0.9852271  0.5470924 -0.1641956  75.67894  93.37416 78.43407
-C  1.420880 -0.2308865  0.9526553  2.4372992 103.70307 107.53466 91.83140
-D  1.382570  0.3472688 -1.1735852 -0.2349135  78.76070  79.37024 96.30552
-          Z
-A  94.86056
-B  88.68980
-C 109.48266
-D  88.93478</code></pre>
+<pre><code>            S           T          U          V         W        X         Y
+A -2.74220975 -0.16931450 -0.6969008  0.3730141  89.89120 65.97828  90.26865
+B -1.41633499  2.00583969 -1.8466393 -0.6739837  99.34692 74.29755  81.14440
+C -0.00103911  0.06649095  0.8927335  0.3123097 100.48904 99.67870 104.17007
+D  0.99034386  1.54450836  0.1851512  0.2720687  94.92791 96.27285  82.30522
+         Z
+A 99.47486
+B 99.15158
+C 88.73672
+D 97.85663</code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb165"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb165-1"><a href="#cb165-1" aria-hidden="true" tabindex="-1"></a><span class="co"># matris ile işlemler</span></span>
 <span id="cb165-2"><a href="#cb165-2" aria-hidden="true" tabindex="-1"></a></span>

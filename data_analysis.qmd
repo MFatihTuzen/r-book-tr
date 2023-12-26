@@ -56,16 +56,6 @@ dplyr::glimpse(df)
 
 ```
 
-::: callout-tip
-## Tavsiye
-
-Veri analizi için **`skimr`** paketi de kullanılabilir. **`skimr`**, R programlama dilinde veri setlerinin hızlı bir şekilde özetlenmesini sağlayan bir pakettir. Veri setlerinin yapısını, özelliklerini ve bazı istatistiksel özetlerini görsel ve açıklayıcı bir şekilde sunar. Bu paket, veri keşfi aşamasında veri setinin genel özelliklerini anlamak için kullanılır.
-
-**`skimr`** paketi, veri setinizdeki değişkenlerin türlerine göre istatistiksel özetler sunar. Örneğin, sayısal değişkenler için merkezi eğilim ölçüleri (ortalama, medyan), dağılım (standart sapma, min-max değerleri), faktör değişkenleri için sınıf sayısı, en sık rastlanan sınıf ve eksik veri durumları gibi bilgileri sunar.
-
-Bu paket, veri setinin yapısını hızlıca anlamak ve önemli özelliklerini keşfetmek için kullanılır. Özellikle veri setlerinin keşfedilmesi, temizlenmesi ve analiz edilmesi aşamalarında oldukça faydalıdır. Bu, veri analiz sürecinde veriye daha derinlemesine bakmayı ve hangi analiz tekniklerinin kullanılacağına dair daha iyi bir anlayış geliştirmeyi sağlar.
-:::
-
 ## Sürekli Değişkenler
 
 Veri analizi, birçok farklı değişken türünün incelenmesini gerektirir. Bu değişkenler arasında sürekli değişkenler özellikle önemlidir. Sürekli değişkenler, belirli bir aralıktaki değerleri alabilen ve sonsuz sayıda mümkün değer içeren değişkenlerdir. Örnek olarak, yaş, gelir, sıcaklık gibi değerler sürekli değişkenlere örnektir. Sürekli değişkenlerin analizi, verileri anlamak ve içindeki örüntüleri keşfetmek için kullanılır. Bu analiz, genellikle aşağıdaki adımları içerir:
@@ -265,5 +255,33 @@ lines(ts, type = "l", col = "blue")
 growth <- AirPassengers/stats::lag(AirPassengers,-1)*100-100
 growth
 plot(growth,type = "l", col = "red")
+
+```
+
+## Veri Analizi Bazı Paketler
+
+Veri analizi için [skimr](https://cran.r-project.org/web/packages/skimr/vignettes/skimr.html) paketi de kullanılabilir. **`skimr`**, R programlama dilinde veri setlerinin hızlı bir şekilde özetlenmesini sağlayan bir pakettir. Veri setlerinin yapısını, özelliklerini ve bazı istatistiksel özetlerini görsel ve açıklayıcı bir şekilde sunar. Bu paket, veri keşfi aşamasında veri setinin genel özelliklerini anlamak için kullanılır.
+
+**`skimr`** paketi, veri setinizdeki değişkenlerin türlerine göre istatistiksel özetler sunar. Örneğin, sayısal değişkenler için merkezi eğilim ölçüleri (ortalama, medyan), dağılım (standart sapma, min-max değerleri), faktör değişkenleri için sınıf sayısı, en sık rastlanan sınıf ve eksik veri durumları gibi bilgileri sunar.
+
+Bu paket, veri setinin yapısını hızlıca anlamak ve önemli özelliklerini keşfetmek için kullanılır. Özellikle veri setlerinin keşfedilmesi, temizlenmesi ve analiz edilmesi aşamalarında oldukça faydalıdır. Bu, veri analiz sürecinde veriye daha derinlemesine bakmayı ve hangi analiz tekniklerinin kullanılacağına dair daha iyi bir anlayış geliştirmeyi sağlar.
+
+Bunun yanında, [modelsummary](https://modelsummary.com/) paketi de, R programlama dili için geliştirilmiş olan bir pakettir ve istatistiksel modellerin özetlenmesi, karşılaştırılması ve görselleştirilmesi için kullanılır. Bu paket, farklı türdeki modellerin çıktılarını standartlaştırarak, bunları karşılaştırmak ve analiz etmek için kullanıcıya kolaylık sağlar.
+
+Bu paket genellikle doğrusal regresyon, lojistik regresyon, karar ağaçları, destek vektör makineleri gibi çeşitli istatistiksel ve makine öğrenimi modellerinin özet istatistiklerini, katsayılarını, belirlilik ölçülerini, hata ölçümlerini ve diğer önemli çıktıları sunar. Bunların yanı sıra, çıktıları tablolar halinde gösterir ve görselleştirmeler yaparak model performansını karşılaştırmak için grafikler oluşturabilir.
+
+Bu paket, araştırmacılar, veri bilimcileri veya istatistikçilerin farklı modelleri anlamak, karşılaştırmak ve raporlamak için verimli bir araç sunar. Model sonuçlarını görselleştirme ve karşılaştırma açısından kullanışlıdır. Paket, model özetlerinin ötesinde, veri kümesine genel bakış, korelasyon matrisleri, (çok seviyeli) çapraz tablolar ve denge tabloları gibi son derece esnek veri özet tabloları üretmek için bir dizi araç da içerir.
+
+```{r message=FALSE}
+
+# Paketin birkaç özelliğine bakalım
+
+library(modelsummary)
+
+# kategorik verilere hızlı bir bakış
+datasummary_skim(mpg, "categorical")
+
+# nümerik verilere hızlı bir bakış
+datasummary_skim(mpg, "numeric")
 
 ```
