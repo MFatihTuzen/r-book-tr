@@ -45,8 +45,10 @@ language:
 format:
   html:
     theme: 
-      light: [flatly,custom.scss]
-      dark: [darkly,custom.scss]
+      light: sandstone
+      dark: cyborg
+    #   light: [flatly,custom.scss]
+    #   dark: [Zephyr,custom.scss]
     css: styles.css
   pdf:
     documentclass: scrreprt
