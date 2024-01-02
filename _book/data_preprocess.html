@@ -360,35 +360,35 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="cell-output cell-output-stdout">
 <pre><code>   weight   height
 19     NA       NA
-16     NA 188.6155
+16     NA 183.6970
 18     NA       NA
-17     NA 163.8113
+17     NA 158.7319
 20     NA       NA</code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>df2[<span class="fu">complete.cases</span>(df2), ]<span class="sc">$</span>weight</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code> [1] 66.97488 70.37133 59.53076 59.32169 65.24432 65.01029 50.57268 79.86216
- [9] 73.32917 75.19486 44.46213 86.19969 70.62647 53.60251 81.65953</code></pre>
+<pre><code> [1] 63.75827 78.15761 66.74927 63.11120 52.65407 70.66665 76.22240 60.73372
+ [9] 70.76450 71.92684 64.16201 68.06644 59.27535 82.96033 70.98589</code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="co"># eksik veriden tamamen kurtulma</span></span>
 <span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="fu">na.omit</span>(df2)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>     weight   height
-14 66.97488 139.1278
-11 70.37133 188.5925
-8  59.53076 153.0449
-2  59.32169 167.2155
-6  65.24432 172.4854
-13 65.01029 173.4831
-7  50.57268 186.9672
-1  79.86216 213.7216
-15 73.32917 134.3478
-10 75.19486 150.6034
-12 44.46213 158.2023
-9  86.19969 159.5210
-4  70.62647 152.7094
-3  53.60251 170.9626
-5  81.65953 170.9199</code></pre>
+14 63.75827 151.6364
+11 78.15761 167.2234
+8  66.74927 136.8637
+2  63.11120 150.3140
+6  52.65407 140.1654
+13 70.66665 140.2327
+7  76.22240 190.1778
+1  60.73372 176.7353
+15 70.76450 142.8796
+10 71.92684 182.1515
+12 64.16201 177.4004
+9  68.06644 175.4283
+4  59.27535 175.8424
+3  82.96033 150.1266
+5  70.98589 163.7264</code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="fu">complete.cases</span>(df2)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
@@ -398,26 +398,26 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>df2[<span class="fu">complete.cases</span>(df2), ] <span class="co"># dolu olanlar satırlar</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>     weight   height
-14 66.97488 139.1278
-11 70.37133 188.5925
-8  59.53076 153.0449
-2  59.32169 167.2155
-6  65.24432 172.4854
-13 65.01029 173.4831
-7  50.57268 186.9672
-1  79.86216 213.7216
-15 73.32917 134.3478
-10 75.19486 150.6034
-12 44.46213 158.2023
-9  86.19969 159.5210
-4  70.62647 152.7094
-3  53.60251 170.9626
-5  81.65953 170.9199</code></pre>
+14 63.75827 151.6364
+11 78.15761 167.2234
+8  66.74927 136.8637
+2  63.11120 150.3140
+6  52.65407 140.1654
+13 70.66665 140.2327
+7  76.22240 190.1778
+1  60.73372 176.7353
+15 70.76450 142.8796
+10 71.92684 182.1515
+12 64.16201 177.4004
+9  68.06644 175.4283
+4  59.27535 175.8424
+3  82.96033 150.1266
+5  70.98589 163.7264</code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>df2[<span class="fu">complete.cases</span>(df2), ]<span class="sc">$</span>weight <span class="co"># değişken bazında dolu olan satırlar</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code> [1] 66.97488 70.37133 59.53076 59.32169 65.24432 65.01029 50.57268 79.86216
- [9] 73.32917 75.19486 44.46213 86.19969 70.62647 53.60251 81.65953</code></pre>
+<pre><code> [1] 63.75827 78.15761 66.74927 63.11120 52.65407 70.66665 76.22240 60.73372
+ [9] 70.76450 71.92684 64.16201 68.06644 59.27535 82.96033 70.98589</code></pre>
 </div>
 </div>
 </section>
@@ -439,148 +439,148 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>df2</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>     weight   height  weight2
-14 66.97488 139.1278 66.97488
-19       NA       NA 66.79750
-16       NA 188.6155 66.79750
-11 70.37133 188.5925 70.37133
-18       NA       NA 66.79750
-8  59.53076 153.0449 59.53076
-2  59.32169 167.2155 59.32169
-6  65.24432 172.4854 65.24432
-17       NA 163.8113 66.79750
-13 65.01029 173.4831 65.01029
-7  50.57268 186.9672 50.57268
-1  79.86216 213.7216 79.86216
-15 73.32917 134.3478 73.32917
-10 75.19486 150.6034 75.19486
-12 44.46213 158.2023 44.46213
-9  86.19969 159.5210 86.19969
-4  70.62647 152.7094 70.62647
-20       NA       NA 66.79750
-3  53.60251 170.9626 53.60251
-5  81.65953 170.9199 81.65953</code></pre>
+14 63.75827 151.6364 63.75827
+19       NA       NA 68.01297
+16       NA 183.6970 68.01297
+11 78.15761 167.2234 78.15761
+18       NA       NA 68.01297
+8  66.74927 136.8637 66.74927
+2  63.11120 150.3140 63.11120
+6  52.65407 140.1654 52.65407
+17       NA 158.7319 68.01297
+13 70.66665 140.2327 70.66665
+7  76.22240 190.1778 76.22240
+1  60.73372 176.7353 60.73372
+15 70.76450 142.8796 70.76450
+10 71.92684 182.1515 71.92684
+12 64.16201 177.4004 64.16201
+9  68.06644 175.4283 68.06644
+4  59.27535 175.8424 59.27535
+20       NA       NA 68.01297
+3  82.96033 150.1266 82.96033
+5  70.98589 163.7264 70.98589</code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="co"># tek seferde bütün kolonlardaki eksik verileri ortamala ile doldurmak için</span></span>
 <span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a><span class="fu">sapply</span>(df2, <span class="cf">function</span>(x) <span class="fu">ifelse</span>(<span class="fu">is.na</span>(x), <span class="fu">mean</span>(x, <span class="at">na.rm =</span> <span class="cn">TRUE</span>), x ))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>        weight   height  weight2
- [1,] 66.97488 139.1278 66.97488
- [2,] 66.79750 167.3136 66.79750
- [3,] 66.79750 188.6155 66.79750
- [4,] 70.37133 188.5925 70.37133
- [5,] 66.79750 167.3136 66.79750
- [6,] 59.53076 153.0449 59.53076
- [7,] 59.32169 167.2155 59.32169
- [8,] 65.24432 172.4854 65.24432
- [9,] 66.79750 163.8113 66.79750
-[10,] 65.01029 173.4831 65.01029
-[11,] 50.57268 186.9672 50.57268
-[12,] 79.86216 213.7216 79.86216
-[13,] 73.32917 134.3478 73.32917
-[14,] 75.19486 150.6034 75.19486
-[15,] 44.46213 158.2023 44.46213
-[16,] 86.19969 159.5210 86.19969
-[17,] 70.62647 152.7094 70.62647
-[18,] 66.79750 167.3136 66.79750
-[19,] 53.60251 170.9626 53.60251
-[20,] 81.65953 170.9199 81.65953</code></pre>
+ [1,] 63.75827 151.6364 63.75827
+ [2,] 68.01297 162.5490 68.01297
+ [3,] 68.01297 183.6970 68.01297
+ [4,] 78.15761 167.2234 78.15761
+ [5,] 68.01297 162.5490 68.01297
+ [6,] 66.74927 136.8637 66.74927
+ [7,] 63.11120 150.3140 63.11120
+ [8,] 52.65407 140.1654 52.65407
+ [9,] 68.01297 158.7319 68.01297
+[10,] 70.66665 140.2327 70.66665
+[11,] 76.22240 190.1778 76.22240
+[12,] 60.73372 176.7353 60.73372
+[13,] 70.76450 142.8796 70.76450
+[14,] 71.92684 182.1515 71.92684
+[15,] 64.16201 177.4004 64.16201
+[16,] 68.06644 175.4283 68.06644
+[17,] 59.27535 175.8424 59.27535
+[18,] 68.01297 162.5490 68.01297
+[19,] 82.96033 150.1266 82.96033
+[20,] 70.98589 163.7264 70.98589</code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(zoo)</span>
 <span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a><span class="fu">sapply</span>(df2, <span class="cf">function</span>(x) <span class="fu">ifelse</span>(<span class="fu">is.na</span>(x), <span class="fu">na.locf</span>(x), x )) <span class="co"># carry forward</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>        weight   height  weight2
- [1,] 66.97488 139.1278 66.97488
- [2,] 66.97488 139.1278 66.79750
- [3,] 66.97488 188.6155 66.79750
- [4,] 70.37133 188.5925 70.37133
- [5,] 70.37133 188.5925 66.79750
- [6,] 59.53076 153.0449 59.53076
- [7,] 59.32169 167.2155 59.32169
- [8,] 65.24432 172.4854 65.24432
- [9,] 65.24432 163.8113 66.79750
-[10,] 65.01029 173.4831 65.01029
-[11,] 50.57268 186.9672 50.57268
-[12,] 79.86216 213.7216 79.86216
-[13,] 73.32917 134.3478 73.32917
-[14,] 75.19486 150.6034 75.19486
-[15,] 44.46213 158.2023 44.46213
-[16,] 86.19969 159.5210 86.19969
-[17,] 70.62647 152.7094 70.62647
-[18,] 70.62647 152.7094 66.79750
-[19,] 53.60251 170.9626 53.60251
-[20,] 81.65953 170.9199 81.65953</code></pre>
+ [1,] 63.75827 151.6364 63.75827
+ [2,] 63.75827 151.6364 68.01297
+ [3,] 63.75827 183.6970 68.01297
+ [4,] 78.15761 167.2234 78.15761
+ [5,] 78.15761 167.2234 68.01297
+ [6,] 66.74927 136.8637 66.74927
+ [7,] 63.11120 150.3140 63.11120
+ [8,] 52.65407 140.1654 52.65407
+ [9,] 52.65407 158.7319 68.01297
+[10,] 70.66665 140.2327 70.66665
+[11,] 76.22240 190.1778 76.22240
+[12,] 60.73372 176.7353 60.73372
+[13,] 70.76450 142.8796 70.76450
+[14,] 71.92684 182.1515 71.92684
+[15,] 64.16201 177.4004 64.16201
+[16,] 68.06644 175.4283 68.06644
+[17,] 59.27535 175.8424 59.27535
+[18,] 59.27535 175.8424 68.01297
+[19,] 82.96033 150.1266 82.96033
+[20,] 70.98589 163.7264 70.98589</code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sapply</span>(df2, <span class="cf">function</span>(x) <span class="fu">ifelse</span>(<span class="fu">is.na</span>(x), <span class="fu">na.locf</span>(x,<span class="at">fromlast=</span><span class="cn">TRUE</span>), x ))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>        weight   height  weight2
- [1,] 66.97488 139.1278 66.97488
- [2,] 66.97488 139.1278 66.79750
- [3,] 66.97488 188.6155 66.79750
- [4,] 70.37133 188.5925 70.37133
- [5,] 70.37133 188.5925 66.79750
- [6,] 59.53076 153.0449 59.53076
- [7,] 59.32169 167.2155 59.32169
- [8,] 65.24432 172.4854 65.24432
- [9,] 65.24432 163.8113 66.79750
-[10,] 65.01029 173.4831 65.01029
-[11,] 50.57268 186.9672 50.57268
-[12,] 79.86216 213.7216 79.86216
-[13,] 73.32917 134.3478 73.32917
-[14,] 75.19486 150.6034 75.19486
-[15,] 44.46213 158.2023 44.46213
-[16,] 86.19969 159.5210 86.19969
-[17,] 70.62647 152.7094 70.62647
-[18,] 70.62647 152.7094 66.79750
-[19,] 53.60251 170.9626 53.60251
-[20,] 81.65953 170.9199 81.65953</code></pre>
+ [1,] 63.75827 151.6364 63.75827
+ [2,] 63.75827 151.6364 68.01297
+ [3,] 63.75827 183.6970 68.01297
+ [4,] 78.15761 167.2234 78.15761
+ [5,] 78.15761 167.2234 68.01297
+ [6,] 66.74927 136.8637 66.74927
+ [7,] 63.11120 150.3140 63.11120
+ [8,] 52.65407 140.1654 52.65407
+ [9,] 52.65407 158.7319 68.01297
+[10,] 70.66665 140.2327 70.66665
+[11,] 76.22240 190.1778 76.22240
+[12,] 60.73372 176.7353 60.73372
+[13,] 70.76450 142.8796 70.76450
+[14,] 71.92684 182.1515 71.92684
+[15,] 64.16201 177.4004 64.16201
+[16,] 68.06644 175.4283 68.06644
+[17,] 59.27535 175.8424 59.27535
+[18,] 59.27535 175.8424 68.01297
+[19,] 82.96033 150.1266 82.96033
+[20,] 70.98589 163.7264 70.98589</code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sapply</span>(df2, <span class="cf">function</span>(x) <span class="fu">ifelse</span>(<span class="fu">is.na</span>(x), <span class="fu">na.approx</span>(x), x )) <span class="co"># linear interpolation</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>        weight   height  weight2
- [1,] 66.97488 139.1278 66.97488
- [2,] 68.10703 163.8717 66.79750
- [3,] 69.23918 188.6155 66.79750
- [4,] 70.37133 188.5925 70.37133
- [5,] 64.95104 170.8187 66.79750
- [6,] 59.53076 153.0449 59.53076
- [7,] 59.32169 167.2155 59.32169
- [8,] 65.24432 172.4854 65.24432
- [9,] 65.12730 163.8113 66.79750
-[10,] 65.01029 173.4831 65.01029
-[11,] 50.57268 186.9672 50.57268
-[12,] 79.86216 213.7216 79.86216
-[13,] 73.32917 134.3478 73.32917
-[14,] 75.19486 150.6034 75.19486
-[15,] 44.46213 158.2023 44.46213
-[16,] 86.19969 159.5210 86.19969
-[17,] 70.62647 152.7094 70.62647
-[18,] 62.11449 161.8360 66.79750
-[19,] 53.60251 170.9626 53.60251
-[20,] 81.65953 170.9199 81.65953</code></pre>
+ [1,] 63.75827 151.6364 63.75827
+ [2,] 68.55805 167.6667 68.01297
+ [3,] 73.35783 183.6970 68.01297
+ [4,] 78.15761 167.2234 78.15761
+ [5,] 72.45344 152.0435 68.01297
+ [6,] 66.74927 136.8637 66.74927
+ [7,] 63.11120 150.3140 63.11120
+ [8,] 52.65407 140.1654 52.65407
+ [9,] 61.66036 158.7319 68.01297
+[10,] 70.66665 140.2327 70.66665
+[11,] 76.22240 190.1778 76.22240
+[12,] 60.73372 176.7353 60.73372
+[13,] 70.76450 142.8796 70.76450
+[14,] 71.92684 182.1515 71.92684
+[15,] 64.16201 177.4004 64.16201
+[16,] 68.06644 175.4283 68.06644
+[17,] 59.27535 175.8424 59.27535
+[18,] 71.11784 162.9845 68.01297
+[19,] 82.96033 150.1266 82.96033
+[20,] 70.98589 163.7264 70.98589</code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sapply</span>(df2, <span class="cf">function</span>(x) <span class="fu">ifelse</span>(<span class="fu">is.na</span>(x), <span class="fu">na.approx</span>(x), x )) <span class="co"># cubic interpolation</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>        weight   height  weight2
- [1,] 66.97488 139.1278 66.97488
- [2,] 68.10703 163.8717 66.79750
- [3,] 69.23918 188.6155 66.79750
- [4,] 70.37133 188.5925 70.37133
- [5,] 64.95104 170.8187 66.79750
- [6,] 59.53076 153.0449 59.53076
- [7,] 59.32169 167.2155 59.32169
- [8,] 65.24432 172.4854 65.24432
- [9,] 65.12730 163.8113 66.79750
-[10,] 65.01029 173.4831 65.01029
-[11,] 50.57268 186.9672 50.57268
-[12,] 79.86216 213.7216 79.86216
-[13,] 73.32917 134.3478 73.32917
-[14,] 75.19486 150.6034 75.19486
-[15,] 44.46213 158.2023 44.46213
-[16,] 86.19969 159.5210 86.19969
-[17,] 70.62647 152.7094 70.62647
-[18,] 62.11449 161.8360 66.79750
-[19,] 53.60251 170.9626 53.60251
-[20,] 81.65953 170.9199 81.65953</code></pre>
+ [1,] 63.75827 151.6364 63.75827
+ [2,] 68.55805 167.6667 68.01297
+ [3,] 73.35783 183.6970 68.01297
+ [4,] 78.15761 167.2234 78.15761
+ [5,] 72.45344 152.0435 68.01297
+ [6,] 66.74927 136.8637 66.74927
+ [7,] 63.11120 150.3140 63.11120
+ [8,] 52.65407 140.1654 52.65407
+ [9,] 61.66036 158.7319 68.01297
+[10,] 70.66665 140.2327 70.66665
+[11,] 76.22240 190.1778 76.22240
+[12,] 60.73372 176.7353 60.73372
+[13,] 70.76450 142.8796 70.76450
+[14,] 71.92684 182.1515 71.92684
+[15,] 64.16201 177.4004 64.16201
+[16,] 68.06644 175.4283 68.06644
+[17,] 59.27535 175.8424 59.27535
+[18,] 71.11784 162.9845 68.01297
+[19,] 82.96033 150.1266 82.96033
+[20,] 70.98589 163.7264 70.98589</code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="co"># KNN (k-nearest neighbor) ile Değer Atama</span></span>
 <span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a></span>

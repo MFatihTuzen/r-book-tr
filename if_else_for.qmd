@@ -245,27 +245,6 @@ print(toplam)
 
 Bu örnekte, **`while`** döngüsü kullanılarak 1'den 10'a kadar olan sayıların toplamı hesaplanıyor.
 
-```{r}
-
-durum <- TRUE
-sayac <- 0
-
-while (durum) {
-  sayac <- sayac + 1
-  if (sayac > 5) {
-    durum <- FALSE
-  }
-  Sys.sleep(1)  # 1 saniye bekletme
-  print("Bekleme...")
-}
-
-print("Döngü bitti!")
-
-
-```
-
-Bu örnekte, **`while`** döngüsü belirli bir koşul karşılanana kadar çalışır. **`durum`** değişkeni 5'ten büyük olduğunda **`FALSE`** yapılır ve döngü sonlanır. Her bir iterasyonda "Bekleme\..." yazdırılır ve **`Sys.sleep(1)`** fonksiyonu ile bir saniye bekletme işlemi yapılır.
-
 **Kullanım Alanları**
 
 -   **Kullanıcı Girişi**: Kullanıcıdan bir değer alınana veya belirli bir koşul karşılanana kadar kullanıcıdan giriş almak için kullanılabilir.

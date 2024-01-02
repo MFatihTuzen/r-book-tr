@@ -535,32 +535,6 @@ Uyarı
 </div>
 </div>
 <p>Bu örnekte, <strong><code>while</code></strong> döngüsü kullanılarak 1’den 10’a kadar olan sayıların toplamı hesaplanıyor.</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a>durum <span class="ot">&lt;-</span> <span class="cn">TRUE</span></span>
-<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a>sayac <span class="ot">&lt;-</span> <span class="dv">0</span></span>
-<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb28-4"><a href="#cb28-4" aria-hidden="true" tabindex="-1"></a><span class="cf">while</span> (durum) {</span>
-<span id="cb28-5"><a href="#cb28-5" aria-hidden="true" tabindex="-1"></a>  sayac <span class="ot">&lt;-</span> sayac <span class="sc">+</span> <span class="dv">1</span></span>
-<span id="cb28-6"><a href="#cb28-6" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (sayac <span class="sc">&gt;</span> <span class="dv">5</span>) {</span>
-<span id="cb28-7"><a href="#cb28-7" aria-hidden="true" tabindex="-1"></a>    durum <span class="ot">&lt;-</span> <span class="cn">FALSE</span></span>
-<span id="cb28-8"><a href="#cb28-8" aria-hidden="true" tabindex="-1"></a>  }</span>
-<span id="cb28-9"><a href="#cb28-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">Sys.sleep</span>(<span class="dv">1</span>)  <span class="co"># 1 saniye bekletme</span></span>
-<span id="cb28-10"><a href="#cb28-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">print</span>(<span class="st">"Bekleme..."</span>)</span>
-<span id="cb28-11"><a href="#cb28-11" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>[1] "Bekleme..."
-[1] "Bekleme..."
-[1] "Bekleme..."
-[1] "Bekleme..."
-[1] "Bekleme..."
-[1] "Bekleme..."</code></pre>
-</div>
-<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(<span class="st">"Döngü bitti!"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>[1] "Döngü bitti!"</code></pre>
-</div>
-</div>
-<p>Bu örnekte, <strong><code>while</code></strong> döngüsü belirli bir koşul karşılanana kadar çalışır. <strong><code>durum</code></strong> değişkeni 5’ten büyük olduğunda <strong><code>FALSE</code></strong> yapılır ve döngü sonlanır. Her bir iterasyonda “Bekleme...” yazdırılır ve <strong><code>Sys.sleep(1)</code></strong> fonksiyonu ile bir saniye bekletme işlemi yapılır.</p>
 <p><strong>Kullanım Alanları</strong></p>
 <ul>
 <li><p><strong>Kullanıcı Girişi</strong>: Kullanıcıdan bir değer alınana veya belirli bir koşul karşılanana kadar kullanıcıdan giriş almak için kullanılabilir.</p></li>
@@ -586,40 +560,56 @@ Uyarı
 <p><strong><code>repeat</code></strong> döngüsü, belirli bir koşul sağlanana kadar tekrarlı işlemler yapmak için kullanılır. <strong><code>while</code></strong> döngüsünden farklı olarak, <strong><code>repeat</code></strong> döngüsü bir koşulun doğru veya yanlış olmasına bakmadan işlem yapmaya devam eder. Döngü, içerideki kod çalıştırıldıktan sonra, elle kesilmediği sürece sonsuza kadar devam eder.</p>
 <p><strong><code>repeat</code></strong> döngüsünün yapısı şu şekildedir:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="cf">repeat</span> {</span>
-<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Koşul kontrolü yapılmaksızın sürekli çalışacak işlemler</span></span>
-<span id="cb32-3"><a href="#cb32-3" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Eğer bir şart sağlanırsa döngüyü kırarak çıkılır (break)</span></span>
-<span id="cb32-4"><a href="#cb32-4" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="cf">repeat</span> {</span>
+<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Koşul kontrolü yapılmaksızın sürekli çalışacak işlemler</span></span>
+<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Eğer bir şart sağlanırsa döngüyü kırarak çıkılır (break)</span></span>
+<span id="cb28-4"><a href="#cb28-4" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Genellikle <strong><code>repeat</code></strong> döngüsü, koşulun döngü içinde daha sonra kontrol edilmesi gereken durumlarda veya kullanıcıdan belirli bir işaret alınana kadar çalışması gereken durumlarda kullanılır.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="cf">repeat</span> {</span>
-<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a>  rastgele_sayi <span class="ot">&lt;-</span> <span class="fu">runif</span>(<span class="dv">1</span>)  <span class="co"># 0 ile 1 arasında rastgele bir sayı üretir</span></span>
-<span id="cb33-3"><a href="#cb33-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">print</span>(rastgele_sayi)</span>
-<span id="cb33-4"><a href="#cb33-4" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (rastgele_sayi <span class="sc">&gt;</span> <span class="fl">0.9</span>) {</span>
-<span id="cb33-5"><a href="#cb33-5" aria-hidden="true" tabindex="-1"></a>    <span class="cf">break</span></span>
-<span id="cb33-6"><a href="#cb33-6" aria-hidden="true" tabindex="-1"></a>  }</span>
-<span id="cb33-7"><a href="#cb33-7" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="cf">repeat</span> {</span>
+<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a>  rastgele_sayi <span class="ot">&lt;-</span> <span class="fu">runif</span>(<span class="dv">1</span>)  <span class="co"># 0 ile 1 arasında rastgele bir sayı üretir</span></span>
+<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">print</span>(rastgele_sayi)</span>
+<span id="cb29-4"><a href="#cb29-4" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (rastgele_sayi <span class="sc">&gt;</span> <span class="fl">0.9</span>) {</span>
+<span id="cb29-5"><a href="#cb29-5" aria-hidden="true" tabindex="-1"></a>    <span class="cf">break</span></span>
+<span id="cb29-6"><a href="#cb29-6" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb29-7"><a href="#cb29-7" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] 0.09359077
-[1] 0.10276
-[1] 0.2230061
-[1] 0.3404399
-[1] 0.3448156
-[1] 0.2880068
-[1] 0.06142721
-[1] 0.9859018</code></pre>
+<pre><code>[1] 0.8692093
+[1] 0.7021231
+[1] 0.2905762
+[1] 0.7775001
+[1] 0.53198
+[1] 0.3216666
+[1] 0.6223167
+[1] 0.5528432
+[1] 0.8668105
+[1] 0.3260388
+[1] 0.7870099
+[1] 0.1925834
+[1] 0.4568594
+[1] 0.01100474
+[1] 0.2664024
+[1] 0.6410309
+[1] 0.06846762
+[1] 0.6191377
+[1] 0.1459199
+[1] 0.1341577
+[1] 0.2041416
+[1] 0.4988727
+[1] 0.313762
+[1] 0.9569168</code></pre>
 </div>
 </div>
 <p>Bu örnekte, <strong><code>repeat</code></strong> döngüsü 0 ile 1 arasında rastgele sayılar üretir ve bu sayılar 0.9’dan büyük olduğunda döngüyü sonlandırır.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="dv">0</span></span>
-<span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb35-3"><a href="#cb35-3" aria-hidden="true" tabindex="-1"></a><span class="cf">repeat</span> {</span>
-<span id="cb35-4"><a href="#cb35-4" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> (x<span class="sc">^</span><span class="dv">2</span> <span class="sc">&gt;</span> <span class="dv">20</span>) <span class="cf">break</span>     <span class="co"># bu koşul sağlandığında döngüyü bitir</span></span>
-<span id="cb35-5"><a href="#cb35-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">print</span>(x)               </span>
-<span id="cb35-6"><a href="#cb35-6" aria-hidden="true" tabindex="-1"></a>    x <span class="ot">&lt;-</span> x <span class="sc">+</span> <span class="dv">1</span>              <span class="co"># x'i bir artır</span></span>
-<span id="cb35-7"><a href="#cb35-7" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="dv">0</span></span>
+<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a><span class="cf">repeat</span> {</span>
+<span id="cb31-4"><a href="#cb31-4" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> (x<span class="sc">^</span><span class="dv">2</span> <span class="sc">&gt;</span> <span class="dv">20</span>) <span class="cf">break</span>     <span class="co"># bu koşul sağlandığında döngüyü bitir</span></span>
+<span id="cb31-5"><a href="#cb31-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">print</span>(x)               </span>
+<span id="cb31-6"><a href="#cb31-6" aria-hidden="true" tabindex="-1"></a>    x <span class="ot">&lt;-</span> x <span class="sc">+</span> <span class="dv">1</span>              <span class="co"># x'i bir artır</span></span>
+<span id="cb31-7"><a href="#cb31-7" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 0
 [1] 1
@@ -653,12 +643,12 @@ Uyarı
 <p><strong><code>next</code></strong> ifadesi, döngülerde bir iterasyonu atlamak ve döngüyü devam ettirmek için kullanılır. Genellikle belirli bir koşul karşılandığında o iterasyonun işlenmesini atlamak için kullanılır.</p>
 <p><strong><code>next</code></strong> ifadesinin kullanımı döngü içinde şu şekildedir:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb37"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>) {</span>
-<span id="cb37-2"><a href="#cb37-2" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (i <span class="sc">%%</span> <span class="dv">2</span> <span class="sc">==</span> <span class="dv">0</span>) {</span>
-<span id="cb37-3"><a href="#cb37-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">next</span>  <span class="co"># Çift sayıları atla</span></span>
-<span id="cb37-4"><a href="#cb37-4" aria-hidden="true" tabindex="-1"></a>  }</span>
-<span id="cb37-5"><a href="#cb37-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">print</span>(i)</span>
-<span id="cb37-6"><a href="#cb37-6" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>) {</span>
+<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (i <span class="sc">%%</span> <span class="dv">2</span> <span class="sc">==</span> <span class="dv">0</span>) {</span>
+<span id="cb33-3"><a href="#cb33-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">next</span>  <span class="co"># Çift sayıları atla</span></span>
+<span id="cb33-4"><a href="#cb33-4" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb33-5"><a href="#cb33-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">print</span>(i)</span>
+<span id="cb33-6"><a href="#cb33-6" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 1
 [1] 3
