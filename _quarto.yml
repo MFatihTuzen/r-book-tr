@@ -41,14 +41,11 @@ language:
   title-block-author-single: "Yazar"
   toc-title-document: "İçindekiler"
 
-
 format:
   html:
     theme: 
       light: sandstone
       dark: cyborg
-    #   light: [flatly,custom.scss]
-    #   dark: [Zephyr,custom.scss]
     css: styles.css
   pdf:
     documentclass: scrreprt

@@ -4,104 +4,315 @@ Kontrol ifadeleri ve döngüler R içerisinde sıklıkla kullanılan yapılardı
 
 ## if-else
 
-Bu kombinasyon R'de en sık kullanılan kontrol yapılarındandır. Bu yapıda, bir koşulu test edebilir ve doğru veya yanlış olmasına bağlı olarak ona göre hareket edebilirsiniz. if-else kombinasyonlarında aşağıdaki yapılar kullanılmaktadır.
+**`if-else`** ifadesi, programların belirli koşullar altında farklı işlemler yapmasını sağlar. Eğer bir koşul doğruysa belirli bir blok çalıştırılır, aksi takdirde başka bir blok çalıştırılır. Bu kombinasyon R'de en sık kullanılan kontrol yapılarındandır. Bu yapıda, bir koşulu test edebilir ve doğru veya yanlış olmasına bağlı olarak ona göre hareket edebilirsiniz. if-else kombinasyonlarında aşağıdaki yapılar kullanılmaktadır:
 
-```         
-if (condition){
-#do something if condition is true
-}
-
-
-if (condition){
-#do something if condition is true
-}
-else{
-#do someting if condition is not true
-}
-
-if (condition){
-
-#do something if condition is true
-
-} else if (condition2) {
-
-#do someting if condition2 is true
-
+```{r}
+#| eval: false
+if (koşul) {
+  # Koşul doğruysa yapılacak işlemler
 } else {
-
-#do something if neither condition 1 nor condition 2 is true
-
+  # Koşul yanlışsa yapılacak işlemler
 }
 ```
 
 ```{r}
-
-x <- 8
-
-if (x < 10) {
-    print("x 10'dan küçüktür")
+#| eval: false
+if (koşul1) {
+  # Koşul 1 doğruysa yapılacak işlemler
+} else if (koşul2) {
+  # Koşul 2 doğruysa yapılacak işlemler
 } else {
-    print("x 10'dan büyüktür ya da 10'a eşittir")
+  # Hiçbir koşul doğru değilse yapılacak işlemler
+}
+```
+
+Örnek olarak, bir kullanıcının yaşına bağlı olarak belli bir mesaj gösterelim.
+
+```{r}
+
+yas <- 18
+
+if (yas >= 18) {
+  print("Oy kullanabilirsiniz!")
+} else {
+  print("Üzgünüz, oy kullanmak için henüz yaşınız tutmuyor.")
 }
 
-# ifelse 
-# ifelse(condition, do_if_true, do_if_false)
+
+```
+
+Burada, **`if`** ifadesi **`yas >= 18`** koşulunu kontrol eder. Eğer bu koşul doğruysa, "Oy kullanabilirsiniz!" mesajı ekrana yazdırılır; aksi halde, "Üzgünüz, oy kullanmak için henüz yaşınız tutmuyor." mesajı yazdırılır.
+
+Birden fazla koşulu kontrol etmek için **`else if`** ifadesini kullanabiliriz. Örneğin, bir öğrencinin not durumunu kontrol edelim.
+
+```{r}
+
+not <- 75
+
+if (not >= 90) {
+  print("Notunuz AA")
+} else if (not >= 80) {
+  print("Notunuz BA")
+} else if (not >= 70) {
+  print("Notunuz BB")
+} else if (not >= 60) {
+  print("Notunuz CB")
+} else {
+  print("Dersten başarısız oldunuz.")
+}
+
+```
+
+Bu örnekte, **`else if`** ifadeleri sırayla öğrencinin notunu kontrol eder ve koşullara uygun olarak farklı mesajları yazdırır. Eğer hiçbir koşul sağlanmazsa, "Dersten başarısız oldunuz." mesajı yazdırılır.
+
+Ayrıca **`ifelse()`** fonksiyonu R programlama dilinde bulunan başka bir fonksiyondur ve **`if-else`** ifadesine benzer bir işlevi vardır. Bu fonksiyon, vektörler üzerinde koşullu işlemler yapmak için kullanılır.
+
+**`ifelse()`** fonksiyonu şu şekilde kullanılır.
+
+```{r}
+#| eval: false
+ifelse(test, yes, no)
+```
+
+-   **`test`**: Koşul veya koşulları içeren ifade veya vektör.
+
+-   **`yes`**: Koşul doğruysa uygulanacak değer veya işlem.
+
+-   **`no`**: Koşul yanlışsa uygulanacak değer veya işlem.
+
+Örnek olarak, bir vektördeki değerlerin pozitif veya negatif olmasını kontrol edelim:
+
+```{r}
+
+vec <- c(-2, 3, -5, 8, -1)
+sonuc <- ifelse(vec >= 0, "Pozitif", "Negatif")
+print(sonuc)
+
+```
+
+Bu örnekte, **`ifelse()`** fonksiyonu **`vec`** vektöründeki her bir değeri kontrol eder. Eğer değer 0'dan büyük veya eşitse, o değerin karşılığı "Pozitif" olur; aksi takdirde "Negatif" olur.
+
+Aşağıdaki örnekte ise **`ifelse()`** fonksiyonun birden fazla şekilde bir dataframe içerisinde nasıl kullanıldığını gösterelim.
+
+```{r}
+
 df <- data.frame(value = 1:9)
-df$group <- ifelse(df$value <= 3,1,ifelse(df$value > 3 & df$value <= 6,2,3))
+df$group <- ifelse(df$value <= 3,1,ifelse(df$value > 3 & df$value < 6,2,3))
 df
 
 ```
 
+Bu örnekte, yeni oluşturulacak `group` değişkeni için değerler atanacaktır. Buna göre,
+
+-   Eğer `value` kolonu 3 ve altında değere sahipse `group` değişkenine 1,
+
+-   `value` kolonu 3'den büyük ve 6'dan küçük ise `group` değişkenine 2,
+
+-   Diğer durumlarda ise `group` değişkenine 3 değeri atanacaktır.
+
 ## Döngüler
 
--   **for** döngüleri bir tekrarlayıcı değişken alır ve ona bir diziden veya vektörden ardışık değerler atar. En yaygın olarak bir nesnenin öğeleri üzerinde tekrarlayan işlem yapmak için kullanılır.
+### for
 
--   **while** döngüleri bir şartı test ederek başlar. Eğer denenecek şart doğru ise istenilen komutlar yerine getirilir. Döngü şartın doğru olmadığı ana kadar devam eder.
+**`for`** döngüsü R programlama dilinde tekrarlı işlemler yapmak için kullanılır. Bu döngü, bir dizi veya vektör üzerinde iterasyon yaparak her bir elemana erişmenizi sağlar. Genellikle listedeki her elemanı veya belirli bir aralıktaki sayıları işlemek için kullanılır. **`for`** döngüsü şu yapıya sahiptir:
 
--   **repeat** sonsuz bir döngü oluşturur. Döngüden çıkmak için **break** kullanılır.
+```{r}
+#| eval: false
+for (degisken in dizi veya dizin) {
+  # Her iterasyonda yapılacak işlemler
+}
+```
 
--   **next** ifadesi ile bir döngüdeki belirli tekrarlar atlanabilir.
+-   **`degisken`**: Her iterasyonda dizin veya dizi elemanlarını temsil eden değişken.
+
+-   **`dizi veya dizin`**: Döngünün üzerinde dolaşacağı vektör, liste veya sayı dizisi.
+
+Örnek olarak, 1'den 5'e kadar olan sayıları ekrana yazdıran bir **`for`** döngüsü kullanalım:
+
+```{r}
+
+sehirler <- c("İstanbul", "Ankara", "İzmir", "Bursa")
+
+for (sehir in sehirler) {
+  print(paste("Şehir:", sehir))
+}
+
+```
+
+Bu örnekte, **`sehirler`** listesindeki her bir elemanı **`sehir`** değişkenine atar ve bu elemanları döngü içinde kullanarak her bir şehri ekrana yazdırır.
 
 ```{r}
 
 for (i in 1:5) {
-    print(i)
+  print(paste("Karesi:", i^2))
 }
+```
 
-v <- LETTERS[1:4]
-for ( i in v) {
-   print(i)
+Bu örnek, 1'den 5'e kadar olan sayıları **`i`** değişkenine atar ve her bir sayının karesini ekrana yazdırır.
+
+```{r}
+
+for (i in 1:5) {
+  for (j in 1:5) {
+    cat(i, "*", j, "=", i*j, "\t")
+  }
+  cat("\n")
 }
+```
 
-# dataframe içerisinde for
-for (i in 1:nrow(df)){
-  
-  df[i,"multiply"] <- df[i,"value"] * df[i,"group"]
+Bu örnekte, iç içe **`for`** döngüleri kullanılarak 1'den 5'e kadar olan sayıların çarpım tablosu oluşturuluyor. **`cat`** fonksiyonu kullanılarak değerler ekrana yazdırılıyor ve **`\t`** ifadesi her bir değer arasında bir sekme boşluğu eklenmesini sağlıyor. Bu sayede çarpım tablosu satır içinde düzenli bir şekilde görüntülenmiş oluyor. **`\t`** kullanımı, metin tabanlı çıktıları düzenlemek ve okunabilirliği artırmak için yaygın olarak kullanılan bir yöntemdir.
+
+```{r}
+
+n <- 10
+fib <- numeric(n)
+fib[1] <- 0
+fib[2] <- 1
+
+for (i in 3:n) {
+  fib[i] <- fib[i-1] + fib[i-2]
 }
+print(fib)
 
-df
+```
 
-# i yerine farklı ifade de kullanılabilir
-(x <- data.frame(age=c(28, 35, 13, 13),
-                height=c(1.62, 1.53, 1.83, 1.71),
-                weight=c(65, 59, 72, 83)))
+Bu örnekte, **`for`** döngüsü kullanılarak Fibonacci serisi hesaplanıyor ve **`n`** değerine göre seriyi ekrana yazdırıyor. Fibonacci serisi, her sayının kendisinden önceki iki sayının toplamıyla elde edildiği bir sayı dizisidir. Seri, herhangi bir rakam ile başlayabilir. Genellikle 0 ile başlar ve ilk iki terim 0 ve 1'dir.
+
+Seri şu şekilde ilerler:
+
+0, 1, 1, 2, 3, 5, 8, 13, 21, \...
+
+Her sayı, kendisinden önce gelen iki sayının toplamıdır. Örneğin, 2 sayısı 1 ve 1'in toplamıdır, 3 sayısı ise 1 ve 2'nin toplamıdır ve bu şekilde devam eder.
+
+Fibonacci Dizisinde yer alan sayıların diğer bir özelliği kendilerinden bir öncekiyle oranlandığında oluşan serinin altın orana yaklaşarak ilerlemesidir. Fibonacci serisi, doğada birçok yerde gözlemlenen yapılarla ilişkilendirilir. Bitki yapısı, deniz kabukları, sanat eserleri ve matematiksel modellemelerde sıkça karşımıza çıkar. Ayrıca, algoritmaların ve programların verimliliğini test etmek için kullanılabilir.
+
+for döngüsünde i, j gibi harfler yerine başka ifadeler de kullanılabilir. Aşağıdaki örnekte oluşturulan 3 değişkenli bir veri setindeki ortalama değerler **`var`** değişkeni kulanılarak döngü yardımıyla ekrana yazdırılmıştır.
+
+```{r}
+
+(x <- data.frame(yas = c(28, 35, 13, 13),
+                boy = c(1.62, 1.53, 1.83, 1.71),
+                kilo = c(65, 59, 72, 83)))
 
 for (var in colnames(x)) {
     m <- mean(x[, var])
-    print(paste("Average", var, "is", m))
+    print(paste0("Ortalama ", var," ", m, "'tir"))
 }
 
-# while
+```
 
-x <- 0
+**Kullanım Alanları**
 
-while (x^2 < 20) {
-  print(x)      # Print x
-  x <- x + 1    # x'i bir artır
+-   **Veri İşleme**: Veri setlerindeki her bir öğeyi işlemek için **`for`** döngüsü kullanılabilir. Örneğin, liste, vektör veya matrislerdeki her bir öğeyi ele almak için kullanılabilir.
+
+-   **Tekrarlı İşlemler**: Belirli bir işlemi veya kod bloğunu belirli bir sayıda veya belirli bir koşula kadar tekrar etmek için **`for`** döngüsü kullanılabilir.
+
+-   **İterasyonlar ve Simülasyonlar**: İterasyonlar, özellikle simülasyonlarda, çeşitli durumları veya senaryoları değerlendirmek için sıklıkla kullanılır. Her bir iterasyon, farklı bir durumu temsil edebilir.
+
+::: callout-warning
+## Uyarı
+
+**`for`** döngüsü, belirli bir veri yapısındaki elemanları işlemek veya belirli bir işlemi tekrarlamak için oldukça kullanışlıdır. Ancak büyük veri setleri veya karmaşık işlemler için vektör işlemleri veya fonksiyonel programlama teknikleri genellikle tercih edilir, çünkü bu teknikler genellikle daha hızlı çalışabilir.
+:::
+
+### while
+
+**`while`** döngüsü, belirli bir koşul doğru olduğu sürece belirli bir işlemi tekrar etmek için kullanılır. Genellikle döngünün kaç kere çalışacağı önceden belirlenmiş değilse veya bir koşul karşılanana kadar çalışmaya devam etmesi gerektiğinde tercih edilir. **`while`** döngüsü şu şekilde çalışır:
+
+```{r}
+#| eval: false
+while (koşul) {
+  # Koşul doğru olduğu sürece yapılacak işlemler
 }
 
-# repeat
+```
 
+**`koşul`**: Bir mantıksal ifade veya değer. Bu koşul doğru olduğu sürece döngü çalışmaya devam eder.
+
+```{r}
+
+toplam <- 0
+i <- 1
+
+while (i <= 10) {
+  toplam <- toplam + i
+  i <- i + 1
+}
+
+print(toplam)
+
+```
+
+Bu örnekte, **`while`** döngüsü kullanılarak 1'den 10'a kadar olan sayıların toplamı hesaplanıyor.
+
+```{r}
+
+durum <- TRUE
+sayac <- 0
+
+while (durum) {
+  sayac <- sayac + 1
+  if (sayac > 5) {
+    durum <- FALSE
+  }
+  Sys.sleep(1)  # 1 saniye bekletme
+  print("Bekleme...")
+}
+
+print("Döngü bitti!")
+
+
+```
+
+Bu örnekte, **`while`** döngüsü belirli bir koşul karşılanana kadar çalışır. **`durum`** değişkeni 5'ten büyük olduğunda **`FALSE`** yapılır ve döngü sonlanır. Her bir iterasyonda "Bekleme\..." yazdırılır ve **`Sys.sleep(1)`** fonksiyonu ile bir saniye bekletme işlemi yapılır.
+
+**Kullanım Alanları**
+
+-   **Kullanıcı Girişi**: Kullanıcıdan bir değer alınana veya belirli bir koşul karşılanana kadar kullanıcıdan giriş almak için kullanılabilir.
+
+-   **Dosya Okuma ve Yazma İşlemleri**: Dosya içeriği işlenirken belirli bir koşula kadar dosya okuma veya yazma işlemleri için kullanılabilir.
+
+-   **Doğrusal Arama**: Bir koşul karşılanana kadar bir listede veya veri yapısında doğrusal arama yapmak için kullanılabilir.
+
+::: callout-warning
+## Uyarı
+
+**`while`** döngüsü, belirli bir koşul doğru olduğu sürece çalışır ve bu koşulun sonlanması veya değişmesiyle birlikte döngü sona erer. Ancak dikkatli kullanılmadığında sonsuz döngülere neden olabilir, bu yüzden döngüdeki koşulun belirli bir zamanda sonlanmasını sağlamak önemlidir.
+:::
+
+### repeat
+
+**`repeat`** döngüsü, belirli bir koşul sağlanana kadar tekrarlı işlemler yapmak için kullanılır. **`while`** döngüsünden farklı olarak, **`repeat`** döngüsü bir koşulun doğru veya yanlış olmasına bakmadan işlem yapmaya devam eder. Döngü, içerideki kod çalıştırıldıktan sonra, elle kesilmediği sürece sonsuza kadar devam eder.
+
+**`repeat`** döngüsünün yapısı şu şekildedir:
+
+```{r}
+#| eval: false
+repeat {
+  # Koşul kontrolü yapılmaksızın sürekli çalışacak işlemler
+  # Eğer bir şart sağlanırsa döngüyü kırarak çıkılır (break)
+}
+
+```
+
+Genellikle **`repeat`** döngüsü, koşulun döngü içinde daha sonra kontrol edilmesi gereken durumlarda veya kullanıcıdan belirli bir işaret alınana kadar çalışması gereken durumlarda kullanılır.
+
+```{r}
+
+repeat {
+  rastgele_sayi <- runif(1)  # 0 ile 1 arasında rastgele bir sayı üretir
+  print(rastgele_sayi)
+  if (rastgele_sayi > 0.9) {
+    break
+  }
+}
+
+
+```
+
+Bu örnekte, **`repeat`** döngüsü 0 ile 1 arasında rastgele sayılar üretir ve bu sayılar 0.9'dan büyük olduğunda döngüyü sonlandırır.
+
+```{r}
 x <- 0
 
 repeat {
@@ -109,39 +320,50 @@ repeat {
     print(x)               
     x <- x + 1              # x'i bir artır
 }
-
-# next
-
-for(i in 1:7) {
-if (i==4) next # i=4 olduğunda atla
-print(1:i)
-}
-
-
-(s <- seq(1,10,1))
-
-for (i in s) {
-    if (i%%2 == 1) { # mod
-        next
-    } else {
-        print(i)
-    }
-}
-
-# döngü içinde döngü
-
-(mat <- matrix(nrow=4, ncol=4))
-
-nr <-  nrow(mat)
-nc <-  ncol(mat)
-
-# matrisin içini dolduralım
-for(i in 1:nr) {
-  for (j in 1:nc) {
-    mat[i, j] = i * j
-  }
-}
-
-mat
-
 ```
+
+Bu örnekte ise, **`repeat`** döngüsü 0 ile başlayan bir x sayısının karesinin 20'den büyük olması durumuna kadar x sayısını print eder. Eğer x'in karesi 20'den büyük ise döngüyü sonlandırır.
+
+**Kullanım Alanları**
+
+-   **Belirli Bir Durum Gerçekleşene Kadar İşlem Yapma**: Kullanıcıdan belirli bir girdi alınana veya belirli bir durum gerçekleşene kadar işlem yapmak için kullanılabilir.
+
+-   **Kontrolsüz İşlemler**: Belirli bir durum gerçekleşene kadar döngünün devam etmesi gerektiği durumlarda kullanılabilir. Örneğin, rastgele sayılar üretilmesi gibi.
+
+::: callout-warning
+## Uyarı
+
+**`repeat`** döngüsü, belirli bir koşul doğru veya yanlış olmasına bakmadan işlem yapmaya devam eder. Ancak, döngü sonsuz olabilir, bu nedenle döngüyü belirli bir şart sağlandığında kırmak (**`break`** ifadesiyle) önemlidir.
+:::
+
+### next
+
+**`next`** ifadesi, döngülerde bir iterasyonu atlamak ve döngüyü devam ettirmek için kullanılır. Genellikle belirli bir koşul karşılandığında o iterasyonun işlenmesini atlamak için kullanılır.
+
+**`next`** ifadesinin kullanımı döngü içinde şu şekildedir:
+
+```{r}
+
+for (i in 1:10) {
+  if (i %% 2 == 0) {
+    next  # Çift sayıları atla
+  }
+  print(i)
+}
+```
+
+Bu örnekte, **`%%`** operatörü bir sayının diğerine bölümünden kalanı verir. Eğer bir sayı 2'ye bölündüğünde kalan 0 ise, o sayı çifttir. Yukarıdaki döngü, **`i`** çift sayı olduğunda **`next`** ifadesiyle o iterasyonu atlar ve döngüyü devam ettirir.
+
+**Kullanım Alanları**
+
+-   **Belirli Koşullarda İşlemleri Atlamak**: Döngü içinde belirli bir koşul sağlandığında o iterasyonu atlamak için kullanılabilir.
+
+-   **Veri Filtreleme**: Veri içinde belirli koşullara uymayan öğeleri atlamak için kullanılabilir. Örneğin, bir liste içinde belirli tipte öğeleri filtrelemek için.
+
+-   **Döngü Performansını İyileştirme**: Bazı durumlarda belirli koşulların sağlanması durumunda işlemleri atlayarak döngü performansını artırabilir.
+
+::: callout-note
+## Not
+
+**`next`** ifadesi, döngüler içinde belirli koşullarda iterasyonları atlamak ve döngüyü devam ettirmek için kullanılır. Bu sayede istenmeyen durumları veya öğeleri döngü içinde işlem yapmadan geçebilirsiniz.
+:::

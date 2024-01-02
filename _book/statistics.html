@@ -653,11 +653,11 @@ attr(,"freq")
 <span id="cb67-2"><a href="#cb67-2" aria-hidden="true" tabindex="-1"></a>norm_vec <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(<span class="dv">1000</span>,<span class="dv">10</span>,<span class="dv">5</span>)</span>
 <span id="cb67-3"><a href="#cb67-3" aria-hidden="true" tabindex="-1"></a><span class="fu">skewness</span>(norm_vec) <span class="co"># sola çarpık</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] 0.02787972</code></pre>
+<pre><code>[1] -0.07052921</code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb69"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb69-1"><a href="#cb69-1" aria-hidden="true" tabindex="-1"></a><span class="fu">kurtosis</span>(norm_vec) <span class="co"># sivri</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] 2.92405</code></pre>
+<pre><code>[1] 3.031338</code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb71"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb71-1"><a href="#cb71-1" aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>(norm_vec,<span class="at">freq =</span> <span class="cn">FALSE</span>,<span class="at">col=</span><span class="st">"#116AF3"</span>) <span class="co"># renk kodları da kullanılabilir.</span></span>
 <span id="cb71-2"><a href="#cb71-2" aria-hidden="true" tabindex="-1"></a><span class="fu">lines</span>(<span class="fu">density</span>(norm_vec),<span class="at">col =</span> <span class="st">"#F33011"</span>, <span class="at">lwd =</span> <span class="dv">2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
