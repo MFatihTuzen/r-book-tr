@@ -1,1 +1,1 @@
-{"headings":["vektörler","matrisler","listeler","dataframe","tibble","faktörler"],"options":{"chapters":true},"entries":[]}
+{"options":{"chapters":true},"entries":[],"headings":["vektörler","vektörler-ile-kullanılabilecek-bazı-temel-fonksiyonlar","seq","rep","rev","rank","all","any","unique","duplicated","sort","diff","is.na","which","temel-istatistiksel-bazı-fonksiyonlar","matrisler","listeler","dataframe","tibble","faktörler"]}

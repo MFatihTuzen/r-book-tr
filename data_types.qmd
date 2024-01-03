@@ -14,17 +14,31 @@ R'da kulllanılan 5 temel veri tipi vardır. Bu veri tipleri atomic vectörler o
 
 `typeof()` veya `class()` fonksiyonları ile veri tipi öğrenilebilir.
 
+::: callout-important
+## Önemli
+
+**`typeof()`** ve **`class()`** fonksiyonları, R programlama dilinde nesnelerin özelliklerini sorgulamak için kullanılır. Farklı amaçlara hizmet ederler ve bazı durumlarda farklı sonuçlar üretebilirler.
+
+-   **`typeof()`** fonksiyonu, bir nesnenin temel veri türünü belirler. Örneğin, bir nesnenin karakter dizisi (string), sayı, liste, fonksiyon veya vektör gibi temel veri türlerinden hangisine ait olduğunu gösterir. Ancak, nesnenin özel sınıfını (class) ifade etmez. Örneğin, bir faktörün **`typeof()`** değeri "integer" olabilir.
+
+-   **`class()`** fonksiyonu ise bir nesnenin özel sınıfını belirtir. Eğer bir nesne özel bir sınıfa aitse (örneğin, bir veri çerçevesi veya faktör), **`class()`** fonksiyonu bu özel sınıfın adını verir. Eğer nesne birden fazla sınıfa aitse, sınıflar bir sıra halinde listelenir.
+
+Bu fonksiyonlar genellikle birlikte kullanılır çünkü bir nesnenin veri tipi ve sınıfı arasında farklılıklar olabilir. Örneğin, bir veri çerçevesi **`typeof()`** ile incelendiğinde **`list`** çıkabilir, çünkü veri çerçeveleri bir liste türündedir. Ancak, **`class()`** fonksiyonu bu nesnenin özel sınıfını, yani **`data.frame`** olarak gösterecektir. Bu farklılıklar, bir nesnenin hangi özelliklere sahip olduğunu daha iyi anlamak için kullanılabilir.
+:::
+
+muneric
+
 ```{r}
-
-# numeric
-
 a <- 3.5
 class(a)
 typeof(a) # typeof numeriklerin tipini double olarak gösterir.
-
 is.numeric(a) # verinin tipinin numerik olup olmadığı sorgulanır.
 
-# integer
+```
+
+**integer**
+
+```{r}
 
 b <- 5
 class(b)
@@ -35,24 +49,33 @@ class(c)
 is.integer(c)
 
 class(as.integer(b)) # as. ile baslayan fonksiyonlar dönüşüm için kullanılır.
+```
 
-# complex
+**complex**
+
+```{r}
 
 z <- 4 + 2i
 class(z)
 
-# character
+```
 
+**character**
+
+```{r}
 d <- "R Programlama"
 class(d)
-
 e <- "5.5"
 class(e)
 class(as.numeric(e))
 
-# logical
+```
 
-x <- TRUE ; y <- FALSE
+**logical**
+
+```{r}
+x <- TRUE
+y <- FALSE
 class(c(x,y))
 as.integer(c(x,y)) # TRUE ve FALSE numeric olarak 1 ve 0 değerine karşılık gelir.
 
@@ -95,68 +118,198 @@ v3 + v4
 v3 / v4
 2 * v3 - v4
 
-# Vektörler ile ilgili kullanılabilecek bazı fonksiyonlar
+```
 
-# seq () 
-#aritmetik bir diziden meydana gelen bir vektör oluşturmak için kullanılır. 
+### Vektörler İle Kullanılabilecek Bazı Temel Fonksiyonlar
+
+#### seq()
+
+**`seq()`** fonksiyonu, ardışık sayı dizileri oluşturmak için kullanılır. Bu fonksiyon, başlangıç ve bitiş değerlerinin yanı sıra belirli bir artış veya azalış miktarını belirterek ardışık bir dizi oluşturmanızı sağlar.
+
+**`seq()`** fonksiyonu genellikle üç temel parametre alır:
+
+1.  **`from`**: Dizinin başlangıç değeri.
+
+2.  **`to`**: Dizinin bitiş değeri.
+
+3.  **`by`**: Opsiyonel olarak belirlenebilen artış/azalış miktarı.
+
+```{r}
+
 seq(from = 5, to = 50, by =5) # 5 ile başlayan 50 ile biten 5şer artan vektör
 seq(from = 5, to = 50, length = 7) # 5 ile başlayan 50 ile 7 elemanlı vektör
 seq(5,1,-1) # 5 ile baslayıp 1'e kadar 1'er azaltarak vektor olusturma
 
-# rep() 
-# tekrarlı sayılar içeren vektörler oluşturulur.
-rep(10,8) # 8 tane 10 değeri olan vektör
-rep(c(1,2,3),4) # 1,2,3 vekrünün 4 defa tekrarlanması
-rep(c(1,2,3), each = 4) # each argünmanı ile sıralı ve tekrarlı vektör
+```
 
-# rev()
+#### rep()
+
+**`rep()`** fonksiyonu, R programlama dilinde tekrarlanan öğelerden oluşan vektörler oluşturmak için kullanılır. Bu fonksiyon, belirli bir öğenin veya öğelerin tekrarlanarak bir vektör oluşturulmasına izin verir.
+
+**`rep()`** fonksiyonunun temel parametreleri şunlardır:
+
+-   **`x`**: Tekrarlanacak öğelerin kendisi veya vektörü.
+
+-   **`times`**: Tekrar sayısını belirten bir sayı veya vektör.
+
+-   **`each`**: Her bir öğenin kaç kez tekrarlanacağını belirten bir sayı veya vektör.
+
+-   **`length.out:`** çıktının istenen uzunluğu
+
+```{r}
+
+rep(10,times = 8) # 8 tane 10 değeri olan vektör
+rep(c(1,2,3), times = 4) # 1,2,3 vektörünün 4 defa tekrarlanması
+rep(c(1,2,3), each = 4) # each argünmanı ile sıralı ve tekrarlı vektör
+rep(1:4, each = 2, length.out = 4) # sadece ilk 4 elemanı verir
+
+```
+
+#### rev()
+
+**`rev()`** fonksiyonu, bir vektörün elemanlarını tersine çevirerek yeni bir vektör oluşturur. Bu fonksiyon, vektörün sıralamasını tam tersine çevirir ve baştan sona sıralanan elemanları sondan başa doğru sıralar.
+
+```{r}
+
 v5 <- c(3,5,6,1,NA,12,NA,8,9) # R'da NA boş gözlemi ifade eder.
 rev(v5) # vektörü tersine çevirir
 
-# rank()
+```
+
+#### rank()
+
+**`rank()`** fonksiyonu, bir vektörün değerlerini sıralamak için kullanılır ve her bir elemanın sıralamadaki yerini belirler. Bu fonksiyon, vektördeki her bir elemanın sıralamadaki konumunu döndürür.
+
+```{r}
+
 rank(v5) # elemanların sıra numarasını verir
 rank(v5, na.last = TRUE) # NA leri son sıraya atar.
 rank(v5, na.last = FALSE) # NA leri en başa koyar.
-rank(v5,na.last = NA) # NA değerlere yer verilmez
+rank(v5, na.last = NA) # NA değerlere yer verilmez
 rank(v5, na.last = "keep") # NA değerler oldukları gibi görünürler.
 
-# all()
+```
+
+#### all()
+
+**`all()`** fonksiyonu, R programlama dilinde bir mantıksal vektörün tüm elemanlarının **`TRUE`** olup olmadığını kontrol etmek için kullanılır. Eğer vektörde en az bir **`FALSE`** değer varsa, **`FALSE`** sonucunu verir. Eğer vektördeki tüm elemanlar **`TRUE`** ise, **`TRUE`** döndürür. Bu fonksiyon genellikle koşullu ifadelerde ve vektörlerin doğruluğunu kontrol etmek için kullanılır.
+
+```{r}
+
 all(v5>5) # vektördeki tüm elemanların şartı sağlayıp sağlamadıkları test edilir.
 all(v5>0) # vektörde NA varsa sonuç NA döner
 all(v5>0, na.rm = TRUE) # NA gözlemler hariç tutularak sonuç üretir.
 
-# any()
+```
+
+#### any()
+
+**`any()`** fonksiyonu, R programlama dilinde bir mantıksal vektörün içinde en az bir tane **`TRUE`** değerinin olup olmadığını kontrol etmek için kullanılır. Eğer vektörde en az bir **`TRUE`** değer varsa, **`TRUE`** sonucunu verir. Eğer vektördeki tüm elemanlar **`FALSE`** ise, **`FALSE`** döndürür. Bu fonksiyon genellikle koşullu ifadelerde ve vektörlerin içeriğini kontrol etmek için kullanılır.
+
+```{r}
+
 any(v5>6) # vektördeki en az bir elemanın şartı sağlayıp sağlamadığı test edilir.
 any(v5==9) 
 
-# unique()
+```
+
+#### unique()
+
+**`unique()`** fonksiyonu, R programlama dilinde bir vektördeki benzersiz (tekrar etmeyen) elemanları bulmak için kullanılır. Bu fonksiyon, vektördeki tekrarlanan elemanları kaldırarak yalnızca benzersiz elemanları içeren yeni bir vektör oluşturur. Bu fonksiyon, veri temizleme veya benzersiz değerlerin bulunması gibi durumlarda sıklıkla kullanılır.
+
+```{r}
+
 v6 <- rep(1:5,3)
 v6
 unique(v6) # tekrarlı gözlemler temizlenir
 
-# duplicated()
+```
+
+#### duplicated()
+
+**`duplicated()`** fonksiyonu, bir vektördeki tekrarlanan değerleri tespit etmek için kullanılır. Bu fonksiyon, bir vektördeki her bir elemanın önceki elemanlar arasında daha önce görülüp görülmediğini kontrol eder ve tekrar eden değerleri belirler. Bu fonksiyon, veri temizleme veya tekrarlanan değerlerin tespit edilmesi gereken durumlarda kullanışlıdır.
+
+```{r}
+
 duplicated(v6) # tekrarlı gözlemlerin varlığını kontrol eder
 v6[duplicated(v6)] # tekrarlı gözlemleri listeler
 
-# sort()
+```
+
+#### sort()
+
+**`sort()`** fonksiyonu, vektörleri sıralamak için kullanılır. Bu fonksiyon, sayısal veya karakter vektörlerin elemanlarını artan veya azalan sıraya göre sıralar.
+
+```{r}
+#| eval: false
+sort(x, decreasing = FALSE)
+```
+
+Burada:
+
+-   **`x`**, sıralanacak olan vektördür.
+
+-   **`decreasing`**, sıralamanın azalan sırada olup olmayacağını belirleyen bir mantıksal değerdir (varsayılan olarak **`FALSE`**).
+
+```{r}
+
 sort(v5) # küçükten büyüğe sıralama yapar.
 sort(v5,decreasing = TRUE) # azalan sırada sıralama yapar.
 
-# diff()
-diff(v5) # vektörde ardışık elemanlar arasındaki farkı bulur.
-diff(na.omit(v5)) # na.omit vektördeki NA gözlemleri temizler
+```
 
-# is.na()
+#### diff()
+
+**`diff()`** fonksiyonu, R programlama dilinde bir vektördeki ardışık elemanlar arasındaki farkları hesaplamak için kullanılır. Bu fonksiyon, ardışık elemanların birbirleri arasındaki farkları içeren yeni bir vektör döndürür.
+
+**`diff()`** fonksiyonunun genel kullanımı şu şekildedir:
+
+```{r}
+#| eval: false
+diff(x, lag = 1)
+```
+
+Burada:
+
+-   **`x`**, farklarının hesaplanacağı vektördür.
+
+-   **`lag`**, elemanlar arasındaki farkın kaçıncı dereceden olacağını belirten bir sayıdır (varsayılan olarak **`1`**).
+
+```{r}
+v5
+diff(v5,  lag = 1) # vektörde ardışık elemanlar arasındaki farkı bulur.
+diff(na.omit(v5)) # na.omit vektördeki NA gözlemleri temizler
+diff(na.omit(v5), lag = 2 ) # ikinci dereceden fark alma
+```
+
+#### is.na()
+
+**`is.na()`** fonksiyonu, R programlama dilinde bir vektördeki veya veri çerçevesindeki değerlerin **`NA`** (Not Available - Mevcut Değil) olup olmadığını kontrol etmek ve verilerin içinde eksik veya mevcut olmayan değerleri tespit etmek için kullanılır.için kullanılır. Her **`NA`** değeri için ilgili konumda **`TRUE`**, değilse **`FALSE`** döndürür. Veri temizleme ve analiz aşamalarında oldukça faydalıdır.
+
+```{r}
+
 is.na(v5) # vektördeki elamanların NA olup olmadığını test eder.
 is.nan(v5) # NaN aynı zamanda bir NA'dir.
 
-# which
+```
+
+#### which()
+
+**`which()`** fonksiyonu, belirli bir koşulu sağlayan veya belirli bir değere sahip olan elemanların konumlarını bulmak için kullanılır. Bu fonksiyon, bir vektörde veya bir koşulu karşılayan elemanların indislerini döndürür. Filtreleme veya koşullu indeksleme gibi durumlarda oldukça faydalıdır.
+
+```{r}
+
 which(v5==12) # 6 sayısının posizyonunu gösterir
 which.max(v5) # vektördeki maximum elemanın posizyonunu gösterir
 which.min(v5) # vektördeki minimum elemanın posizyonunu gösterir
 v5[which.min(v5)] # vektördeki minimum elemanı gösterir
 
-# Temel İstatistiksel Fonksiyonlar
+```
+
+#### Temel İstatistiksel Bazı Fonksiyonlar
+
+```{r}
+
 mean(v5) # NA varsa sonuç NA döner
 mean(v5, na.rm = TRUE) # aritmetik ortalama
 median(v5,na.rm = TRUE) # medyan (ortanca)
