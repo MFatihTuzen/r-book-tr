@@ -7,6 +7,9 @@ book:
     name: "Muhammed Fatih Tüzen"
     url: https://www.linkedin.com/in/dr-m-fatih-t-2b2a4328/
   reader-mode: true
+  search: 
+    location: navbar
+    type: textbox
   page-footer:
     left: |
       &copy; 2023, [Muhammed Fatih Tüzen](https://www.linkedin.com/in/dr-m-fatih-t-2b2a4328/)
@@ -16,10 +19,6 @@ book:
   site-url: https://rprogramlama.netlify.app/
   repo-url: https://github.com/MFatihTuzen/r-book-tr
   repo-actions: [edit,issue]
-  sidebar:
-    style: "floating"
-    search: true
-
   page-navigation: true
   chapters:
     - index.qmd
