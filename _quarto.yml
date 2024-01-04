@@ -9,7 +9,7 @@ book:
   reader-mode: true
   page-footer:
     left: |
-      &copy; 2023, Muhammed Fatih Tüzen
+      &copy; 2023, [Muhammed Fatih Tüzen](https://www.linkedin.com/in/dr-m-fatih-t-2b2a4328/)
     right: |
       Bu kitap [Quarto](https://quarto.org/) ile hazırlanmıştır.
   cover-image: cover.png
@@ -19,6 +19,8 @@ book:
   sidebar:
     style: "floating"
     search: true
+
+  page-navigation: true
   chapters:
     - index.qmd
     - r_about.qmd
