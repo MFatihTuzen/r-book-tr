@@ -1,5 +1,7 @@
 # Veri Tipleri ve Yapıları
 
+## Veri Tipleri
+
 R'da kulllanılan 5 temel veri tipi vardır. Bu veri tipleri atomic vectörler olarak da bilinir. Atomic olması vektörlerin homojen olması anlamına gelmektedir. Yani vektör içerisinde aynı veri tipinden değerler yer alabilir. Veri tipleri;
 
 -   numeric veya double (reel sayılar)
@@ -26,7 +28,7 @@ R'da kulllanılan 5 temel veri tipi vardır. Bu veri tipleri atomic vectörler o
 Bu fonksiyonlar genellikle birlikte kullanılır çünkü bir nesnenin veri tipi ve sınıfı arasında farklılıklar olabilir. Örneğin, bir veri çerçevesi **`typeof()`** ile incelendiğinde **`list`** çıkabilir, çünkü veri çerçeveleri bir liste türündedir. Ancak, **`class()`** fonksiyonu bu nesnenin özel sınıfını, yani **`data.frame`** olarak gösterecektir. Bu farklılıklar, bir nesnenin hangi özelliklere sahip olduğunu daha iyi anlamak için kullanılabilir.
 :::
 
-muneric
+**numeric**
 
 ```{r}
 a <- 3.5
@@ -81,7 +83,11 @@ as.integer(c(x,y)) # TRUE ve FALSE numeric olarak 1 ve 0 değerine karşılık g
 
 ```
 
-## Vektörler
+## Veri Yapıları
+
+![https://app.dataquest.io/m/493/dataframes-in-r/1/introduction](images/data_structures.png){fig-align="center"}
+
+### Vektörler
 
 -   R'daki en temel nesneler vektörlerdir.
 
@@ -120,9 +126,9 @@ v3 / v4
 
 ```
 
-### Vektörler İle Kullanılabilecek Bazı Temel Fonksiyonlar
+#### Vektörler İle Kullanılabilecek Bazı Temel Fonksiyonlar
 
-#### seq()
+**seq()**
 
 **`seq()`** fonksiyonu, ardışık sayı dizileri oluşturmak için kullanılır. Bu fonksiyon, başlangıç ve bitiş değerlerinin yanı sıra belirli bir artış veya azalış miktarını belirterek ardışık bir dizi oluşturmanızı sağlar.
 
@@ -142,7 +148,7 @@ seq(5,1,-1) # 5 ile baslayıp 1'e kadar 1'er azaltarak vektor olusturma
 
 ```
 
-#### rep()
+**rep()**
 
 **`rep()`** fonksiyonu, R programlama dilinde tekrarlanan öğelerden oluşan vektörler oluşturmak için kullanılır. Bu fonksiyon, belirli bir öğenin veya öğelerin tekrarlanarak bir vektör oluşturulmasına izin verir.
 
@@ -165,7 +171,7 @@ rep(1:4, each = 2, length.out = 4) # sadece ilk 4 elemanı verir
 
 ```
 
-#### rev()
+**rev()**
 
 **`rev()`** fonksiyonu, bir vektörün elemanlarını tersine çevirerek yeni bir vektör oluşturur. Bu fonksiyon, vektörün sıralamasını tam tersine çevirir ve baştan sona sıralanan elemanları sondan başa doğru sıralar.
 
@@ -176,7 +182,7 @@ rev(v5) # vektörü tersine çevirir
 
 ```
 
-#### rank()
+**rank()**
 
 **`rank()`** fonksiyonu, bir vektörün değerlerini sıralamak için kullanılır ve her bir elemanın sıralamadaki yerini belirler. Bu fonksiyon, vektördeki her bir elemanın sıralamadaki konumunu döndürür.
 
@@ -190,7 +196,7 @@ rank(v5, na.last = "keep") # NA değerler oldukları gibi görünürler.
 
 ```
 
-#### all()
+**all()**
 
 **`all()`** fonksiyonu, R programlama dilinde bir mantıksal vektörün tüm elemanlarının **`TRUE`** olup olmadığını kontrol etmek için kullanılır. Eğer vektörde en az bir **`FALSE`** değer varsa, **`FALSE`** sonucunu verir. Eğer vektördeki tüm elemanlar **`TRUE`** ise, **`TRUE`** döndürür. Bu fonksiyon genellikle koşullu ifadelerde ve vektörlerin doğruluğunu kontrol etmek için kullanılır.
 
@@ -202,7 +208,7 @@ all(v5>0, na.rm = TRUE) # NA gözlemler hariç tutularak sonuç üretir.
 
 ```
 
-#### any()
+**any()**
 
 **`any()`** fonksiyonu, R programlama dilinde bir mantıksal vektörün içinde en az bir tane **`TRUE`** değerinin olup olmadığını kontrol etmek için kullanılır. Eğer vektörde en az bir **`TRUE`** değer varsa, **`TRUE`** sonucunu verir. Eğer vektördeki tüm elemanlar **`FALSE`** ise, **`FALSE`** döndürür. Bu fonksiyon genellikle koşullu ifadelerde ve vektörlerin içeriğini kontrol etmek için kullanılır.
 
@@ -213,7 +219,7 @@ any(v5==9)
 
 ```
 
-#### unique()
+**unique()**
 
 **`unique()`** fonksiyonu, R programlama dilinde bir vektördeki benzersiz (tekrar etmeyen) elemanları bulmak için kullanılır. Bu fonksiyon, vektördeki tekrarlanan elemanları kaldırarak yalnızca benzersiz elemanları içeren yeni bir vektör oluşturur. Bu fonksiyon, veri temizleme veya benzersiz değerlerin bulunması gibi durumlarda sıklıkla kullanılır.
 
@@ -225,7 +231,7 @@ unique(v6) # tekrarlı gözlemler temizlenir
 
 ```
 
-#### duplicated()
+**duplicated()**
 
 **`duplicated()`** fonksiyonu, bir vektördeki tekrarlanan değerleri tespit etmek için kullanılır. Bu fonksiyon, bir vektördeki her bir elemanın önceki elemanlar arasında daha önce görülüp görülmediğini kontrol eder ve tekrar eden değerleri belirler. Bu fonksiyon, veri temizleme veya tekrarlanan değerlerin tespit edilmesi gereken durumlarda kullanışlıdır.
 
@@ -236,7 +242,7 @@ v6[duplicated(v6)] # tekrarlı gözlemleri listeler
 
 ```
 
-#### sort()
+**sort()**
 
 **`sort()`** fonksiyonu, vektörleri sıralamak için kullanılır. Bu fonksiyon, sayısal veya karakter vektörlerin elemanlarını artan veya azalan sıraya göre sıralar.
 
@@ -258,7 +264,7 @@ sort(v5,decreasing = TRUE) # azalan sırada sıralama yapar.
 
 ```
 
-#### diff()
+**diff()**
 
 **`diff()`** fonksiyonu, R programlama dilinde bir vektördeki ardışık elemanlar arasındaki farkları hesaplamak için kullanılır. Bu fonksiyon, ardışık elemanların birbirleri arasındaki farkları içeren yeni bir vektör döndürür.
 
@@ -282,7 +288,7 @@ diff(na.omit(v5)) # na.omit vektördeki NA gözlemleri temizler
 diff(na.omit(v5), lag = 2 ) # ikinci dereceden fark alma
 ```
 
-#### is.na()
+**is.na()**
 
 **`is.na()`** fonksiyonu, R programlama dilinde bir vektördeki veya veri çerçevesindeki değerlerin **`NA`** (Not Available - Mevcut Değil) olup olmadığını kontrol etmek ve verilerin içinde eksik veya mevcut olmayan değerleri tespit etmek için kullanılır.için kullanılır. Her **`NA`** değeri için ilgili konumda **`TRUE`**, değilse **`FALSE`** döndürür. Veri temizleme ve analiz aşamalarında oldukça faydalıdır.
 
@@ -293,7 +299,7 @@ is.nan(v5) # NaN aynı zamanda bir NA'dir.
 
 ```
 
-#### which()
+**which()**
 
 **`which()`** fonksiyonu, belirli bir koşulu sağlayan veya belirli bir değere sahip olan elemanların konumlarını bulmak için kullanılır. Bu fonksiyon, bir vektörde veya bir koşulu karşılayan elemanların indislerini döndürür. Filtreleme veya koşullu indeksleme gibi durumlarda oldukça faydalıdır.
 
@@ -306,7 +312,7 @@ v5[which.min(v5)] # vektördeki minimum elemanı gösterir
 
 ```
 
-#### Temel İstatistiksel Bazı Fonksiyonlar
+**Temel İstatistiksel Bazı Fonksiyonlar**
 
 ```{r}
 
@@ -321,13 +327,13 @@ var(v5,na.rm = TRUE) # varyans
 
 ```
 
-## Matrisler
+### Matrisler
 
 -   Matrisler, iki boyutlu yani satır ve sütunları olan atomik vektörlerdir.
 
 -   **`matrix()`** fonksiyonu ile tanımlanmaktadır.
 
--   Vektörlerin birleştirlmesi ile de matrisler oluşturulabilir. [**rbind**]{.underline}satır bazlı alt alta birleştirme, [**cbind**]{.underline} ise sütun bazlı yanyana birleştirme yapar. Burada vektörlerin aynı boyutlarda olmasına dikkat edilmesi gerekir.
+-   Vektörlerin birleştirilmesi ile de matrisler oluşturulabilir. [**rbind**]{.underline} satır bazlı alt alta birleştirme, [**cbind**]{.underline} ise sütun bazlı yanyana birleştirme yapar. Burada vektörlerin aynı boyutlarda olmasına dikkat edilmesi gerekir.
 
 ```{r}
 
@@ -340,7 +346,7 @@ matris <- cbind(v1, v2, v3, v4)
 matris
 
 is.matrix(matris)
-dim(matris)
+dim(matris) # matrisin boyutları
 
 matrix(nrow = 3, ncol = 3, 1:9)
 matrix(1:9, nrow = 3, ncol = 3, byrow = TRUE) # byrow satırlara göre oluşturur.
@@ -351,11 +357,11 @@ dim(mat) <- c(5,2)
 mat
 matrix(c(1,2,3,11,22,33), nrow = 2, ncol = 3, byrow = TRUE)
 
-# normal dağılımdan 0 ortamalı, 1 standart sapmalı 16 sayı üret
+# normal dağılımdan 0 ortalamalı, 1 standart sapmalı 16 sayı üret
 MA <- rnorm(16, 0, 1)
 MA <- matrix(MA, nrow = 4, ncol = 4)
 
-# normal dağılımdan 90 ortamalı, 10 standart sapmalı 16 sayı üret
+# normal dağılımdan 90 ortalamalı, 10 standart sapmalı 16 sayı üret
 MB <- rnorm(16, 90, 10)
 MB <- matrix(MB, nrow = 4, ncol = 4)
 
@@ -367,7 +373,7 @@ colnames(m) <- LETTERS[1:4]
 rownames(m) <- tail(LETTERS,8)
 m
 
-#Matris Elemanlarina Erismek
+# Matris Elemanlarina Erismek
 m[1,1] # 1. satır, 1.sütundak, eleman
 m[4,2] # 4. satır, 2.sütundak, eleman
 m[,2] # 2. sütun elemanları
@@ -399,7 +405,7 @@ colMeans(m1) # sütun ortalaması
 
 ```
 
-## Listeler
+### Listeler
 
 -   Listeler, birbirinden farklı veri tiplerine sahip vektörler, matrisler vb farklı objeleri birarada tutabilen yapılardır.
 
@@ -435,7 +441,7 @@ unlist(list) # listeyi vektöre çevirir.
 
 ```
 
-## dataframe
+### dataframe
 
 Veri çerçevesi (dataframe), her sütunun bir değişkenin değerlerini ve her satırın her sütundan bir değer kümesini içerdiği bir tablo veya iki boyutlu dizi benzeri bir yapıdır. Bir veri çerçevesinin özellikleri şunlardır:
 
@@ -484,7 +490,7 @@ data[c(3,5),c(2,4)]
 
 # koşula göre veriler seçilebilir
 data$row_num > 12 # TRUE veya FALSE döner
-data[data$row_num > 12,] # koşula göre tablonu değerleri döner
+data[data$row_num > 12,] # koşula göre satırlar döner
 
 # subset ile tablo filtrelenebilir.
 subset(data, 
@@ -518,8 +524,8 @@ head(data[order(data$col3,-data$row_num),])
 # kayıp gözlemler (missing values)
 tail(is.na(data))
 tail(is.na(data$col5))
-data[is.na(data$col5),]
-data[!is.na(data$col5),]
+data[is.na(data$col5),] # col5 NA olan satılar
+data[!is.na(data$col5),] # col5 NA olmayan satılar
 
 rowSums(is.na(data)) # satılardaki toplam kayıp gözlem sayısı
 colSums(is.na(data)) # sütunlardaki toplam kayıp gözlem sayısı
@@ -533,7 +539,7 @@ na.omit(data) # NA olan satırları siler.
 
 ```
 
-## tibble
+### tibble
 
 **`tibble`**, Hadley Wickham tarafından geliştirilen ve **`dplyr`** paketi ile sıkça kullanılan bir veri yapısıdır. **`tibble`**, **`data.frame`**'e benzerdir, ancak bazı önemli farklar vardır. **`tibble`**, daha düzenli ve okunabilir bir çıktı üretir ve bazı varsayılan davranışları **`data.frame`**'den farklıdır. Modern data.frame olarak tanımlanmaktadır.
 
@@ -558,12 +564,12 @@ print(ogrenciler_tibble)
 Yukarıdaki örnekte, "ogrenciler_tibble" adında bir **`tibble`** oluşturuldu. **`tibble`**, sütun adlarını ve içeriği daha okunabilir bir şekilde görüntüler ve sütunların başlık ve veri tipi (**`~Ad`**, **`~Yas`**, **`~Cinsiyet`**) gibi özelliklerini korur.
 
 ::: callout-note
-## Not
+### Not
 
 Hem **`dataframe`** hem de **`tibble`** veri analizi ve işleme işlemlerinde kullanışlıdır. Hangi veri yapısını kullanacağınız, projenizin gereksinimlerine ve kişisel tercihinize bağlıdır. Özellikle veri analizi için **`dplyr`** gibi paketlerle çalışırken **`tibble`** tercih edilir.
 :::
 
-## Faktörler
+### Faktörler
 
 -   Faktörler, verileri kategorilere ayırmak ve düzeyler halinde depolamak için kullanılan veri nesneleridir. Hem karakter hem de tam sayıları depolayabilirler.
 
