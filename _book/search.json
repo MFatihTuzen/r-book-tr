@@ -4,7 +4,7 @@
     "href": "basics.html#çalışma-dizini",
     "title": "1  Temel Fonksiyonlar",
     "section": "1.1 Çalışma Dizini",
-    "text": "1.1 Çalışma Dizini\nÇalışma Dizini, üzerinde çalıştığınız projenin tüm gerekli dosya ve belgelerini içerdiği yerdir. Çalışma dizininizi ayarlamanın iki yolu vardır. İlk yol getwd ve setwd işlevlerini kullanmaktır. Diğer yol ise RStudio üzerinden Session&gt;Set Working Directory youluyla yapılabilir.\n\ngetwd()\n\n[1] \"D:/GitHub/r-book-tr\"\n\n\n\ndir veya list.files komutları ile dizinde yer alan dosyalar öğrenilebilir.\ndir.create komutu ile yeni bir klasör oluşturmak mümkündür.\nfile.exists kullanılarak klasörün var olup olmadığı sorgulanabilir."
+    "text": "1.1 Çalışma Dizini\nÇalışma Dizini, üzerinde çalıştığınız projenin tüm gerekli dosya ve belgelerini içerdiği yerdir. Çalışma dizininizi ayarlamanın iki yolu vardır. İlk yol getwd ve setwd işlevlerini kullanmaktır. Diğer yol ise RStudio üzerinden Session&gt;Set Working Directory youluyla yapılabilir.\n\ngetwd()\n\n\ndir veya list.files komutları ile dizinde yer alan dosyalar öğrenilebilir.\ndir.create komutu ile yeni bir klasör oluşturmak mümkündür.\nfile.exists kullanılarak klasörün var olup olmadığı sorgulanabilir."
   },
   {
     "objectID": "basics.html#yardımcı-bilgiler",

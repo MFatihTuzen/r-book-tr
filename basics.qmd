@@ -5,6 +5,7 @@
 Çalışma Dizini, üzerinde çalıştığınız projenin tüm gerekli dosya ve belgelerini içerdiği yerdir. Çalışma dizininizi ayarlamanın iki yolu vardır. İlk yol [**getwd ve setwd**]{.underline} işlevlerini kullanmaktır. Diğer yol ise RStudio üzerinden [**Session\>Set Working Directory**]{.underline} youluyla yapılabilir.
 
 ```{r}
+#| eval: false
 getwd()
 ```
 
