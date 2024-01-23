@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.3.450">
+<meta name="generator" content="quarto-1.4.538">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -22,7 +22,7 @@ ul.task-list li input[type="checkbox"] {
 }
 /* CSS for syntax highlighting */
 pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span { line-height: 1.25; }
 pre > code.sourceCode > span:empty { height: 1.2em; }
 .sourceCode { overflow: visible; }
 code.sourceCode > span { color: inherit; text-decoration: inherit; }
@@ -83,7 +83,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   "collapse-after": 3,
   "panel-placement": "end",
   "type": "textbox",
-  "limit": 20,
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
   "language": {
     "search-no-results-text": "No results",
     "search-matching-documents-text": "matching documents",
@@ -92,6 +97,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     "search-more-match-text": "more match in this document",
     "search-more-matches-text": "more matches in this document",
     "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
     "search-detached-cancel-button-title": "Cancel",
     "search-submit-button-title": "Submit",
     "search-label": "Search"
@@ -100,6 +106,33 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
   <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
   <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
 
 <link rel="stylesheet" href="styles.css">
 </head>
@@ -110,27 +143,24 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <header id="quarto-header" class="headroom fixed-top">
   <nav class="quarto-secondary-nav">
     <div class="container-fluid d-flex">
-      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./data_preprocess.html">Veri Ön İşleme</a></li></ol></nav>
-      <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
-      </a>
-      <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
-        <i class="bi bi-search"></i>
-      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./data_preprocess.html">Veri Ön İşleme</a></li></ol></nav>
+        <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
     </div>
   </nav>
 </header>
 <!-- content -->
 <div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
 <!-- sidebar -->
-  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal sidebar-navigation floating overflow-auto">
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
     <div class="pt-lg-2 mt-2 text-left sidebar-header">
     <div class="sidebar-title mb-0 py-0">
       <a href="./">R Programlama</a> 
         <div class="sidebar-tools-main tools-wide">
-    <a href="https://github.com/MFatihTuzen/r-book-tr" rel="" title="Source Code" class="quarto-navigation-tool px-1" aria-label="Source Code"><i class="bi bi-github"></i></a>
+    <a href="https://github.com/MFatihTuzen/r-book-tr" title="Source Code" class="quarto-navigation-tool px-1" aria-label="Source Code"><i class="bi bi-github"></i></a>
   <a href="" class="quarto-color-scheme-toggle quarto-navigation-tool  px-1" onclick="window.quartoToggleColorScheme(); return false;" title="Toggle dark mode"><i class="bi"></i></a>
   <a href="" class="quarto-reader-toggle quarto-navigation-tool px-1" onclick="window.quartoToggleReader(); return false;" title="Toggle reader mode">
   <div class="quarto-reader-toggle-btn">
@@ -140,11 +170,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
     </div>
       </div>
-        <div class="mt-2 flex-shrink-0 align-items-center">
-        <div class="sidebar-search">
-        <div id="quarto-search" class="" title="Search"></div>
-        </div>
-        </div>
     <div class="sidebar-menu-container"> 
     <ul class="list-unstyled mt-1">
         <li class="sidebar-item">
@@ -257,7 +282,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     </ul>
     </div>
 </nav>
-<div id="quarto-sidebar-glass" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass"></div>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
         <nav id="TOC" role="doc-toc" class="toc-active">
@@ -276,7 +301,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </ul></li>
   <li><a href="#veri-normalleştirme" id="toc-veri-normalleştirme" class="nav-link" data-scroll-target="#veri-normalleştirme">Veri Normalleştirme</a></li>
   </ul>
-<div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.com/MFatihTuzen/r-book-tr/edit/main/data_preprocess.qmd" class="toc-action">Edit this page</a></p><p><a href="https://github.com/MFatihTuzen/r-book-tr/issues/new" class="toc-action">Report an issue</a></p></div></div></nav>
+<div class="toc-actions"><ul><li><a href="https://github.com/MFatihTuzen/r-book-tr/edit/main/data_preprocess.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/MFatihTuzen/r-book-tr/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
@@ -296,7 +321,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </div>
   
 
+
 </header>
+
 
 <p>Veri ön işleme; istatistiksel modeller kurulmadan önce veri seti üzerinde yapılan bir takım düzeltme, eksik veriyi tamamlama, tekrarlanan verileri kaldırma, dönüştürme, bütünleştirme, temizleme, normalleştirme, boyut indirgeme vb. işlemlerdir. Bu aşamada ister istemez veri üzerinde bilgi keşfi yapılmış olur. Veri önişleme istatistiksel bir modelleme sürecinin büyük kısmını oluşturmaktadır. Kesin bir rakam olmamakla birlikte modelleme sürecinin yarısından fazlasının bu aşamada harcandığını ifade edebiliriz. Veri ön işleme temel anlamda 4 aşamadan oluşmaktadır. Bunlar sırasıyla şu şekildedir:</p>
 <ol type="1">
@@ -360,35 +387,35 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="cell-output cell-output-stdout">
 <pre><code>   weight   height
 19     NA       NA
-16     NA 189.5692
+16     NA 153.4269
 18     NA       NA
-17     NA 143.7628
+17     NA 159.2818
 20     NA       NA</code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>df2[<span class="fu">complete.cases</span>(df2), ]<span class="sc">$</span>weight</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code> [1] 62.81841 59.94105 62.26128 66.25767 42.02729 64.71217 83.08025 86.43815
- [9] 74.12042 66.07822 71.16774 46.94370 84.90682 64.84057 46.85378</code></pre>
+<pre><code> [1] 80.61313 82.60771 55.00563 57.39294 76.45021 84.87815 76.13559 70.38971
+ [9] 71.88593 62.73837 82.24489 64.23772 73.97397 75.71183 60.81737</code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="co"># eksik veriden tamamen kurtulma</span></span>
 <span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="fu">na.omit</span>(df2)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>     weight   height
-14 62.81841 148.2951
-11 59.94105 174.5928
-8  62.26128 198.7973
-2  66.25767 150.7194
-6  42.02729 144.7398
-13 64.71217 208.4015
-7  83.08025 168.1595
-1  86.43815 125.3231
-15 74.12042 184.5139
-10 66.07822 150.1079
-12 71.16774 161.2984
-9  46.94370 130.8369
-4  84.90682 166.5444
-3  64.84057 123.0110
-5  46.85378 166.2619</code></pre>
+14 80.61313 148.6299
+11 82.60771 180.8007
+8  55.00563 181.7270
+2  57.39294 178.5351
+6  76.45021 159.0474
+13 84.87815 145.3649
+7  76.13559 166.7092
+1  70.38971 140.0900
+15 71.88593 186.3700
+10 62.73837 156.8265
+12 82.24489 160.5403
+9  64.23772 144.2142
+4  73.97397 167.2042
+3  75.71183 203.5528
+5  60.81737 198.4402</code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="fu">complete.cases</span>(df2)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
@@ -398,26 +425,26 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>df2[<span class="fu">complete.cases</span>(df2), ] <span class="co"># dolu olanlar satırlar</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>     weight   height
-14 62.81841 148.2951
-11 59.94105 174.5928
-8  62.26128 198.7973
-2  66.25767 150.7194
-6  42.02729 144.7398
-13 64.71217 208.4015
-7  83.08025 168.1595
-1  86.43815 125.3231
-15 74.12042 184.5139
-10 66.07822 150.1079
-12 71.16774 161.2984
-9  46.94370 130.8369
-4  84.90682 166.5444
-3  64.84057 123.0110
-5  46.85378 166.2619</code></pre>
+14 80.61313 148.6299
+11 82.60771 180.8007
+8  55.00563 181.7270
+2  57.39294 178.5351
+6  76.45021 159.0474
+13 84.87815 145.3649
+7  76.13559 166.7092
+1  70.38971 140.0900
+15 71.88593 186.3700
+10 62.73837 156.8265
+12 82.24489 160.5403
+9  64.23772 144.2142
+4  73.97397 167.2042
+3  75.71183 203.5528
+5  60.81737 198.4402</code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>df2[<span class="fu">complete.cases</span>(df2), ]<span class="sc">$</span>weight <span class="co"># değişken bazında dolu olan satırlar</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code> [1] 62.81841 59.94105 62.26128 66.25767 42.02729 64.71217 83.08025 86.43815
- [9] 74.12042 66.07822 71.16774 46.94370 84.90682 64.84057 46.85378</code></pre>
+<pre><code> [1] 80.61313 82.60771 55.00563 57.39294 76.45021 84.87815 76.13559 70.38971
+ [9] 71.88593 62.73837 82.24489 64.23772 73.97397 75.71183 60.81737</code></pre>
 </div>
 </div>
 </section>
@@ -439,172 +466,148 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>df2</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>     weight   height  weight2
-14 62.81841 148.2951 62.81841
-19       NA       NA 65.49650
-16       NA 189.5692 65.49650
-11 59.94105 174.5928 59.94105
-18       NA       NA 65.49650
-8  62.26128 198.7973 62.26128
-2  66.25767 150.7194 66.25767
-6  42.02729 144.7398 42.02729
-17       NA 143.7628 65.49650
-13 64.71217 208.4015 64.71217
-7  83.08025 168.1595 83.08025
-1  86.43815 125.3231 86.43815
-15 74.12042 184.5139 74.12042
-10 66.07822 150.1079 66.07822
-12 71.16774 161.2984 71.16774
-9  46.94370 130.8369 46.94370
-4  84.90682 166.5444 84.90682
-20       NA       NA 65.49650
-3  64.84057 123.0110 64.84057
-5  46.85378 166.2619 46.85378</code></pre>
+14 80.61313 148.6299 80.61313
+19       NA       NA 71.67221
+16       NA 153.4269 71.67221
+11 82.60771 180.8007 82.60771
+18       NA       NA 71.67221
+8  55.00563 181.7270 55.00563
+2  57.39294 178.5351 57.39294
+6  76.45021 159.0474 76.45021
+17       NA 159.2818 71.67221
+13 84.87815 145.3649 84.87815
+7  76.13559 166.7092 76.13559
+1  70.38971 140.0900 70.38971
+15 71.88593 186.3700 71.88593
+10 62.73837 156.8265 62.73837
+12 82.24489 160.5403 82.24489
+9  64.23772 144.2142 64.23772
+4  73.97397 167.2042 73.97397
+20       NA       NA 71.67221
+3  75.71183 203.5528 75.71183
+5  60.81737 198.4402 60.81737</code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="co"># tek seferde bütün kolonlardaki eksik verileri ortamala ile doldurmak için</span></span>
 <span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a><span class="fu">sapply</span>(df2, <span class="cf">function</span>(x) <span class="fu">ifelse</span>(<span class="fu">is.na</span>(x), <span class="fu">mean</span>(x, <span class="at">na.rm =</span> <span class="cn">TRUE</span>), x ))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>        weight   height  weight2
- [1,] 62.81841 148.2951 62.81841
- [2,] 65.49650 160.8785 65.49650
- [3,] 65.49650 189.5692 65.49650
- [4,] 59.94105 174.5928 59.94105
- [5,] 65.49650 160.8785 65.49650
- [6,] 62.26128 198.7973 62.26128
- [7,] 66.25767 150.7194 66.25767
- [8,] 42.02729 144.7398 42.02729
- [9,] 65.49650 143.7628 65.49650
-[10,] 64.71217 208.4015 64.71217
-[11,] 83.08025 168.1595 83.08025
-[12,] 86.43815 125.3231 86.43815
-[13,] 74.12042 184.5139 74.12042
-[14,] 66.07822 150.1079 66.07822
-[15,] 71.16774 161.2984 71.16774
-[16,] 46.94370 130.8369 46.94370
-[17,] 84.90682 166.5444 84.90682
-[18,] 65.49650 160.8785 65.49650
-[19,] 64.84057 123.0110 64.84057
-[20,] 46.85378 166.2619 46.85378</code></pre>
+ [1,] 80.61313 148.6299 80.61313
+ [2,] 71.67221 166.5154 71.67221
+ [3,] 71.67221 153.4269 71.67221
+ [4,] 82.60771 180.8007 82.60771
+ [5,] 71.67221 166.5154 71.67221
+ [6,] 55.00563 181.7270 55.00563
+ [7,] 57.39294 178.5351 57.39294
+ [8,] 76.45021 159.0474 76.45021
+ [9,] 71.67221 159.2818 71.67221
+[10,] 84.87815 145.3649 84.87815
+[11,] 76.13559 166.7092 76.13559
+[12,] 70.38971 140.0900 70.38971
+[13,] 71.88593 186.3700 71.88593
+[14,] 62.73837 156.8265 62.73837
+[15,] 82.24489 160.5403 82.24489
+[16,] 64.23772 144.2142 64.23772
+[17,] 73.97397 167.2042 73.97397
+[18,] 71.67221 166.5154 71.67221
+[19,] 75.71183 203.5528 75.71183
+[20,] 60.81737 198.4402 60.81737</code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(zoo)</span>
 <span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a><span class="fu">sapply</span>(df2, <span class="cf">function</span>(x) <span class="fu">ifelse</span>(<span class="fu">is.na</span>(x), <span class="fu">na.locf</span>(x), x )) <span class="co"># carry forward</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>        weight   height  weight2
- [1,] 62.81841 148.2951 62.81841
- [2,] 62.81841 148.2951 65.49650
- [3,] 62.81841 189.5692 65.49650
- [4,] 59.94105 174.5928 59.94105
- [5,] 59.94105 174.5928 65.49650
- [6,] 62.26128 198.7973 62.26128
- [7,] 66.25767 150.7194 66.25767
- [8,] 42.02729 144.7398 42.02729
- [9,] 42.02729 143.7628 65.49650
-[10,] 64.71217 208.4015 64.71217
-[11,] 83.08025 168.1595 83.08025
-[12,] 86.43815 125.3231 86.43815
-[13,] 74.12042 184.5139 74.12042
-[14,] 66.07822 150.1079 66.07822
-[15,] 71.16774 161.2984 71.16774
-[16,] 46.94370 130.8369 46.94370
-[17,] 84.90682 166.5444 84.90682
-[18,] 84.90682 166.5444 65.49650
-[19,] 64.84057 123.0110 64.84057
-[20,] 46.85378 166.2619 46.85378</code></pre>
+ [1,] 80.61313 148.6299 80.61313
+ [2,] 80.61313 148.6299 71.67221
+ [3,] 80.61313 153.4269 71.67221
+ [4,] 82.60771 180.8007 82.60771
+ [5,] 82.60771 180.8007 71.67221
+ [6,] 55.00563 181.7270 55.00563
+ [7,] 57.39294 178.5351 57.39294
+ [8,] 76.45021 159.0474 76.45021
+ [9,] 76.45021 159.2818 71.67221
+[10,] 84.87815 145.3649 84.87815
+[11,] 76.13559 166.7092 76.13559
+[12,] 70.38971 140.0900 70.38971
+[13,] 71.88593 186.3700 71.88593
+[14,] 62.73837 156.8265 62.73837
+[15,] 82.24489 160.5403 82.24489
+[16,] 64.23772 144.2142 64.23772
+[17,] 73.97397 167.2042 73.97397
+[18,] 73.97397 167.2042 71.67221
+[19,] 75.71183 203.5528 75.71183
+[20,] 60.81737 198.4402 60.81737</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sapply</span>(df2, <span class="cf">function</span>(x) <span class="fu">ifelse</span>(<span class="fu">is.na</span>(x), <span class="fu">na.locf</span>(x,<span class="at">fromlast=</span><span class="cn">TRUE</span>), x ))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sapply</span>(df2, <span class="cf">function</span>(x) <span class="fu">ifelse</span>(<span class="fu">is.na</span>(x), <span class="fu">na.approx</span>(x), x )) <span class="co"># linear interpolation</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>        weight   height  weight2
- [1,] 62.81841 148.2951 62.81841
- [2,] 62.81841 148.2951 65.49650
- [3,] 62.81841 189.5692 65.49650
- [4,] 59.94105 174.5928 59.94105
- [5,] 59.94105 174.5928 65.49650
- [6,] 62.26128 198.7973 62.26128
- [7,] 66.25767 150.7194 66.25767
- [8,] 42.02729 144.7398 42.02729
- [9,] 42.02729 143.7628 65.49650
-[10,] 64.71217 208.4015 64.71217
-[11,] 83.08025 168.1595 83.08025
-[12,] 86.43815 125.3231 86.43815
-[13,] 74.12042 184.5139 74.12042
-[14,] 66.07822 150.1079 66.07822
-[15,] 71.16774 161.2984 71.16774
-[16,] 46.94370 130.8369 46.94370
-[17,] 84.90682 166.5444 84.90682
-[18,] 84.90682 166.5444 65.49650
-[19,] 64.84057 123.0110 64.84057
-[20,] 46.85378 166.2619 46.85378</code></pre>
+ [1,] 80.61313 148.6299 80.61313
+ [2,] 81.27799 151.0284 71.67221
+ [3,] 81.94285 153.4269 71.67221
+ [4,] 82.60771 180.8007 82.60771
+ [5,] 68.80667 181.2639 71.67221
+ [6,] 55.00563 181.7270 55.00563
+ [7,] 57.39294 178.5351 57.39294
+ [8,] 76.45021 159.0474 76.45021
+ [9,] 80.66418 159.2818 71.67221
+[10,] 84.87815 145.3649 84.87815
+[11,] 76.13559 166.7092 76.13559
+[12,] 70.38971 140.0900 70.38971
+[13,] 71.88593 186.3700 71.88593
+[14,] 62.73837 156.8265 62.73837
+[15,] 82.24489 160.5403 82.24489
+[16,] 64.23772 144.2142 64.23772
+[17,] 73.97397 167.2042 73.97397
+[18,] 74.84290 185.3785 71.67221
+[19,] 75.71183 203.5528 75.71183
+[20,] 60.81737 198.4402 60.81737</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sapply</span>(df2, <span class="cf">function</span>(x) <span class="fu">ifelse</span>(<span class="fu">is.na</span>(x), <span class="fu">na.approx</span>(x), x )) <span class="co"># linear interpolation</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sapply</span>(df2, <span class="cf">function</span>(x) <span class="fu">ifelse</span>(<span class="fu">is.na</span>(x), <span class="fu">na.spline</span>(x), x )) <span class="co"># cubic interpolation</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>        weight   height  weight2
- [1,] 62.81841 148.2951 62.81841
- [2,] 61.85929 168.9322 65.49650
- [3,] 60.90017 189.5692 65.49650
- [4,] 59.94105 174.5928 59.94105
- [5,] 61.10117 186.6950 65.49650
- [6,] 62.26128 198.7973 62.26128
- [7,] 66.25767 150.7194 66.25767
- [8,] 42.02729 144.7398 42.02729
- [9,] 53.36973 143.7628 65.49650
-[10,] 64.71217 208.4015 64.71217
-[11,] 83.08025 168.1595 83.08025
-[12,] 86.43815 125.3231 86.43815
-[13,] 74.12042 184.5139 74.12042
-[14,] 66.07822 150.1079 66.07822
-[15,] 71.16774 161.2984 71.16774
-[16,] 46.94370 130.8369 46.94370
-[17,] 84.90682 166.5444 84.90682
-[18,] 74.87370 144.7777 65.49650
-[19,] 64.84057 123.0110 64.84057
-[20,] 46.85378 166.2619 46.85378</code></pre>
+ [1,] 80.61313 148.6299 80.61313
+ [2,] 98.00570 134.3562 71.67221
+ [3,] 95.90746 153.4269 71.67221
+ [4,] 82.60771 180.8007 82.60771
+ [5,] 66.32635 186.0774 71.67221
+ [6,] 55.00563 181.7270 55.00563
+ [7,] 57.39294 178.5351 57.39294
+ [8,] 76.45021 159.0474 76.45021
+ [9,] 86.72686 159.2818 71.67221
+[10,] 84.87815 145.3649 84.87815
+[11,] 76.13559 166.7092 76.13559
+[12,] 70.38971 140.0900 70.38971
+[13,] 71.88593 186.3700 71.88593
+[14,] 62.73837 156.8265 62.73837
+[15,] 82.24489 160.5403 82.24489
+[16,] 64.23772 144.2142 64.23772
+[17,] 73.97397 167.2042 73.97397
+[18,] 81.26780 192.4738 71.67221
+[19,] 75.71183 203.5528 75.71183
+[20,] 60.81737 198.4402 60.81737</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sapply</span>(df2, <span class="cf">function</span>(x) <span class="fu">ifelse</span>(<span class="fu">is.na</span>(x), <span class="fu">na.approx</span>(x), x )) <span class="co"># cubic interpolation</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>        weight   height  weight2
- [1,] 62.81841 148.2951 62.81841
- [2,] 61.85929 168.9322 65.49650
- [3,] 60.90017 189.5692 65.49650
- [4,] 59.94105 174.5928 59.94105
- [5,] 61.10117 186.6950 65.49650
- [6,] 62.26128 198.7973 62.26128
- [7,] 66.25767 150.7194 66.25767
- [8,] 42.02729 144.7398 42.02729
- [9,] 53.36973 143.7628 65.49650
-[10,] 64.71217 208.4015 64.71217
-[11,] 83.08025 168.1595 83.08025
-[12,] 86.43815 125.3231 86.43815
-[13,] 74.12042 184.5139 74.12042
-[14,] 66.07822 150.1079 66.07822
-[15,] 71.16774 161.2984 71.16774
-[16,] 46.94370 130.8369 46.94370
-[17,] 84.90682 166.5444 84.90682
-[18,] 74.87370 144.7777 65.49650
-[19,] 64.84057 123.0110 64.84057
-[20,] 46.85378 166.2619 46.85378</code></pre>
-</div>
-<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="co"># KNN (k-nearest neighbor) ile Değer Atama</span></span>
-<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb33-3"><a href="#cb33-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(DMwR2)</span>
-<span id="cb33-4"><a href="#cb33-4" aria-hidden="true" tabindex="-1"></a><span class="co"># airquality verisi</span></span>
-<span id="cb33-5"><a href="#cb33-5" aria-hidden="true" tabindex="-1"></a>df_air <span class="ot">&lt;-</span> tibble<span class="sc">::</span><span class="fu">as_tibble</span>(airquality)</span>
-<span id="cb33-6"><a href="#cb33-6" aria-hidden="true" tabindex="-1"></a><span class="fu">anyNA</span>(df_air)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="co"># KNN (k-nearest neighbor) ile Değer Atama</span></span>
+<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(DMwR2)</span>
+<span id="cb31-4"><a href="#cb31-4" aria-hidden="true" tabindex="-1"></a><span class="co"># airquality verisi</span></span>
+<span id="cb31-5"><a href="#cb31-5" aria-hidden="true" tabindex="-1"></a>df_air <span class="ot">&lt;-</span> tibble<span class="sc">::</span><span class="fu">as_tibble</span>(airquality)</span>
+<span id="cb31-6"><a href="#cb31-6" aria-hidden="true" tabindex="-1"></a><span class="fu">anyNA</span>(df_air)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] TRUE</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="co"># airquality verisindeki Wind değişkeninin bazı değerlerini NA yapalım</span></span>
-<span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">1234</span>)</span>
-<span id="cb35-3"><a href="#cb35-3" aria-hidden="true" tabindex="-1"></a>row_num <span class="ot">&lt;-</span> <span class="fu">sample</span>(<span class="dv">1</span><span class="sc">:</span><span class="fu">nrow</span>(airquality),<span class="dv">5</span>)</span>
-<span id="cb35-4"><a href="#cb35-4" aria-hidden="true" tabindex="-1"></a>row_num <span class="co"># bu satırdaki değerlere NA atanacak</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="co"># airquality verisindeki Wind değişkeninin bazı değerlerini NA yapalım</span></span>
+<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">1234</span>)</span>
+<span id="cb33-3"><a href="#cb33-3" aria-hidden="true" tabindex="-1"></a>row_num <span class="ot">&lt;-</span> <span class="fu">sample</span>(<span class="dv">1</span><span class="sc">:</span><span class="fu">nrow</span>(airquality),<span class="dv">5</span>)</span>
+<span id="cb33-4"><a href="#cb33-4" aria-hidden="true" tabindex="-1"></a>row_num <span class="co"># bu satırdaki değerlere NA atanacak</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1]  28  80 150 101 111</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb37"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a>airquality_2 <span class="ot">&lt;-</span> airquality</span>
-<span id="cb37-2"><a href="#cb37-2" aria-hidden="true" tabindex="-1"></a>airquality_2[row_num,<span class="st">"Wind"</span>] <span class="ot">&lt;-</span> <span class="cn">NA</span></span>
-<span id="cb37-3"><a href="#cb37-3" aria-hidden="true" tabindex="-1"></a>airquality_2[row_num,<span class="st">"Wind"</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a>airquality_2 <span class="ot">&lt;-</span> airquality</span>
+<span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a>airquality_2[row_num,<span class="st">"Wind"</span>] <span class="ot">&lt;-</span> <span class="cn">NA</span></span>
+<span id="cb35-3"><a href="#cb35-3" aria-hidden="true" tabindex="-1"></a>airquality_2[row_num,<span class="st">"Wind"</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] NA NA NA NA NA</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb39"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(airquality_2,<span class="dv">20</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb37"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(airquality_2,<span class="dv">20</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>   Ozone Solar.R Wind Temp Month Day
 1     41     190  7.4   67     5   1
@@ -628,17 +631,17 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 19    30     322 11.5   68     5  19
 20    11      44  9.7   62     5  20</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb41"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a><span class="co"># k parametresi, verilen bir noktaya en yakın komşuların sayısıdır. </span></span>
-<span id="cb41-2"><a href="#cb41-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Örneğin: k=5 olsun. Bu durumda mesafeye (öklit) göre en yakın 5 komşu belirlenir</span></span>
-<span id="cb41-3"><a href="#cb41-3" aria-hidden="true" tabindex="-1"></a><span class="co"># ve mesafenin ağırlıklı ortalaması hesaplanır.</span></span>
-<span id="cb41-4"><a href="#cb41-4" aria-hidden="true" tabindex="-1"></a><span class="co"># ağırlıklandırma, her komşuya 1 / d ağırlığının verilmesini içerir.</span></span>
-<span id="cb41-5"><a href="#cb41-5" aria-hidden="true" tabindex="-1"></a><span class="co"># burada d komşuya olan uzaklıktır.</span></span>
-<span id="cb41-6"><a href="#cb41-6" aria-hidden="true" tabindex="-1"></a>knn_df_air <span class="ot">&lt;-</span> <span class="fu">knnImputation</span>(airquality_2, <span class="at">k =</span> <span class="dv">5</span>) <span class="co"># k komşu sayısı</span></span>
-<span id="cb41-7"><a href="#cb41-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb41-8"><a href="#cb41-8" aria-hidden="true" tabindex="-1"></a>result <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">row=</span>row_num,</span>
-<span id="cb41-9"><a href="#cb41-9" aria-hidden="true" tabindex="-1"></a>                     <span class="at">orig=</span>airquality[row_num,<span class="st">"Wind"</span>],</span>
-<span id="cb41-10"><a href="#cb41-10" aria-hidden="true" tabindex="-1"></a>                     <span class="at">knn=</span>knn_df_air[row_num,<span class="st">"Wind"</span>])</span>
-<span id="cb41-11"><a href="#cb41-11" aria-hidden="true" tabindex="-1"></a>result</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb39"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a><span class="co"># k parametresi, verilen bir noktaya en yakın komşuların sayısıdır. </span></span>
+<span id="cb39-2"><a href="#cb39-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Örneğin: k=5 olsun. Bu durumda mesafeye (öklit) göre en yakın 5 komşu belirlenir</span></span>
+<span id="cb39-3"><a href="#cb39-3" aria-hidden="true" tabindex="-1"></a><span class="co"># ve mesafenin ağırlıklı ortalaması hesaplanır.</span></span>
+<span id="cb39-4"><a href="#cb39-4" aria-hidden="true" tabindex="-1"></a><span class="co"># ağırlıklandırma, her komşuya 1 / d ağırlığının verilmesini içerir.</span></span>
+<span id="cb39-5"><a href="#cb39-5" aria-hidden="true" tabindex="-1"></a><span class="co"># burada d komşuya olan uzaklıktır.</span></span>
+<span id="cb39-6"><a href="#cb39-6" aria-hidden="true" tabindex="-1"></a>knn_df_air <span class="ot">&lt;-</span> <span class="fu">knnImputation</span>(airquality_2, <span class="at">k =</span> <span class="dv">5</span>) <span class="co"># k komşu sayısı</span></span>
+<span id="cb39-7"><a href="#cb39-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb39-8"><a href="#cb39-8" aria-hidden="true" tabindex="-1"></a>result <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">row=</span>row_num,</span>
+<span id="cb39-9"><a href="#cb39-9" aria-hidden="true" tabindex="-1"></a>                     <span class="at">orig=</span>airquality[row_num,<span class="st">"Wind"</span>],</span>
+<span id="cb39-10"><a href="#cb39-10" aria-hidden="true" tabindex="-1"></a>                     <span class="at">knn=</span>knn_df_air[row_num,<span class="st">"Wind"</span>])</span>
+<span id="cb39-11"><a href="#cb39-11" aria-hidden="true" tabindex="-1"></a>result</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>  row orig       knn
 1  28 12.0 10.079819
@@ -647,7 +650,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 4 101  8.0  6.807361
 5 111 10.9 11.237192</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb43"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(result<span class="sc">$</span>orig<span class="sc">-</span>result<span class="sc">$</span>knn)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb41"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(result<span class="sc">$</span>orig<span class="sc">-</span>result<span class="sc">$</span>knn)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 0.4791848</code></pre>
 </div>
@@ -672,19 +675,19 @@ Tavsiye
 <section id="minumum-ve-maximum" class="level3">
 <h3 class="anchored" data-anchor-id="minumum-ve-maximum">Minumum ve Maximum</h3>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb45"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
-<span id="cb45-2"><a href="#cb45-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb45-3"><a href="#cb45-3" aria-hidden="true" tabindex="-1"></a><span class="co"># mpg verisindeki hwy değişkeni üzerinden inceleyelim</span></span>
-<span id="cb45-4"><a href="#cb45-4" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(mpg<span class="sc">$</span>hwy)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb43"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb43-2"><a href="#cb43-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb43-3"><a href="#cb43-3" aria-hidden="true" tabindex="-1"></a><span class="co"># mpg verisindeki hwy değişkeni üzerinden inceleyelim</span></span>
+<span id="cb43-4"><a href="#cb43-4" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(mpg<span class="sc">$</span>hwy)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
   12.00   18.00   24.00   23.44   27.00   44.00 </code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb47"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a><span class="fu">min</span>(mpg<span class="sc">$</span>hwy)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb45"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a><span class="fu">min</span>(mpg<span class="sc">$</span>hwy)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 12</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb49"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb49-1"><a href="#cb49-1" aria-hidden="true" tabindex="-1"></a><span class="fu">max</span>(mpg<span class="sc">$</span>hwy)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb47"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a><span class="fu">max</span>(mpg<span class="sc">$</span>hwy)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 44</code></pre>
 </div>
@@ -693,14 +696,18 @@ Tavsiye
 <section id="histogram" class="level3">
 <h3 class="anchored" data-anchor-id="histogram">Histogram</h3>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb51"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb51-1"><a href="#cb51-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(mpg) <span class="sc">+</span></span>
-<span id="cb51-2"><a href="#cb51-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">aes</span>(<span class="at">x =</span> hwy) <span class="sc">+</span></span>
-<span id="cb51-3"><a href="#cb51-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="at">bins =</span> <span class="dv">20</span>, <span class="at">fill =</span> <span class="st">"blue"</span>) <span class="sc">+</span></span>
-<span id="cb51-4"><a href="#cb51-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb49"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb49-1"><a href="#cb49-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(mpg) <span class="sc">+</span></span>
+<span id="cb49-2"><a href="#cb49-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">aes</span>(<span class="at">x =</span> hwy) <span class="sc">+</span></span>
+<span id="cb49-3"><a href="#cb49-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="at">bins =</span> <span class="dv">20</span>, <span class="at">fill =</span> <span class="st">"blue"</span>) <span class="sc">+</span></span>
+<span id="cb49-4"><a href="#cb49-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="data_preprocess_files/figure-html/unnamed-chunk-4-1.png" class="img-fluid" width="672"></p>
+<div>
+<figure class="figure">
+<p><img src="data_preprocess_files/figure-html/unnamed-chunk-4-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
 </div>
-<div class="sourceCode cell-code" id="cb52"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb52-1"><a href="#cb52-1" aria-hidden="true" tabindex="-1"></a><span class="co"># grafiğiin sağ tarafında kalan gözlemler şüpheli görünüyor.</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="sourceCode cell-code" id="cb50"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb50-1"><a href="#cb50-1" aria-hidden="true" tabindex="-1"></a><span class="co"># grafiğiin sağ tarafında kalan gözlemler şüpheli görünüyor.</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="boxplot" class="level3">
@@ -709,42 +716,46 @@ Tavsiye
 <p><span class="math inline">\(I = [Q_1-1.5 * IQR ; Q_3 + 1.5 * IQR]\)</span></p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="images/boxplot.png" class="img-fluid figure-img"></p>
+<p><img src="images/boxplot.png" class="img-fluid quarto-figure quarto-figure-center figure-img"></p>
 </figure>
 </div>
 <p>IQR ise üçüncü ve birinci çeyrek arasındaki farktır. R içerisindeki <strong><code>IQR()</code></strong> fonksiyonu bu amaçla kullanılabilir.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb53"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb53-1"><a href="#cb53-1" aria-hidden="true" tabindex="-1"></a><span class="co"># temel istatistiklere erişim</span></span>
-<span id="cb53-2"><a href="#cb53-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(mpg<span class="sc">$</span>hwy)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb51"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb51-1"><a href="#cb51-1" aria-hidden="true" tabindex="-1"></a><span class="co"># temel istatistiklere erişim</span></span>
+<span id="cb51-2"><a href="#cb51-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(mpg<span class="sc">$</span>hwy)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
   12.00   18.00   24.00   23.44   27.00   44.00 </code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb55"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb55-1"><a href="#cb55-1" aria-hidden="true" tabindex="-1"></a><span class="fu">fivenum</span>(mpg<span class="sc">$</span>hwy)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb53"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb53-1"><a href="#cb53-1" aria-hidden="true" tabindex="-1"></a><span class="fu">fivenum</span>(mpg<span class="sc">$</span>hwy)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 12 18 24 27 44</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb57"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb57-1"><a href="#cb57-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(mpg) <span class="sc">+</span></span>
-<span id="cb57-2"><a href="#cb57-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">aes</span>(<span class="at">x =</span> <span class="st">""</span>, <span class="at">y =</span> hwy) <span class="sc">+</span></span>
-<span id="cb57-3"><a href="#cb57-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>(<span class="at">fill =</span> <span class="st">"blue"</span>) <span class="sc">+</span></span>
-<span id="cb57-4"><a href="#cb57-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb55"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb55-1"><a href="#cb55-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(mpg) <span class="sc">+</span></span>
+<span id="cb55-2"><a href="#cb55-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">aes</span>(<span class="at">x =</span> <span class="st">""</span>, <span class="at">y =</span> hwy) <span class="sc">+</span></span>
+<span id="cb55-3"><a href="#cb55-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>(<span class="at">fill =</span> <span class="st">"blue"</span>) <span class="sc">+</span></span>
+<span id="cb55-4"><a href="#cb55-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="data_preprocess_files/figure-html/unnamed-chunk-5-1.png" class="img-fluid" width="672"></p>
+<div>
+<figure class="figure">
+<p><img src="data_preprocess_files/figure-html/unnamed-chunk-5-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
 </div>
-<div class="sourceCode cell-code" id="cb58"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb58-1"><a href="#cb58-1" aria-hidden="true" tabindex="-1"></a><span class="co"># outlier değerlerine erişim</span></span>
-<span id="cb58-2"><a href="#cb58-2" aria-hidden="true" tabindex="-1"></a><span class="fu">boxplot.stats</span>(mpg<span class="sc">$</span>hwy)<span class="sc">$</span>out</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="sourceCode cell-code" id="cb56"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb56-1"><a href="#cb56-1" aria-hidden="true" tabindex="-1"></a><span class="co"># outlier değerlerine erişim</span></span>
+<span id="cb56-2"><a href="#cb56-2" aria-hidden="true" tabindex="-1"></a><span class="fu">boxplot.stats</span>(mpg<span class="sc">$</span>hwy)<span class="sc">$</span>out</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 44 44 41</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb60"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb60-1"><a href="#cb60-1" aria-hidden="true" tabindex="-1"></a><span class="co"># outier olarak görülen değerlerin konumları</span></span>
-<span id="cb60-2"><a href="#cb60-2" aria-hidden="true" tabindex="-1"></a>hwy_out <span class="ot">&lt;-</span> <span class="fu">boxplot.stats</span>(mpg<span class="sc">$</span>hwy)<span class="sc">$</span>out</span>
-<span id="cb60-3"><a href="#cb60-3" aria-hidden="true" tabindex="-1"></a>hwy_out_sira <span class="ot">&lt;-</span> <span class="fu">which</span>(mpg<span class="sc">$</span>hwy <span class="sc">%in%</span> <span class="fu">c</span>(hwy_out))</span>
-<span id="cb60-4"><a href="#cb60-4" aria-hidden="true" tabindex="-1"></a>hwy_out_sira</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb58"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb58-1"><a href="#cb58-1" aria-hidden="true" tabindex="-1"></a><span class="co"># outier olarak görülen değerlerin konumları</span></span>
+<span id="cb58-2"><a href="#cb58-2" aria-hidden="true" tabindex="-1"></a>hwy_out <span class="ot">&lt;-</span> <span class="fu">boxplot.stats</span>(mpg<span class="sc">$</span>hwy)<span class="sc">$</span>out</span>
+<span id="cb58-3"><a href="#cb58-3" aria-hidden="true" tabindex="-1"></a>hwy_out_sira <span class="ot">&lt;-</span> <span class="fu">which</span>(mpg<span class="sc">$</span>hwy <span class="sc">%in%</span> <span class="fu">c</span>(hwy_out))</span>
+<span id="cb58-4"><a href="#cb58-4" aria-hidden="true" tabindex="-1"></a>hwy_out_sira</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 213 222 223</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb62"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb62-1"><a href="#cb62-1" aria-hidden="true" tabindex="-1"></a><span class="co"># outlier olarak görülen satırlar</span></span>
-<span id="cb62-2"><a href="#cb62-2" aria-hidden="true" tabindex="-1"></a>mpg[hwy_out_sira, ]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb60"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb60-1"><a href="#cb60-1" aria-hidden="true" tabindex="-1"></a><span class="co"># outlier olarak görülen satırlar</span></span>
+<span id="cb60-2"><a href="#cb60-2" aria-hidden="true" tabindex="-1"></a>mpg[hwy_out_sira, ]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 3 × 11
   manufacturer model      displ  year   cyl trans  drv     cty   hwy fl    class
@@ -759,28 +770,28 @@ Tavsiye
 <h3 class="anchored" data-anchor-id="yüzdelikler-percentiles">Yüzdelikler (Percentiles)</h3>
 <p>Bu aykırı değer tespiti yöntemi, yüzdelik dilimlere dayalıdır. Yüzdelikler yöntemiyle, 2,5 ve 97,5 yüzdelik dilimlerin oluşturduğu aralığın dışında kalan tüm gözlemler potansiyel aykırı değerler olarak kabul edilecektir. Aralığı oluşturmak için 1 ve 99 veya 5 ve 95 yüzdelikler gibi diğer yüzdelikler de düşünülebilir.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb64"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb64-1"><a href="#cb64-1" aria-hidden="true" tabindex="-1"></a>alt_sinir <span class="ot">&lt;-</span> <span class="fu">quantile</span>(mpg<span class="sc">$</span>hwy, <span class="fl">0.025</span>)</span>
-<span id="cb64-2"><a href="#cb64-2" aria-hidden="true" tabindex="-1"></a>alt_sinir</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb62"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb62-1"><a href="#cb62-1" aria-hidden="true" tabindex="-1"></a>alt_sinir <span class="ot">&lt;-</span> <span class="fu">quantile</span>(mpg<span class="sc">$</span>hwy, <span class="fl">0.025</span>)</span>
+<span id="cb62-2"><a href="#cb62-2" aria-hidden="true" tabindex="-1"></a>alt_sinir</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>2.5% 
   14 </code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb66"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb66-1"><a href="#cb66-1" aria-hidden="true" tabindex="-1"></a>ust_sinir <span class="ot">&lt;-</span> <span class="fu">quantile</span>(mpg<span class="sc">$</span>hwy, <span class="fl">0.975</span>)</span>
-<span id="cb66-2"><a href="#cb66-2" aria-hidden="true" tabindex="-1"></a>ust_sinir</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb64"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb64-1"><a href="#cb64-1" aria-hidden="true" tabindex="-1"></a>ust_sinir <span class="ot">&lt;-</span> <span class="fu">quantile</span>(mpg<span class="sc">$</span>hwy, <span class="fl">0.975</span>)</span>
+<span id="cb64-2"><a href="#cb64-2" aria-hidden="true" tabindex="-1"></a>ust_sinir</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code> 97.5% 
 35.175 </code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb68"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb68-1"><a href="#cb68-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Bu yönteme göre, 14'ün altındaki ve 35.175'in üzerindeki tüm gözlemler,</span></span>
-<span id="cb68-2"><a href="#cb68-2" aria-hidden="true" tabindex="-1"></a><span class="co"># potansiyel aykırı değerler olarak kabul edilecektir.</span></span>
-<span id="cb68-3"><a href="#cb68-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb68-4"><a href="#cb68-4" aria-hidden="true" tabindex="-1"></a>outlier_sira <span class="ot">&lt;-</span> <span class="fu">which</span>(mpg<span class="sc">$</span>hwy <span class="sc">&lt;</span> alt_sinir <span class="sc">|</span> mpg<span class="sc">$</span>hwy <span class="sc">&gt;</span> ust_sinir)</span>
-<span id="cb68-5"><a href="#cb68-5" aria-hidden="true" tabindex="-1"></a>outlier_sira</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb66"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb66-1"><a href="#cb66-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Bu yönteme göre, 14'ün altındaki ve 35.175'in üzerindeki tüm gözlemler,</span></span>
+<span id="cb66-2"><a href="#cb66-2" aria-hidden="true" tabindex="-1"></a><span class="co"># potansiyel aykırı değerler olarak kabul edilecektir.</span></span>
+<span id="cb66-3"><a href="#cb66-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb66-4"><a href="#cb66-4" aria-hidden="true" tabindex="-1"></a>outlier_sira <span class="ot">&lt;-</span> <span class="fu">which</span>(mpg<span class="sc">$</span>hwy <span class="sc">&lt;</span> alt_sinir <span class="sc">|</span> mpg<span class="sc">$</span>hwy <span class="sc">&gt;</span> ust_sinir)</span>
+<span id="cb66-5"><a href="#cb66-5" aria-hidden="true" tabindex="-1"></a>outlier_sira</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code> [1]  55  60  66  70 106 107 127 197 213 222 223</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb70"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb70-1"><a href="#cb70-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Bu yönteme göre 11 adet outlier bulunmuştur.</span></span>
-<span id="cb70-2"><a href="#cb70-2" aria-hidden="true" tabindex="-1"></a>mpg[outlier_sira,]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb68"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb68-1"><a href="#cb68-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Bu yönteme göre 11 adet outlier bulunmuştur.</span></span>
+<span id="cb68-2"><a href="#cb68-2" aria-hidden="true" tabindex="-1"></a>mpg[outlier_sira,]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 11 × 11
    manufacturer model      displ  year   cyl trans drv     cty   hwy fl    class
@@ -797,13 +808,13 @@ Tavsiye
 10 volkswagen   new beetle   1.9  1999     4 manu… f        35    44 d     subc…
 11 volkswagen   new beetle   1.9  1999     4 auto… f        29    41 d     subc…</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb72"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb72-1"><a href="#cb72-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Sınırları biraz daha küçültelim</span></span>
-<span id="cb72-2"><a href="#cb72-2" aria-hidden="true" tabindex="-1"></a>alt_sinir <span class="ot">&lt;-</span> <span class="fu">quantile</span>(mpg<span class="sc">$</span>hwy, <span class="fl">0.01</span>)</span>
-<span id="cb72-3"><a href="#cb72-3" aria-hidden="true" tabindex="-1"></a>ust_sinir <span class="ot">&lt;-</span> <span class="fu">quantile</span>(mpg<span class="sc">$</span>hwy, <span class="fl">0.99</span>)</span>
-<span id="cb72-4"><a href="#cb72-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb72-5"><a href="#cb72-5" aria-hidden="true" tabindex="-1"></a>outlier_sira <span class="ot">&lt;-</span> <span class="fu">which</span>(mpg<span class="sc">$</span>hwy <span class="sc">&lt;</span> alt_sinir <span class="sc">|</span> mpg<span class="sc">$</span>hwy <span class="sc">&gt;</span> ust_sinir)</span>
-<span id="cb72-6"><a href="#cb72-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb72-7"><a href="#cb72-7" aria-hidden="true" tabindex="-1"></a>mpg[outlier_sira, ]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb70"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb70-1"><a href="#cb70-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Sınırları biraz daha küçültelim</span></span>
+<span id="cb70-2"><a href="#cb70-2" aria-hidden="true" tabindex="-1"></a>alt_sinir <span class="ot">&lt;-</span> <span class="fu">quantile</span>(mpg<span class="sc">$</span>hwy, <span class="fl">0.01</span>)</span>
+<span id="cb70-3"><a href="#cb70-3" aria-hidden="true" tabindex="-1"></a>ust_sinir <span class="ot">&lt;-</span> <span class="fu">quantile</span>(mpg<span class="sc">$</span>hwy, <span class="fl">0.99</span>)</span>
+<span id="cb70-4"><a href="#cb70-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb70-5"><a href="#cb70-5" aria-hidden="true" tabindex="-1"></a>outlier_sira <span class="ot">&lt;-</span> <span class="fu">which</span>(mpg<span class="sc">$</span>hwy <span class="sc">&lt;</span> alt_sinir <span class="sc">|</span> mpg<span class="sc">$</span>hwy <span class="sc">&gt;</span> ust_sinir)</span>
+<span id="cb70-6"><a href="#cb70-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb70-7"><a href="#cb70-7" aria-hidden="true" tabindex="-1"></a>mpg[outlier_sira, ]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 3 × 11
   manufacturer model      displ  year   cyl trans  drv     cty   hwy fl    class
@@ -812,7 +823,7 @@ Tavsiye
 2 volkswagen   new beetle   1.9  1999     4 manua… f        35    44 d     subc…
 3 volkswagen   new beetle   1.9  1999     4 auto(… f        29    41 d     subc…</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb74"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb74-1"><a href="#cb74-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Buna göre IQR ile elde edildiği gibi 3 adet outlier bulundu.</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb72"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb72-1"><a href="#cb72-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Buna göre IQR ile elde edildiği gibi 3 adet outlier bulundu.</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="z-skor-yöntemi" class="level3">
@@ -821,18 +832,18 @@ Tavsiye
 <p><span class="math inline">\(Z_i = \frac{(X_i -\mu)}{\sigma}\)</span></p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="images/sigma.png" class="img-fluid figure-img"></p>
+<p><img src="images/sigma.png" class="img-fluid quarto-figure quarto-figure-center figure-img"></p>
 </figure>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb75"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb75-1"><a href="#cb75-1" aria-hidden="true" tabindex="-1"></a>std_z <span class="ot">&lt;-</span> <span class="cf">function</span>(x){</span>
-<span id="cb75-2"><a href="#cb75-2" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb75-3"><a href="#cb75-3" aria-hidden="true" tabindex="-1"></a>  z<span class="ot">=</span>(x<span class="sc">-</span><span class="fu">mean</span>(x))<span class="sc">/</span><span class="fu">sd</span>(x)</span>
-<span id="cb75-4"><a href="#cb75-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(z)</span>
-<span id="cb75-5"><a href="#cb75-5" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb75-6"><a href="#cb75-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb75-7"><a href="#cb75-7" aria-hidden="true" tabindex="-1"></a>mpg<span class="sc">$</span>hwy_std <span class="ot">&lt;-</span> <span class="fu">std_z</span>(mpg<span class="sc">$</span>hwy)</span>
-<span id="cb75-8"><a href="#cb75-8" aria-hidden="true" tabindex="-1"></a>mpg[,<span class="fu">c</span>(<span class="st">"hwy"</span>,<span class="st">"hwy_std"</span>)]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb73"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb73-1"><a href="#cb73-1" aria-hidden="true" tabindex="-1"></a>std_z <span class="ot">&lt;-</span> <span class="cf">function</span>(x){</span>
+<span id="cb73-2"><a href="#cb73-2" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb73-3"><a href="#cb73-3" aria-hidden="true" tabindex="-1"></a>  z<span class="ot">=</span>(x<span class="sc">-</span><span class="fu">mean</span>(x))<span class="sc">/</span><span class="fu">sd</span>(x)</span>
+<span id="cb73-4"><a href="#cb73-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(z)</span>
+<span id="cb73-5"><a href="#cb73-5" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb73-6"><a href="#cb73-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb73-7"><a href="#cb73-7" aria-hidden="true" tabindex="-1"></a>mpg<span class="sc">$</span>hwy_std <span class="ot">&lt;-</span> <span class="fu">std_z</span>(mpg<span class="sc">$</span>hwy)</span>
+<span id="cb73-8"><a href="#cb73-8" aria-hidden="true" tabindex="-1"></a>mpg[,<span class="fu">c</span>(<span class="st">"hwy"</span>,<span class="st">"hwy_std"</span>)]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 234 × 2
      hwy hwy_std
@@ -849,17 +860,17 @@ Tavsiye
 10    28   0.766
 # ℹ 224 more rows</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb77"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb77-1"><a href="#cb77-1" aria-hidden="true" tabindex="-1"></a><span class="co"># -3 ve +3 sapma dışında kalanları aykırı değer olarak kabul ediyoruz.</span></span>
-<span id="cb77-2"><a href="#cb77-2" aria-hidden="true" tabindex="-1"></a>outliers_zskor <span class="ot">&lt;-</span> <span class="fu">which</span>(mpg<span class="sc">$</span>hwy_std <span class="sc">&lt;</span> <span class="sc">-</span><span class="dv">3</span> <span class="sc">|</span> mpg<span class="sc">$</span>hwy_std <span class="sc">&gt;</span> <span class="sc">+</span><span class="dv">3</span>)</span>
-<span id="cb77-3"><a href="#cb77-3" aria-hidden="true" tabindex="-1"></a>outliers_zskor</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb75"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb75-1"><a href="#cb75-1" aria-hidden="true" tabindex="-1"></a><span class="co"># -3 ve +3 sapma dışında kalanları aykırı değer olarak kabul ediyoruz.</span></span>
+<span id="cb75-2"><a href="#cb75-2" aria-hidden="true" tabindex="-1"></a>outliers_zskor <span class="ot">&lt;-</span> <span class="fu">which</span>(mpg<span class="sc">$</span>hwy_std <span class="sc">&lt;</span> <span class="sc">-</span><span class="dv">3</span> <span class="sc">|</span> mpg<span class="sc">$</span>hwy_std <span class="sc">&gt;</span> <span class="sc">+</span><span class="dv">3</span>)</span>
+<span id="cb75-3"><a href="#cb75-3" aria-hidden="true" tabindex="-1"></a>outliers_zskor</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 213 222</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb79"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb79-1"><a href="#cb79-1" aria-hidden="true" tabindex="-1"></a>mpg[outliers_zskor,<span class="fu">c</span>() ]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb77"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb77-1"><a href="#cb77-1" aria-hidden="true" tabindex="-1"></a>mpg[outliers_zskor,<span class="fu">c</span>() ]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 2 × 0</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb81"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb81-1"><a href="#cb81-1" aria-hidden="true" tabindex="-1"></a><span class="co"># bu yönteme göre 2 adet aykırı değer bulunmuştur.</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb79"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb79-1"><a href="#cb79-1" aria-hidden="true" tabindex="-1"></a><span class="co"># bu yönteme göre 2 adet aykırı değer bulunmuştur.</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 </section>
@@ -867,30 +878,30 @@ Tavsiye
 <h2 class="anchored" data-anchor-id="veri-normalleştirme">Veri Normalleştirme</h2>
 <p>Değişkenler farklı ölçeklerde ölçüldüğünde, genellikle analize eşit katkıda bulunmazlar. Örneğin, bir değişkenin değerleri 0 ile 100.000 arasında ve başka bir değişkenin değerleri 0 ile 100 arasında değişiyorsa, daha büyük aralığa sahip değişkene analizde daha büyük bir ağırlık verilecektir. Değişkenleri normalleştirerek, her bir değişkenin analize eşit katkı sağladığından emin olabiliriz. Değişkenleri normalleştirmek için (veya ölçeklendirmek) genellikle min-max ya da z dönüşümü yöntemleri kullanılır.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb82"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb82-1"><a href="#cb82-1" aria-hidden="true" tabindex="-1"></a><span class="co"># min-max dönüşümleri</span></span>
-<span id="cb82-2"><a href="#cb82-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb82-3"><a href="#cb82-3" aria-hidden="true" tabindex="-1"></a><span class="co"># 0 ile 1 arasi dönüşüm</span></span>
-<span id="cb82-4"><a href="#cb82-4" aria-hidden="true" tabindex="-1"></a>std_0_1 <span class="ot">&lt;-</span> <span class="cf">function</span>(x) {</span>
-<span id="cb82-5"><a href="#cb82-5" aria-hidden="true" tabindex="-1"></a>  (x <span class="sc">-</span> <span class="fu">min</span>(x)) <span class="sc">/</span> (<span class="fu">max</span>(x) <span class="sc">-</span> <span class="fu">min</span>(x))</span>
-<span id="cb82-6"><a href="#cb82-6" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb82-7"><a href="#cb82-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb82-8"><a href="#cb82-8" aria-hidden="true" tabindex="-1"></a><span class="co">#-1 ile +1 arası dönüşüm </span></span>
-<span id="cb82-9"><a href="#cb82-9" aria-hidden="true" tabindex="-1"></a>std_1_1 <span class="ot">&lt;-</span> <span class="cf">function</span>(x) {</span>
-<span id="cb82-10"><a href="#cb82-10" aria-hidden="true" tabindex="-1"></a>  ((x <span class="sc">-</span> <span class="fu">mean</span>(x)) <span class="sc">/</span> <span class="fu">max</span>(<span class="fu">abs</span>(x <span class="sc">-</span> <span class="fu">mean</span>(x))))</span>
-<span id="cb82-11"><a href="#cb82-11" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb82-12"><a href="#cb82-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb82-13"><a href="#cb82-13" aria-hidden="true" tabindex="-1"></a><span class="co"># a ile b arası dönüşüm </span></span>
-<span id="cb82-14"><a href="#cb82-14" aria-hidden="true" tabindex="-1"></a>std_min_max <span class="ot">&lt;-</span> <span class="cf">function</span>(x,a,b) {</span>
-<span id="cb82-15"><a href="#cb82-15" aria-hidden="true" tabindex="-1"></a>  <span class="co"># a min değer</span></span>
-<span id="cb82-16"><a href="#cb82-16" aria-hidden="true" tabindex="-1"></a>  <span class="co"># b max değer</span></span>
-<span id="cb82-17"><a href="#cb82-17" aria-hidden="true" tabindex="-1"></a>  (a <span class="sc">+</span> ((x <span class="sc">-</span> <span class="fu">min</span>(x)) <span class="sc">*</span> (b <span class="sc">-</span> a)) <span class="sc">/</span> (<span class="fu">max</span>(x) <span class="sc">-</span> <span class="fu">min</span>(x)))</span>
-<span id="cb82-18"><a href="#cb82-18" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb82-19"><a href="#cb82-19" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb82-20"><a href="#cb82-20" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">12345</span>)</span>
-<span id="cb82-21"><a href="#cb82-21" aria-hidden="true" tabindex="-1"></a>dat <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">x =</span> <span class="fu">rnorm</span>(<span class="dv">20</span>, <span class="dv">10</span>, <span class="dv">3</span>),</span>
-<span id="cb82-22"><a href="#cb82-22" aria-hidden="true" tabindex="-1"></a>                  <span class="at">y =</span> <span class="fu">rnorm</span>(<span class="dv">20</span>, <span class="dv">30</span>, <span class="dv">8</span>),</span>
-<span id="cb82-23"><a href="#cb82-23" aria-hidden="true" tabindex="-1"></a>                  <span class="at">z =</span> <span class="fu">rnorm</span>(<span class="dv">20</span>, <span class="dv">25</span>, <span class="dv">5</span>))</span>
-<span id="cb82-24"><a href="#cb82-24" aria-hidden="true" tabindex="-1"></a>dat</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb80"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb80-1"><a href="#cb80-1" aria-hidden="true" tabindex="-1"></a><span class="co"># min-max dönüşümleri</span></span>
+<span id="cb80-2"><a href="#cb80-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb80-3"><a href="#cb80-3" aria-hidden="true" tabindex="-1"></a><span class="co"># 0 ile 1 arasi dönüşüm</span></span>
+<span id="cb80-4"><a href="#cb80-4" aria-hidden="true" tabindex="-1"></a>std_0_1 <span class="ot">&lt;-</span> <span class="cf">function</span>(x) {</span>
+<span id="cb80-5"><a href="#cb80-5" aria-hidden="true" tabindex="-1"></a>  (x <span class="sc">-</span> <span class="fu">min</span>(x)) <span class="sc">/</span> (<span class="fu">max</span>(x) <span class="sc">-</span> <span class="fu">min</span>(x))</span>
+<span id="cb80-6"><a href="#cb80-6" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb80-7"><a href="#cb80-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb80-8"><a href="#cb80-8" aria-hidden="true" tabindex="-1"></a><span class="co">#-1 ile +1 arası dönüşüm </span></span>
+<span id="cb80-9"><a href="#cb80-9" aria-hidden="true" tabindex="-1"></a>std_1_1 <span class="ot">&lt;-</span> <span class="cf">function</span>(x) {</span>
+<span id="cb80-10"><a href="#cb80-10" aria-hidden="true" tabindex="-1"></a>  ((x <span class="sc">-</span> <span class="fu">mean</span>(x)) <span class="sc">/</span> <span class="fu">max</span>(<span class="fu">abs</span>(x <span class="sc">-</span> <span class="fu">mean</span>(x))))</span>
+<span id="cb80-11"><a href="#cb80-11" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb80-12"><a href="#cb80-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb80-13"><a href="#cb80-13" aria-hidden="true" tabindex="-1"></a><span class="co"># a ile b arası dönüşüm </span></span>
+<span id="cb80-14"><a href="#cb80-14" aria-hidden="true" tabindex="-1"></a>std_min_max <span class="ot">&lt;-</span> <span class="cf">function</span>(x,a,b) {</span>
+<span id="cb80-15"><a href="#cb80-15" aria-hidden="true" tabindex="-1"></a>  <span class="co"># a min değer</span></span>
+<span id="cb80-16"><a href="#cb80-16" aria-hidden="true" tabindex="-1"></a>  <span class="co"># b max değer</span></span>
+<span id="cb80-17"><a href="#cb80-17" aria-hidden="true" tabindex="-1"></a>  (a <span class="sc">+</span> ((x <span class="sc">-</span> <span class="fu">min</span>(x)) <span class="sc">*</span> (b <span class="sc">-</span> a)) <span class="sc">/</span> (<span class="fu">max</span>(x) <span class="sc">-</span> <span class="fu">min</span>(x)))</span>
+<span id="cb80-18"><a href="#cb80-18" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb80-19"><a href="#cb80-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb80-20"><a href="#cb80-20" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">12345</span>)</span>
+<span id="cb80-21"><a href="#cb80-21" aria-hidden="true" tabindex="-1"></a>dat <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">x =</span> <span class="fu">rnorm</span>(<span class="dv">20</span>, <span class="dv">10</span>, <span class="dv">3</span>),</span>
+<span id="cb80-22"><a href="#cb80-22" aria-hidden="true" tabindex="-1"></a>                  <span class="at">y =</span> <span class="fu">rnorm</span>(<span class="dv">20</span>, <span class="dv">30</span>, <span class="dv">8</span>),</span>
+<span id="cb80-23"><a href="#cb80-23" aria-hidden="true" tabindex="-1"></a>                  <span class="at">z =</span> <span class="fu">rnorm</span>(<span class="dv">20</span>, <span class="dv">25</span>, <span class="dv">5</span>))</span>
+<span id="cb80-24"><a href="#cb80-24" aria-hidden="true" tabindex="-1"></a>dat</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>           x        y        z
 1  11.756586 36.23698 30.64255
@@ -914,7 +925,7 @@ Tavsiye
 19 13.362138 44.14187 35.72533
 20 10.896171 30.20641 13.26528</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb84"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb84-1"><a href="#cb84-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(dat)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb82"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb82-1"><a href="#cb82-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(dat)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>       x                y               z        
  Min.   : 4.546   Min.   :16.70   Min.   :13.10  
@@ -924,7 +935,7 @@ Tavsiye
  3rd Qu.:11.836   3rd Qu.:42.00   3rd Qu.:29.38  
  Max.   :15.452   Max.   :47.57   Max.   :35.73  </code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb86"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb86-1"><a href="#cb86-1" aria-hidden="true" tabindex="-1"></a><span class="fu">apply</span>(dat, <span class="dv">2</span>, std_0_1)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb84"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb84-1"><a href="#cb84-1" aria-hidden="true" tabindex="-1"></a><span class="fu">apply</span>(dat, <span class="dv">2</span>, std_0_1)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>              x          y           z
  [1,] 0.6611575 0.63274053 0.775368144
@@ -948,7 +959,7 @@ Tavsiye
 [19,] 0.8083774 0.88880212 1.000000000
 [20,] 0.5822623 0.43739366 0.007383637</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb88"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb88-1"><a href="#cb88-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb86"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb86-1"><a href="#cb86-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>
 Attaching package: 'dplyr'</code></pre>
@@ -963,7 +974,7 @@ Attaching package: 'dplyr'</code></pre>
 
     intersect, setdiff, setequal, union</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb92"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb92-1"><a href="#cb92-1" aria-hidden="true" tabindex="-1"></a>dat <span class="sc">%&gt;%</span> <span class="fu">mutate_all</span>(std_0_1) <span class="sc">%&gt;%</span> <span class="fu">summary</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb90"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb90-1"><a href="#cb90-1" aria-hidden="true" tabindex="-1"></a>dat <span class="sc">%&gt;%</span> <span class="fu">mutate_all</span>(std_0_1) <span class="sc">%&gt;%</span> <span class="fu">summary</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>       x                y                z         
  Min.   :0.0000   Min.   :0.0000   Min.   :0.0000  
@@ -973,7 +984,7 @@ Attaching package: 'dplyr'</code></pre>
  3rd Qu.:0.6684   3rd Qu.:0.8194   3rd Qu.:0.7194  
  Max.   :1.0000   Max.   :1.0000   Max.   :1.0000  </code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb94"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb94-1"><a href="#cb94-1" aria-hidden="true" tabindex="-1"></a>dat <span class="sc">%&gt;%</span> <span class="fu">mutate_all</span>(std_1_1) <span class="sc">%&gt;%</span> <span class="fu">summary</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb92"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb92-1"><a href="#cb92-1" aria-hidden="true" tabindex="-1"></a>dat <span class="sc">%&gt;%</span> <span class="fu">mutate_all</span>(std_1_1) <span class="sc">%&gt;%</span> <span class="fu">summary</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>       x                   y                  z          
  Min.   :-1.000000   Min.   :-1.00000   Min.   :-1.0000  
@@ -983,7 +994,7 @@ Attaching package: 'dplyr'</code></pre>
  3rd Qu.: 0.282624   3rd Qu.: 0.53057   3rd Qu.: 0.3098  
  Max.   : 0.918881   Max.   : 0.86789   Max.   : 0.8207  </code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb96"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb96-1"><a href="#cb96-1" aria-hidden="true" tabindex="-1"></a>dat <span class="sc">%&gt;%</span> <span class="fu">mutate_all</span>(std_min_max, <span class="at">a =</span> <span class="sc">-</span><span class="dv">2</span>, <span class="at">b =</span> <span class="dv">2</span>) <span class="sc">%&gt;%</span> <span class="fu">summary</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb94"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb94-1"><a href="#cb94-1" aria-hidden="true" tabindex="-1"></a>dat <span class="sc">%&gt;%</span> <span class="fu">mutate_all</span>(std_min_max, <span class="at">a =</span> <span class="sc">-</span><span class="dv">2</span>, <span class="at">b =</span> <span class="dv">2</span>) <span class="sc">%&gt;%</span> <span class="fu">summary</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>       x                  y                 z          
  Min.   :-2.00000   Min.   :-2.0000   Min.   :-2.0000  
@@ -993,7 +1004,7 @@ Attaching package: 'dplyr'</code></pre>
  3rd Qu.: 0.67369   3rd Qu.: 1.2776   3rd Qu.: 0.8775  
  Max.   : 2.00000   Max.   : 2.0000   Max.   : 2.0000  </code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb98"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb98-1"><a href="#cb98-1" aria-hidden="true" tabindex="-1"></a>dat <span class="sc">%&gt;%</span> <span class="fu">mutate_all</span>(std_z) <span class="sc">%&gt;%</span> <span class="fu">summary</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb96"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb96-1"><a href="#cb96-1" aria-hidden="true" tabindex="-1"></a>dat <span class="sc">%&gt;%</span> <span class="fu">mutate_all</span>(std_z) <span class="sc">%&gt;%</span> <span class="fu">summary</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>       x                  y                 z          
  Min.   :-2.27173   Min.   :-1.7088   Min.   :-1.9165  
@@ -1003,12 +1014,16 @@ Attaching package: 'dplyr'</code></pre>
  3rd Qu.: 0.64204   3rd Qu.: 0.9067   3rd Qu.: 0.5937  
  Max.   : 2.08745   Max.   : 1.4831   Max.   : 1.5729  </code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb100"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb100-1"><a href="#cb100-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Yapılan dönüşümler verinin dağılımını değiştirmemektedir.</span></span>
-<span id="cb100-2"><a href="#cb100-2" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow=</span><span class="fu">c</span>(<span class="dv">2</span>,<span class="dv">1</span>))</span>
-<span id="cb100-3"><a href="#cb100-3" aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>(dat<span class="sc">$</span>x,<span class="at">main=</span><span class="st">"original data"</span>,<span class="at">col=</span><span class="st">"blue"</span>)</span>
-<span id="cb100-4"><a href="#cb100-4" aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>(<span class="fu">std_0_1</span>(dat<span class="sc">$</span>x),<span class="at">main=</span><span class="st">"normalize data"</span>,<span class="at">col=</span><span class="st">"red"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb98"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb98-1"><a href="#cb98-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Yapılan dönüşümler verinin dağılımını değiştirmemektedir.</span></span>
+<span id="cb98-2"><a href="#cb98-2" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow=</span><span class="fu">c</span>(<span class="dv">2</span>,<span class="dv">1</span>))</span>
+<span id="cb98-3"><a href="#cb98-3" aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>(dat<span class="sc">$</span>x,<span class="at">main=</span><span class="st">"original data"</span>,<span class="at">col=</span><span class="st">"blue"</span>)</span>
+<span id="cb98-4"><a href="#cb98-4" aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>(<span class="fu">std_0_1</span>(dat<span class="sc">$</span>x),<span class="at">main=</span><span class="st">"normalize data"</span>,<span class="at">col=</span><span class="st">"red"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="data_preprocess_files/figure-html/unnamed-chunk-8-1.png" class="img-fluid" width="960"></p>
+<div>
+<figure class="figure">
+<p><img src="data_preprocess_files/figure-html/unnamed-chunk-8-1.png" class="img-fluid figure-img" width="960"></p>
+</figure>
+</div>
 </div>
 </div>
 
@@ -1057,6 +1072,33 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       } else {
         el.classList.add('notransition');
       }
+    }
+  }
+  const toggleGiscusIfUsed = (isAlternate, darkModeDefault) => {
+    const baseTheme = document.querySelector('#giscus-base-theme')?.value ?? 'light';
+    const alternateTheme = document.querySelector('#giscus-alt-theme')?.value ?? 'dark';
+    let newTheme = '';
+    if(darkModeDefault) {
+      newTheme = isAlternate ? baseTheme : alternateTheme;
+    } else {
+      newTheme = isAlternate ? alternateTheme : baseTheme;
+    }
+    const changeGiscusTheme = () => {
+      // From: https://github.com/giscus/giscus/issues/336
+      const sendMessage = (message) => {
+        const iframe = document.querySelector('iframe.giscus-frame');
+        if (!iframe) return;
+        iframe.contentWindow.postMessage({ giscus: message }, 'https://giscus.app');
+      }
+      sendMessage({
+        setConfig: {
+          theme: newTheme
+        }
+      });
+    }
+    const isGiscussLoaded = window.document.querySelector('iframe.giscus-frame') !== null;
+    if (isGiscussLoaded) {
+      changeGiscusTheme();
     }
   }
   const toggleColorMode = (alternate) => {
@@ -1125,13 +1167,15 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       return localAlternateSentinel;
     }
   }
-  let localAlternateSentinel = 'default';
+  const darkModeDefault = false;
+  let localAlternateSentinel = darkModeDefault ? 'alternate' : 'default';
   // Dark / light mode switch
   window.quartoToggleColorScheme = () => {
     // Read the current dark / light value 
     let toAlternate = !hasAlternateSentinel();
     toggleColorMode(toAlternate);
     setStyleSentinel(toAlternate);
+    toggleGiscusIfUsed(toAlternate, darkModeDefault);
   };
   // Ensure there is a toggle, if there isn't float one in the top right
   if (window.document.querySelector('.quarto-color-scheme-toggle') === null) {
@@ -1210,10 +1254,9 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     // clear code selection
     e.clearSelection();
   });
-  function tippyHover(el, contentFn) {
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
     const config = {
       allowHTML: true,
-      content: contentFn,
       maxWidth: 500,
       delay: 100,
       arrow: false,
@@ -1223,8 +1266,17 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       interactive: true,
       interactiveBorder: 10,
       theme: 'quarto',
-      placement: 'bottom-start'
+      placement: 'bottom-start',
     };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
     window.tippy(el, config); 
   }
   const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
@@ -1237,6 +1289,120 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       const id = href.replace(/^#\/?/, "");
       const note = window.document.getElementById(id);
       return note.innerHTML;
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
+        return container.innerHTML
+      } else {
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      return note.innerHTML;
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
     });
   }
       let selectedAnnoteEl;
@@ -1280,6 +1446,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
             }
             div.style.top = top - 2 + "px";
             div.style.height = height + 4 + "px";
+            div.style.left = 0;
             let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
             if (gutterDiv === null) {
               gutterDiv = window.document.createElement("div");
@@ -1305,6 +1472,32 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
         });
         selectedAnnoteEl = undefined;
       };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
       // Attach click handler to the DT
       const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
       for (const annoteDlNode of annoteDls) {
@@ -1366,12 +1559,12 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="./ggplot2.html" class="pagination-link">
+      <a href="./ggplot2.html" class="pagination-link  aria-label=" ggplot2="" ile="" veri="" görselleştirme"="">
         <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">ggplot2 ile Veri Görselleştirme</span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./statistics.html" class="pagination-link">
+      <a href="./statistics.html" class="pagination-link" aria-label="R ile Temel İstatistik">
         <span class="nav-page-text">R ile Temel İstatistik</span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
@@ -1379,13 +1572,18 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </div> <!-- /content -->
 <footer class="footer">
   <div class="nav-footer">
-    <div class="nav-footer-left">© 2023, <a href="https://www.linkedin.com/in/dr-m-fatih-t-2b2a4328/">Muhammed Fatih Tüzen</a></div>   
+    <div class="nav-footer-left">
+<p>© 2023, <a href="https://www.linkedin.com/in/dr-m-fatih-t-2b2a4328/">Muhammed Fatih Tüzen</a></p>
+</div>   
     <div class="nav-footer-center">
       &nbsp;
-    </div>
-    <div class="nav-footer-right">Bu kitap <a href="https://quarto.org/">Quarto</a> ile hazırlanmıştır.</div>
+    <div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/MFatihTuzen/r-book-tr/edit/main/data_preprocess.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/MFatihTuzen/r-book-tr/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div>
+    <div class="nav-footer-right">
+<p>Bu kitap <a href="https://quarto.org/">Quarto</a> ile hazırlanmıştır.</p>
+</div>
   </div>
 </footer>
+
 
 
 

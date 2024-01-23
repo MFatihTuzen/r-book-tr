@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.3.450">
+<meta name="generator" content="quarto-1.4.538">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -22,7 +22,7 @@ ul.task-list li input[type="checkbox"] {
 }
 /* CSS for syntax highlighting */
 pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span { line-height: 1.25; }
 pre > code.sourceCode > span:empty { height: 1.2em; }
 .sourceCode { overflow: visible; }
 code.sourceCode > span { color: inherit; text-decoration: inherit; }
@@ -83,7 +83,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   "collapse-after": 3,
   "panel-placement": "end",
   "type": "textbox",
-  "limit": 20,
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
   "language": {
     "search-no-results-text": "No results",
     "search-matching-documents-text": "matching documents",
@@ -92,6 +97,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     "search-more-match-text": "more match in this document",
     "search-more-matches-text": "more matches in this document",
     "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
     "search-detached-cancel-button-title": "Cancel",
     "search-submit-button-title": "Submit",
     "search-label": "Search"
@@ -108,27 +114,24 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <header id="quarto-header" class="headroom fixed-top">
   <nav class="quarto-secondary-nav">
     <div class="container-fluid d-flex">
-      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./R_intro.html">R Programlamaya Giriş</a></li><li class="breadcrumb-item"><a href="./data_types.html"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Veri Tipleri ve Yapıları</span></a></li></ol></nav>
-      <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
-      </a>
-      <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
-        <i class="bi bi-search"></i>
-      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./R_intro.html">R Programlamaya Giriş</a></li><li class="breadcrumb-item"><a href="./data_types.html"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Veri Tipleri ve Yapıları</span></a></li></ol></nav>
+        <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
     </div>
   </nav>
 </header>
 <!-- content -->
 <div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
 <!-- sidebar -->
-  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal sidebar-navigation floating overflow-auto">
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
     <div class="pt-lg-2 mt-2 text-left sidebar-header">
     <div class="sidebar-title mb-0 py-0">
       <a href="./">R Programlama</a> 
         <div class="sidebar-tools-main tools-wide">
-    <a href="https://github.com/MFatihTuzen/r-book-tr" rel="" title="Source Code" class="quarto-navigation-tool px-1" aria-label="Source Code"><i class="bi bi-github"></i></a>
+    <a href="https://github.com/MFatihTuzen/r-book-tr" title="Source Code" class="quarto-navigation-tool px-1" aria-label="Source Code"><i class="bi bi-github"></i></a>
   <a href="" class="quarto-color-scheme-toggle quarto-navigation-tool  px-1" onclick="window.quartoToggleColorScheme(); return false;" title="Toggle dark mode"><i class="bi"></i></a>
   <a href="" class="quarto-reader-toggle quarto-navigation-tool px-1" onclick="window.quartoToggleReader(); return false;" title="Toggle reader mode">
   <div class="quarto-reader-toggle-btn">
@@ -138,11 +141,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
     </div>
       </div>
-        <div class="mt-2 flex-shrink-0 align-items-center">
-        <div class="sidebar-search">
-        <div id="quarto-search" class="" title="Search"></div>
-        </div>
-        </div>
     <div class="sidebar-menu-container"> 
     <ul class="list-unstyled mt-1">
         <li class="sidebar-item">
@@ -255,7 +253,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     </ul>
     </div>
 </nav>
-<div id="quarto-sidebar-glass" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass"></div>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
         <nav id="TOC" role="doc-toc" class="toc-active">
@@ -273,12 +271,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#faktörler" id="toc-faktörler" class="nav-link" data-scroll-target="#faktörler"><span class="header-section-number">2.2.6</span> Faktörler</a></li>
   </ul></li>
   </ul>
-<div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.com/MFatihTuzen/r-book-tr/edit/main/data_types.qmd" class="toc-action">Edit this page</a></p><p><a href="https://github.com/MFatihTuzen/r-book-tr/issues/new" class="toc-action">Report an issue</a></p></div></div></nav>
+<div class="toc-actions"><ul><li><a href="https://github.com/MFatihTuzen/r-book-tr/edit/main/data_types.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/MFatihTuzen/r-book-tr/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default">
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./R_intro.html">R Programlamaya Giriş</a></li><li class="breadcrumb-item"><a href="./data_types.html"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Veri Tipleri ve Yapıları</span></a></li></ol></nav>
 <div class="quarto-title">
 <h1 class="title"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Veri Tipleri ve Yapıları</span></h1>
 </div>
@@ -293,7 +291,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </div>
   
 
+
 </header>
+
 
 <section id="veri-tipleri" class="level2" data-number="2.1">
 <h2 data-number="2.1" class="anchored" data-anchor-id="veri-tipleri"><span class="header-section-number">2.1</span> Veri Tipleri</h2>
@@ -351,7 +351,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] FALSE</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>c <span class="ot">&lt;-</span> 6L <span class="co"># integer olması için sayının sağına L yazılır.</span></span>
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>c <span class="ot">&lt;-</span> <span class="dv">6</span>L <span class="co"># integer olması için sayının sağına L yazılır.</span></span>
 <span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(c)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] "integer"</code></pre>
@@ -367,7 +367,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 <p><strong>complex</strong></p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>z <span class="ot">&lt;-</span> <span class="dv">4</span> <span class="sc">+</span> 2i</span>
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>z <span class="ot">&lt;-</span> <span class="dv">4</span> <span class="sc">+</span> <span class="dv">2</span>i</span>
 <span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(z)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] "complex"</code></pre>
@@ -408,8 +408,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h2 data-number="2.2" class="anchored" data-anchor-id="veri-yapıları"><span class="header-section-number">2.2</span> Veri Yapıları</h2>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="images/data_structures.png" class="img-fluid figure-img"></p>
-<figcaption class="figure-caption">https://app.dataquest.io/m/493/dataframes-in-r/1/introduction</figcaption>
+<p><img src="images/data_structures.png" class="img-fluid quarto-figure quarto-figure-center figure-img"></p>
+<figcaption>https://app.dataquest.io/m/493/dataframes-in-r/1/introduction</figcaption>
 </figure>
 </div>
 <section id="vektörler" class="level3" data-number="2.2.1">
@@ -813,57 +813,57 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb155-9"><a href="#cb155-9" aria-hidden="true" tabindex="-1"></a>m <span class="ot">&lt;-</span> <span class="fu">rbind</span>(MA, MB)</span>
 <span id="cb155-10"><a href="#cb155-10" aria-hidden="true" tabindex="-1"></a>m</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>            [,1]        [,2]       [,3]        [,4]
-[1,]   0.8908304  -0.8634698  0.1763892  -0.2896375
-[2,]  -0.7360890  -0.6798842 -2.7416937   1.5635110
-[3,]   0.8902147  -0.1383638 -0.4392633   0.7502604
-[4,]  -1.1613562   0.1634022 -1.3023507  -0.1597665
-[5,]  91.4354124  70.0659925 79.4200356  96.4402725
-[6,] 102.6132231  79.6430094 81.6488112  77.1005290
-[7,]  74.3780557 103.7359346 97.0787868 104.5893681
-[8,] 102.4012560  87.3477652 94.4252338  91.0816531</code></pre>
+<pre><code>            [,1]          [,2]       [,3]       [,4]
+[1,]  -0.4146502  -0.844470893  0.4624977  1.8259098
+[2,]   1.2146853  -0.877864175  0.8544911  0.9026571
+[3,]  -0.4883992  -0.048027041 -0.4846171  0.5621840
+[4,]  -1.0172635  -0.007682678 -1.7686662 -0.6708357
+[5,]  84.4024876 101.299422857 99.8131786 64.1363868
+[6,]  87.0270058  93.642317915 76.6125253 85.9352474
+[7,]  88.8008234  84.961054200 82.4501539 79.0606298
+[8,] 111.9254062  83.573089954 97.1809920 57.1137693</code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb157"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb157-1"><a href="#cb157-1" aria-hidden="true" tabindex="-1"></a><span class="co"># satır ve sütun isimlendirme</span></span>
 <span id="cb157-2"><a href="#cb157-2" aria-hidden="true" tabindex="-1"></a><span class="fu">colnames</span>(m) <span class="ot">&lt;-</span> LETTERS[<span class="dv">1</span><span class="sc">:</span><span class="dv">4</span>]</span>
 <span id="cb157-3"><a href="#cb157-3" aria-hidden="true" tabindex="-1"></a><span class="fu">rownames</span>(m) <span class="ot">&lt;-</span> <span class="fu">tail</span>(LETTERS,<span class="dv">8</span>)</span>
 <span id="cb157-4"><a href="#cb157-4" aria-hidden="true" tabindex="-1"></a>m</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>            A           B          C           D
-S   0.8908304  -0.8634698  0.1763892  -0.2896375
-T  -0.7360890  -0.6798842 -2.7416937   1.5635110
-U   0.8902147  -0.1383638 -0.4392633   0.7502604
-V  -1.1613562   0.1634022 -1.3023507  -0.1597665
-W  91.4354124  70.0659925 79.4200356  96.4402725
-X 102.6132231  79.6430094 81.6488112  77.1005290
-Y  74.3780557 103.7359346 97.0787868 104.5893681
-Z 102.4012560  87.3477652 94.4252338  91.0816531</code></pre>
+<pre><code>            A             B          C          D
+S  -0.4146502  -0.844470893  0.4624977  1.8259098
+T   1.2146853  -0.877864175  0.8544911  0.9026571
+U  -0.4883992  -0.048027041 -0.4846171  0.5621840
+V  -1.0172635  -0.007682678 -1.7686662 -0.6708357
+W  84.4024876 101.299422857 99.8131786 64.1363868
+X  87.0270058  93.642317915 76.6125253 85.9352474
+Y  88.8008234  84.961054200 82.4501539 79.0606298
+Z 111.9254062  83.573089954 97.1809920 57.1137693</code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb159"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb159-1"><a href="#cb159-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Matris Elemanlarina Erismek</span></span>
 <span id="cb159-2"><a href="#cb159-2" aria-hidden="true" tabindex="-1"></a>m[<span class="dv">1</span>,<span class="dv">1</span>] <span class="co"># 1. satır, 1.sütundak, eleman</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] 0.8908304</code></pre>
+<pre><code>[1] -0.4146502</code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb161"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb161-1"><a href="#cb161-1" aria-hidden="true" tabindex="-1"></a>m[<span class="dv">4</span>,<span class="dv">2</span>] <span class="co"># 4. satır, 2.sütundak, eleman</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] 0.1634022</code></pre>
+<pre><code>[1] -0.007682678</code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb163"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb163-1"><a href="#cb163-1" aria-hidden="true" tabindex="-1"></a>m[,<span class="dv">2</span>] <span class="co"># 2. sütun elemanları</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>          S           T           U           V           W           X 
- -0.8634698  -0.6798842  -0.1383638   0.1634022  70.0659925  79.6430094 
-          Y           Z 
-103.7359346  87.3477652 </code></pre>
+<pre><code>            S             T             U             V             W 
+ -0.844470893  -0.877864175  -0.048027041  -0.007682678 101.299422857 
+            X             Y             Z 
+ 93.642317915  84.961054200  83.573089954 </code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb165"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb165-1"><a href="#cb165-1" aria-hidden="true" tabindex="-1"></a>m[<span class="sc">-</span><span class="dv">3</span>,] <span class="co"># 3. satır hariç tüm elemanlar</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>            A           B          C           D
-S   0.8908304  -0.8634698  0.1763892  -0.2896375
-T  -0.7360890  -0.6798842 -2.7416937   1.5635110
-V  -1.1613562   0.1634022 -1.3023507  -0.1597665
-W  91.4354124  70.0659925 79.4200356  96.4402725
-X 102.6132231  79.6430094 81.6488112  77.1005290
-Y  74.3780557 103.7359346 97.0787868 104.5893681
-Z 102.4012560  87.3477652 94.4252338  91.0816531</code></pre>
+<pre><code>            A             B          C          D
+S  -0.4146502  -0.844470893  0.4624977  1.8259098
+T   1.2146853  -0.877864175  0.8544911  0.9026571
+V  -1.0172635  -0.007682678 -1.7686662 -0.6708357
+W  84.4024876 101.299422857 99.8131786 64.1363868
+X  87.0270058  93.642317915 76.6125253 85.9352474
+Y  88.8008234  84.961054200 82.4501539 79.0606298
+Z 111.9254062  83.573089954 97.1809920 57.1137693</code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb167"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb167-1"><a href="#cb167-1" aria-hidden="true" tabindex="-1"></a><span class="co"># köşegen matris oluşturma</span></span>
 <span id="cb167-2"><a href="#cb167-2" aria-hidden="true" tabindex="-1"></a><span class="fu">diag</span>(<span class="dv">2</span>,<span class="at">nrow=</span><span class="dv">3</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -885,16 +885,16 @@ Z 102.4012560  87.3477652 94.4252338  91.0816531</code></pre>
 <div class="sourceCode cell-code" id="cb171"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb171-1"><a href="#cb171-1" aria-hidden="true" tabindex="-1"></a><span class="co"># transpose</span></span>
 <span id="cb171-2"><a href="#cb171-2" aria-hidden="true" tabindex="-1"></a><span class="fu">t</span>(m)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>           S          T          U          V        W         X         Y
-A  0.8908304 -0.7360890  0.8902147 -1.1613562 91.43541 102.61322  74.37806
-B -0.8634698 -0.6798842 -0.1383638  0.1634022 70.06599  79.64301 103.73593
-C  0.1763892 -2.7416937 -0.4392633 -1.3023507 79.42004  81.64881  97.07879
-D -0.2896375  1.5635110  0.7502604 -0.1597665 96.44027  77.10053 104.58937
+<pre><code>           S          T           U            V         W        X        Y
+A -0.4146502  1.2146853 -0.48839918 -1.017263541  84.40249 87.02701 88.80082
+B -0.8444709 -0.8778642 -0.04802704 -0.007682678 101.29942 93.64232 84.96105
+C  0.4624977  0.8544911 -0.48461709 -1.768666240  99.81318 76.61253 82.45015
+D  1.8259098  0.9026571  0.56218396 -0.670835733  64.13639 85.93525 79.06063
           Z
-A 102.40126
-B  87.34777
-C  94.42523
-D  91.08165</code></pre>
+A 111.92541
+B  83.57309
+C  97.18099
+D  57.11377</code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb173"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb173-1"><a href="#cb173-1" aria-hidden="true" tabindex="-1"></a><span class="co"># matris ile işlemler</span></span>
 <span id="cb173-2"><a href="#cb173-2" aria-hidden="true" tabindex="-1"></a></span>
@@ -1598,6 +1598,33 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       }
     }
   }
+  const toggleGiscusIfUsed = (isAlternate, darkModeDefault) => {
+    const baseTheme = document.querySelector('#giscus-base-theme')?.value ?? 'light';
+    const alternateTheme = document.querySelector('#giscus-alt-theme')?.value ?? 'dark';
+    let newTheme = '';
+    if(darkModeDefault) {
+      newTheme = isAlternate ? baseTheme : alternateTheme;
+    } else {
+      newTheme = isAlternate ? alternateTheme : baseTheme;
+    }
+    const changeGiscusTheme = () => {
+      // From: https://github.com/giscus/giscus/issues/336
+      const sendMessage = (message) => {
+        const iframe = document.querySelector('iframe.giscus-frame');
+        if (!iframe) return;
+        iframe.contentWindow.postMessage({ giscus: message }, 'https://giscus.app');
+      }
+      sendMessage({
+        setConfig: {
+          theme: newTheme
+        }
+      });
+    }
+    const isGiscussLoaded = window.document.querySelector('iframe.giscus-frame') !== null;
+    if (isGiscussLoaded) {
+      changeGiscusTheme();
+    }
+  }
   const toggleColorMode = (alternate) => {
     // Switch the stylesheets
     const alternateStylesheets = window.document.querySelectorAll('link.quarto-color-scheme.quarto-color-alternate');
@@ -1664,13 +1691,15 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       return localAlternateSentinel;
     }
   }
-  let localAlternateSentinel = 'default';
+  const darkModeDefault = false;
+  let localAlternateSentinel = darkModeDefault ? 'alternate' : 'default';
   // Dark / light mode switch
   window.quartoToggleColorScheme = () => {
     // Read the current dark / light value 
     let toAlternate = !hasAlternateSentinel();
     toggleColorMode(toAlternate);
     setStyleSentinel(toAlternate);
+    toggleGiscusIfUsed(toAlternate, darkModeDefault);
   };
   // Ensure there is a toggle, if there isn't float one in the top right
   if (window.document.querySelector('.quarto-color-scheme-toggle') === null) {
@@ -1749,10 +1778,9 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     // clear code selection
     e.clearSelection();
   });
-  function tippyHover(el, contentFn) {
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
     const config = {
       allowHTML: true,
-      content: contentFn,
       maxWidth: 500,
       delay: 100,
       arrow: false,
@@ -1762,8 +1790,17 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       interactive: true,
       interactiveBorder: 10,
       theme: 'quarto',
-      placement: 'bottom-start'
+      placement: 'bottom-start',
     };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
     window.tippy(el, config); 
   }
   const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
@@ -1776,6 +1813,120 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       const id = href.replace(/^#\/?/, "");
       const note = window.document.getElementById(id);
       return note.innerHTML;
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
+        return container.innerHTML
+      } else {
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      return note.innerHTML;
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
     });
   }
       let selectedAnnoteEl;
@@ -1819,6 +1970,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
             }
             div.style.top = top - 2 + "px";
             div.style.height = height + 4 + "px";
+            div.style.left = 0;
             let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
             if (gutterDiv === null) {
               gutterDiv = window.document.createElement("div");
@@ -1844,6 +1996,32 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
         });
         selectedAnnoteEl = undefined;
       };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
       // Attach click handler to the DT
       const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
       for (const annoteDlNode of annoteDls) {
@@ -1905,12 +2083,12 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="./basics.html" class="pagination-link">
+      <a href="./basics.html" class="pagination-link  aria-label=" &lt;span="" fonksiyonlar&lt;="" span&gt;"="">
         <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Temel Fonksiyonlar</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./functions.html" class="pagination-link">
+      <a href="./functions.html" class="pagination-link" aria-label="<span class='chapter-number'>3</span>&nbsp; <span class='chapter-title'>Fonksiyonlar</span>">
         <span class="nav-page-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Fonksiyonlar</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
@@ -1918,13 +2096,18 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </div> <!-- /content -->
 <footer class="footer">
   <div class="nav-footer">
-    <div class="nav-footer-left">© 2023, <a href="https://www.linkedin.com/in/dr-m-fatih-t-2b2a4328/">Muhammed Fatih Tüzen</a></div>   
+    <div class="nav-footer-left">
+<p>© 2023, <a href="https://www.linkedin.com/in/dr-m-fatih-t-2b2a4328/">Muhammed Fatih Tüzen</a></p>
+</div>   
     <div class="nav-footer-center">
       &nbsp;
-    </div>
-    <div class="nav-footer-right">Bu kitap <a href="https://quarto.org/">Quarto</a> ile hazırlanmıştır.</div>
+    <div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/MFatihTuzen/r-book-tr/edit/main/data_types.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/MFatihTuzen/r-book-tr/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div>
+    <div class="nav-footer-right">
+<p>Bu kitap <a href="https://quarto.org/">Quarto</a> ile hazırlanmıştır.</p>
+</div>
   </div>
 </footer>
+
 
 
 

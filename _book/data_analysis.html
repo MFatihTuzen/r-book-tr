@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.3.450">
+<meta name="generator" content="quarto-1.4.538">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -22,7 +22,7 @@ ul.task-list li input[type="checkbox"] {
 }
 /* CSS for syntax highlighting */
 pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span { line-height: 1.25; }
 pre > code.sourceCode > span:empty { height: 1.2em; }
 .sourceCode { overflow: visible; }
 code.sourceCode > span { color: inherit; text-decoration: inherit; }
@@ -83,7 +83,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   "collapse-after": 3,
   "panel-placement": "end",
   "type": "textbox",
-  "limit": 20,
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
   "language": {
     "search-no-results-text": "No results",
     "search-matching-documents-text": "matching documents",
@@ -92,12 +97,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     "search-more-match-text": "more match in this document",
     "search-more-matches-text": "more matches in this document",
     "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
     "search-detached-cancel-button-title": "Cancel",
     "search-submit-button-title": "Submit",
     "search-label": "Search"
   }
 }</script>
-
 <script src="site_libs/kePrint-0.0.1/kePrint.js"></script>
 <link href="site_libs/lightable-0.0.1/lightable.css" rel="stylesheet">
 
@@ -111,27 +116,24 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <header id="quarto-header" class="headroom fixed-top">
   <nav class="quarto-secondary-nav">
     <div class="container-fluid d-flex">
-      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./data_analysis.html">Keşifçi Veri Analizi</a></li></ol></nav>
-      <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
-      </a>
-      <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
-        <i class="bi bi-search"></i>
-      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./data_analysis.html">Keşifçi Veri Analizi</a></li></ol></nav>
+        <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
     </div>
   </nav>
 </header>
 <!-- content -->
 <div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
 <!-- sidebar -->
-  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal sidebar-navigation floating overflow-auto">
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
     <div class="pt-lg-2 mt-2 text-left sidebar-header">
     <div class="sidebar-title mb-0 py-0">
       <a href="./">R Programlama</a> 
         <div class="sidebar-tools-main tools-wide">
-    <a href="https://github.com/MFatihTuzen/r-book-tr" rel="" title="Source Code" class="quarto-navigation-tool px-1" aria-label="Source Code"><i class="bi bi-github"></i></a>
+    <a href="https://github.com/MFatihTuzen/r-book-tr" title="Source Code" class="quarto-navigation-tool px-1" aria-label="Source Code"><i class="bi bi-github"></i></a>
   <a href="" class="quarto-color-scheme-toggle quarto-navigation-tool  px-1" onclick="window.quartoToggleColorScheme(); return false;" title="Toggle dark mode"><i class="bi"></i></a>
   <a href="" class="quarto-reader-toggle quarto-navigation-tool px-1" onclick="window.quartoToggleReader(); return false;" title="Toggle reader mode">
   <div class="quarto-reader-toggle-btn">
@@ -141,11 +143,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
     </div>
       </div>
-        <div class="mt-2 flex-shrink-0 align-items-center">
-        <div class="sidebar-search">
-        <div id="quarto-search" class="" title="Search"></div>
-        </div>
-        </div>
     <div class="sidebar-menu-container"> 
     <ul class="list-unstyled mt-1">
         <li class="sidebar-item">
@@ -258,7 +255,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     </ul>
     </div>
 </nav>
-<div id="quarto-sidebar-glass" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass"></div>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
         <nav id="TOC" role="doc-toc" class="toc-active">
@@ -271,7 +268,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#zaman-serileri" id="toc-zaman-serileri" class="nav-link" data-scroll-target="#zaman-serileri">Zaman Serileri</a></li>
   <li><a href="#veri-analizi-bazı-paketler" id="toc-veri-analizi-bazı-paketler" class="nav-link" data-scroll-target="#veri-analizi-bazı-paketler">Veri Analizi Bazı Paketler</a></li>
   </ul>
-<div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.com/MFatihTuzen/r-book-tr/edit/main/data_analysis.qmd" class="toc-action">Edit this page</a></p><p><a href="https://github.com/MFatihTuzen/r-book-tr/issues/new" class="toc-action">Report an issue</a></p></div></div></nav>
+<div class="toc-actions"><ul><li><a href="https://github.com/MFatihTuzen/r-book-tr/edit/main/data_analysis.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/MFatihTuzen/r-book-tr/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
@@ -291,7 +288,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </div>
   
 
+
 </header>
+
 
 <p>Keşifçi Veri Analizi (Exploratory Data Analysis veya kısaca EDA), veri setinizi anlamak, içindeki örüntüleri ve ilişkileri belirlemek ve olası sorunları tanımlamak amacıyla veriye yakından bakmanızı sağlayan bir veri analizi yaklaşımıdır. EDA, verileri tanımanıza veya verilerdeki olası özellikler ve ilişkiler hakkında daha derin bir anlayış kazanmanıza yardımcı olabilir. EDA, yeni bir şey değildir, ancak EDA, birkaç nedenden dolayı yakın geçmişte önemli ölçüde büyümüştür:</p>
 <ul>
@@ -483,16 +482,28 @@ $ class        &lt;fct&gt; compact, compact, compact, compact, compact, compact,
 <span id="cb33-5"><a href="#cb33-5" aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>(df<span class="sc">$</span>cty_ltkm,<span class="at">freq =</span> <span class="cn">FALSE</span>,<span class="at">col =</span> <span class="st">"red"</span>,<span class="at">border =</span> <span class="st">"blue"</span>)</span>
 <span id="cb33-6"><a href="#cb33-6" aria-hidden="true" tabindex="-1"></a><span class="fu">lines</span>(<span class="fu">density</span>(df<span class="sc">$</span>cty_ltkm), <span class="at">col =</span> <span class="st">"black"</span>, <span class="at">lwd =</span> <span class="dv">2</span>,)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="data_analysis_files/figure-html/unnamed-chunk-2-1.png" class="img-fluid" width="672"></p>
+<div>
+<figure class="figure">
+<p><img src="data_analysis_files/figure-html/unnamed-chunk-2-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
 </div>
 <div class="sourceCode cell-code" id="cb34"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>(df<span class="sc">$</span>hwy_ltkm,<span class="at">xlim =</span> <span class="fu">c</span>(<span class="dv">4</span>,<span class="dv">20</span>), <span class="at">ylim =</span> <span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">60</span>), <span class="at">breaks =</span> <span class="dv">10</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="data_analysis_files/figure-html/unnamed-chunk-2-2.png" class="img-fluid" width="672"></p>
+<div>
+<figure class="figure">
+<p><img src="data_analysis_files/figure-html/unnamed-chunk-2-2.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
 </div>
 <div class="sourceCode cell-code" id="cb35"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Boxplot</span></span>
 <span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a><span class="fu">boxplot</span>(df<span class="sc">$</span>cty_ltkm, <span class="at">main =</span> <span class="st">"Boxplot cty"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="data_analysis_files/figure-html/unnamed-chunk-2-3.png" class="img-fluid" width="672"></p>
+<div>
+<figure class="figure">
+<p><img src="data_analysis_files/figure-html/unnamed-chunk-2-3.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
 </div>
 <div class="sourceCode cell-code" id="cb36"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="fu">fivenum</span>(df<span class="sc">$</span>cty_ltkm) <span class="co"># minimum, Q1, median, Q3, maximum</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
@@ -501,7 +512,11 @@ $ class        &lt;fct&gt; compact, compact, compact, compact, compact, compact,
 <div class="sourceCode cell-code" id="cb38"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a><span class="co"># outliers </span></span>
 <span id="cb38-2"><a href="#cb38-2" aria-hidden="true" tabindex="-1"></a><span class="fu">boxplot</span>(df<span class="sc">$</span>cty_ltkm)<span class="sc">$</span>out</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="data_analysis_files/figure-html/unnamed-chunk-2-4.png" class="img-fluid" width="672"></p>
+<div>
+<figure class="figure">
+<p><img src="data_analysis_files/figure-html/unnamed-chunk-2-4.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
 </div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 11.88707 11.88707 14.00976 14.85884 12.31161</code></pre>
@@ -513,7 +528,11 @@ $ class        &lt;fct&gt; compact, compact, compact, compact, compact, compact,
 </div>
 <div class="sourceCode cell-code" id="cb42"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a><span class="fu">boxplot</span>(df<span class="sc">$</span>hwy_ltkm, <span class="at">main =</span> <span class="st">"Boxplot cty"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="data_analysis_files/figure-html/unnamed-chunk-2-5.png" class="img-fluid" width="672"></p>
+<div>
+<figure class="figure">
+<p><img src="data_analysis_files/figure-html/unnamed-chunk-2-5.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
 </div>
 <div class="sourceCode cell-code" id="cb43"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a><span class="fu">fivenum</span>(df<span class="sc">$</span>hwy_ltkm) <span class="co"># minimum, Q1, median, Q3, maximum</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
@@ -522,7 +541,11 @@ $ class        &lt;fct&gt; compact, compact, compact, compact, compact, compact,
 <div class="sourceCode cell-code" id="cb45"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a><span class="fu">boxplot</span>(hwy_ltkm <span class="sc">~</span> cyl, <span class="at">data =</span> df, <span class="at">xlab =</span> <span class="st">"Silindir Sayısı"</span>,</span>
 <span id="cb45-2"><a href="#cb45-2" aria-hidden="true" tabindex="-1"></a>   <span class="at">ylab =</span> <span class="st">"Litre Başına KM"</span>, <span class="at">main =</span> <span class="st">"Mileage Data"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="data_analysis_files/figure-html/unnamed-chunk-2-6.png" class="img-fluid" width="672"></p>
+<div>
+<figure class="figure">
+<p><img src="data_analysis_files/figure-html/unnamed-chunk-2-6.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
 </div>
 <div class="sourceCode cell-code" id="cb46"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a><span class="fu">boxplot</span>(hwy_ltkm <span class="sc">~</span> cyl, <span class="at">data =</span> df, </span>
 <span id="cb46-2"><a href="#cb46-2" aria-hidden="true" tabindex="-1"></a>   <span class="at">xlab =</span> <span class="st">"Silindir Sayısı"</span>,</span>
@@ -538,7 +561,11 @@ $ class        &lt;fct&gt; compact, compact, compact, compact, compact, compact,
 notches went outside hinges ('box'): maybe set notch=FALSE</code></pre>
 </div>
 <div class="cell-output-display">
-<p><img src="data_analysis_files/figure-html/unnamed-chunk-2-7.png" class="img-fluid" width="672"></p>
+<div>
+<figure class="figure">
+<p><img src="data_analysis_files/figure-html/unnamed-chunk-2-7.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
 </div>
 <div class="sourceCode cell-code" id="cb48"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Sürekli iki değişken incelemek istersek;</span></span>
 <span id="cb48-2"><a href="#cb48-2" aria-hidden="true" tabindex="-1"></a></span>
@@ -562,12 +589,20 @@ notches went outside hinges ('box'): maybe set notch=FALSE</code></pre>
 <span id="cb52-6"><a href="#cb52-6" aria-hidden="true" tabindex="-1"></a>     <span class="at">xlab =</span> <span class="st">"Motor Hacmi"</span>,</span>
 <span id="cb52-7"><a href="#cb52-7" aria-hidden="true" tabindex="-1"></a>     <span class="at">ylab =</span> <span class="st">"Yakıt Tüketimi"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="data_analysis_files/figure-html/unnamed-chunk-2-8.png" class="img-fluid" width="672"></p>
+<div>
+<figure class="figure">
+<p><img src="data_analysis_files/figure-html/unnamed-chunk-2-8.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
 </div>
 <div class="sourceCode cell-code" id="cb53"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb53-1"><a href="#cb53-1" aria-hidden="true" tabindex="-1"></a><span class="co"># birden fazla değişkenin saçılım grafiği</span></span>
 <span id="cb53-2"><a href="#cb53-2" aria-hidden="true" tabindex="-1"></a><span class="fu">pairs</span>(<span class="sc">~</span>hwy_ltkm<span class="sc">+</span>cty_ltkm<span class="sc">+</span>displ<span class="sc">+</span>cyl,<span class="at">data =</span> df,<span class="at">main =</span> <span class="st">"Scatterplot Matrix"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="data_analysis_files/figure-html/unnamed-chunk-2-9.png" class="img-fluid" width="672"></p>
+<div>
+<figure class="figure">
+<p><img src="data_analysis_files/figure-html/unnamed-chunk-2-9.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
 </div>
 </div>
 </section>
@@ -619,17 +654,29 @@ notches went outside hinges ('box'): maybe set notch=FALSE</code></pre>
 <div class="sourceCode cell-code" id="cb64"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb64-1"><a href="#cb64-1" aria-hidden="true" tabindex="-1"></a>tab <span class="ot">&lt;-</span> <span class="fu">table</span>(df<span class="sc">$</span>class)</span>
 <span id="cb64-2"><a href="#cb64-2" aria-hidden="true" tabindex="-1"></a><span class="fu">barplot</span>(tab,<span class="at">col=</span><span class="st">"blue"</span>,<span class="at">border=</span><span class="st">"red"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="data_analysis_files/figure-html/unnamed-chunk-3-1.png" class="img-fluid" width="672"></p>
+<div>
+<figure class="figure">
+<p><img src="data_analysis_files/figure-html/unnamed-chunk-3-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
 </div>
 <div class="sourceCode cell-code" id="cb65"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb65-1"><a href="#cb65-1" aria-hidden="true" tabindex="-1"></a><span class="fu">pie</span>(tab)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="data_analysis_files/figure-html/unnamed-chunk-3-2.png" class="img-fluid" width="672"></p>
+<div>
+<figure class="figure">
+<p><img src="data_analysis_files/figure-html/unnamed-chunk-3-2.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
 </div>
 <div class="sourceCode cell-code" id="cb66"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb66-1"><a href="#cb66-1" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>))</span>
 <span id="cb66-2"><a href="#cb66-2" aria-hidden="true" tabindex="-1"></a><span class="fu">barplot</span>(tab)</span>
 <span id="cb66-3"><a href="#cb66-3" aria-hidden="true" tabindex="-1"></a><span class="fu">pie</span>(tab)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="data_analysis_files/figure-html/unnamed-chunk-3-3.png" class="img-fluid" width="672"></p>
+<div>
+<figure class="figure">
+<p><img src="data_analysis_files/figure-html/unnamed-chunk-3-3.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
 </div>
 <div class="sourceCode cell-code" id="cb67"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb67-1"><a href="#cb67-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Kategorik iki değişken incelemek istersek;</span></span>
 <span id="cb67-2"><a href="#cb67-2" aria-hidden="true" tabindex="-1"></a></span>
@@ -693,7 +740,11 @@ manufacturer      1999      2008
 <span id="cb75-5"><a href="#cb75-5" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb75-6"><a href="#cb75-6" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(class <span class="sc">~</span> <span class="fu">factor</span>(drv), <span class="at">data =</span> df)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="data_analysis_files/figure-html/unnamed-chunk-3-4.png" class="img-fluid" width="672"></p>
+<div>
+<figure class="figure">
+<p><img src="data_analysis_files/figure-html/unnamed-chunk-3-4.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
 </div>
 </div>
 <p>Eğer hem sürekli hem de kategorik değişkenleri incelemek istersek, benzer şekilde görselleştirme ve kategoriler arasında merkezi eğilim ölçüleri hesaplanabilir. Bunlar dışında uygun istatistiksel testler de gerçekleştirilebilir.</p>
@@ -715,7 +766,11 @@ manufacturer      1999      2008
 </div>
 <div class="sourceCode cell-code" id="cb80"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb80-1"><a href="#cb80-1" aria-hidden="true" tabindex="-1"></a><span class="fu">boxplot</span>(cty_ltkm <span class="sc">~</span> cyl, <span class="at">data =</span> df)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="data_analysis_files/figure-html/unnamed-chunk-4-1.png" class="img-fluid" width="672"></p>
+<div>
+<figure class="figure">
+<p><img src="data_analysis_files/figure-html/unnamed-chunk-4-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
 </div>
 </div>
 </section>
@@ -778,63 +833,91 @@ manufacturer      1999      2008
 </div>
 <div class="sourceCode cell-code" id="cb89"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb89-1"><a href="#cb89-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(AirPassengers,<span class="at">type =</span> <span class="st">"p"</span>, <span class="at">col =</span> <span class="st">"red"</span>) <span class="co"># points</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="data_analysis_files/figure-html/unnamed-chunk-5-1.png" class="img-fluid" width="672"></p>
+<div>
+<figure class="figure">
+<p><img src="data_analysis_files/figure-html/unnamed-chunk-5-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
 </div>
 <div class="sourceCode cell-code" id="cb90"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb90-1"><a href="#cb90-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(AirPassengers,<span class="at">type =</span> <span class="st">"l"</span>, <span class="at">col =</span> <span class="st">"red"</span>) <span class="co"># line</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="data_analysis_files/figure-html/unnamed-chunk-5-2.png" class="img-fluid" width="672"></p>
+<div>
+<figure class="figure">
+<p><img src="data_analysis_files/figure-html/unnamed-chunk-5-2.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
 </div>
 <div class="sourceCode cell-code" id="cb91"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb91-1"><a href="#cb91-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(AirPassengers,<span class="at">type =</span> <span class="st">"o"</span>, <span class="at">col =</span> <span class="st">"red"</span>) <span class="co"># points and line</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="data_analysis_files/figure-html/unnamed-chunk-5-3.png" class="img-fluid" width="672"></p>
+<div>
+<figure class="figure">
+<p><img src="data_analysis_files/figure-html/unnamed-chunk-5-3.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
 </div>
 <div class="sourceCode cell-code" id="cb92"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb92-1"><a href="#cb92-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">log</span>(AirPassengers),<span class="at">type =</span> <span class="st">"l"</span>, <span class="at">col =</span> <span class="st">"red"</span>) <span class="co"># line</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="data_analysis_files/figure-html/unnamed-chunk-5-4.png" class="img-fluid" width="672"></p>
+<div>
+<figure class="figure">
+<p><img src="data_analysis_files/figure-html/unnamed-chunk-5-4.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
 </div>
 <div class="sourceCode cell-code" id="cb93"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb93-1"><a href="#cb93-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">diff</span>(AirPassengers),<span class="at">type =</span> <span class="st">"l"</span>, <span class="at">col =</span> <span class="st">"red"</span>) <span class="co"># line</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="data_analysis_files/figure-html/unnamed-chunk-5-5.png" class="img-fluid" width="672"></p>
+<div>
+<figure class="figure">
+<p><img src="data_analysis_files/figure-html/unnamed-chunk-5-5.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
 </div>
 <div class="sourceCode cell-code" id="cb94"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb94-1"><a href="#cb94-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">diff</span>(<span class="fu">log</span>(AirPassengers)),<span class="at">type =</span> <span class="st">"l"</span>, <span class="at">col =</span> <span class="st">"red"</span>) <span class="co"># line</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="data_analysis_files/figure-html/unnamed-chunk-5-6.png" class="img-fluid" width="672"></p>
+<div>
+<figure class="figure">
+<p><img src="data_analysis_files/figure-html/unnamed-chunk-5-6.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
 </div>
 <div class="sourceCode cell-code" id="cb95"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb95-1"><a href="#cb95-1" aria-hidden="true" tabindex="-1"></a><span class="co"># çoklu zaman serisi</span></span>
 <span id="cb95-2"><a href="#cb95-2" aria-hidden="true" tabindex="-1"></a>ts <span class="ot">&lt;-</span> <span class="fu">ts</span>(<span class="fu">rnorm</span>(<span class="fu">length</span>(AirPassengers),<span class="dv">250</span>,<span class="dv">100</span>),<span class="at">start =</span> <span class="fu">c</span>(<span class="dv">1949</span>,<span class="dv">1</span>),<span class="at">frequency=</span><span class="dv">12</span>)</span>
 <span id="cb95-3"><a href="#cb95-3" aria-hidden="true" tabindex="-1"></a>ts</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>           Jan       Feb       Mar       Apr       May       Jun       Jul
-1949 278.96535 114.53522 116.78620 361.73318 182.41074 225.06181  67.45037
-1950 226.77935 285.45601 240.48110 249.82423 335.34842 184.67030 272.92566
-1951 233.54479 333.87056 332.54276 110.43874 319.18811 402.50463 203.34418
-1952 205.55658 352.07189 302.37655 409.72353 212.77281 189.54196 264.48528
-1953 254.10484 229.24681 187.46337 222.35826 439.73750 178.01008 172.71463
-1954 279.33018 201.51951 -21.68321 327.16029 158.09051 298.24599 203.67413
-1955  50.03159 147.42826 196.76799 166.06033 172.49158 154.28273 360.84180
-1956 212.81279 265.21671  40.52710 435.51436 372.57653 335.31943 210.92622
-1957 322.67948 203.87736 435.02266 206.19576 204.11664  94.22509 414.59607
-1958 154.05305 213.44239 198.15454  49.50637 468.91369 156.13108 267.89070
-1959 343.32304 345.15140 316.27060 217.39409 262.30882 403.76765 181.74899
-1960 254.52051 191.22889 200.13586 135.01184 215.05186  96.39628 338.77372
-           Aug       Sep       Oct       Nov       Dec
-1949 317.15196 158.78602 225.62738 476.01834 244.49575
-1950 384.03229 223.46846 170.31565  85.78947 240.42425
-1951 114.99765 128.07276 321.31852 238.56674  90.62292
-1952 125.87453 226.56875  93.89823 388.97714 320.72613
-1953 347.62228 406.59737 275.87203 173.82779  91.47566
-1954 119.09888  98.55656 207.25911 166.74977 203.14970
-1955 124.43062 264.82667 185.24413 357.77833 393.71958
-1956 226.08741 423.68081 114.97916 197.01657 213.75413
-1957 123.35400 433.62748 348.89537  72.72973 131.10108
-1958 311.81814 211.44119 100.34773 244.00268 399.01858
-1959 302.78804  61.56371 290.50066 235.58686 149.11884
-1960 341.97458 425.73843 283.06990 230.35078 257.20417</code></pre>
+<pre><code>            Jan        Feb        Mar        Apr        May        Jun
+1949  91.520700 252.499799 266.971868 206.584771 124.326453 400.828356
+1950 260.064457 184.801724 325.554731 332.581433 360.910579 202.431493
+1951 421.175967 273.521697 108.710990 214.530854 225.766043 118.976556
+1952 160.271228 318.563902 302.554963 191.659748 342.446609 268.606315
+1953 371.793929 287.405619 263.038541 329.669592 376.813183 279.946212
+1954 301.894074 161.049754 194.376398 213.970898 179.362166 356.735927
+1955 230.239821 -49.358533 403.342802 239.555407 155.630740 187.125378
+1956 248.966925 304.774630 418.200498 132.387248 252.009769 218.964328
+1957 223.275575 300.482100 384.223128 206.250463  92.231953 374.502585
+1958 315.108077 313.803153 112.793012 380.572728 366.071538 201.348952
+1959   9.903135 404.564545 397.004719 422.989953 328.220901 173.173095
+1960 185.168846  39.509138 124.598326 285.455026 175.243508 305.393804
+            Jul        Aug        Sep        Oct        Nov        Dec
+1949 107.337043 178.264259 196.684673 381.119607 352.720716 260.968305
+1950 252.675755 288.098526 317.325484 172.924492 102.982059 389.624435
+1951 188.340575 279.403184  91.614466 147.355071 215.816739  85.516853
+1952 227.120265 273.669055  84.814669 355.856794 220.192591 210.136016
+1953 293.692022 199.317956 247.638852 282.607789 199.508987  72.677552
+1954 150.675007 399.929419 360.042060 323.316194 436.085311 249.708535
+1955 122.590017  91.724780 248.801170 350.729680 141.985530 338.541343
+1956 210.189962 345.237193 201.428836 255.687979  95.571710 294.859016
+1957 227.712944 196.780979 233.901036 408.836445 100.605700 426.890289
+1958 237.088360 346.461757 276.697761 336.885356  98.857646 125.675913
+1959 187.606975 333.727436 181.187581 277.342145 216.225251 334.054170
+1960 193.984363 298.170953 266.145389 184.560959 237.917333 266.504090</code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb97"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb97-1"><a href="#cb97-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(AirPassengers,<span class="at">type =</span> <span class="st">"l"</span>,<span class="at">col =</span> <span class="st">"red"</span>)</span>
 <span id="cb97-2"><a href="#cb97-2" aria-hidden="true" tabindex="-1"></a><span class="fu">lines</span>(ts, <span class="at">type =</span> <span class="st">"l"</span>, <span class="at">col =</span> <span class="st">"blue"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="data_analysis_files/figure-html/unnamed-chunk-5-7.png" class="img-fluid" width="672"></p>
+<div>
+<figure class="figure">
+<p><img src="data_analysis_files/figure-html/unnamed-chunk-5-7.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
 </div>
 <div class="sourceCode cell-code" id="cb98"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb98-1"><a href="#cb98-1" aria-hidden="true" tabindex="-1"></a><span class="co"># yüzde değişim</span></span>
 <span id="cb98-2"><a href="#cb98-2" aria-hidden="true" tabindex="-1"></a>growth <span class="ot">&lt;-</span> AirPassengers<span class="sc">/</span>stats<span class="sc">::</span><span class="fu">lag</span>(AirPassengers,<span class="sc">-</span><span class="dv">1</span>)<span class="sc">*</span><span class="dv">100-100</span></span>
@@ -869,7 +952,11 @@ manufacturer      1999      2008
 </div>
 <div class="sourceCode cell-code" id="cb100"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb100-1"><a href="#cb100-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(growth,<span class="at">type =</span> <span class="st">"l"</span>, <span class="at">col =</span> <span class="st">"red"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="data_analysis_files/figure-html/unnamed-chunk-5-8.png" class="img-fluid" width="672"></p>
+<div>
+<figure class="figure">
+<p><img src="data_analysis_files/figure-html/unnamed-chunk-5-8.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
 </div>
 </div>
 </section>
@@ -884,12 +971,10 @@ manufacturer      1999      2008
 <div class="cell">
 <div class="sourceCode cell-code" id="cb101"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb101-1"><a href="#cb101-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Paketin birkaç özelliğine bakalım</span></span>
 <span id="cb101-2"><a href="#cb101-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb101-3"><a href="#cb101-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(modelsummary)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Warning: package 'modelsummary' was built under R version 4.2.3</code></pre>
-</div>
-<div class="sourceCode cell-code" id="cb103"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb103-1"><a href="#cb103-1" aria-hidden="true" tabindex="-1"></a><span class="co"># kategorik verilere hızlı bir bakış</span></span>
-<span id="cb103-2"><a href="#cb103-2" aria-hidden="true" tabindex="-1"></a><span class="fu">datasummary_skim</span>(mpg, <span class="st">"categorical"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb101-3"><a href="#cb101-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(modelsummary)</span>
+<span id="cb101-4"><a href="#cb101-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb101-5"><a href="#cb101-5" aria-hidden="true" tabindex="-1"></a><span class="co"># kategorik verilere hızlı bir bakış</span></span>
+<span id="cb101-6"><a href="#cb101-6" aria-hidden="true" tabindex="-1"></a><span class="fu">datasummary_skim</span>(mpg, <span class="st">"categorical"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <table class="table table-sm table-striped small" data-quarto-postprocess="true">
 <thead>
@@ -1374,10 +1459,21 @@ manufacturer      1999      2008
 
 
 </div>
-<div class="sourceCode cell-code" id="cb104"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb104-1"><a href="#cb104-1" aria-hidden="true" tabindex="-1"></a><span class="co"># nümerik verilere hızlı bir bakış</span></span>
-<span id="cb104-2"><a href="#cb104-2" aria-hidden="true" tabindex="-1"></a><span class="fu">datasummary_skim</span>(mpg, <span class="st">"numeric"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb102"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb102-1"><a href="#cb102-1" aria-hidden="true" tabindex="-1"></a><span class="co"># nümerik verilere hızlı bir bakış</span></span>
+<span id="cb102-2"><a href="#cb102-2" aria-hidden="true" tabindex="-1"></a><span class="fu">datasummary_skim</span>(mpg, <span class="st">"numeric"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <table class="table table-sm table-striped small" data-quarto-postprocess="true">
+<colgroup>
+<col style="width: 11%">
+<col style="width: 11%">
+<col style="width: 11%">
+<col style="width: 11%">
+<col style="width: 11%">
+<col style="width: 11%">
+<col style="width: 11%">
+<col style="width: 11%">
+<col style="width: 11%">
+</colgroup>
 <thead>
 <tr class="header">
 <th style="text-align: left;" data-quarto-table-cell-role="th"></th>
@@ -1401,7 +1497,22 @@ manufacturer      1999      2008
 <td style="text-align: right;">1.6</td>
 <td style="text-align: right;">3.3</td>
 <td style="text-align: right;">7.0</td>
-<td style="text-align: right;"><img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbG5zOnhsaW5rPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rIiBjbGFzcz0ic3ZnbGl0ZSIgd2lkdGg9IjQ4LjAwcHQiIGhlaWdodD0iMTIuMDBwdCIgdmlld2JveD0iMCAwIDQ4LjAwIDEyLjAwIj48ZGVmcz48c3R5bGUgdHlwZT0idGV4dC9jc3MiPgogICAgLnN2Z2xpdGUgbGluZSwgLnN2Z2xpdGUgcG9seWxpbmUsIC5zdmdsaXRlIHBvbHlnb24sIC5zdmdsaXRlIHBhdGgsIC5zdmdsaXRlIHJlY3QsIC5zdmdsaXRlIGNpcmNsZSB7CiAgICAgIGZpbGw6IG5vbmU7CiAgICAgIHN0cm9rZTogIzAwMDAwMDsKICAgICAgc3Ryb2tlLWxpbmVjYXA6IHJvdW5kOwogICAgICBzdHJva2UtbGluZWpvaW46IHJvdW5kOwogICAgICBzdHJva2UtbWl0ZXJsaW1pdDogMTAuMDA7CiAgICB9CiAgICAuc3ZnbGl0ZSB0ZXh0IHsKICAgICAgd2hpdGUtc3BhY2U6IHByZTsKICAgIH0KICA8L3N0eWxlPjwvZGVmcz48cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBzdHlsZT0ic3Ryb2tlOiBub25lOyBmaWxsOiBub25lOyI+PC9yZWN0PjxkZWZzPjxjbGlwcGF0aCBpZD0iY3BNQzR3TUh3ME9DNHdNSHd3TGpBd2ZERXlMakF3Ij48cmVjdCB4PSIwLjAwIiB5PSIwLjAwIiB3aWR0aD0iNDguMDAiIGhlaWdodD0iMTIuMDAiPjwvcmVjdD48L2NsaXBwYXRoPjwvZGVmcz48ZyBjbGlwLXBhdGg9InVybCgjY3BNQzR3TUh3ME9DNHdNSHd3TGpBd2ZERXlMakF3KSI+CjwvZz48ZGVmcz48Y2xpcHBhdGggaWQ9ImNwTUM0d01IdzBPQzR3TUh3eUxqZzRmREV5TGpBdyI+PHJlY3QgeD0iMC4wMCIgeT0iMi44OCIgd2lkdGg9IjQ4LjAwIiBoZWlnaHQ9IjkuMTIiPjwvcmVjdD48L2NsaXBwYXRoPjwvZGVmcz48ZyBjbGlwLXBhdGg9InVybCgjY3BNQzR3TUh3ME9DNHdNSHd5TGpnNGZERXlMakF3KSI+PHJlY3QgeD0iMC45NSIgeT0iMy4yMiIgd2lkdGg9IjQuMTIiIGhlaWdodD0iOC40NCIgc3R5bGU9InN0cm9rZS13aWR0aDogMC4zODsgZmlsbDogIzAwMDAwMDsiPjwvcmVjdD48cmVjdCB4PSI1LjA3IiB5PSI0LjAwIiB3aWR0aD0iNC4xMiIgaGVpZ2h0PSI3LjY2IiBzdHlsZT0ic3Ryb2tlLXdpZHRoOiAwLjM4OyBmaWxsOiAjMDAwMDAwOyI+PC9yZWN0PjxyZWN0IHg9IjkuMTkiIHk9IjYuNTYiIHdpZHRoPSI0LjEyIiBoZWlnaHQ9IjUuMTEiIHN0eWxlPSJzdHJva2Utd2lkdGg6IDAuMzg7IGZpbGw6ICMwMDAwMDA7Ij48L3JlY3Q+PHJlY3QgeD0iMTMuMzAiIHk9IjYuOTUiIHdpZHRoPSI0LjEyIiBoZWlnaHQ9IjQuNzEiIHN0eWxlPSJzdHJva2Utd2lkdGg6IDAuMzg7IGZpbGw6ICMwMDAwMDA7Ij48L3JlY3Q+PHJlY3QgeD0iMTcuNDIiIHk9IjUuNTciIHdpZHRoPSI0LjEyIiBoZWlnaHQ9IjYuMDkiIHN0eWxlPSJzdHJva2Utd2lkdGg6IDAuMzg7IGZpbGw6ICMwMDAwMDA7Ij48L3JlY3Q+PHJlY3QgeD0iMjEuNTMiIHk9IjEwLjY4IiB3aWR0aD0iNC4xMiIgaGVpZ2h0PSIwLjk4IiBzdHlsZT0ic3Ryb2tlLXdpZHRoOiAwLjM4OyBmaWxsOiAjMDAwMDAwOyI+PC9yZWN0PjxyZWN0IHg9IjI1LjY1IiB5PSI1Ljc3IiB3aWR0aD0iNC4xMiIgaGVpZ2h0PSI1Ljg5IiBzdHlsZT0ic3Ryb2tlLXdpZHRoOiAwLjM4OyBmaWxsOiAjMDAwMDAwOyI+PC9yZWN0PjxyZWN0IHg9IjI5Ljc2IiB5PSI3LjkzIiB3aWR0aD0iNC4xMiIgaGVpZ2h0PSIzLjczIiBzdHlsZT0ic3Ryb2tlLXdpZHRoOiAwLjM4OyBmaWxsOiAjMDAwMDAwOyI+PC9yZWN0PjxyZWN0IHg9IjMzLjg4IiB5PSI5LjMxIiB3aWR0aD0iNC4xMiIgaGVpZ2h0PSIyLjM2IiBzdHlsZT0ic3Ryb2tlLXdpZHRoOiAwLjM4OyBmaWxsOiAjMDAwMDAwOyI+PC9yZWN0PjxyZWN0IHg9IjM3Ljk5IiB5PSIxMC44OCIgd2lkdGg9IjQuMTIiIGhlaWdodD0iMC43OSIgc3R5bGU9InN0cm9rZS13aWR0aDogMC4zODsgZmlsbDogIzAwMDAwMDsiPjwvcmVjdD48cmVjdCB4PSI0Mi4xMSIgeT0iMTEuNDciIHdpZHRoPSI0LjEyIiBoZWlnaHQ9IjAuMjAiIHN0eWxlPSJzdHJva2Utd2lkdGg6IDAuMzg7IGZpbGw6ICMwMDAwMDA7Ij48L3JlY3Q+PC9nPjwvc3ZnPg==" class="svglite img-fluid"></td>
+<td style="text-align: right;"><svg xmlns="http://www.w3.org/2000/svg" xlink="http://www.w3.org/1999/xlink" class="svglite" width="48.00pt" height="12.00pt" viewbox="0 0 48.00 12.00">
+<defs>
+<style type="text/css">
+    .svglite line, .svglite polyline, .svglite polygon, .svglite path, .svglite rect, .svglite circle {
+      fill: none;
+      stroke: #000000;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      stroke-miterlimit: 10.00;
+    }
+    .svglite text {
+      white-space: pre;
+    }
+  </style>
+</defs><rect width="100%" height="100%" style="stroke: none; fill: none;"></rect><defs><clippath id="cpMC4wMHw0OC4wMHwwLjAwfDEyLjAw"><rect x="0.00" y="0.00" width="48.00" height="12.00"></rect></clippath></defs><g clip-path="url(#cpMC4wMHw0OC4wMHwwLjAwfDEyLjAw)"> </g><defs><clippath id="cpMC4wMHw0OC4wMHwyLjg4fDEyLjAw"><rect x="0.00" y="2.88" width="48.00" height="9.12"></rect></clippath></defs><g clip-path="url(#cpMC4wMHw0OC4wMHwyLjg4fDEyLjAw)"><rect x="0.95" y="3.22" width="4.12" height="8.44" style="stroke-width: 0.38; fill: #000000;"></rect><rect x="5.07" y="4.00" width="4.12" height="7.66" style="stroke-width: 0.38; fill: #000000;"></rect><rect x="9.19" y="6.56" width="4.12" height="5.11" style="stroke-width: 0.38; fill: #000000;"></rect><rect x="13.30" y="6.95" width="4.12" height="4.71" style="stroke-width: 0.38; fill: #000000;"></rect><rect x="17.42" y="5.57" width="4.12" height="6.09" style="stroke-width: 0.38; fill: #000000;"></rect><rect x="21.53" y="10.68" width="4.12" height="0.98" style="stroke-width: 0.38; fill: #000000;"></rect><rect x="25.65" y="5.77" width="4.12" height="5.89" style="stroke-width: 0.38; fill: #000000;"></rect><rect x="29.76" y="7.93" width="4.12" height="3.73" style="stroke-width: 0.38; fill: #000000;"></rect><rect x="33.88" y="9.31" width="4.12" height="2.36" style="stroke-width: 0.38; fill: #000000;"></rect><rect x="37.99" y="10.88" width="4.12" height="0.79" style="stroke-width: 0.38; fill: #000000;"></rect><rect x="42.11" y="11.47" width="4.12" height="0.20" style="stroke-width: 0.38; fill: #000000;"></rect></g>
+</svg></td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">year</td>
@@ -1412,7 +1523,22 @@ manufacturer      1999      2008
 <td style="text-align: right;">1999.0</td>
 <td style="text-align: right;">2003.5</td>
 <td style="text-align: right;">2008.0</td>
-<td style="text-align: right;"><img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbG5zOnhsaW5rPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rIiBjbGFzcz0ic3ZnbGl0ZSIgd2lkdGg9IjQ4LjAwcHQiIGhlaWdodD0iMTIuMDBwdCIgdmlld2JveD0iMCAwIDQ4LjAwIDEyLjAwIj48ZGVmcz48c3R5bGUgdHlwZT0idGV4dC9jc3MiPgogICAgLnN2Z2xpdGUgbGluZSwgLnN2Z2xpdGUgcG9seWxpbmUsIC5zdmdsaXRlIHBvbHlnb24sIC5zdmdsaXRlIHBhdGgsIC5zdmdsaXRlIHJlY3QsIC5zdmdsaXRlIGNpcmNsZSB7CiAgICAgIGZpbGw6IG5vbmU7CiAgICAgIHN0cm9rZTogIzAwMDAwMDsKICAgICAgc3Ryb2tlLWxpbmVjYXA6IHJvdW5kOwogICAgICBzdHJva2UtbGluZWpvaW46IHJvdW5kOwogICAgICBzdHJva2UtbWl0ZXJsaW1pdDogMTAuMDA7CiAgICB9CiAgICAuc3ZnbGl0ZSB0ZXh0IHsKICAgICAgd2hpdGUtc3BhY2U6IHByZTsKICAgIH0KICA8L3N0eWxlPjwvZGVmcz48cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBzdHlsZT0ic3Ryb2tlOiBub25lOyBmaWxsOiBub25lOyI+PC9yZWN0PjxkZWZzPjxjbGlwcGF0aCBpZD0iY3BNQzR3TUh3ME9DNHdNSHd3TGpBd2ZERXlMakF3Ij48cmVjdCB4PSIwLjAwIiB5PSIwLjAwIiB3aWR0aD0iNDguMDAiIGhlaWdodD0iMTIuMDAiPjwvcmVjdD48L2NsaXBwYXRoPjwvZGVmcz48ZyBjbGlwLXBhdGg9InVybCgjY3BNQzR3TUh3ME9DNHdNSHd3TGpBd2ZERXlMakF3KSI+CjwvZz48ZGVmcz48Y2xpcHBhdGggaWQ9ImNwTUM0d01IdzBPQzR3TUh3eUxqZzRmREV5TGpBdyI+PHJlY3QgeD0iMC4wMCIgeT0iMi44OCIgd2lkdGg9IjQ4LjAwIiBoZWlnaHQ9IjkuMTIiPjwvcmVjdD48L2NsaXBwYXRoPjwvZGVmcz48ZyBjbGlwLXBhdGg9InVybCgjY3BNQzR3TUh3ME9DNHdNSHd5TGpnNGZERXlMakF3KSI+PHJlY3QgeD0iMS43OCIgeT0iMy4yMiIgd2lkdGg9IjQuOTQiIGhlaWdodD0iOC40NCIgc3R5bGU9InN0cm9rZS13aWR0aDogMC4zODsgZmlsbDogIzAwMDAwMDsiPjwvcmVjdD48cmVjdCB4PSI2LjcyIiB5PSIxMS42NiIgd2lkdGg9IjQuOTQiIGhlaWdodD0iMC4wMCIgc3R5bGU9InN0cm9rZS13aWR0aDogMC4zODsgZmlsbDogIzAwMDAwMDsiPjwvcmVjdD48cmVjdCB4PSIxMS42NSIgeT0iMTEuNjYiIHdpZHRoPSI0Ljk0IiBoZWlnaHQ9IjAuMDAiIHN0eWxlPSJzdHJva2Utd2lkdGg6IDAuMzg7IGZpbGw6ICMwMDAwMDA7Ij48L3JlY3Q+PHJlY3QgeD0iMTYuNTkiIHk9IjExLjY2IiB3aWR0aD0iNC45NCIgaGVpZ2h0PSIwLjAwIiBzdHlsZT0ic3Ryb2tlLXdpZHRoOiAwLjM4OyBmaWxsOiAjMDAwMDAwOyI+PC9yZWN0PjxyZWN0IHg9IjIxLjUzIiB5PSIxMS42NiIgd2lkdGg9IjQuOTQiIGhlaWdodD0iMC4wMCIgc3R5bGU9InN0cm9rZS13aWR0aDogMC4zODsgZmlsbDogIzAwMDAwMDsiPjwvcmVjdD48cmVjdCB4PSIyNi40NyIgeT0iMTEuNjYiIHdpZHRoPSI0Ljk0IiBoZWlnaHQ9IjAuMDAiIHN0eWxlPSJzdHJva2Utd2lkdGg6IDAuMzg7IGZpbGw6ICMwMDAwMDA7Ij48L3JlY3Q+PHJlY3QgeD0iMzEuNDEiIHk9IjExLjY2IiB3aWR0aD0iNC45NCIgaGVpZ2h0PSIwLjAwIiBzdHlsZT0ic3Ryb2tlLXdpZHRoOiAwLjM4OyBmaWxsOiAjMDAwMDAwOyI+PC9yZWN0PjxyZWN0IHg9IjM2LjM1IiB5PSIxMS42NiIgd2lkdGg9IjQuOTQiIGhlaWdodD0iMC4wMCIgc3R5bGU9InN0cm9rZS13aWR0aDogMC4zODsgZmlsbDogIzAwMDAwMDsiPjwvcmVjdD48cmVjdCB4PSI0MS4yOCIgeT0iMy4yMiIgd2lkdGg9IjQuOTQiIGhlaWdodD0iOC40NCIgc3R5bGU9InN0cm9rZS13aWR0aDogMC4zODsgZmlsbDogIzAwMDAwMDsiPjwvcmVjdD48L2c+PC9zdmc+" class="svglite img-fluid"></td>
+<td style="text-align: right;"><svg xmlns="http://www.w3.org/2000/svg" xlink="http://www.w3.org/1999/xlink" class="svglite" width="48.00pt" height="12.00pt" viewbox="0 0 48.00 12.00">
+<defs>
+<style type="text/css">
+    .svglite line, .svglite polyline, .svglite polygon, .svglite path, .svglite rect, .svglite circle {
+      fill: none;
+      stroke: #000000;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      stroke-miterlimit: 10.00;
+    }
+    .svglite text {
+      white-space: pre;
+    }
+  </style>
+</defs><rect width="100%" height="100%" style="stroke: none; fill: none;"></rect><defs><clippath id="cpMC4wMHw0OC4wMHwwLjAwfDEyLjAw"><rect x="0.00" y="0.00" width="48.00" height="12.00"></rect></clippath></defs><g clip-path="url(#cpMC4wMHw0OC4wMHwwLjAwfDEyLjAw)"> </g><defs><clippath id="cpMC4wMHw0OC4wMHwyLjg4fDEyLjAw"><rect x="0.00" y="2.88" width="48.00" height="9.12"></rect></clippath></defs><g clip-path="url(#cpMC4wMHw0OC4wMHwyLjg4fDEyLjAw)"><rect x="1.78" y="3.22" width="4.94" height="8.44" style="stroke-width: 0.38; fill: #000000;"></rect><rect x="6.72" y="11.66" width="4.94" height="0.00" style="stroke-width: 0.38; fill: #000000;"></rect><rect x="11.65" y="11.66" width="4.94" height="0.00" style="stroke-width: 0.38; fill: #000000;"></rect><rect x="16.59" y="11.66" width="4.94" height="0.00" style="stroke-width: 0.38; fill: #000000;"></rect><rect x="21.53" y="11.66" width="4.94" height="0.00" style="stroke-width: 0.38; fill: #000000;"></rect><rect x="26.47" y="11.66" width="4.94" height="0.00" style="stroke-width: 0.38; fill: #000000;"></rect><rect x="31.41" y="11.66" width="4.94" height="0.00" style="stroke-width: 0.38; fill: #000000;"></rect><rect x="36.35" y="11.66" width="4.94" height="0.00" style="stroke-width: 0.38; fill: #000000;"></rect><rect x="41.28" y="3.22" width="4.94" height="8.44" style="stroke-width: 0.38; fill: #000000;"></rect></g>
+</svg></td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">cyl</td>
@@ -1423,7 +1549,22 @@ manufacturer      1999      2008
 <td style="text-align: right;">4.0</td>
 <td style="text-align: right;">6.0</td>
 <td style="text-align: right;">8.0</td>
-<td style="text-align: right;"><img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbG5zOnhsaW5rPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rIiBjbGFzcz0ic3ZnbGl0ZSIgd2lkdGg9IjQ4LjAwcHQiIGhlaWdodD0iMTIuMDBwdCIgdmlld2JveD0iMCAwIDQ4LjAwIDEyLjAwIj48ZGVmcz48c3R5bGUgdHlwZT0idGV4dC9jc3MiPgogICAgLnN2Z2xpdGUgbGluZSwgLnN2Z2xpdGUgcG9seWxpbmUsIC5zdmdsaXRlIHBvbHlnb24sIC5zdmdsaXRlIHBhdGgsIC5zdmdsaXRlIHJlY3QsIC5zdmdsaXRlIGNpcmNsZSB7CiAgICAgIGZpbGw6IG5vbmU7CiAgICAgIHN0cm9rZTogIzAwMDAwMDsKICAgICAgc3Ryb2tlLWxpbmVjYXA6IHJvdW5kOwogICAgICBzdHJva2UtbGluZWpvaW46IHJvdW5kOwogICAgICBzdHJva2UtbWl0ZXJsaW1pdDogMTAuMDA7CiAgICB9CiAgICAuc3ZnbGl0ZSB0ZXh0IHsKICAgICAgd2hpdGUtc3BhY2U6IHByZTsKICAgIH0KICA8L3N0eWxlPjwvZGVmcz48cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBzdHlsZT0ic3Ryb2tlOiBub25lOyBmaWxsOiBub25lOyI+PC9yZWN0PjxkZWZzPjxjbGlwcGF0aCBpZD0iY3BNQzR3TUh3ME9DNHdNSHd3TGpBd2ZERXlMakF3Ij48cmVjdCB4PSIwLjAwIiB5PSIwLjAwIiB3aWR0aD0iNDguMDAiIGhlaWdodD0iMTIuMDAiPjwvcmVjdD48L2NsaXBwYXRoPjwvZGVmcz48ZyBjbGlwLXBhdGg9InVybCgjY3BNQzR3TUh3ME9DNHdNSHd3TGpBd2ZERXlMakF3KSI+CjwvZz48ZGVmcz48Y2xpcHBhdGggaWQ9ImNwTUM0d01IdzBPQzR3TUh3eUxqZzRmREV5TGpBdyI+PHJlY3QgeD0iMC4wMCIgeT0iMi44OCIgd2lkdGg9IjQ4LjAwIiBoZWlnaHQ9IjkuMTIiPjwvcmVjdD48L2NsaXBwYXRoPjwvZGVmcz48ZyBjbGlwLXBhdGg9InVybCgjY3BNQzR3TUh3ME9DNHdNSHd5TGpnNGZERXlMakF3KSI+PHJlY3QgeD0iMS43OCIgeT0iMy4yMiIgd2lkdGg9IjUuNTYiIGhlaWdodD0iOC40NCIgc3R5bGU9InN0cm9rZS13aWR0aDogMC4zODsgZmlsbDogIzAwMDAwMDsiPjwvcmVjdD48cmVjdCB4PSI3LjMzIiB5PSIxMS4yNSIgd2lkdGg9IjUuNTYiIGhlaWdodD0iMC40MiIgc3R5bGU9InN0cm9rZS13aWR0aDogMC4zODsgZmlsbDogIzAwMDAwMDsiPjwvcmVjdD48cmVjdCB4PSIxMi44OSIgeT0iMTEuNjYiIHdpZHRoPSI1LjU2IiBoZWlnaHQ9IjAuMDAiIHN0eWxlPSJzdHJva2Utd2lkdGg6IDAuMzg7IGZpbGw6ICMwMDAwMDA7Ij48L3JlY3Q+PHJlY3QgeD0iMTguNDQiIHk9IjMuNDMiIHdpZHRoPSI1LjU2IiBoZWlnaHQ9IjguMjQiIHN0eWxlPSJzdHJva2Utd2lkdGg6IDAuMzg7IGZpbGw6ICMwMDAwMDA7Ij48L3JlY3Q+PHJlY3QgeD0iMjQuMDAiIHk9IjExLjY2IiB3aWR0aD0iNS41NiIgaGVpZ2h0PSIwLjAwIiBzdHlsZT0ic3Ryb2tlLXdpZHRoOiAwLjM4OyBmaWxsOiAjMDAwMDAwOyI+PC9yZWN0PjxyZWN0IHg9IjI5LjU2IiB5PSIxMS42NiIgd2lkdGg9IjUuNTYiIGhlaWdodD0iMC4wMCIgc3R5bGU9InN0cm9rZS13aWR0aDogMC4zODsgZmlsbDogIzAwMDAwMDsiPjwvcmVjdD48cmVjdCB4PSIzNS4xMSIgeT0iMTEuNjYiIHdpZHRoPSI1LjU2IiBoZWlnaHQ9IjAuMDAiIHN0eWxlPSJzdHJva2Utd2lkdGg6IDAuMzg7IGZpbGw6ICMwMDAwMDA7Ij48L3JlY3Q+PHJlY3QgeD0iNDAuNjciIHk9IjQuMzYiIHdpZHRoPSI1LjU2IiBoZWlnaHQ9IjcuMzAiIHN0eWxlPSJzdHJva2Utd2lkdGg6IDAuMzg7IGZpbGw6ICMwMDAwMDA7Ij48L3JlY3Q+PC9nPjwvc3ZnPg==" class="svglite img-fluid"></td>
+<td style="text-align: right;"><svg xmlns="http://www.w3.org/2000/svg" xlink="http://www.w3.org/1999/xlink" class="svglite" width="48.00pt" height="12.00pt" viewbox="0 0 48.00 12.00">
+<defs>
+<style type="text/css">
+    .svglite line, .svglite polyline, .svglite polygon, .svglite path, .svglite rect, .svglite circle {
+      fill: none;
+      stroke: #000000;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      stroke-miterlimit: 10.00;
+    }
+    .svglite text {
+      white-space: pre;
+    }
+  </style>
+</defs><rect width="100%" height="100%" style="stroke: none; fill: none;"></rect><defs><clippath id="cpMC4wMHw0OC4wMHwwLjAwfDEyLjAw"><rect x="0.00" y="0.00" width="48.00" height="12.00"></rect></clippath></defs><g clip-path="url(#cpMC4wMHw0OC4wMHwwLjAwfDEyLjAw)"> </g><defs><clippath id="cpMC4wMHw0OC4wMHwyLjg4fDEyLjAw"><rect x="0.00" y="2.88" width="48.00" height="9.12"></rect></clippath></defs><g clip-path="url(#cpMC4wMHw0OC4wMHwyLjg4fDEyLjAw)"><rect x="1.78" y="3.22" width="5.56" height="8.44" style="stroke-width: 0.38; fill: #000000;"></rect><rect x="7.33" y="11.25" width="5.56" height="0.42" style="stroke-width: 0.38; fill: #000000;"></rect><rect x="12.89" y="11.66" width="5.56" height="0.00" style="stroke-width: 0.38; fill: #000000;"></rect><rect x="18.44" y="3.43" width="5.56" height="8.24" style="stroke-width: 0.38; fill: #000000;"></rect><rect x="24.00" y="11.66" width="5.56" height="0.00" style="stroke-width: 0.38; fill: #000000;"></rect><rect x="29.56" y="11.66" width="5.56" height="0.00" style="stroke-width: 0.38; fill: #000000;"></rect><rect x="35.11" y="11.66" width="5.56" height="0.00" style="stroke-width: 0.38; fill: #000000;"></rect><rect x="40.67" y="4.36" width="5.56" height="7.30" style="stroke-width: 0.38; fill: #000000;"></rect></g>
+</svg></td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">cty</td>
@@ -1434,7 +1575,22 @@ manufacturer      1999      2008
 <td style="text-align: right;">9.0</td>
 <td style="text-align: right;">17.0</td>
 <td style="text-align: right;">35.0</td>
-<td style="text-align: right;"><img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbG5zOnhsaW5rPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rIiBjbGFzcz0ic3ZnbGl0ZSIgd2lkdGg9IjQ4LjAwcHQiIGhlaWdodD0iMTIuMDBwdCIgdmlld2JveD0iMCAwIDQ4LjAwIDEyLjAwIj48ZGVmcz48c3R5bGUgdHlwZT0idGV4dC9jc3MiPgogICAgLnN2Z2xpdGUgbGluZSwgLnN2Z2xpdGUgcG9seWxpbmUsIC5zdmdsaXRlIHBvbHlnb24sIC5zdmdsaXRlIHBhdGgsIC5zdmdsaXRlIHJlY3QsIC5zdmdsaXRlIGNpcmNsZSB7CiAgICAgIGZpbGw6IG5vbmU7CiAgICAgIHN0cm9rZTogIzAwMDAwMDsKICAgICAgc3Ryb2tlLWxpbmVjYXA6IHJvdW5kOwogICAgICBzdHJva2UtbGluZWpvaW46IHJvdW5kOwogICAgICBzdHJva2UtbWl0ZXJsaW1pdDogMTAuMDA7CiAgICB9CiAgICAuc3ZnbGl0ZSB0ZXh0IHsKICAgICAgd2hpdGUtc3BhY2U6IHByZTsKICAgIH0KICA8L3N0eWxlPjwvZGVmcz48cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBzdHlsZT0ic3Ryb2tlOiBub25lOyBmaWxsOiBub25lOyI+PC9yZWN0PjxkZWZzPjxjbGlwcGF0aCBpZD0iY3BNQzR3TUh3ME9DNHdNSHd3TGpBd2ZERXlMakF3Ij48cmVjdCB4PSIwLjAwIiB5PSIwLjAwIiB3aWR0aD0iNDguMDAiIGhlaWdodD0iMTIuMDAiPjwvcmVjdD48L2NsaXBwYXRoPjwvZGVmcz48ZyBjbGlwLXBhdGg9InVybCgjY3BNQzR3TUh3ME9DNHdNSHd3TGpBd2ZERXlMakF3KSI+CjwvZz48ZGVmcz48Y2xpcHBhdGggaWQ9ImNwTUM0d01IdzBPQzR3TUh3eUxqZzRmREV5TGpBdyI+PHJlY3QgeD0iMC4wMCIgeT0iMi44OCIgd2lkdGg9IjQ4LjAwIiBoZWlnaHQ9IjkuMTIiPjwvcmVjdD48L2NsaXBwYXRoPjwvZGVmcz48ZyBjbGlwLXBhdGg9InVybCgjY3BNQzR3TUh3ME9DNHdNSHd5TGpnNGZERXlMakF3KSI+PHJlY3QgeD0iLTUuMDYiIHk9IjExLjIwIiB3aWR0aD0iOC41NSIgaGVpZ2h0PSIwLjQ2IiBzdHlsZT0ic3Ryb2tlLXdpZHRoOiAwLjM4OyBmaWxsOiAjMDAwMDAwOyI+PC9yZWN0PjxyZWN0IHg9IjMuNDkiIHk9IjMuMjIiIHdpZHRoPSI4LjU1IiBoZWlnaHQ9IjguNDQiIHN0eWxlPSJzdHJva2Utd2lkdGg6IDAuMzg7IGZpbGw6ICMwMDAwMDA7Ij48L3JlY3Q+PHJlY3QgeD0iMTIuMDMiIHk9IjMuMjIiIHdpZHRoPSI4LjU1IiBoZWlnaHQ9IjguNDQiIHN0eWxlPSJzdHJva2Utd2lkdGg6IDAuMzg7IGZpbGw6ICMwMDAwMDA7Ij48L3JlY3Q+PHJlY3QgeD0iMjAuNTgiIHk9IjguMjciIHdpZHRoPSI4LjU1IiBoZWlnaHQ9IjMuNDAiIHN0eWxlPSJzdHJva2Utd2lkdGg6IDAuMzg7IGZpbGw6ICMwMDAwMDA7Ij48L3JlY3Q+PHJlY3QgeD0iMjkuMTMiIHk9IjExLjExIiB3aWR0aD0iOC41NSIgaGVpZ2h0PSIwLjU1IiBzdHlsZT0ic3Ryb2tlLXdpZHRoOiAwLjM4OyBmaWxsOiAjMDAwMDAwOyI+PC9yZWN0PjxyZWN0IHg9IjM3LjY4IiB5PSIxMS40OCIgd2lkdGg9IjguNTUiIGhlaWdodD0iMC4xOCIgc3R5bGU9InN0cm9rZS13aWR0aDogMC4zODsgZmlsbDogIzAwMDAwMDsiPjwvcmVjdD48L2c+PC9zdmc+" class="svglite img-fluid"></td>
+<td style="text-align: right;"><svg xmlns="http://www.w3.org/2000/svg" xlink="http://www.w3.org/1999/xlink" class="svglite" width="48.00pt" height="12.00pt" viewbox="0 0 48.00 12.00">
+<defs>
+<style type="text/css">
+    .svglite line, .svglite polyline, .svglite polygon, .svglite path, .svglite rect, .svglite circle {
+      fill: none;
+      stroke: #000000;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      stroke-miterlimit: 10.00;
+    }
+    .svglite text {
+      white-space: pre;
+    }
+  </style>
+</defs><rect width="100%" height="100%" style="stroke: none; fill: none;"></rect><defs><clippath id="cpMC4wMHw0OC4wMHwwLjAwfDEyLjAw"><rect x="0.00" y="0.00" width="48.00" height="12.00"></rect></clippath></defs><g clip-path="url(#cpMC4wMHw0OC4wMHwwLjAwfDEyLjAw)"> </g><defs><clippath id="cpMC4wMHw0OC4wMHwyLjg4fDEyLjAw"><rect x="0.00" y="2.88" width="48.00" height="9.12"></rect></clippath></defs><g clip-path="url(#cpMC4wMHw0OC4wMHwyLjg4fDEyLjAw)"><rect x="-5.06" y="11.20" width="8.55" height="0.46" style="stroke-width: 0.38; fill: #000000;"></rect><rect x="3.49" y="3.22" width="8.55" height="8.44" style="stroke-width: 0.38; fill: #000000;"></rect><rect x="12.03" y="3.22" width="8.55" height="8.44" style="stroke-width: 0.38; fill: #000000;"></rect><rect x="20.58" y="8.27" width="8.55" height="3.40" style="stroke-width: 0.38; fill: #000000;"></rect><rect x="29.13" y="11.11" width="8.55" height="0.55" style="stroke-width: 0.38; fill: #000000;"></rect><rect x="37.68" y="11.48" width="8.55" height="0.18" style="stroke-width: 0.38; fill: #000000;"></rect></g>
+</svg></td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">hwy</td>
@@ -1445,7 +1601,22 @@ manufacturer      1999      2008
 <td style="text-align: right;">12.0</td>
 <td style="text-align: right;">24.0</td>
 <td style="text-align: right;">44.0</td>
-<td style="text-align: right;"><img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbG5zOnhsaW5rPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rIiBjbGFzcz0ic3ZnbGl0ZSIgd2lkdGg9IjQ4LjAwcHQiIGhlaWdodD0iMTIuMDBwdCIgdmlld2JveD0iMCAwIDQ4LjAwIDEyLjAwIj48ZGVmcz48c3R5bGUgdHlwZT0idGV4dC9jc3MiPgogICAgLnN2Z2xpdGUgbGluZSwgLnN2Z2xpdGUgcG9seWxpbmUsIC5zdmdsaXRlIHBvbHlnb24sIC5zdmdsaXRlIHBhdGgsIC5zdmdsaXRlIHJlY3QsIC5zdmdsaXRlIGNpcmNsZSB7CiAgICAgIGZpbGw6IG5vbmU7CiAgICAgIHN0cm9rZTogIzAwMDAwMDsKICAgICAgc3Ryb2tlLWxpbmVjYXA6IHJvdW5kOwogICAgICBzdHJva2UtbGluZWpvaW46IHJvdW5kOwogICAgICBzdHJva2UtbWl0ZXJsaW1pdDogMTAuMDA7CiAgICB9CiAgICAuc3ZnbGl0ZSB0ZXh0IHsKICAgICAgd2hpdGUtc3BhY2U6IHByZTsKICAgIH0KICA8L3N0eWxlPjwvZGVmcz48cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBzdHlsZT0ic3Ryb2tlOiBub25lOyBmaWxsOiBub25lOyI+PC9yZWN0PjxkZWZzPjxjbGlwcGF0aCBpZD0iY3BNQzR3TUh3ME9DNHdNSHd3TGpBd2ZERXlMakF3Ij48cmVjdCB4PSIwLjAwIiB5PSIwLjAwIiB3aWR0aD0iNDguMDAiIGhlaWdodD0iMTIuMDAiPjwvcmVjdD48L2NsaXBwYXRoPjwvZGVmcz48ZyBjbGlwLXBhdGg9InVybCgjY3BNQzR3TUh3ME9DNHdNSHd3TGpBd2ZERXlMakF3KSI+CjwvZz48ZGVmcz48Y2xpcHBhdGggaWQ9ImNwTUM0d01IdzBPQzR3TUh3eUxqZzRmREV5TGpBdyI+PHJlY3QgeD0iMC4wMCIgeT0iMi44OCIgd2lkdGg9IjQ4LjAwIiBoZWlnaHQ9IjkuMTIiPjwvcmVjdD48L2NsaXBwYXRoPjwvZGVmcz48ZyBjbGlwLXBhdGg9InVybCgjY3BNQzR3TUh3ME9DNHdNSHd5TGpnNGZERXlMakF3KSI+PHJlY3QgeD0iLTEuMDAiIHk9IjkuODUiIHdpZHRoPSI2Ljk0IiBoZWlnaHQ9IjEuODIiIHN0eWxlPSJzdHJva2Utd2lkdGg6IDAuMzg7IGZpbGw6ICMwMDAwMDA7Ij48L3JlY3Q+PHJlY3QgeD0iNS45NCIgeT0iMy45NyIgd2lkdGg9IjYuOTQiIGhlaWdodD0iNy43MCIgc3R5bGU9InN0cm9rZS13aWR0aDogMC4zODsgZmlsbDogIzAwMDAwMDsiPjwvcmVjdD48cmVjdCB4PSIxMi44OSIgeT0iNi45NiIgd2lkdGg9IjYuOTQiIGhlaWdodD0iNC43MCIgc3R5bGU9InN0cm9rZS13aWR0aDogMC4zODsgZmlsbDogIzAwMDAwMDsiPjwvcmVjdD48cmVjdCB4PSIxOS44MyIgeT0iMy4yMiIgd2lkdGg9IjYuOTQiIGhlaWdodD0iOC40NCIgc3R5bGU9InN0cm9rZS13aWR0aDogMC4zODsgZmlsbDogIzAwMDAwMDsiPjwvcmVjdD48cmVjdCB4PSIyNi43OCIgeT0iOS45NSIgd2lkdGg9IjYuOTQiIGhlaWdodD0iMS43MSIgc3R5bGU9InN0cm9rZS13aWR0aDogMC4zODsgZmlsbDogIzAwMDAwMDsiPjwvcmVjdD48cmVjdCB4PSIzMy43MiIgeT0iMTEuMzQiIHdpZHRoPSI2Ljk0IiBoZWlnaHQ9IjAuMzIiIHN0eWxlPSJzdHJva2Utd2lkdGg6IDAuMzg7IGZpbGw6ICMwMDAwMDA7Ij48L3JlY3Q+PHJlY3QgeD0iNDAuNjciIHk9IjExLjM0IiB3aWR0aD0iNi45NCIgaGVpZ2h0PSIwLjMyIiBzdHlsZT0ic3Ryb2tlLXdpZHRoOiAwLjM4OyBmaWxsOiAjMDAwMDAwOyI+PC9yZWN0PjwvZz48L3N2Zz4=" class="svglite img-fluid"></td>
+<td style="text-align: right;"><svg xmlns="http://www.w3.org/2000/svg" xlink="http://www.w3.org/1999/xlink" class="svglite" width="48.00pt" height="12.00pt" viewbox="0 0 48.00 12.00">
+<defs>
+<style type="text/css">
+    .svglite line, .svglite polyline, .svglite polygon, .svglite path, .svglite rect, .svglite circle {
+      fill: none;
+      stroke: #000000;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      stroke-miterlimit: 10.00;
+    }
+    .svglite text {
+      white-space: pre;
+    }
+  </style>
+</defs><rect width="100%" height="100%" style="stroke: none; fill: none;"></rect><defs><clippath id="cpMC4wMHw0OC4wMHwwLjAwfDEyLjAw"><rect x="0.00" y="0.00" width="48.00" height="12.00"></rect></clippath></defs><g clip-path="url(#cpMC4wMHw0OC4wMHwwLjAwfDEyLjAw)"> </g><defs><clippath id="cpMC4wMHw0OC4wMHwyLjg4fDEyLjAw"><rect x="0.00" y="2.88" width="48.00" height="9.12"></rect></clippath></defs><g clip-path="url(#cpMC4wMHw0OC4wMHwyLjg4fDEyLjAw)"><rect x="-1.00" y="9.85" width="6.94" height="1.82" style="stroke-width: 0.38; fill: #000000;"></rect><rect x="5.94" y="3.97" width="6.94" height="7.70" style="stroke-width: 0.38; fill: #000000;"></rect><rect x="12.89" y="6.96" width="6.94" height="4.70" style="stroke-width: 0.38; fill: #000000;"></rect><rect x="19.83" y="3.22" width="6.94" height="8.44" style="stroke-width: 0.38; fill: #000000;"></rect><rect x="26.78" y="9.95" width="6.94" height="1.71" style="stroke-width: 0.38; fill: #000000;"></rect><rect x="33.72" y="11.34" width="6.94" height="0.32" style="stroke-width: 0.38; fill: #000000;"></rect><rect x="40.67" y="11.34" width="6.94" height="0.32" style="stroke-width: 0.38; fill: #000000;"></rect></g>
+</svg></td>
 </tr>
 </tbody>
 </table>
@@ -1499,6 +1670,33 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       } else {
         el.classList.add('notransition');
       }
+    }
+  }
+  const toggleGiscusIfUsed = (isAlternate, darkModeDefault) => {
+    const baseTheme = document.querySelector('#giscus-base-theme')?.value ?? 'light';
+    const alternateTheme = document.querySelector('#giscus-alt-theme')?.value ?? 'dark';
+    let newTheme = '';
+    if(darkModeDefault) {
+      newTheme = isAlternate ? baseTheme : alternateTheme;
+    } else {
+      newTheme = isAlternate ? alternateTheme : baseTheme;
+    }
+    const changeGiscusTheme = () => {
+      // From: https://github.com/giscus/giscus/issues/336
+      const sendMessage = (message) => {
+        const iframe = document.querySelector('iframe.giscus-frame');
+        if (!iframe) return;
+        iframe.contentWindow.postMessage({ giscus: message }, 'https://giscus.app');
+      }
+      sendMessage({
+        setConfig: {
+          theme: newTheme
+        }
+      });
+    }
+    const isGiscussLoaded = window.document.querySelector('iframe.giscus-frame') !== null;
+    if (isGiscussLoaded) {
+      changeGiscusTheme();
     }
   }
   const toggleColorMode = (alternate) => {
@@ -1567,13 +1765,15 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       return localAlternateSentinel;
     }
   }
-  let localAlternateSentinel = 'default';
+  const darkModeDefault = false;
+  let localAlternateSentinel = darkModeDefault ? 'alternate' : 'default';
   // Dark / light mode switch
   window.quartoToggleColorScheme = () => {
     // Read the current dark / light value 
     let toAlternate = !hasAlternateSentinel();
     toggleColorMode(toAlternate);
     setStyleSentinel(toAlternate);
+    toggleGiscusIfUsed(toAlternate, darkModeDefault);
   };
   // Ensure there is a toggle, if there isn't float one in the top right
   if (window.document.querySelector('.quarto-color-scheme-toggle') === null) {
@@ -1652,10 +1852,9 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     // clear code selection
     e.clearSelection();
   });
-  function tippyHover(el, contentFn) {
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
     const config = {
       allowHTML: true,
-      content: contentFn,
       maxWidth: 500,
       delay: 100,
       arrow: false,
@@ -1665,8 +1864,17 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       interactive: true,
       interactiveBorder: 10,
       theme: 'quarto',
-      placement: 'bottom-start'
+      placement: 'bottom-start',
     };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
     window.tippy(el, config); 
   }
   const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
@@ -1679,6 +1887,120 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       const id = href.replace(/^#\/?/, "");
       const note = window.document.getElementById(id);
       return note.innerHTML;
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
+        return container.innerHTML
+      } else {
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      return note.innerHTML;
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
     });
   }
       let selectedAnnoteEl;
@@ -1722,6 +2044,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
             }
             div.style.top = top - 2 + "px";
             div.style.height = height + 4 + "px";
+            div.style.left = 0;
             let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
             if (gutterDiv === null) {
               gutterDiv = window.document.createElement("div");
@@ -1747,6 +2070,32 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
         });
         selectedAnnoteEl = undefined;
       };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
       // Attach click handler to the DT
       const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
       for (const annoteDlNode of annoteDls) {
@@ -1808,12 +2157,12 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="./data_manipulation.html" class="pagination-link">
+      <a href="./data_manipulation.html" class="pagination-link  aria-label=" veri="" manipulasyonu"="">
         <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Veri Manipulasyonu</span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./ggplot2.html" class="pagination-link">
+      <a href="./ggplot2.html" class="pagination-link" aria-label="ggplot2 ile Veri Görselleştirme">
         <span class="nav-page-text">ggplot2 ile Veri Görselleştirme</span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
@@ -1821,13 +2170,18 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </div> <!-- /content -->
 <footer class="footer">
   <div class="nav-footer">
-    <div class="nav-footer-left">© 2023, <a href="https://www.linkedin.com/in/dr-m-fatih-t-2b2a4328/">Muhammed Fatih Tüzen</a></div>   
+    <div class="nav-footer-left">
+<p>© 2023, <a href="https://www.linkedin.com/in/dr-m-fatih-t-2b2a4328/">Muhammed Fatih Tüzen</a></p>
+</div>   
     <div class="nav-footer-center">
       &nbsp;
-    </div>
-    <div class="nav-footer-right">Bu kitap <a href="https://quarto.org/">Quarto</a> ile hazırlanmıştır.</div>
+    <div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/MFatihTuzen/r-book-tr/edit/main/data_analysis.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/MFatihTuzen/r-book-tr/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div>
+    <div class="nav-footer-right">
+<p>Bu kitap <a href="https://quarto.org/">Quarto</a> ile hazırlanmıştır.</p>
+</div>
   </div>
 </footer>
+
 
 
 

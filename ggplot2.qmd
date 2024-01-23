@@ -25,7 +25,7 @@ Saçılım grafiği kullanarak, iki değişken arasındaki ilişkinin doğası h
 ```{r warning=FALSE}
 
 library(ggplot2)
-library(dplyr)
+library(dplyr, quietly = TRUE)
 
 # Bir önceki bölümde üretilen yeni değişkenleri mpg veri setine yine ekleyelim.
 
@@ -180,40 +180,68 @@ Sütun grafikleri, aşağıdaki amaçlar için kullanılır:
 
 Sütun grafikleri, verileri görsel olarak anlamak ve veriler arasındaki farkları veya eğilimleri vurgulamak için etkili bir araçtır. Aynı zamanda verilerin daha kolay anlaşılmasına yardımcı olabilir ve karar verme süreçlerine katkı sağlayabilir.
 
-Örnekler ggplot2 paketi ile birlikte gelen [**`diamonds`**](https://ggplot2.tidyverse.org/reference/diamonds.html) veri seti ile yapılacaktır.
+Örnekler ggplot2 paketi ile birlikte gelen [**`diamonds`**](https://ggplot2.tidyverse.org/reference/diamonds.html) veri seti ile yapılacaktır. Veri hakkında bilgi sahibi olmak için **`dplyr`** paketinde yer alan **`glimpse`** fonksiyonunu kullanabiliriz. Bu fonksiyon, bir veri çerçevesi veya tibble nesnesini özetleyen ve hızlı bir bakış sunan bir fonksiyondur. **`glimpse`** fonksiyonu, veri setindeki değişkenleri, veri türlerini, ve ilk birkaç gözlemi görüntüler. Ayrıca **`summary`** fonksiyonu ile de veride yer alan değişkenlerin temel istatistikleri hakkında bilgi sahibi olabiliriz.
 
 ```{r}
 
-diamonds
 glimpse(diamonds)
 summary(diamonds)
+
+```
+
+Sütun grafiği üretebilmek için kullanılan fonksiyonlardan bir tanesi **`geom_bar()`**'dır. Aşağıda verilen kod veri setindeki kesim sınıflarını ifade eden **`cut`** değişkenin frekanslarını gösteren bir sütun grafik üretir. Her bir sütun, belirli bir kesim sınıfını temsil eder ve yükseklikleri o kesim sınıfına ait elmas sayısını yansıtır.
+
+```{r}
 
 # sıklık durumunu görselleştirme
 ggplot(diamonds, aes(cut)) +
   geom_bar()
+
+```
+
+Örneğin **`color`** değişkenine göre gruplandırılmış bir grafik üretelim. Aşağıda yer alan kod, "diamonds" veri setindeki kesim sınıflarının ve renklerinin kombinasyonlarına göre gruplandırılmış bir sütun grafik üretir. Her bir **`cut`** kategorisi için ayrı renkli sütunlar olacaktır.
+
+-   **`ggplot(diamonds, aes(cut, fill = color))`**: Bu bölümde, "diamonds" veri setini temel alarak bir ggplot nesnesi oluşturulur. **`aes(cut, fill = color)`** ifadesi, x ekseninde "cut" değişkenini, sütunların renklendirilmesinde ise "color" değişkenini kullanacağımızı belirtir.
+
+-   **`geom_bar(position = position_dodge())`**: Bu fonksiyon, gruplandırılmış sütun grafik oluşturur. **`position = position_dodge()`** ifadesi, sütunların yan yana yerleştirilmesini sağlar, yani her bir **`cut`** kategorisi içindeki **`color`** kategorilerini farklı renklerde gösterir. Bu sayede, her bir **`cut`** kategorisi için ayrı renkli sütunlar elde edilir.
+
+```{r}
 
 ggplot(diamonds, aes(cut, fill = color)) +
   geom_bar(position = position_dodge()) + 
   xlab("Pirlanta kaliteleri") + 
   ylab("Gozlenme Sikliklari")
 
+```
+
+Her bir kesim sınıfı için, **`color`** değişkenine göre renklendirilmiş sütunları olan ve her sütunun yüksekliği, o kesim sınıfındaki elmasların toplam karat değerini temsil eden bir grafik üretelim. Bu durumda y ekseninde **`carat`** değişkenini kullanacağız.
+
+**`geom_bar(stat = "identity")`**: Bu fonksiyon, gruplandırılmış sütun grafik oluşturur. **`stat = "identity"`** ifadesi, her bir sütunun yüksekliğinin, "carat" değişkeninin değerine eşit olacağını belirtir. Yani, sütunların yüksekliği doğrudan carat değişkenine bağlı olacaktır.
+
+```{r}
+
 ggplot(diamonds, aes(x=cut, y=carat,fill = color)) +
   geom_bar(stat = "identity") 
+
+```
+
+Eğer **`position = "fill"`** kullanırsak, **`geom_bar`** fonksiyonu, her kategori içindeki değerlerin oranlarını gösteren yığılmış bir sütun grafik oluşturur. Bu durumda, her bir kategori toplam yüksekliğe göre doldurulacak ve her bir alt kategori, kendi kategorisi içindeki oranını ifade edecek şekilde düzenlenecektir.
+
+```{r}
 
 ggplot(diamonds, aes(x=cut, y=carat,fill = color)) +
   # fill ile oransal olarak gösterim yapılır
   geom_bar(stat = "identity",position = "fill") 
 
-
-ggplot(diamonds, aes(x=cut,y=carat, fill = color)) +
-  geom_col() # y ekseni toplanarak yığılmış
-
-ggplot(diamonds, aes(x=cut,y=carat,, fill = color)) +
-  geom_col(position = "dodge") # y ekseni değerleri
-
-ggplot(diamonds, aes(x=cut,y=carat, fill = color)) +
-  geom_col(position = "stack")
 ```
+
+Her bir kesim sınıfının toplam yüksekliğe göre doldurulduğu bu grafikte, her renk kategorisi içindeki sütunlar, o kesim sınıfındaki toplam elmas sayısına oranlanmış şekilde görüntülenir. Bu tür bir grafik, her bir kategorinin toplamda ne kadar paya sahip olduğunu vurgulamak ve kategorinin içindeki alt kategorilerin oranlarını göstermek için kullanışlıdır. Ancak, grafikteki renklerin yorumlanması dikkatlice yapılmalıdır, çünkü her renk, kendi kategorisi içindeki oranları temsil eder.
+
+::: callout-warning
+## Dikkat
+
+İki tür çubuk grafik vardır: **`geom_bar()`** ve **`geom_col()`**. **geom_bar()**, çubuğun yüksekliğini her gruptaki vaka sayısıyla (veya ağırlık estetiği sağlanmışsa, ağırlıkların toplamıyla) orantılı hale getirir. Çubukların yüksekliklerinin verilerdeki değerleri temsil etmesini istiyorsanız, bunun yerine **`geom_col()`** kullanın. **geom_bar()** varsayılan olarak **`stat_count()`** kullanır: her x konumundaki vaka sayısını sayar. **`geom_col()`** **`stat_identity()`** kullanır. Yani verileri olduğu gibi bırakır.
+:::
 
 ## Dağılım Grafikleri
 

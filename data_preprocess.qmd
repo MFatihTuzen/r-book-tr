@@ -71,9 +71,8 @@ sapply(df2, function(x) ifelse(is.na(x), mean(x, na.rm = TRUE), x ))
 
 library(zoo)
 sapply(df2, function(x) ifelse(is.na(x), na.locf(x), x )) # carry forward
-sapply(df2, function(x) ifelse(is.na(x), na.locf(x,fromlast=TRUE), x ))
 sapply(df2, function(x) ifelse(is.na(x), na.approx(x), x )) # linear interpolation
-sapply(df2, function(x) ifelse(is.na(x), na.approx(x), x )) # cubic interpolation
+sapply(df2, function(x) ifelse(is.na(x), na.spline(x), x )) # cubic interpolation
 
 
 # KNN (k-nearest neighbor) ile Değer Atama
