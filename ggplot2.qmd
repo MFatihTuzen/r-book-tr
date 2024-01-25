@@ -251,65 +251,203 @@ Histogram, veri setinin sayısal dağılımını gösteren bir grafiktir. Veri a
 
 Bunun dışında boxplot (kutu) grafikleri de dağılımı görselleştirmek için kullanılmaktadır. Boxplot, veri setinin beş özet istatistiği (minimum, ilk çeyrek, medyan, üçüncü çeyrek, maksimum) kullanarak veri dağılımını temsil eder. Bu grafik, aykırı değerleri tanımlamak ve merkezi eğilim ile dağılımın yayılmasını görsel olarak incelemek için kullanılır.
 
+**`geom_histogram`** fonksiyonu, ggplot2 paketinde kullanılan bir grafik geometrisidir ve histogram oluşturmak için kullanılır.
+
 ```{r}
 
 ggplot(diamonds, aes(price)) +
   geom_histogram()
 
+```
+
+**`binwidth`** parametresi, histogramdaki sütunların genişliğini (veya "bin" genişliğini) belirlemek için kullanılır. Histogram, veri setini belirli aralıklara böler ve her aralıkta kaç gözlem olduğunu gösteren sütunlardan oluşur. Bu aralıklara "bin" denir ve **`binwidth`** parametresi, bu aralıkların genişliğini belirler.
+
+```{r}
 ggplot(diamonds, aes(price)) +
   geom_histogram(binwidth = 1000,fill = "green")
 
-ggplot(diamonds, aes(price)) +
-  geom_density()
+```
 
-ggplot(diamonds, aes(price)) +
-  geom_density(alpha = .3, fill = "blue")
+Bu örnekte, **`binwidth = 1000`** ifadesiyle belirtilen bin genişliği ile bir histogram oluşturulmuştur. Bu, veri setini 1000 birim genişliğinde olan aralıklara bölecektir.
 
-ggplot(diamonds, aes(price)) +
-  geom_histogram(aes(y = ..density..),fill = "red") +
-  geom_density(size=1,fill = "blue")
+**`geom_histogram`** fonksiyonu aynı zamanda **`bins`** parametresini de kullanarak histogramdaki sütun sayısını belirlemenize olanak tanır. **`bins`** parametresi, veri setinin aralıklara bölünme sayısını belirler.
 
-ggplot(diamonds, aes(price)) +
-  geom_histogram() + 
-  facet_wrap( ~ cut ,scales = "free" )
+```{r}
 
-ggplot(diamonds, aes(price)) +
-  geom_histogram() + 
-  facet_grid(cut ~ color,scales = "free" )
-
-ggplot(diamonds, aes(x=price,fill=cut)) +
-  geom_density(alpha=.3)
-
-# boxplot
-ggplot(diamonds, aes(x=price)) +
-  geom_boxplot()
-
-# boxplot'a ortalama eklemek
-ggplot(diamonds, aes(x=cut,y=price)) +
-  geom_boxplot(color="blue")+
-  stat_summary(fun = "mean", geom = "point", shape = 5, size = 3)
+# Karat değerlerinin histogramı
+ggplot(diamonds, aes(x = carat)) +
+  geom_histogram(bins = 30, fill = "skyblue", color = "black") +
+  labs(title = "Histogram of Diamond Carat",
+       x = "Carat",
+       y = "Frequency")
 
 ```
+
+Bu örnekte, **`bins = 30`** ifadesiyle belirtilen 30 sütunlu bir histogram oluşturulmuştur. **`fill`** ve **`color`** parametreleri, sütunların içinin ve kenar çizgilerinin renklendirilmesi için kullanılmıştır.
+
+**`alpha`** argümanı, ggplot2 paketinde kullanılan bir estetiktir ve bir geometrinin (örneğin, nokta, çizgi, sütun, vb.) saydamlığını kontrol etmek için kullanılır. **`alpha`** değeri, 0 ile 1 arasında bir sayıdır; 0 tamamen şeffaflığı (görünmez) ve 1 tam opaklığı temsil eder.
+
+Özellikle, **`alpha`** argümanı, bir nesnenin diğer nesnelerle örtüldüğü durumları görselleştirmek için kullanışlıdır. Örneğin, nokta, sütun veya çizgilerin birbirini örttüğü durumlarda kullanılabilir.
+
+```{r}
+
+# Kesim sınıflarına göre karat yoğunluk fonksiyonları ile grafik oluştur
+ggplot(diamonds, aes(x = carat, fill = cut)) +
+  geom_density(alpha = 0.5, color = "black") +
+  labs(title = "Density Plot of Carat by Cut",
+       x = "Carat",
+       y = "Density",
+       fill = "Cut") +
+  theme_minimal()
+
+
+```
+
+Bu örnekte, **`geom_density`** fonksiyonunu kullanarak elmasların karat değerlerinin kesim sınıflarına göre yoğunluk fonksiyonlarını gösteren bir grafik oluşturduk. **`alpha = 0.5`** ifadesiyle belirtilen saydamlık düzeyi, farklı kesim sınıflarına ait yoğunluk fonksiyonlarının birbirini örttüğü bölgeleri daha iyi görselleştirmek için kullanılmıştır. **`color = "black"`** ifadesi ise çizgi renklerini belirtir.
+
+**`theme_minimal`**, ise **`ggplot2`** paketinde bulunan bir tema (theme) fonksiyonudur. Tema fonksiyonları, grafiklerin görünümünü özelleştirmek için kullanılır ve çeşitli özellikleri kontrol eder. **`theme_minimal`** özel bir temadır ve belirli bir stilde basitleştirilmiş bir görünüm sağlar. Bu tema, grafik üzerindeki çizgi ve arka plan öğelerini minimalist bir şekilde düzenler. Yani, daha az çerçeve, gölgeleme ve artı dekoratif özellik içerir. Bu, veriyi vurgulamak ve grafiği daha okunabilir hale getirmek amacıyla kullanılır.
+
+**`facet_wrap`** fonksiyonu, ggplot2 paketinde bir tema (facet) fonksiyonudur ve veriyi belirli bir faktör veya değişkenle bölerken, aynı grafik tasarımını korumak için kullanılır. Bu, veri setinizin bir kategorisine göre alt grafikler oluşturmanıza olanak tanır.
+
+Örneğin, "diamonds" veri setindeki kesim sınıflarına (cut) göre karat (carat) değerlerini gösteren bir grafik oluşturalım ve bunu **`facet_wrap`** kullanarak kesim sınıflarına göre ayrı alt grafiklere bölelim.
+
+```{r}
+
+# Kesim sınıflarına göre karat değerlerini gösteren grafik oluştur
+ggplot(diamonds, aes(x = carat, fill = cut)) +
+  geom_density(alpha = 0.5, color = "black") +
+  labs(title = "Density Plot of Carat by Cut",
+       x = "Carat",
+       y = "Density",
+       fill = "Cut") +
+  facet_wrap(~cut, scales = "free_y") +
+  theme_minimal()
+
+```
+
+Bu örnekte, **`facet_wrap(~cut, scales = "free_y")`** ifadesi ile "cut" değişkenine göre alt grafiklere bölme işlemi gerçekleştirilmiştir. **`scales = "free_y"`** ifadesi, y eksenlerinin serbest bırakılmasını, yani her bir alt grafikte y eksen ölçeğinin kendi içinde adapte edilmesini sağlar. Bu, alt grafikler arasında karşılaştırma yapmayı kolaylaştırır.
+
+**`facet_grid`** fonksiyonu, **`ggplot2`** paketinde bir başka tema (facet) fonksiyonudur ve iki faktörü kullanarak bir tabloyu alt grafiklere böler. **`facet_wrap`** fonksiyonu ile benzerdir, ancak farklı bir düzenleme yapısına sahiptir. Örneğin, "diamonds" veri setindeki kesim sınıflarına (cut) ve renklere (color) göre karat (carat) değerlerini gösteren bir grafik oluşturalım.
+
+```{r}
+
+# Kesim sınıflarına ve renklere göre karat değerlerini gösteren grafik oluştur
+ggplot(diamonds, aes(x = carat, fill = cut)) +
+  geom_density(alpha = 0.5, color = "black") +
+  labs(title = "Density Plot of Carat by Cut and Color",
+       x = "Carat",
+       y = "Density",
+       fill = "Cut") +
+  facet_grid(cut ~ color, scales = "free_y") +
+  theme_minimal()
+
+
+```
+
+**`geom_boxplot`**, ggplot2 paketinde kullanılan bir geometri fonksiyonudur ve veri setindeki bir sayısal değişkenin (örneğin, fiyat, karat, vb.) dağılımını görselleştirmek için kullanılır. Bu fonksiyon, bir kutu çizgisinin çizilmesi ve altında ve üstünde yer alan uç (whisker) hatlarıyla birlikte medyan ve çeyrekliklerin görüntülenmesini sağlar.
+
+Kutu grafikleri, veri dağılımının merkezi eğilimini, yayılımını ve simetrisini hızlı bir şekilde gösteren etkili bir araçtır. Aşağıda, "diamonds" veri setindeki kesim sınıflarına göre fiyatların **`geom_boxplot`** kullanılarak nasıl görselleştirileceğine dair bir örnek bulunmaktadır.
+
+```{r}
+
+# Kesim sınıflarına göre fiyatları gösteren boxplot oluştur
+ggplot(diamonds, aes(x = cut, y = price, fill = cut)) +
+  geom_boxplot() +
+  labs(title = "Boxplot of Prices by Cut",
+       x = "Cut",
+       y = "Price",
+       fill = "Cut") +
+  theme_minimal()
+
+
+```
+
+Bu kod, her bir kesim sınıfının fiyat dağılımını gösteren bir boxplot oluşturur. Her bir kutu, verinin çeyrekliklerini (Q1, medyan, Q3) temsil eder ve uç hatlar (whisker) genellikle verinin genel yayılımını gösterir. Bu şekilde, elmas fiyatlarının kesim sınıfları arasındaki dağılımı hızlı bir şekilde görebilirsiniz.
+
+**`geom_boxplot`** kullanırken ortalamayı göstermek için bazı ek ayarlamalar yapabiliriz. Özellikle, **`stat_summary`** fonksiyonunu kullanarak ortalamayı içeren bir çizgi ekleyebiliriz. Aşağıda, **`stat_summary`** fonksiyonunu kullanarak her kutu içindeki ortalamayı gösteren bir örnek bulunmaktadır.
+
+```{r}
+
+# Kesim sınıflarına göre fiyatları gösteren boxplot oluştur
+ggplot(diamonds, aes(x = cut, y = price, fill = cut)) +
+  geom_boxplot() +
+  stat_summary(
+    fun = mean,
+    geom = "point",
+    shape = 18,
+    size = 3,
+    color = "red",
+    position = position_dodge(0.75)
+  ) +
+  labs(title = "Boxplot of Prices by Cut with Mean",
+       x = "Cut",
+       y = "Price",
+       fill = "Cut") +
+  theme_minimal()
+```
+
+**`position = position_dodge(0.75)`** ifadesi, **`stat_summary`** fonksiyonu içinde kullanılarak ortalamayı temsil eden noktaların (mean points) yatay yönde bir miktar kaydırılmasını ifade eder. Bu, ortalamayı gösteren noktaların, boxplot içinde daha düzenli ve anlamlı bir şekilde görünmesini sağlamak için kullanılır.
+
+Detaylı olarak açıklamak gerekirse; **`position_dodge(0.75)`**, noktaların kutuların içinde yatay yönde ne kadar kaydırılacağını belirtir. Bu değer 0 ile 1 arasında bir sayıdır ve 0, hiç kaydırma anlamına gelirken, 1, tamamen ayrık bir konumu temsil eder. Yani, 0.75, noktaların bir miktar sağa kaydırılmasını ifade eder. Bu birim genellikle x-eksenindeki veri genişliği ya da ölçeğine bağlıdır. Eğer x-eksenindeki veriler sayısal değilse (örneğin, kategorik değişkenler) birim genişliği birimi anlam taşımaz ve yatay konumları düzenlemede başka bir anlam ifade edebilir. Ancak, sayısal veri genişliği olan durumlarda, bu birim genişliği x-eksenindeki veri aralığına karşılık gelir.
+
+**`position_dodge`** fonksiyonunda belirtilen değer 1'den büyük olabilir. Ancak, 1'den büyük bir değer kullanmak genellikle uygunsuz sonuçlara yol açar. Bu durumda, noktalar birbirine çok yakın hale gelir ve grafik üzerinde karışıklık olabilir. Ayarlamayı denemek ve grafik üzerindeki etkilerini gözlemlemek, en iyi sonuca ulaşmak için önemlidir.
+
+Bu şekilde, ortalamayı gösteren noktalar, kutular içinde daha rahat bir şekilde görünebilir ve boxplot üzerinde daha net bir şekilde ayrılabilir. Bu tür ayarlamalar, grafiklerin daha okunabilir ve anlaşılır olmasına katkıda bulunabilir.
+
+Boxplot grafiğine benzer şekilde kullanabileceğimiz başka bir grafik çeşidi ise violin grafikleridir. Violin grafiği, bir sayısal değişkenin dağılımını görselleştirmek için kullanılır. Violin grafiği, bir kutu plotunun etrafına simetrik olarak yerleştirilen birer çift yay (kernel density estimate) içerir. Bu yaylar, veri setinin yoğunluk fonksiyonunu temsil eder ve kutu plotunun içindeki medyan, çeyreklikler ve diğer istatistiklerle birleştirilir.
+
+Violin grafiği, kutu plotunun sunduğu merkezi eğilim ve yayılım bilgilerine ek olarak, veri setinin dağılımının şekli ve yoğunluğu hakkında daha fazla bilgi sağlar. Grafiğin geniş kısımları, veri setinin yoğun olduğu bölgeleri temsil ederken, dar kısımlar daha düşük yoğunluğa sahip alanları gösterir. Bu sayede, violin grafiği veri setinin dağılımının görsel bir özetini sunar.
+
+```{r}
+
+# Kesim sınıflarına göre fiyatların violin grafiği
+ggplot(diamonds, aes(x = cut, y = price, fill = cut)) +
+  geom_violin() +
+  labs(title = "Violin Plot of Prices by Cut",
+       x = "Cut",
+       y = "Price",
+       fill = "Cut") +
+  theme_minimal()
+
+```
+
+Bu violin grafiği, kesim sınıfları arasında fiyat dağılımlarını karşılaştırmak için kullanılır. Violin grafiği, her bir kesim sınıfının fiyat yoğunluğunu ve merkezi eğilimini görsel olarak özetler.
 
 ## Grafiklerin Kaydedilmesi
 
 Grafik oluşturulduktan sonra, grafik objesini bir değişkende saklayabilirsiniz (aşağıdaki örnekte "grafik" adını kullandık). Grafik objesini bir değişkende sakladıktan sonra, **`ggsave()`** fonksiyonunu kullanarak grafik dosyasını kaydedebilirsiniz. Grafikleri ayrıca RStudio penceresinin sağ alt kısmında yer alan **Plots** sekmesindeki **`Export`** ile kayıt altına alabilirsiniz.
 
+Aşağıda kod ile, işsizlik oranlarının aylık değişimini içeren bir çubuk grafik oluşturalım ve bu değişimleri pozitif veya negatif olarak etiketleyelim. Öncesinde işsizlik değişkenini kullanarak aylık değişim hesaplayalım ve bu değerleri "**pozitif**" ya da "**negatif**" olarak etiketleyelim. Daha sonra veri setindeki eksik değerleri temizleyelim ve belirli bir tarih aralığını filtreleyerek bir çubuk grafikle görselleştirelim. En son olarak da bu grafiği kaydedelim.
+
 ```{r}
 #| eval: false
-
-grafik <- economics %>% 
-  mutate(uemploy_mom=unemploy/lag(unemploy ) * 100 - 100,
-         growth=ifelse(uemploy_mom>0,"pozitif","negatif")) %>% 
-  na.omit() %>% 
-  filter(lubridate::year(date)>=2010) %>% 
-  ggplot(aes(x=date,y=uemploy_mom,fill=growth))+
+grafik <- economics %>%
+  mutate(
+    uemploy_mom = unemploy / lag(unemploy) * 100 - 100,
+    growth = ifelse(uemploy_mom > 0, "pozitif", "negatif")
+  ) %>%
+  na.omit() %>%
+  filter(lubridate::year(date) >= 2010) %>%
+  ggplot(aes(x = date, y = uemploy_mom, fill = growth)) +
   geom_col() +
   theme(legend.position = "none") +
-  labs(y="Aylık Değişim",
-       title="Yıllara göre Aylık İstihdam Değişimi (2010-2015)")
+  labs(y = "Aylık Değişim",
+       title = "Yıllara göre Aylık İstihdam Değişimi (2010-2015)")
 
-ggsave("grafik1.png", grafik, width = 20, height = 8, units = "cm")
-ggsave("grafik1.png", grafik,width = 20, height = 8, unit = "cm", dpi = 300)
+ggsave(
+  "grafik1.png",
+  grafik,
+  width = 20,
+  height = 8,
+  units = "cm"
+)
+ggsave(
+  "grafik1.png",
+  grafik,
+  width = 20,
+  height = 8,
+  unit = "cm",
+  dpi = 300
+)
 
 ```

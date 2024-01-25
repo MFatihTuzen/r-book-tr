@@ -14,97 +14,256 @@ Bu dokümanda eksik veriler (missing values), aykırı değerler (outliers) ve v
 
 ## Eksik Veriler
 
-Eksik veriler (kayıp gözlem), veri toplamada kaçınılmaz bir durumdur ve üzerinde dikkatle durulmalıdır. Sistematik bir kayıp gözlem durumu yoksa ortada ciddi bir sorun yoktur. Ama rastgele olmayan bir hata varsa tüm kitleye dair yanlılık olacağı için bu durum göz ardı edilemez.
+Eksik veriler, bir veri setinde belirli gözlemlerde veya değişkenlerde eksik veya boş değerler içeren durumlardır. Eksik veriler, ölçüm hatası, veri toplama sürecindeki problemler veya rasgele olaylar nedeniyle ortaya çıkabilir. Sistematik bir kayıp gözlem durumu yoksa ortada ciddi bir sorun yoktur. Ama rastgele olmayan bir hata varsa tüm kitleye dair yanlılık olacağı için bu durum göz ardı edilemez.
+
+**Eksik Verilerin Türleri:**
+
+1.  **Rasgele Eksiklik (MCAR - Missing Completely At Random):** Eksiklik, gözlemler arasında tamamen rastgele ve bağımsız bir şekilde meydana gelir. Örneğin, bir anket çalışması yapıyorsunuz ve bazı katılımcılar, bilgisayar hatası nedeniyle rastgele seçilmiş sorulara cevap verememişlerdir. Bu durumda, eksiklik rastgele olarak oluştu ve diğer değişkenlerle ilişkili değildir.
+
+2.  **Rastgele Eksiklik (MAR - Missing At Random):** Eksiklik, diğer değişkenlerin değerlerine bağlı olarak meydana gelir, ancak eksik veri değeri eksik olduğu değişkenle ilgili değildir. Örneğin, bir sağlık çalışması yapılıyor ve bazı katılımcılar, yaşlarına bağlı olarak belirli testlere katılamıyorlar. Bu durumda, eksiklik yaşa bağlıdır, ancak test sonuçlarından bağımsız olarak rastgele olarak meydana gelmiştir.
+
+3.  **Sistematik Eksiklik (MNAR - Missing Not At Random):** Eksiklik, eksik olan değerlerin değerlere bağlı olarak ortaya çıktığı bir modeli takip eder. Bu durum, eksik verilerin diğer değişkenlerle ilişkili olduğu anlamına gelir. Örneğin, bir maaş anketi yapılıyor ve yüksek maaş alan katılımcılar, maaşlarını ifşa etme konusundaki isteksizlikleri nedeniyle maaş sorularına cevap vermiyorlar. Bu durumda, eksiklik maaş seviyesi ile ilişkilidir ve bu durum MNAR olarak kabul edilir.
+
+Eksik veriler için daha fazla örnek aşağıda yer almaktadır:
+
+-   **Mevcut Olmayan Bilgi (Not Stated - NS):** Bir anketin bir bölümünde "Cinsiyet" sorusu vardır ve bazı katılımcılar bu soruya cevap vermez veya "Belirtmek İstemiyorum" seçeneğini işaretler. Bu durum, cinsiyet bilgisinin eksik olduğu ve bu eksikliğin katılımcıların cinsiyetiyle ilgili olup olmadığını anlamak zordur. Bu durum MCAR veya MAR olarak değerlendirilebilir.
+
+-   **Zamanla Değişen Eksiklik (Time-Dependent Missingness):** Bir panel veri setinde her yıl yapılan bir ankette, bazı katılımcılar belirli bir yıl için bazı sorulara cevap vermemiş olabilir. Bu durumda eksiklik, zamanla değişen bir yapıya sahiptir ve belirli bir yıla özgüdür. Bu tür eksiklik zaman serileri analizinde önemli olabilir.
+
+-   **Seçimli Eksiklik (Selective Missingness):** Bir çalışma, belirli bir tedavi grubuna katılan katılımcıların tedaviye yanıtını ölçen bir değişkenle ilgili eksik verilere sahiptir. Tedavi grubuna dahil olan katılımcılar bu değişkeni ölçmeyi reddetmiş olabilir veya ölçüm yapılmamış olabilir. Bu durum, eksiklik belirli bir grupla sınırlıdır ve bu grupla ilgili özelliklere bağlıdır, bu da durumu MNAR yapar.
+
+-   **Sosyal İsteksizlik (Social Desirability Bias):** Bir anket, katılımcılara kişisel gelirlerini belirtmelerini istemektedir. Ancak, bazı katılımcılar gelirlerini abartma eğilimindedir çünkü yüksek gelir bildirmek sosyal olarak daha kabul edilebilir bir durum olarak görülmektedir. Bu durumda, eksiklik sosyal etkileşim ve katılımcıların isteğine bağlıdır, bu da durumu MAR veya MNAR yapabilir.
+
+Her bir örnek, eksik verilerin farklı nedenlere dayanabileceğini ve bu nedenlere bağlı olarak başa çıkma stratejilerinin belirlenmesi gerektiğini göstermektedir. Eksik verilerin türlerini anlamak, başa çıkma stratejilerini belirlemede önemlidir çünkü stratejiler eksik verilerin nasıl oluştuğuna bağlı olarak farklılık gösterebilir. MCAR durumu, basit bir ortalama atama stratejisinin kullanılmasını daha kabul edilebilir kılabilirken, MAR ve MNAR durumları daha sofistike yöntemleri gerektirebilir.
 
 ```{r}
 
 df <- data.frame(weight = c(rnorm(15, 70, 10), rep(NA, 5)),
                  height = c(rnorm(17, 165, 20), rep(NA, 3)))
 
+# üreteç sabitlenir
 set.seed(12345)
+# veri setinin satır numaları rsatgele seçilir
 rows <- sample(nrow(df))
+# veri setinin satırları yeni sıra numaralarına göre yeniden sıralanır
+# buradaki amaç NA gözlemlerin en sonda kalması yerine,
+# dağınık olarak veri setinde görüntülenmesidir
 df2 <- df[rows, ]
 
 # eksik verilerin sorgulanması
-
-is.na(df2) # sorgulanma
-which(is.na(df2)) #konum
-sum(is.na(df2)) # toplam eksik veri sayısı
-colSums(is.na(df2)) # değişken düzeyinde eksik veri sayısı
-
-df2[!complete.cases(df2), ] #en az bir tane eksik olan satırlar
-df2[complete.cases(df2), ]$weight
-
-# eksik veriden tamamen kurtulma
-na.omit(df2)
-complete.cases(df2)
-df2[complete.cases(df2), ] # dolu olanlar satırlar
-df2[complete.cases(df2), ]$weight # değişken bazında dolu olan satırlar
+is.na(df2) 
+# eksik verilerin olduğu konumu/indisi sorgulamak
+which(is.na(df2))
+# toplam eksik veri sayısını tespit etmek
+sum(is.na(df2))
+# değişken düzeyinde eksik veri sayısını tespit etmek
+colSums(is.na(df2)) 
 ```
 
 ## İmputasyon
 
 İmputasyon terimi, eksik verilerin yerine konulması veya doldurulması işlemine atıfta bulunur. Eksik veriler, bir veri setinde belirli gözlemler veya değişkenler için eksik veya bilinmeyen değerler içeren durumlardır. İstatistiksel analiz yaparken eksik verilerle başa çıkmak önemlidir çünkü eksik veriler, sonuçları yanıltabilir veya analizleri etkileyebilir.
 
-İmputasyon, eksik verileri doldurmak veya tahmin etmek için kullanılan çeşitli istatistiksel yöntemleri ifade eder. İmputasyon işlemi, eksik verileri analizde kullanılabilir hale getirmek amacıyla yapılır. İmputasyon yöntemleri, veri setinin yapısına ve eksik verilerin nedenlerine bağlı olarak değişebilir. İşte bazı yaygın imputasyon yöntemleri:
+İmputasyon, eksik verileri doldurmak veya tahmin etmek için kullanılan çeşitli istatistiksel yöntemleri ifade eder. İmputasyon işlemi, eksik verileri analizde kullanılabilir hale getirmek amacıyla yapılır. İmputasyon yöntemleri, veri setinin yapısına ve eksik verilerin nedenlerine bağlı olarak değişebilir. Yaygın olarak kullanılan bazı imputasyon yöntemleri ve eksik verilerle başa çıkma stratejileri aşağıda verilmiştir:
 
-1.  Ortalama Değer İmputasyonu: Eksik veriler, değişkenin ortalama değeri ile doldurulabilir. Bu yöntem, eksik verilerin diğer gözlemlerdeki ortalama değerlere benzer olduğu varsayımına dayanır.
+1.  **Silme (Deletion):**
 
-2.  Medyan Değer İmputasyonu: Eksik veriler, değişkenin medyan değeri ile doldurulabilir. Medyan, verilerdeki aşırı değerlerden etkilenmeyeceği için ortalama değere göre daha dayanıklı bir seçenektir.
+    -   **Listwise Deletion (Tamamen Eksik Gözlemleri Silme):** Eksik veri içeren gözlemleri veri setinden tamamen çıkarır. Ancak, bu yöntem veri kaybına neden olabilir ve analizin güvenilirliğini azaltabilir.
 
-3.  En Yakın Komşu İmputasyonu: Eksik veriler, benzer diğer gözlemlerin değerleri ile doldurulabilir. Bu yöntemde, eksik veriye sahip olan gözlem, diğer gözlemlerin benzerliklerine göre doldurulur.
+    -   **Pairwise Deletion (Çiftler Arası Silme):** Her analizde eksik verisi olan değişkenleri dışlamadan eksik verilerle çalışmayı sağlar.
 
-4.  Regresyon İmputasyonu: Eksik veri içeren bir değişken, diğer değişkenlerle ilişkilendirilerek tahmin edilebilir. Bu yöntem, eksik verinin diğer değişkenlerle ilişkisini kullanarak doldurur.
+2.  **Basit Değer Atama (Single Imputation):**
 
-5.  EM (Expectation-Maximization) Algoritması: EM algoritması, eksik veri problemini çözmek için kullanılan bir iteratif istatistiksel yöntemdir. Bu yöntem, eksik verilerin olasılık dağılımlarını tahmin etmek için kullanılır.
+    -   **Ortalama, Medyan veya Mod Atama:** Eksik değerlere ortalama, medyan veya mod değerleri atanabilir. Ancak, bu yöntem veri dağılımını etkileyebilir. Ortalama ile atama, eksik verilerin diğer gözlemlerdeki ortalama değerlere benzer olduğu varsayımına dayanır. Medyan ile atama ise, verilerdeki aşırı değerlerden etkilenmeyeceği için ortalama değere göre daha dayanıklı bir seçenek olarak tercih edilebilir.
+
+    -   **Doldurma (Interpolation):** Zaman serisi verilerinde kullanılan bir yöntemdir. Mevcut değerlere dayanarak eksik değerleri tahmin eder.
+
+3.  **Çoklu Değer Atama (Multiple Imputation):**
+
+    -   Birden fazla kez eksik verileri doldurur ve her birini farklı bir "tamamlanmış" veri seti olarak ele alır. Bu, belirsizlikle başa çıkma avantajına sahiptir.
+
+4.  **Model Tabanlı Yöntemler:**
+
+    -   İleri düzey istatistiksel modeller veya makine öğrenimi algoritmaları kullanarak eksik değerleri tahmin edebilir. KNN (K Nearest Neighbor-En Yakın Komşu), regresyon analizi ve karar ağaçları bu tür yöntemlere örnektir.
 
 İmputasyon yöntemi, veri setinin özelliklerine, eksik verilerin miktarına ve verilerin doğasına bağlı olarak seçilir. Her yöntemin avantajları ve dezavantajları vardır, bu nedenle doğru yöntemi seçmek, analizin doğruluğunu ve güvenilirliğini etkileyebilir. İmputasyonun amacı, eksik verilerin doğru ve güvenilir bir şekilde doldurulmasıdır, böylece analiz sonuçları daha kesin ve anlamlı olur.
 
-```{r message=FALSE}
+### Eksik Verilerin Silinmesi
 
-# eksik verilere basit değer atama
-df2$weight2 <- ifelse(is.na(df2$weight),mean(df2$weight, na.rm = TRUE),df2$weight)
-df2
-# tek seferde bütün kolonlardaki eksik verileri ortamala ile doldurmak için
-sapply(df2, function(x) ifelse(is.na(x), mean(x, na.rm = TRUE), x ))
+Eksik verilerin silinmesi, bir analizde kullanılan veri setinden eksik değerlere sahip olan gözlemlerin veya değişkenlerin tamamen çıkarılması anlamına gelir. Ancak, bu strateji her zaman uygun değildir, çünkü veri kaybına neden olabilir ve analizin güvenilirliğini azaltabilir. Bu nedenle, dikkatlice düşünülmesi gereken bir yöntemdir.
 
+```{r}
 
-library(zoo)
-sapply(df2, function(x) ifelse(is.na(x), na.locf(x), x )) # carry forward
-sapply(df2, function(x) ifelse(is.na(x), na.approx(x), x )) # linear interpolation
-sapply(df2, function(x) ifelse(is.na(x), na.spline(x), x )) # cubic interpolation
+# Örnek veri seti oluşturalım
+set.seed(123)
+data <- data.frame(
+  ID = 1:10,
+  Age = c(25, 30, NA, 22, 35, 40, NA, 28, NA, 32),
+  Income = c(50000, 60000, 75000, NA, 80000, 90000, 70000, NA, 65000, 75000),
+  Score = c(80, 85, 90, 78, NA, 88, 92, 85, 80, NA)
+)
 
+# Eksik verilere sahip gözlemleri sil
+data_no_missing <- na.omit(data)
 
-# KNN (k-nearest neighbor) ile Değer Atama
-
-library(DMwR2)
-# airquality verisi
-df_air <- tibble::as_tibble(airquality)
-anyNA(df_air)
-
-# airquality verisindeki Wind değişkeninin bazı değerlerini NA yapalım
-set.seed(1234)
-row_num <- sample(1:nrow(airquality),5)
-row_num # bu satırdaki değerlere NA atanacak
-airquality_2 <- airquality
-airquality_2[row_num,"Wind"] <- NA
-airquality_2[row_num,"Wind"]
-head(airquality_2,20)
-
-# k parametresi, verilen bir noktaya en yakın komşuların sayısıdır. 
-# Örneğin: k=5 olsun. Bu durumda mesafeye (öklit) göre en yakın 5 komşu belirlenir
-# ve mesafenin ağırlıklı ortalaması hesaplanır.
-# ağırlıklandırma, her komşuya 1 / d ağırlığının verilmesini içerir.
-# burada d komşuya olan uzaklıktır.
-knn_df_air <- knnImputation(airquality_2, k = 5) # k komşu sayısı
-
-result <- data.frame(row=row_num,
-                     orig=airquality[row_num,"Wind"],
-                     knn=knn_df_air[row_num,"Wind"])
-result
-mean(result$orig-result$knn)
+# Sonucu göster
+print(data_no_missing)
 
 ```
+
+Bu örnekte, "Age", "Income" ve "Score" değişkenlerinde eksik verilere sahip olan bir veri seti oluşturuldu. Ardından, **`na.omit()`** fonksiyonu kullanılarak eksik verilere sahip gözlemler silindi. Ancak, bu işlemle birlikte bazı gözlemler tamamen silinmiş oldu.
+
+```{r}
+
+# complete.cases ile eksik verilere sahip gözlemleri filtrele
+complete_data <- data[complete.cases(data), ]
+
+# Sonucu göster
+print(complete_data)
+
+```
+
+**`complete.cases(data)`** ifadesi, veri setindeki tamamen eksiksiz olan gözlemleri belirleyerek **`TRUE`** ve **`FALSE`** değerlerinden oluşan bir mantıksal vektör oluşturur. Daha sonra, bu mantıksal vektör kullanılarak sadece tamamen eksiksiz olan gözlemleri içeren yeni bir veri seti oluşturulur.
+
+Eksik verilerin silinmesi avantajlı olabilir çünkü veri seti daha temiz hale gelir ve analiz daha basitleşir. Ancak, bu yaklaşımın dezavantajı, silinen gözlemler nedeniyle veri setindeki genel örüntülerin ve ilişkilerin değişebileceğidir. Ayrıca, eksik veri durumunun mevcut olduğu durumlarda analiz yapılamayabilir. Bu nedenle, eksik verilerin silinmesi stratejisini kullanmadan önce eksik verilerin neden kaynaklandığını anlamak ve analizin amacını dikkate almak önemlidir.
+
+### Eksik Değerlere Basit Değer Atama
+
+Eksik değerlere basit değer atama, eksik değerlere sabit bir değer, ortalama, medyan veya mod gibi basit bir istatistiksel ölçüt atanması anlamına gelir. Bu, eksik verilerin tahmin edilmesinde basit ancak yaygın bir yöntemdir.
+
+Eksik değerlere basit bir değer atamak için, örneğin, **`Age`** değişkenindeki eksik değerlere ortalama değeri atayabiliriz:
+
+```{r}
+
+# Age değişkenindeki eksik değerlere ortalama değeri atama
+data$Age[is.na(data$Age)] <- mean(data$Age, na.rm = TRUE)
+
+# Değişiklikleri göster
+print(data)
+
+```
+
+Bu örnekte, **`is.na(data$Age)`** ifadesi, **`Age`** değişkenindeki eksik değerlere **`TRUE`**, eksik olmayan değerlere **`FALSE`** döndüren bir mantıksal vektör oluşturur. Ardından, **`mean(data$Age, na.rm = TRUE)`** ifadesi ile **`Age`** değişkeninin ortalama değeri hesaplanır ve eksik değerlere bu ortalama değer atanır.
+
+Aynı yöntem, diğer basit istatistiksel ölçütlerle de uygulanabilir. Örneğin, eksik değerlere medyan veya belirli bir sabit değer atanabilir.
+
+```{r}
+
+# Income değişkenindeki eksik değerlere medyan değeri atama
+data$Income[is.na(data$Income)] <- median(data$Income, na.rm = TRUE)
+
+# Score değişkenindeki eksik değerlere sabit bir değer (örneğin, 75) atama
+data$Score[is.na(data$Score)] <- 75
+
+# Değişiklikleri göster
+print(data)
+
+```
+
+Eksik değerlere çoklu olarak basit değer atama yapmak için **`sapply`** fonksiyonu kullanılabilir. Bu fonksiyon, bir liste veya vektör üzerinde bir işlemi tekrarlamak için kullanılır.
+
+```{r}
+
+# Sapply ile eksik değerlere ortalama değeri atama
+sapply(data, function(x)
+  ifelse(is.na(x), mean(x, na.rm = TRUE), x))
+
+```
+
+Eksik değerleri doldurmak için **`zoo`** paketinde bulunan **`na.locf`**, **`na.approx`** ve **`na.spline`** fonksiyonları oldukça kullanışlıdır. Bu fonksiyonlar, sırasıyla bir önceki değeri kullanma (last observation carried forward), doğrusal interpolasyon ve spline interpolasyon yöntemlerini içerir.
+
+**`na.locf`**, **`na.approx`**, ve **`na.spline`** fonksiyonları, zaman serisi verilerinde eksik değerleri doldurmak için özellikle kullanışlıdır. Bu fonksiyonlar, zaman içinde belirli bir düzeni takip eden verilerdeki eksik değerleri tahmin etmek için tasarlanmıştır. İşte bu fonksiyonlar ve uygun oldukları senaryoların kısa bir açıklaması:
+
+**`na.locf` (Last Observation Carried Forward):** Zaman serisi verilerinde, gözlemler arasındaki sürekli düzeni korumak istediğiniz durumlar. Önceki gözlemin değeri, sonraki eksik gözlemin değeri olarak kabul edilir.
+
+```{r}
+
+library(zoo)
+# carry forward
+# eksik değerler bir önceki gözlemin değeriyle doldurulur.
+sapply(data, function(x) ifelse(is.na(x), na.locf(x), x ))
+
+```
+
+**`na.approx` (Linear Approximation):** Zaman serisi verilerinde, eksik değerleri doğrusal bir eğilimle doldurmak istediğiniz durumlar. Ancak, doğrusal interpolasyon, verilerde gerçekten doğrusal bir ilişki olduğu durumları varsayar.
+
+```{r}
+
+# linear interpolation
+# eksik değerler doğrusal interpolasyon yöntemiyle doldurulur.
+sapply(data, function(x) ifelse(is.na(x), na.approx(x), x ))
+
+```
+
+**`na.spline` (Spline Approximation):** Zaman serisi verilerinde, eksik değerleri spline interpolasyon yöntemi ile doldurmak istediğiniz durumlar. Spline interpolasyon, veriler arasında daha karmaşık ve eğri bir ilişki olduğu durumları ele alabilir.
+
+```{r}
+
+# cubic interpolation
+# eksik değerler spline interpolasyon yöntemiyle doldurulur.
+sapply(df2, function(x) ifelse(is.na(x), na.spline(x), x ))
+
+```
+
+Bu fonksiyonlar, özellikle zamana bağlı değişen veri setlerinde eksik değerleri doldurmak için kullanılır. Ancak, kullanmadan önce dikkat edilmesi gereken önemli bir nokta, interpolasyonun verilerdeki gerçek ilişkileri ne kadar doğru yansıttığıdır. Doğru bir doldurma stratejisi seçilirken, eksik değerlerin neden kaynaklandığını ve veri setinin özelliklerini anlamak önemlidir.
+
+### En Yakın Komşu Yöntemi (KNN) ile Değer Atama
+
+En yakın komşu yöntemi (K-Nearest Neighbors, KNN) eksik değerleri doldurmak için kullanılan bir yöntemdir. Temel fikir, bir gözlemin sınıfını veya değerini belirlemek için, o gözleme en yakın komşularının etkisini kullanmaktır. Bu yöntem, eksik değeri olan bir gözlemi, benzer diğer gözlemlerin değerleriyle doldurmayı amaçlar. KNN, benzerlik ya da uzaklık ölçüsüne dayalı olarak en yakın k komşuyu belirleyerek eksik değeri doldurur. Uzaklık ise bu yakınlığın ölçüsünü ifade eder. Uzaklık metrikleri, gözlemler veya özellik vektörleri arasındaki benzerlik veya farklılık düzeyini belirlemek için kullanılır.
+
+KNN'de yaygın olarak kullanılan uzaklık metrikleri şunlardır:
+
+1.  **Euclidean Distance (Öklidyen Uzaklık):** İki nokta arasındaki doğrusal mesafeyi ölçer. 2-boyutlu uzayda, iki nokta $(x_1,y_1)$ ve $(x_2,y_2)$ arasındaki öklidyen uzaklık formülü şu şekildedir:
+
+    $$
+    Uzaklık=\sqrt{(x_2-x_1)^2+(y_2-y_1)^2}
+    $$
+
+    Bu formül genelleştirilebilir ve çok boyutlu uzaylarda kullanılabilir.
+
+2.  **Manhattan Distance (Manhattan Uzaklığı veya L1 Uzaklığı):** İki nokta arasındaki "şehir blokları" tarzında mesafeyi ölçer. Özellik vektörlerindeki farklar toplanır. 2-boyutlu uzayda, iki nokta $(x_1,y_1)$ ve $(x_2,y_2)$ arasındaki Manhattan uzaklık formülü şu şekildedir:
+
+    $$
+    Uzaklık=|x_2-x_1|+|y_2-y_1|
+    $$
+
+3.  **Chebyshev Distance (Chebyshev Uzaklığı veya L∞ Uzaklığı):** İki nokta arasındaki maksimum farkı ölçer. Özellik vektörlerindeki farkların mutlak değerlerinden en büyüğünü seçer.
+
+4.  **Minkowski Distance:** Minkowski uzaklığı, öklidyen, Manhattan ve Chebyshev uzaklıklarını içeren genel bir formülü ifade eder. Bu formül şu şekildedir:
+
+    $$
+    Uzaklık=(\sum_{i=1}^n |x_{i2}-x_{i1}|^p)^{1/p}
+    $$
+
+    Burada $p$ parametresi, uzaklık ölçüsünün tipini belirler. $p=2$ öklidyen uzaklığı, $p=1$ Manhattan uzaklığı, $p=\infty$ Chebyshev uzaklığını temsil eder.
+
+Uzaklık, KNN algoritmasında önemlidir çünkü bu algoritma komşuluk temeline dayalı çalışır. Bir gözlemin sınıfını veya değerini belirlerken, o gözleme en yakın komşularının etkisini alır. Bu nedenle, doğru uzaklık metrikinin seçimi, modelin performansını etkiler. Veri setinin özelliklerine, dağılımına ve problemin niteliğine bağlı olarak en uygun uzaklık metriğinin seçilmesi önemlidir.
+
+**R** ile örnek bir uygulama yapmak için **`DMwR2`** paketini kullanabiliriz. **`DMwR2`** paketi, "[**Data Mining with R: Learning with Case Studies**](https://www.amazon.com/Data-Mining-Learning-Knowledge-Discovery/dp/1439810184)" kitabının örnekleri üzerine dayanarak, eksik verilerle başa çıkmak için kullanılan bir pakettir. Bu paket, özellikle eksik değerleri tahmin etmek ve doldurmak amacıyla bazı yöntemleri içermektedir.
+
+Aşağıda, **`DMwR2`** paketi kullanılarak K-Nearest Neighbors (KNN) algoritması ile eksik değer doldurma işlemi için bir örnek bulunmaktadır. Bu örnekte, **`DMwR2`** paketi ile **`knnImputation`** fonksiyonu kullanılarak bir veri setindeki eksik değerler doldurulmuştur.
+
+```{r message=FALSE}
+
+library(DMwR2)
+
+# KNN ile eksik değerleri doldur
+# k parametresi, verilen bir noktaya en yakın komşuların sayısıdır. 
+# Bu örnekte uzaklığa (öklit) göre en yakın 3 komşu belirlenir
+# Dah sonra mesafenin ağırlıklı ortalaması hesaplanır.
+# Ağırlıklandırma, her komşuya 1 / d ağırlığının verilmesini içerir.
+# d komşuya olan uzaklıktır.
+data_imputed <- knnImputation(data, k = 3)
+
+# Sonucu göster
+print(data_imputed)
+
+
+```
+
+Bu örnekte, **`knnImputation`** fonksiyonu, K-Nearest Neighbors algoritmasını kullanarak eksik değerleri doldurur. **`k`** parametresi, her bir eksik değeri doldurmak için kullanılacak olan komşu sayısını belirler. Bu örnekte **`k = 3`** olarak seçildi.
+
+Bu örnekte, KNN algoritması kullanılarak eksik değerlerin doldurulduğu bir senaryoyu görmüş olduk. Ancak, KNN'nin avantajlarına rağmen, kullanılan algoritmanın ve komşuluk sayısının seçimi, problem bağlamına bağlı olarak değişebilir. Eksik değer doldurma stratejilerini seçerken, veri setinin yapısı, eksik değerlerin neden kaynaklandığı ve analizin amacı göz önüne alınmalıdır.
 
 ::: callout-tip
 ### Tavsiye
@@ -133,11 +292,12 @@ max(mpg$hwy)
 
 ```{r}
 
+# grafiğin sağ tarafında kalan gözlemler şüpheli görünüyor.
 ggplot(mpg) +
   aes(x = hwy) +
   geom_histogram(bins = 20, fill = "blue") +
   theme_minimal()
-# grafiğiin sağ tarafında kalan gözlemler şüpheli görünüyor.
+
 
 ```
 
@@ -210,7 +370,9 @@ mpg[outlier_sira, ]
 
 Aykırı değerlerin tespitinde ortalama ve standart sapmanın kulllanıldığı en bilinen yöntemlerdendir ve aşağıdaki şekilde hesaplanır.
 
-$Z_i = \frac{(X_i -\mu)}{\sigma}$
+$$
+Z_i = \frac{(X_1-\mu)}{\sigma}
+$$
 
 ![](images/sigma.png){fig-align="center"}
 
