@@ -143,10 +143,10 @@ Aynı yöntem, diğer basit istatistiksel ölçütlerle de uygulanabilir. Örne�
 ```{r}
 
 # Income değişkenindeki eksik değerlere medyan değeri atama
-data$Income[is.na(data$Income)] <- median(data$Income, na.rm = TRUE)
+data$Income_imputed[is.na(data$Income)] <- median(data$Income, na.rm = TRUE)
 
 # Score değişkenindeki eksik değerlere sabit bir değer (örneğin, 75) atama
-data$Score[is.na(data$Score)] <- 75
+data$Score_imputed[is.na(data$Score)] <- 75
 
 # Değişiklikleri göster
 print(data)
@@ -156,6 +156,18 @@ print(data)
 Eksik değerlere çoklu olarak basit değer atama yapmak için **`sapply`** fonksiyonu kullanılabilir. Bu fonksiyon, bir liste veya vektör üzerinde bir işlemi tekrarlamak için kullanılır.
 
 ```{r}
+
+# Örnek veri seti yeniden oluşturalım
+# Çünkü önceki örneklerde farklı yöntemlerle değer atadık.
+# üreteç sabitlenir
+set.seed(123)
+data <- data.frame(
+  ID = 1:10,
+  Age = c(25, 30, NA, 22, 35, 40, NA, 28, NA, 32),
+  Income = c(50000, 60000, 75000, NA, 80000, 90000, 70000, NA, 65000, 75000),
+  Score = c(80, 85, 90, 78, NA, 88, 92, 85, 80, NA)
+)
+
 
 # Sapply ile eksik değerlere ortalama değeri atama
 sapply(data, function(x)
@@ -169,7 +181,7 @@ Eksik değerleri doldurmak için **`zoo`** paketinde bulunan **`na.locf`**, **`n
 
 **`na.locf` (Last Observation Carried Forward):** Zaman serisi verilerinde, gözlemler arasındaki sürekli düzeni korumak istediğiniz durumlar. Önceki gözlemin değeri, sonraki eksik gözlemin değeri olarak kabul edilir.
 
-```{r}
+```{r message=FALSE}
 
 library(zoo)
 # carry forward

@@ -16,233 +16,6 @@ ggplot2 ile veri görselleştirebilmemiz için önce grafik yapısını iyi tan�
 
 -   Boxplot grafiği için `geom_boxplot()`
 
-## Saçılım Grafikleri
-
-Saçılım grafiği, genellikle fizik ve istatistik gibi bilimlerde kullanılan bir grafik türüdür. Saçılım grafiği, iki değişken arasındaki ilişkiyi görsel olarak göstermek için kullanılır. Bir eksende bir değişkenin değerleri, diğer eksende ise diğer değişkenin değerleri yer alır, ve her veri noktası bu iki değişkenin birleşimini temsil eder. Saçılım grafiği, veri noktalarının dağılımını, yoğunluklarını, odaklanma noktalarını ve olası eğilimleri anlamak için kullanılır. Bu grafik, veri setindeki aykırı değerleri tespit etmek, iki değişken arasındaki ilişkiyi değerlendirmek ve korelasyonu görsel olarak incelemek için oldukça kullanışlıdır.
-
-Saçılım grafiği kullanarak, iki değişken arasındaki ilişkinin doğası hakkında bilgi edinebilirsiniz. Örneğin, pozitif bir korelasyon varsa, veri noktaları genellikle yukarı doğru bir eğilim gösterirken, negatif bir korelasyon varsa, veri noktaları genellikle aşağı doğru bir eğilim gösterir. Korelasyon olmaması durumunda ise veri noktaları dağınık bir şekilde yayılmış olur. Saçılım grafiği, istatistiksel analizlerde veri keşfi yapmak ve ilişkileri anlamak için önemli bir araçtır.
-
-```{r warning=FALSE}
-
-library(ggplot2)
-library(dplyr, quietly = TRUE)
-
-# Bir önceki bölümde üretilen yeni değişkenleri mpg veri setine yine ekleyelim.
-
-# litre başına km hesaplama
-galonmil_to_ltkm <- function(x){
-  
-  km <- x * 1.609/3.79
-  return(km)
-}
-
-df <- mpg
-df$cty_ltkm <- galonmil_to_ltkm(df$cty)
-df$hwy_ltkm <- galonmil_to_ltkm(df$hwy)
-
-p1 <- ggplot(df,aes(x=displ,y=cty_ltkm)) +
-  geom_point(size=2,color="red")
-p1
-
-# gruplar düzeyinde grafiği çizdirme
-p2 <- ggplot(df,aes(x=displ,y=cty_ltkm,colour=as.factor(year))) +
-  geom_point(size=2) +
-  # grafiğe başlık ekleme
-  ggtitle("Motor Hacmi ve Yakıt Tüketimi Saçılım Grafiği") +
-  #eksenleri isimlendirme
-  xlab("Motor Hacmi") + 
-  ylab("Yakıt Tüketimi")+
-  theme_bw() + # tema değiştirme
-  theme(legend.position = "bottom",  # gruplama değişkeninin poziyounun değiştirme
-        plot.title = element_text(face = "bold"), # kalın başlık
-        legend.title = element_blank()) # grup başlığını kaldırma
-p2  
-
-ggplot(df,aes(x=displ,y=cty_ltkm)) +
-  geom_point(aes(size=factor(cyl)),color="red")
-
-# grafiğe model eğrisi ekleme
-p1 + geom_smooth(method = lm, se = TRUE)
-p1 + geom_smooth(method = loess, se = TRUE)
-
-# grup düzeyinde model eğrileri ve saçılım grafiği
-p3 <- df %>% 
-  ggplot(aes(x=displ,y=cty_ltkm,color=as.factor(cyl))) +
-  geom_point()  + 
-  geom_smooth(method = lm, se = TRUE)
-p3
-
-# grup ve yıl düzeyinde model eğrileri ve saçılım grafiği
-p3 + facet_wrap(~ year)
-p3 + facet_wrap(~ year+drv)
-p3 + facet_grid(drv ~ year) # eksen aralıkları sabit
-p3 + facet_grid(drv ~ year,scales = "free") # eksen aralıkları değişken
-
-```
-
-## Zaman Serisi Grafikleri
-
-Zaman serisi grafikleri, zamanla değişen verileri görsel olarak temsil etmek için kullanılan grafiklerdir. Bu tür grafikler, belirli bir süre boyunca gözlemlenen verileri analiz etmek, eğilimleri belirlemek, dönemsel desenleri tanımak ve istatistiksel analizler yapmak için yaygın olarak kullanılır. Zaman serisi verileri genellikle sabit aralıklarla veya farklı zaman dilimlerinde toplanır. En yaygın olan türü çizgi grafikleri olmakla birlikte sütun ve alan grafikleri de zaman serilerinin görselleştirilmesinde kullanılabilmektedir.
-
-Örnekler ggplot2 paketi ile birlikte gelen [**`economics`**](https://ggplot2.tidyverse.org/reference/economics.html) veri seti ile yapılacaktır.
-
-```{r}
-
-economics
-summary(economics)
-
-p4 <- economics %>% 
-  ggplot(aes(x=date,y=pce)) +
-  geom_line(color="blue") +
-  theme_minimal() +
-  labs(x = "",
-       y = "Personal Consumption Expenditures",
-       title = "Personal Consumption Expenditures Time Series",
-       caption = "Economics Data",
-       subtitle = "Economics Data (1967-2015)")
-p4
-
-# zaman eksenini ayarlama
-p4 + 
-  scale_x_date(date_breaks = "1 year", date_labels = "%Y") +
-  theme(axis.text.x = element_text(angle = 45), legend.position = "top")
-
-p4 + 
-  scale_x_date(date_breaks = "2 year", date_labels = "%Y",expand = c(0,0)) +
-  theme(axis.text.x = element_text(angle = 45), legend.position = "top")
-
-# çizgi türü değiştirilebilir
-economics %>% 
-  ggplot(aes(x=date,y=pce)) +
-  geom_line(linetype = "dashed", size = 1, colour = "blue")
-
-economics %>% 
-  ggplot(aes(x=date,y=pce)) +
-  geom_line(linetype = "dotted", size = 2, colour = "blue")
-
-# zaman grafiğine noktalar ekleme
-economics %>% 
-  filter(lubridate::year(date) >= 2010) %>% 
-  ggplot(aes(x=date,y=pce)) +
-  geom_line()+
-  geom_point(size = 3, shape= 7, colour = "red")
-
-# gölgeli zaman grafiği
-economics %>% 
-  ggplot(aes(x=date,y=pce)) +
-  geom_area(color="blue",fill="red",alpha=0.6) +
-  # y ekseni aralıklarını ayarlama
-  scale_y_continuous(breaks = seq(0, max(economics$pce), by = 1000))
-
-economics %>% 
-  ggplot(aes(x=date,y=uempmed )) +
-  geom_area(color="blue",fill="red",alpha=0.5) +
-  theme_light()
-
-# çoklu zaman serisi grafiği
-economics_long
-
-# serilerin ölçekleri farklı 
-economics_long %>% 
-  ggplot(aes(x=date,y=value,color=variable))+
-  geom_line()
-
-economics_long %>% 
-  ggplot(aes(x=date,y=value))+
-  geom_line() +
-  facet_wrap(~variable,scales = "free_y")
-
-economics_long %>% 
-  ggplot(aes(x=date,y=value))+
-  geom_line() +
-  facet_wrap(~variable,scales = "free_y")+
-  scale_y_log10() # y eksenlerinin logatirması alınır
-
-```
-
-## Sütun Grafikleri
-
-Sütun grafikleri, verileri kategorik veya gruplara göre temsil etmek için kullanılan bir grafik türüdür. Bu grafik türü, farklı kategorilerin veya grupların sayısal değerlerini karşılaştırmak veya görselleştirmek için kullanılır. Sütun grafikleri dikey çubuklardan oluşur ve her çubuk, bir kategori veya grup için bir değeri temsil eder. Sütun grafiklerinin temel bileşenleri şunlardır:
-
-1.  **Yatay Eksen (X-Eksen):** Bu eksende kategoriler veya gruplar yer alır. Örneğin, bir yıl boyunca aylar, ürün kategorileri, bölgeler veya şirket departmanları gibi farklı kategoriler olabilir.
-
-2.  **Dikey Eksen (Y-Eksen):** Bu eksende sayısal değerler yer alır ve sütunların yükseklikleri bu değerleri temsil eder. Değerler genellikle sayısal verilerdir ve karşılaştırılabilir bir ölçü birimi içinde bulunurlar.
-
-3.  **Sütunlar:** Sütunlar, her bir kategori veya grup için bir değeri temsil eder. Sütunların yükseklikleri, karşılaştırılan değerlerin büyüklüğünü veya ilişkilerini gösterir.
-
-Sütun grafikleri, aşağıdaki amaçlar için kullanılır:
-
--   Karşılaştırmalar: Farklı kategorilerin veya grupların değerlerini karşılaştırmak için kullanılır. Örneğin, farklı ülkelerin gayri safi yurtiçi hasıla (GSYİH) değerlerini karşılaştırmak için sütun grafikleri kullanılabilir.
-
--   Zaman İçi Değişim: Zaman serisi verilerini temsil etmek için kullanılabilir. Her sütun, belirli bir zaman dilimindeki değerleri gösterebilir.
-
--   Kategorik Verilerin İncelenmesi: Ürün kategorileri, şirket departmanları veya müşteri segmentleri gibi kategorik verilerin analizi için kullanılabilir.
-
-Sütun grafikleri, verileri görsel olarak anlamak ve veriler arasındaki farkları veya eğilimleri vurgulamak için etkili bir araçtır. Aynı zamanda verilerin daha kolay anlaşılmasına yardımcı olabilir ve karar verme süreçlerine katkı sağlayabilir.
-
-Örnekler ggplot2 paketi ile birlikte gelen [**`diamonds`**](https://ggplot2.tidyverse.org/reference/diamonds.html) veri seti ile yapılacaktır. Veri hakkında bilgi sahibi olmak için **`dplyr`** paketinde yer alan **`glimpse`** fonksiyonunu kullanabiliriz. Bu fonksiyon, bir veri çerçevesi veya tibble nesnesini özetleyen ve hızlı bir bakış sunan bir fonksiyondur. **`glimpse`** fonksiyonu, veri setindeki değişkenleri, veri türlerini, ve ilk birkaç gözlemi görüntüler. Ayrıca **`summary`** fonksiyonu ile de veride yer alan değişkenlerin temel istatistikleri hakkında bilgi sahibi olabiliriz.
-
-```{r}
-
-glimpse(diamonds)
-summary(diamonds)
-
-```
-
-Sütun grafiği üretebilmek için kullanılan fonksiyonlardan bir tanesi **`geom_bar()`**'dır. Aşağıda verilen kod veri setindeki kesim sınıflarını ifade eden **`cut`** değişkenin frekanslarını gösteren bir sütun grafik üretir. Her bir sütun, belirli bir kesim sınıfını temsil eder ve yükseklikleri o kesim sınıfına ait elmas sayısını yansıtır.
-
-```{r}
-
-# sıklık durumunu görselleştirme
-ggplot(diamonds, aes(cut)) +
-  geom_bar()
-
-```
-
-Örneğin **`color`** değişkenine göre gruplandırılmış bir grafik üretelim. Aşağıda yer alan kod, "diamonds" veri setindeki kesim sınıflarının ve renklerinin kombinasyonlarına göre gruplandırılmış bir sütun grafik üretir. Her bir **`cut`** kategorisi için ayrı renkli sütunlar olacaktır.
-
--   **`ggplot(diamonds, aes(cut, fill = color))`**: Bu bölümde, "diamonds" veri setini temel alarak bir ggplot nesnesi oluşturulur. **`aes(cut, fill = color)`** ifadesi, x ekseninde "cut" değişkenini, sütunların renklendirilmesinde ise "color" değişkenini kullanacağımızı belirtir.
-
--   **`geom_bar(position = position_dodge())`**: Bu fonksiyon, gruplandırılmış sütun grafik oluşturur. **`position = position_dodge()`** ifadesi, sütunların yan yana yerleştirilmesini sağlar, yani her bir **`cut`** kategorisi içindeki **`color`** kategorilerini farklı renklerde gösterir. Bu sayede, her bir **`cut`** kategorisi için ayrı renkli sütunlar elde edilir.
-
-```{r}
-
-ggplot(diamonds, aes(cut, fill = color)) +
-  geom_bar(position = position_dodge()) + 
-  xlab("Pirlanta kaliteleri") + 
-  ylab("Gozlenme Sikliklari")
-
-```
-
-Her bir kesim sınıfı için, **`color`** değişkenine göre renklendirilmiş sütunları olan ve her sütunun yüksekliği, o kesim sınıfındaki elmasların toplam karat değerini temsil eden bir grafik üretelim. Bu durumda y ekseninde **`carat`** değişkenini kullanacağız.
-
-**`geom_bar(stat = "identity")`**: Bu fonksiyon, gruplandırılmış sütun grafik oluşturur. **`stat = "identity"`** ifadesi, her bir sütunun yüksekliğinin, "carat" değişkeninin değerine eşit olacağını belirtir. Yani, sütunların yüksekliği doğrudan carat değişkenine bağlı olacaktır.
-
-```{r}
-
-ggplot(diamonds, aes(x=cut, y=carat,fill = color)) +
-  geom_bar(stat = "identity") 
-
-```
-
-Eğer **`position = "fill"`** kullanırsak, **`geom_bar`** fonksiyonu, her kategori içindeki değerlerin oranlarını gösteren yığılmış bir sütun grafik oluşturur. Bu durumda, her bir kategori toplam yüksekliğe göre doldurulacak ve her bir alt kategori, kendi kategorisi içindeki oranını ifade edecek şekilde düzenlenecektir.
-
-```{r}
-
-ggplot(diamonds, aes(x=cut, y=carat,fill = color)) +
-  # fill ile oransal olarak gösterim yapılır
-  geom_bar(stat = "identity",position = "fill") 
-
-```
-
-Her bir kesim sınıfının toplam yüksekliğe göre doldurulduğu bu grafikte, her renk kategorisi içindeki sütunlar, o kesim sınıfındaki toplam elmas sayısına oranlanmış şekilde görüntülenir. Bu tür bir grafik, her bir kategorinin toplamda ne kadar paya sahip olduğunu vurgulamak ve kategorinin içindeki alt kategorilerin oranlarını göstermek için kullanışlıdır. Ancak, grafikteki renklerin yorumlanması dikkatlice yapılmalıdır, çünkü her renk, kendi kategorisi içindeki oranları temsil eder.
-
-::: callout-warning
-## Dikkat
-
-İki tür çubuk grafik vardır: **`geom_bar()`** ve **`geom_col()`**. **geom_bar()**, çubuğun yüksekliğini her gruptaki vaka sayısıyla (veya ağırlık estetiği sağlanmışsa, ağırlıkların toplamıyla) orantılı hale getirir. Çubukların yüksekliklerinin verilerdeki değerleri temsil etmesini istiyorsanız, bunun yerine **`geom_col()`** kullanın. **geom_bar()** varsayılan olarak **`stat_count()`** kullanır: her x konumundaki vaka sayısını sayar. **`geom_col()`** **`stat_identity()`** kullanır. Yani verileri olduğu gibi bırakır.
-:::
-
 ## Dağılım Grafikleri
 
 Dağılım grafikleri, veri setinin dağılımını görsel olarak temsil etmek için kullanılan grafik türleridir. Bu grafikler, veri noktalarının, değerlerinin veya gözlemlerinin nasıl dağıldığını incelemek ve veri setindeki desenleri, eğilimleri ve aykırı değerleri anlamak için kullanılır. En yaygın olanı histogram grafikleridir.
@@ -253,7 +26,10 @@ Bunun dışında boxplot (kutu) grafikleri de dağılımı görselleştirmek iç
 
 **`geom_histogram`** fonksiyonu, ggplot2 paketinde kullanılan bir grafik geometrisidir ve histogram oluşturmak için kullanılır.
 
-```{r}
+```{r message=FALSE, warning=FALSE}
+
+library(ggplot2)
+library(dplyr)
 
 ggplot(diamonds, aes(price)) +
   geom_histogram()
@@ -390,7 +166,11 @@ ggplot(diamonds, aes(x = cut, y = price, fill = cut)) +
 
 Detaylı olarak açıklamak gerekirse; **`position_dodge(0.75)`**, noktaların kutuların içinde yatay yönde ne kadar kaydırılacağını belirtir. Bu değer 0 ile 1 arasında bir sayıdır ve 0, hiç kaydırma anlamına gelirken, 1, tamamen ayrık bir konumu temsil eder. Yani, 0.75, noktaların bir miktar sağa kaydırılmasını ifade eder. Bu birim genellikle x-eksenindeki veri genişliği ya da ölçeğine bağlıdır. Eğer x-eksenindeki veriler sayısal değilse (örneğin, kategorik değişkenler) birim genişliği birimi anlam taşımaz ve yatay konumları düzenlemede başka bir anlam ifade edebilir. Ancak, sayısal veri genişliği olan durumlarda, bu birim genişliği x-eksenindeki veri aralığına karşılık gelir.
 
+::: callout-warning
+## Dikkat
+
 **`position_dodge`** fonksiyonunda belirtilen değer 1'den büyük olabilir. Ancak, 1'den büyük bir değer kullanmak genellikle uygunsuz sonuçlara yol açar. Bu durumda, noktalar birbirine çok yakın hale gelir ve grafik üzerinde karışıklık olabilir. Ayarlamayı denemek ve grafik üzerindeki etkilerini gözlemlemek, en iyi sonuca ulaşmak için önemlidir.
+:::
 
 Bu şekilde, ortalamayı gösteren noktalar, kutular içinde daha rahat bir şekilde görünebilir ve boxplot üzerinde daha net bir şekilde ayrılabilir. Bu tür ayarlamalar, grafiklerin daha okunabilir ve anlaşılır olmasına katkıda bulunabilir.
 
@@ -413,6 +193,230 @@ ggplot(diamonds, aes(x = cut, y = price, fill = cut)) +
 
 Bu violin grafiği, kesim sınıfları arasında fiyat dağılımlarını karşılaştırmak için kullanılır. Violin grafiği, her bir kesim sınıfının fiyat yoğunluğunu ve merkezi eğilimini görsel olarak özetler.
 
+## Saçılım Grafikleri
+
+Saçılım grafiği, genellikle fizik ve istatistik gibi bilimlerde kullanılan bir grafik türüdür. Saçılım grafiği, iki değişken arasındaki ilişkiyi görsel olarak göstermek için kullanılır. Bir eksende bir değişkenin değerleri, diğer eksende ise diğer değişkenin değerleri yer alır, ve her veri noktası bu iki değişkenin birleşimini temsil eder. Saçılım grafiği, veri noktalarının dağılımını, yoğunluklarını, odaklanma noktalarını ve olası eğilimleri anlamak için kullanılır. Bu grafik, veri setindeki aykırı değerleri tespit etmek, iki değişken arasındaki ilişkiyi değerlendirmek ve korelasyonu görsel olarak incelemek için oldukça kullanışlıdır.
+
+Saçılım grafiği kullanarak, iki değişken arasındaki ilişkinin doğası hakkında bilgi edinebilirsiniz. Örneğin, pozitif bir korelasyon varsa, veri noktaları genellikle yukarı doğru bir eğilim gösterirken, negatif bir korelasyon varsa, veri noktaları genellikle aşağı doğru bir eğilim gösterir. Korelasyon olmaması durumunda ise veri noktaları dağınık bir şekilde yayılmış olur. Saçılım grafiği, istatistiksel analizlerde veri keşfi yapmak ve ilişkileri anlamak için önemli bir araçtır.
+
+```{r}
+
+# Bir önceki bölümde üretilen yeni değişkenleri mpg veri setine yine ekleyelim.
+
+# litre başına km hesaplama
+galonmil_to_ltkm <- function(x){
+  
+  km <- x * 1.609/3.79
+  return(km)
+}
+
+df <- mpg
+df$cty_ltkm <- galonmil_to_ltkm(df$cty)
+df$hwy_ltkm <- galonmil_to_ltkm(df$hwy)
+
+p1 <- ggplot(df,aes(x=displ,y=cty_ltkm)) +
+  geom_point(size=2,color="red")
+p1
+
+# gruplar düzeyinde grafiği çizdirme
+p2 <- ggplot(df,aes(x=displ,y=cty_ltkm,colour=as.factor(year))) +
+  geom_point(size=2) +
+  # grafiğe başlık ekleme
+  ggtitle("Motor Hacmi ve Yakıt Tüketimi Saçılım Grafiği") +
+  #eksenleri isimlendirme
+  xlab("Motor Hacmi") + 
+  ylab("Yakıt Tüketimi")+
+  theme_bw() + # tema değiştirme
+  theme(legend.position = "bottom",  # gruplama değişkeninin poziyounun değiştirme
+        plot.title = element_text(face = "bold"), # kalın başlık
+        legend.title = element_blank()) # grup başlığını kaldırma
+p2  
+
+ggplot(df,aes(x=displ,y=cty_ltkm)) +
+  geom_point(aes(size=factor(cyl)),color="red")
+
+# grafiğe model eğrisi ekleme
+p1 + geom_smooth(method = lm, se = TRUE)
+p1 + geom_smooth(method = loess, se = TRUE)
+
+# grup düzeyinde model eğrileri ve saçılım grafiği
+p3 <- df %>% 
+  ggplot(aes(x=displ,y=cty_ltkm,color=as.factor(cyl))) +
+  geom_point()  + 
+  geom_smooth(method = lm, se = TRUE)
+p3
+
+# grup ve yıl düzeyinde model eğrileri ve saçılım grafiği
+p3 + facet_wrap(~ year)
+p3 + facet_wrap(~ year+drv)
+p3 + facet_grid(drv ~ year) # eksen aralıkları sabit
+p3 + facet_grid(drv ~ year,scales = "free") # eksen aralıkları değişken
+
+```
+
+## Sütun Grafikleri
+
+Sütun grafikleri, verileri kategorik veya gruplara göre temsil etmek için kullanılan bir grafik türüdür. Bu grafik türü, farklı kategorilerin veya grupların sayısal değerlerini karşılaştırmak veya görselleştirmek için kullanılır. Sütun grafikleri dikey çubuklardan oluşur ve her çubuk, bir kategori veya grup için bir değeri temsil eder. Sütun grafiklerinin temel bileşenleri şunlardır:
+
+1.  **Yatay Eksen (X-Eksen):** Bu eksende kategoriler veya gruplar yer alır. Örneğin, bir yıl boyunca aylar, ürün kategorileri, bölgeler veya şirket departmanları gibi farklı kategoriler olabilir.
+
+2.  **Dikey Eksen (Y-Eksen):** Bu eksende sayısal değerler yer alır ve sütunların yükseklikleri bu değerleri temsil eder. Değerler genellikle sayısal verilerdir ve karşılaştırılabilir bir ölçü birimi içinde bulunurlar.
+
+3.  **Sütunlar:** Sütunlar, her bir kategori veya grup için bir değeri temsil eder. Sütunların yükseklikleri, karşılaştırılan değerlerin büyüklüğünü veya ilişkilerini gösterir.
+
+Sütun grafikleri, aşağıdaki amaçlar için kullanılır:
+
+-   Karşılaştırmalar: Farklı kategorilerin veya grupların değerlerini karşılaştırmak için kullanılır. Örneğin, farklı ülkelerin gayri safi yurtiçi hasıla (GSYİH) değerlerini karşılaştırmak için sütun grafikleri kullanılabilir.
+
+-   Zaman İçi Değişim: Zaman serisi verilerini temsil etmek için kullanılabilir. Her sütun, belirli bir zaman dilimindeki değerleri gösterebilir.
+
+-   Kategorik Verilerin İncelenmesi: Ürün kategorileri, şirket departmanları veya müşteri segmentleri gibi kategorik verilerin analizi için kullanılabilir.
+
+Sütun grafikleri, verileri görsel olarak anlamak ve veriler arasındaki farkları veya eğilimleri vurgulamak için etkili bir araçtır. Aynı zamanda verilerin daha kolay anlaşılmasına yardımcı olabilir ve karar verme süreçlerine katkı sağlayabilir.
+
+Örnekler ggplot2 paketi ile birlikte gelen [**`diamonds`**](https://ggplot2.tidyverse.org/reference/diamonds.html) veri seti ile yapılacaktır. Veri hakkında bilgi sahibi olmak için **`dplyr`** paketinde yer alan **`glimpse`** fonksiyonunu kullanabiliriz. Bu fonksiyon, bir veri çerçevesi veya tibble nesnesini özetleyen ve hızlı bir bakış sunan bir fonksiyondur. **`glimpse`** fonksiyonu, veri setindeki değişkenleri, veri türlerini, ve ilk birkaç gözlemi görüntüler. Ayrıca **`summary`** fonksiyonu ile de veride yer alan değişkenlerin temel istatistikleri hakkında bilgi sahibi olabiliriz.
+
+```{r}
+
+glimpse(diamonds)
+summary(diamonds)
+
+```
+
+Sütun grafiği üretebilmek için kullanılan fonksiyonlardan bir tanesi **`geom_bar()`**'dır. Aşağıda verilen kod veri setindeki kesim sınıflarını ifade eden **`cut`** değişkenin frekanslarını gösteren bir sütun grafik üretir. Her bir sütun, belirli bir kesim sınıfını temsil eder ve yükseklikleri o kesim sınıfına ait elmas sayısını yansıtır.
+
+```{r}
+
+# sıklık durumunu görselleştirme
+ggplot(diamonds, aes(cut)) +
+  geom_bar()
+
+```
+
+Örneğin **`color`** değişkenine göre gruplandırılmış bir grafik üretelim. Aşağıda yer alan kod, "diamonds" veri setindeki kesim sınıflarının ve renklerinin kombinasyonlarına göre gruplandırılmış bir sütun grafik üretir. Her bir **`cut`** kategorisi için ayrı renkli sütunlar olacaktır.
+
+-   **`ggplot(diamonds, aes(cut, fill = color))`**: Bu bölümde, "diamonds" veri setini temel alarak bir ggplot nesnesi oluşturulur. **`aes(cut, fill = color)`** ifadesi, x ekseninde "cut" değişkenini, sütunların renklendirilmesinde ise "color" değişkenini kullanacağımızı belirtir.
+
+-   **`geom_bar(position = position_dodge())`**: Bu fonksiyon, gruplandırılmış sütun grafik oluşturur. **`position = position_dodge()`** ifadesi, sütunların yan yana yerleştirilmesini sağlar, yani her bir **`cut`** kategorisi içindeki **`color`** kategorilerini farklı renklerde gösterir. Bu sayede, her bir **`cut`** kategorisi için ayrı renkli sütunlar elde edilir.
+
+```{r}
+
+ggplot(diamonds, aes(cut, fill = color)) +
+  geom_bar(position = position_dodge()) + 
+  xlab("Pirlanta kaliteleri") + 
+  ylab("Gozlenme Sikliklari")
+
+```
+
+Her bir kesim sınıfı için, **`color`** değişkenine göre renklendirilmiş sütunları olan ve her sütunun yüksekliği, o kesim sınıfındaki elmasların toplam karat değerini temsil eden bir grafik üretelim. Bu durumda y ekseninde **`carat`** değişkenini kullanacağız.
+
+**`geom_bar(stat = "identity")`**: Bu fonksiyon, gruplandırılmış sütun grafik oluşturur. **`stat = "identity"`** ifadesi, her bir sütunun yüksekliğinin, "carat" değişkeninin değerine eşit olacağını belirtir. Yani, sütunların yüksekliği doğrudan carat değişkenine bağlı olacaktır.
+
+```{r}
+
+ggplot(diamonds, aes(x=cut, y=carat,fill = color)) +
+  geom_bar(stat = "identity") 
+
+```
+
+Eğer **`position = "fill"`** kullanırsak, **`geom_bar`** fonksiyonu, her kategori içindeki değerlerin oranlarını gösteren yığılmış bir sütun grafik oluşturur. Bu durumda, her bir kategori toplam yüksekliğe göre doldurulacak ve her bir alt kategori, kendi kategorisi içindeki oranını ifade edecek şekilde düzenlenecektir.
+
+```{r}
+
+ggplot(diamonds, aes(x=cut, y=carat,fill = color)) +
+  # fill ile oransal olarak gösterim yapılır
+  geom_bar(stat = "identity",position = "fill") 
+
+```
+
+Her bir kesim sınıfının toplam yüksekliğe göre doldurulduğu bu grafikte, her renk kategorisi içindeki sütunlar, o kesim sınıfındaki toplam elmas sayısına oranlanmış şekilde görüntülenir. Bu tür bir grafik, her bir kategorinin toplamda ne kadar paya sahip olduğunu vurgulamak ve kategorinin içindeki alt kategorilerin oranlarını göstermek için kullanışlıdır. Ancak, grafikteki renklerin yorumlanması dikkatlice yapılmalıdır, çünkü her renk, kendi kategorisi içindeki oranları temsil eder.
+
+::: callout-warning
+## Dikkat
+
+İki tür çubuk grafik vardır: **`geom_bar()`** ve **`geom_col()`**. **geom_bar()**, çubuğun yüksekliğini her gruptaki vaka sayısıyla (veya ağırlık estetiği sağlanmışsa, ağırlıkların toplamıyla) orantılı hale getirir. Çubukların yüksekliklerinin verilerdeki değerleri temsil etmesini istiyorsanız, bunun yerine **`geom_col()`** kullanın. **geom_bar()** varsayılan olarak **`stat_count()`** kullanır: her x konumundaki vaka sayısını sayar. **`geom_col()`** **`stat_identity()`** kullanır. Yani verileri olduğu gibi bırakır.
+:::
+
+## Zaman Serisi Grafikleri
+
+Zaman serisi grafikleri, zamanla değişen verileri görsel olarak temsil etmek için kullanılan grafiklerdir. Bu tür grafikler, belirli bir süre boyunca gözlemlenen verileri analiz etmek, eğilimleri belirlemek, dönemsel desenleri tanımak ve istatistiksel analizler yapmak için yaygın olarak kullanılır. Zaman serisi verileri genellikle sabit aralıklarla veya farklı zaman dilimlerinde toplanır. En yaygın olan türü çizgi grafikleri olmakla birlikte sütun ve alan grafikleri de zaman serilerinin görselleştirilmesinde kullanılabilmektedir.
+
+Örnekler ggplot2 paketi ile birlikte gelen [**`economics`**](https://ggplot2.tidyverse.org/reference/economics.html) veri seti ile yapılacaktır.
+
+```{r}
+
+economics
+summary(economics)
+
+p4 <- economics %>% 
+  ggplot(aes(x=date,y=pce)) +
+  geom_line(color="blue") +
+  theme_minimal() +
+  labs(x = "",
+       y = "Personal Consumption Expenditures",
+       title = "Personal Consumption Expenditures Time Series",
+       caption = "Economics Data",
+       subtitle = "Economics Data (1967-2015)")
+p4
+
+# zaman eksenini ayarlama
+p4 + 
+  scale_x_date(date_breaks = "1 year", date_labels = "%Y") +
+  theme(axis.text.x = element_text(angle = 45), legend.position = "top")
+
+p4 + 
+  scale_x_date(date_breaks = "2 year", date_labels = "%Y",expand = c(0,0)) +
+  theme(axis.text.x = element_text(angle = 45), legend.position = "top")
+
+# çizgi türü değiştirilebilir
+economics %>% 
+  ggplot(aes(x=date,y=pce)) +
+  geom_line(linetype = "dashed", size = 1, colour = "blue")
+
+economics %>% 
+  ggplot(aes(x=date,y=pce)) +
+  geom_line(linetype = "dotted", size = 2, colour = "blue")
+
+# zaman grafiğine noktalar ekleme
+economics %>% 
+  filter(lubridate::year(date) >= 2010) %>% 
+  ggplot(aes(x=date,y=pce)) +
+  geom_line()+
+  geom_point(size = 3, shape= 7, colour = "red")
+
+# gölgeli zaman grafiği
+economics %>% 
+  ggplot(aes(x=date,y=pce)) +
+  geom_area(color="blue",fill="red",alpha=0.6) +
+  # y ekseni aralıklarını ayarlama
+  scale_y_continuous(breaks = seq(0, max(economics$pce), by = 1000))
+
+economics %>% 
+  ggplot(aes(x=date,y=uempmed )) +
+  geom_area(color="blue",fill="red",alpha=0.5) +
+  theme_light()
+
+# çoklu zaman serisi grafiği
+economics_long
+
+# serilerin ölçekleri farklı 
+economics_long %>% 
+  ggplot(aes(x=date,y=value,color=variable))+
+  geom_line()
+
+economics_long %>% 
+  ggplot(aes(x=date,y=value))+
+  geom_line() +
+  facet_wrap(~variable,scales = "free_y")
+
+economics_long %>% 
+  ggplot(aes(x=date,y=value))+
+  geom_line() +
+  facet_wrap(~variable,scales = "free_y")+
+  scale_y_log10() # y eksenlerinin logatirması alınır
+
+```
+
 ## Grafiklerin Kaydedilmesi
 
 Grafik oluşturulduktan sonra, grafik objesini bir değişkende saklayabilirsiniz (aşağıdaki örnekte "grafik" adını kullandık). Grafik objesini bir değişkende sakladıktan sonra, **`ggsave()`** fonksiyonunu kullanarak grafik dosyasını kaydedebilirsiniz. Grafikleri ayrıca RStudio penceresinin sağ alt kısmında yer alan **Plots** sekmesindeki **`Export`** ile kayıt altına alabilirsiniz.
@@ -434,6 +438,8 @@ grafik <- economics %>%
   labs(y = "Aylık Değişim",
        title = "Yıllara göre Aylık İstihdam Değişimi (2010-2015)")
 
+grafik
+
 ggsave(
   "grafik1.png",
   grafik,
@@ -441,6 +447,8 @@ ggsave(
   height = 8,
   units = "cm"
 )
+
+# dpi ile çözünürlük ayarlanabilir
 ggsave(
   "grafik1.png",
   grafik,
