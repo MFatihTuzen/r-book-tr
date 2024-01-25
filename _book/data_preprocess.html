@@ -486,25 +486,25 @@ window.Quarto = {
 <p>Aynı yöntem, diğer basit istatistiksel ölçütlerle de uygulanabilir. Örneğin, eksik değerlere medyan veya belirli bir sabit değer atanabilir.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Income değişkenindeki eksik değerlere medyan değeri atama</span></span>
-<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>data<span class="sc">$</span>Income_imputed[<span class="fu">is.na</span>(data<span class="sc">$</span>Income)] <span class="ot">&lt;-</span> <span class="fu">median</span>(data<span class="sc">$</span>Income, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>data<span class="sc">$</span>Income[<span class="fu">is.na</span>(data<span class="sc">$</span>Income)] <span class="ot">&lt;-</span> <span class="fu">median</span>(data<span class="sc">$</span>Income, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span>
 <span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Score değişkenindeki eksik değerlere sabit bir değer (örneğin, 75) atama</span></span>
-<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a>data<span class="sc">$</span>Score_imputed[<span class="fu">is.na</span>(data<span class="sc">$</span>Score)] <span class="ot">&lt;-</span> <span class="dv">75</span></span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a>data<span class="sc">$</span>Score[<span class="fu">is.na</span>(data<span class="sc">$</span>Score)] <span class="ot">&lt;-</span> <span class="dv">75</span></span>
 <span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Değişiklikleri göster</span></span>
 <span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(data)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>   ID      Age Income Score Income_imputed Score_imputed
-1   1 25.00000  50000    80             NA            NA
-2   2 30.00000  60000    85             NA            NA
-3   3 30.28571  75000    90             NA            NA
-4   4 22.00000     NA    78          72500            NA
-5   5 35.00000  80000    NA             NA            75
-6   6 40.00000  90000    88             NA            NA
-7   7 30.28571  70000    92             NA            NA
-8   8 28.00000     NA    85          72500            NA
-9   9 30.28571  65000    80             NA            NA
-10 10 32.00000  75000    NA             NA            75</code></pre>
+<pre><code>   ID      Age Income Score
+1   1 25.00000  50000    80
+2   2 30.00000  60000    85
+3   3 30.28571  75000    90
+4   4 22.00000  72500    78
+5   5 35.00000  80000    75
+6   6 40.00000  90000    88
+7   7 30.28571  70000    92
+8   8 28.00000  72500    85
+9   9 30.28571  65000    80
+10 10 32.00000  75000    75</code></pre>
 </div>
 </div>
 <p>Eksik değerlere çoklu olarak basit değer atama yapmak için <strong><code>sapply</code></strong> fonksiyonu kullanılabilir. Bu fonksiyon, bir liste veya vektör üzerinde bir işlemi tekrarlamak için kullanılır.</p>
