@@ -143,10 +143,10 @@ Aynı yöntem, diğer basit istatistiksel ölçütlerle de uygulanabilir. Örne�
 ```{r}
 
 # Income değişkenindeki eksik değerlere medyan değeri atama
-data$Income_imputed[is.na(data$Income)] <- median(data$Income, na.rm = TRUE)
+data$Income[is.na(data$Income)] <- median(data$Income, na.rm = TRUE)
 
 # Score değişkenindeki eksik değerlere sabit bir değer (örneğin, 75) atama
-data$Score_imputed[is.na(data$Score)] <- 75
+data$Score[is.na(data$Score)] <- 75
 
 # Değişiklikleri göster
 print(data)
