@@ -38,26 +38,28 @@ Her bir örnek, eksik verilerin farklı nedenlere dayanabileceğini ve bu nedenl
 
 ```{r}
 
-df <- data.frame(weight = c(rnorm(15, 70, 10), rep(NA, 5)),
-                 height = c(rnorm(17, 165, 20), rep(NA, 3)))
-
+# Örnek veri seti oluşturalım
 # üreteç sabitlenir
-set.seed(12345)
-# veri setinin satır numaları rsatgele seçilir
-rows <- sample(nrow(df))
-# veri setinin satırları yeni sıra numaralarına göre yeniden sıralanır
-# buradaki amaç NA gözlemlerin en sonda kalması yerine,
-# dağınık olarak veri setinde görüntülenmesidir
-df2 <- df[rows, ]
+set.seed(123)
+data <- data.frame(
+  ID = 1:10,
+  Age = c(25, 30, NA, 22, 35, 40, NA, 28, NA, 32),
+  Income = c(50000, 60000, 75000, NA, 80000, 90000, 70000, NA, 65000, 75000),
+  Score = c(80, 85, 90, 78, NA, 88, 92, 85, 80, NA)
+)
+
+# veride hiç NA var mı? 
+# TRUE tabloda en az bir tane NA olduğu anlamına gelir 
+anyNA(data)
 
 # eksik verilerin sorgulanması
-is.na(df2) 
-# eksik verilerin olduğu konumu/indisi sorgulamak
-which(is.na(df2))
+is.na(data) 
+
 # toplam eksik veri sayısını tespit etmek
-sum(is.na(df2))
+sum(is.na(data))
+
 # değişken düzeyinde eksik veri sayısını tespit etmek
-colSums(is.na(df2)) 
+colSums(is.na(data)) 
 ```
 
 ## İmputasyon
@@ -93,15 +95,6 @@ colSums(is.na(df2))
 Eksik verilerin silinmesi, bir analizde kullanılan veri setinden eksik değerlere sahip olan gözlemlerin veya değişkenlerin tamamen çıkarılması anlamına gelir. Ancak, bu strateji her zaman uygun değildir, çünkü veri kaybına neden olabilir ve analizin güvenilirliğini azaltabilir. Bu nedenle, dikkatlice düşünülmesi gereken bir yöntemdir.
 
 ```{r}
-
-# Örnek veri seti oluşturalım
-set.seed(123)
-data <- data.frame(
-  ID = 1:10,
-  Age = c(25, 30, NA, 22, 35, 40, NA, 28, NA, 32),
-  Income = c(50000, 60000, 75000, NA, 80000, 90000, 70000, NA, 65000, 75000),
-  Score = c(80, 85, 90, 78, NA, 88, 92, 85, 80, NA)
-)
 
 # Eksik verilere sahip gözlemleri sil
 data_no_missing <- na.omit(data)
@@ -199,9 +192,9 @@ sapply(data, function(x) ifelse(is.na(x), na.approx(x), x ))
 
 ```{r}
 
-# cubic interpolation
+# spline interpolation
 # eksik değerler spline interpolasyon yöntemiyle doldurulur.
-sapply(df2, function(x) ifelse(is.na(x), na.spline(x), x ))
+sapply(data, function(x) ifelse(is.na(x), na.spline(x), x ))
 
 ```
 
@@ -400,7 +393,7 @@ mpg[outliers_zskor,c() ]
 
 Değişkenler farklı ölçeklerde ölçüldüğünde, genellikle analize eşit katkıda bulunmazlar. Örneğin, bir değişkenin değerleri 0 ile 100.000 arasında ve başka bir değişkenin değerleri 0 ile 100 arasında değişiyorsa, daha büyük aralığa sahip değişkene analizde daha büyük bir ağırlık verilecektir. Değişkenleri normalleştirerek, her bir değişkenin analize eşit katkı sağladığından emin olabiliriz. Değişkenleri normalleştirmek için (veya ölçeklendirmek) genellikle min-max ya da z dönüşümü yöntemleri kullanılır.
 
-```{r, fig.height = 6, fig.width = 10}
+```{r, fig.height = 6, fig.width = 10, message=FALSE}
 
 # min-max dönüşümleri
 
@@ -421,6 +414,7 @@ std_min_max <- function(x,a,b) {
   (a + ((x - min(x)) * (b - a)) / (max(x) - min(x)))
 }
 
+# dat isimli yeni bir tablo üretelim
 set.seed(12345)
 dat <- data.frame(x = rnorm(20, 10, 3),
                   y = rnorm(20, 30, 8),

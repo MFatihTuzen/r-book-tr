@@ -356,58 +356,47 @@ window.Quarto = {
 </ul>
 <p>Her bir örnek, eksik verilerin farklı nedenlere dayanabileceğini ve bu nedenlere bağlı olarak başa çıkma stratejilerinin belirlenmesi gerektiğini göstermektedir. Eksik verilerin türlerini anlamak, başa çıkma stratejilerini belirlemede önemlidir çünkü stratejiler eksik verilerin nasıl oluştuğuna bağlı olarak farklılık gösterebilir. MCAR durumu, basit bir ortalama atama stratejisinin kullanılmasını daha kabul edilebilir kılabilirken, MAR ve MNAR durumları daha sofistike yöntemleri gerektirebilir.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">weight =</span> <span class="fu">c</span>(<span class="fu">rnorm</span>(<span class="dv">15</span>, <span class="dv">70</span>, <span class="dv">10</span>), <span class="fu">rep</span>(<span class="cn">NA</span>, <span class="dv">5</span>)),</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>                 <span class="at">height =</span> <span class="fu">c</span>(<span class="fu">rnorm</span>(<span class="dv">17</span>, <span class="dv">165</span>, <span class="dv">20</span>), <span class="fu">rep</span>(<span class="cn">NA</span>, <span class="dv">3</span>)))</span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="co"># üreteç sabitlenir</span></span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">12345</span>)</span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="co"># veri setinin satır numaları rsatgele seçilir</span></span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>rows <span class="ot">&lt;-</span> <span class="fu">sample</span>(<span class="fu">nrow</span>(df))</span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="co"># veri setinin satırları yeni sıra numaralarına göre yeniden sıralanır</span></span>
-<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="co"># buradaki amaç NA gözlemlerin en sonda kalması yerine,</span></span>
-<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="co"># dağınık olarak veri setinde görüntülenmesidir</span></span>
-<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>df2 <span class="ot">&lt;-</span> df[rows, ]</span>
-<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a><span class="co"># eksik verilerin sorgulanması</span></span>
-<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a><span class="fu">is.na</span>(df2) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Örnek veri seti oluşturalım</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="co"># üreteç sabitlenir</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">123</span>)</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">ID =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>,</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">Age =</span> <span class="fu">c</span>(<span class="dv">25</span>, <span class="dv">30</span>, <span class="cn">NA</span>, <span class="dv">22</span>, <span class="dv">35</span>, <span class="dv">40</span>, <span class="cn">NA</span>, <span class="dv">28</span>, <span class="cn">NA</span>, <span class="dv">32</span>),</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">Income =</span> <span class="fu">c</span>(<span class="dv">50000</span>, <span class="dv">60000</span>, <span class="dv">75000</span>, <span class="cn">NA</span>, <span class="dv">80000</span>, <span class="dv">90000</span>, <span class="dv">70000</span>, <span class="cn">NA</span>, <span class="dv">65000</span>, <span class="dv">75000</span>),</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>  <span class="at">Score =</span> <span class="fu">c</span>(<span class="dv">80</span>, <span class="dv">85</span>, <span class="dv">90</span>, <span class="dv">78</span>, <span class="cn">NA</span>, <span class="dv">88</span>, <span class="dv">92</span>, <span class="dv">85</span>, <span class="dv">80</span>, <span class="cn">NA</span>)</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a><span class="co"># veride hiç NA var mı? </span></span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a><span class="co"># TRUE tabloda en az bir tane NA olduğu anlamına gelir </span></span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a><span class="fu">anyNA</span>(data)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>   weight height
-14  FALSE  FALSE
-19   TRUE   TRUE
-16   TRUE  FALSE
-11  FALSE  FALSE
-18   TRUE   TRUE
-8   FALSE  FALSE
-2   FALSE  FALSE
-6   FALSE  FALSE
-17   TRUE  FALSE
-13  FALSE  FALSE
-7   FALSE  FALSE
-1   FALSE  FALSE
-15  FALSE  FALSE
-10  FALSE  FALSE
-12  FALSE  FALSE
-9   FALSE  FALSE
-4   FALSE  FALSE
-20   TRUE   TRUE
-3   FALSE  FALSE
-5   FALSE  FALSE</code></pre>
+<pre><code>[1] TRUE</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># eksik verilerin olduğu konumu/indisi sorgulamak</span></span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="fu">which</span>(<span class="fu">is.na</span>(df2))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># eksik verilerin sorgulanması</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="fu">is.na</span>(data) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1]  2  3  5  9 18 22 25 38</code></pre>
+<pre><code>         ID   Age Income Score
+ [1,] FALSE FALSE  FALSE FALSE
+ [2,] FALSE FALSE  FALSE FALSE
+ [3,] FALSE  TRUE  FALSE FALSE
+ [4,] FALSE FALSE   TRUE FALSE
+ [5,] FALSE FALSE  FALSE  TRUE
+ [6,] FALSE FALSE  FALSE FALSE
+ [7,] FALSE  TRUE  FALSE FALSE
+ [8,] FALSE FALSE   TRUE FALSE
+ [9,] FALSE  TRUE  FALSE FALSE
+[10,] FALSE FALSE  FALSE  TRUE</code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># toplam eksik veri sayısını tespit etmek</span></span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="fu">sum</span>(<span class="fu">is.na</span>(df2))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="fu">sum</span>(<span class="fu">is.na</span>(data))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] 8</code></pre>
+<pre><code>[1] 7</code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># değişken düzeyinde eksik veri sayısını tespit etmek</span></span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="fu">colSums</span>(<span class="fu">is.na</span>(df2)) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="fu">colSums</span>(<span class="fu">is.na</span>(data)) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>weight height 
-     5      3 </code></pre>
+<pre><code>    ID    Age Income  Score 
+     0      3      2      2 </code></pre>
 </div>
 </div>
 </section>
@@ -440,20 +429,11 @@ window.Quarto = {
 <h3 class="anchored" data-anchor-id="eksik-verilerin-silinmesi">Eksik Verilerin Silinmesi</h3>
 <p>Eksik verilerin silinmesi, bir analizde kullanılan veri setinden eksik değerlere sahip olan gözlemlerin veya değişkenlerin tamamen çıkarılması anlamına gelir. Ancak, bu strateji her zaman uygun değildir, çünkü veri kaybına neden olabilir ve analizin güvenilirliğini azaltabilir. Bu nedenle, dikkatlice düşünülmesi gereken bir yöntemdir.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Örnek veri seti oluşturalım</span></span>
-<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">123</span>)</span>
-<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
-<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">ID =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>,</span>
-<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">Age =</span> <span class="fu">c</span>(<span class="dv">25</span>, <span class="dv">30</span>, <span class="cn">NA</span>, <span class="dv">22</span>, <span class="dv">35</span>, <span class="dv">40</span>, <span class="cn">NA</span>, <span class="dv">28</span>, <span class="cn">NA</span>, <span class="dv">32</span>),</span>
-<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">Income =</span> <span class="fu">c</span>(<span class="dv">50000</span>, <span class="dv">60000</span>, <span class="dv">75000</span>, <span class="cn">NA</span>, <span class="dv">80000</span>, <span class="dv">90000</span>, <span class="dv">70000</span>, <span class="cn">NA</span>, <span class="dv">65000</span>, <span class="dv">75000</span>),</span>
-<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">Score =</span> <span class="fu">c</span>(<span class="dv">80</span>, <span class="dv">85</span>, <span class="dv">90</span>, <span class="dv">78</span>, <span class="cn">NA</span>, <span class="dv">88</span>, <span class="dv">92</span>, <span class="dv">85</span>, <span class="dv">80</span>, <span class="cn">NA</span>)</span>
-<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Eksik verilere sahip gözlemleri sil</span></span>
-<span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a>data_no_missing <span class="ot">&lt;-</span> <span class="fu">na.omit</span>(data)</span>
-<span id="cb9-12"><a href="#cb9-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-13"><a href="#cb9-13" aria-hidden="true" tabindex="-1"></a><span class="co"># Sonucu göster</span></span>
-<span id="cb9-14"><a href="#cb9-14" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(data_no_missing)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Eksik verilere sahip gözlemleri sil</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>data_no_missing <span class="ot">&lt;-</span> <span class="fu">na.omit</span>(data)</span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Sonucu göster</span></span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(data_no_missing)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>  ID Age Income Score
 1  1  25  50000    80
@@ -598,31 +578,21 @@ Attaching package: 'zoo'</code></pre>
 </div>
 <p><strong><code>na.spline</code> (Spline Approximation):</strong> Zaman serisi verilerinde, eksik değerleri spline interpolasyon yöntemi ile doldurmak istediğiniz durumlar. Spline interpolasyon, veriler arasında daha karmaşık ve eğri bir ilişki olduğu durumları ele alabilir.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="co"># cubic interpolation</span></span>
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="co"># spline interpolation</span></span>
 <span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a><span class="co"># eksik değerler spline interpolasyon yöntemiyle doldurulur.</span></span>
-<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a><span class="fu">sapply</span>(df2, <span class="cf">function</span>(x) <span class="fu">ifelse</span>(<span class="fu">is.na</span>(x), <span class="fu">na.spline</span>(x), x ))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a><span class="fu">sapply</span>(data, <span class="cf">function</span>(x) <span class="fu">ifelse</span>(<span class="fu">is.na</span>(x), <span class="fu">na.spline</span>(x), x ))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>        weight   height
- [1,] 53.74783 168.4846
- [2,] 68.73890 171.5504
- [3,] 72.25457 159.0806
- [4,] 68.71484 138.6984
- [5,] 63.12741 114.6061
- [6,] 62.85096 118.3731
- [7,] 68.42641 167.6176
- [8,] 62.90389 196.3736
- [9,] 61.86724 163.3300
-[10,] 58.69183 150.2991
-[11,] 53.60938 155.7400
-[12,] 76.07098 136.5574
-[13,] 69.68394 158.2142
-[14,] 58.49022 183.7475
-[15,] 70.68862 190.6619
-[16,] 77.91044 110.4643
-[17,] 65.59126 186.9022
-[18,] 68.37287 178.5120
-[19,] 77.20869 123.8255
-[20,] 69.67473 166.9870</code></pre>
+<pre><code>      ID      Age Income Score
+ [1,]  1 25.00000  50000    80
+ [2,]  2 30.00000  60000    85
+ [3,]  3 30.28571  75000    90
+ [4,]  4 22.00000  72500    78
+ [5,]  5 35.00000  80000    75
+ [6,]  6 40.00000  90000    88
+ [7,]  7 30.28571  70000    92
+ [8,]  8 28.00000  72500    85
+ [9,]  9 30.28571  65000    80
+[10,] 10 32.00000  75000    75</code></pre>
 </div>
 </div>
 <p>Bu fonksiyonlar, özellikle zamana bağlı değişen veri setlerinde eksik değerleri doldurmak için kullanılır. Ancak, kullanmadan önce dikkat edilmesi gereken önemli bir nokta, interpolasyonun verilerdeki gerçek ilişkileri ne kadar doğru yansıttığıdır. Doğru bir doldurma stratejisi seçilirken, eksik değerlerin neden kaynaklandığını ve veri setinin özelliklerini anlamak önemlidir.</p>
@@ -928,11 +898,12 @@ Z_i = \frac{(X_1-\mu)}{\sigma}
 <span id="cb68-17"><a href="#cb68-17" aria-hidden="true" tabindex="-1"></a>  (a <span class="sc">+</span> ((x <span class="sc">-</span> <span class="fu">min</span>(x)) <span class="sc">*</span> (b <span class="sc">-</span> a)) <span class="sc">/</span> (<span class="fu">max</span>(x) <span class="sc">-</span> <span class="fu">min</span>(x)))</span>
 <span id="cb68-18"><a href="#cb68-18" aria-hidden="true" tabindex="-1"></a>}</span>
 <span id="cb68-19"><a href="#cb68-19" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb68-20"><a href="#cb68-20" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">12345</span>)</span>
-<span id="cb68-21"><a href="#cb68-21" aria-hidden="true" tabindex="-1"></a>dat <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">x =</span> <span class="fu">rnorm</span>(<span class="dv">20</span>, <span class="dv">10</span>, <span class="dv">3</span>),</span>
-<span id="cb68-22"><a href="#cb68-22" aria-hidden="true" tabindex="-1"></a>                  <span class="at">y =</span> <span class="fu">rnorm</span>(<span class="dv">20</span>, <span class="dv">30</span>, <span class="dv">8</span>),</span>
-<span id="cb68-23"><a href="#cb68-23" aria-hidden="true" tabindex="-1"></a>                  <span class="at">z =</span> <span class="fu">rnorm</span>(<span class="dv">20</span>, <span class="dv">25</span>, <span class="dv">5</span>))</span>
-<span id="cb68-24"><a href="#cb68-24" aria-hidden="true" tabindex="-1"></a>dat</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb68-20"><a href="#cb68-20" aria-hidden="true" tabindex="-1"></a><span class="co"># dat isimli yeni bir tablo üretelim</span></span>
+<span id="cb68-21"><a href="#cb68-21" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">12345</span>)</span>
+<span id="cb68-22"><a href="#cb68-22" aria-hidden="true" tabindex="-1"></a>dat <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">x =</span> <span class="fu">rnorm</span>(<span class="dv">20</span>, <span class="dv">10</span>, <span class="dv">3</span>),</span>
+<span id="cb68-23"><a href="#cb68-23" aria-hidden="true" tabindex="-1"></a>                  <span class="at">y =</span> <span class="fu">rnorm</span>(<span class="dv">20</span>, <span class="dv">30</span>, <span class="dv">8</span>),</span>
+<span id="cb68-24"><a href="#cb68-24" aria-hidden="true" tabindex="-1"></a>                  <span class="at">z =</span> <span class="fu">rnorm</span>(<span class="dv">20</span>, <span class="dv">25</span>, <span class="dv">5</span>))</span>
+<span id="cb68-25"><a href="#cb68-25" aria-hidden="true" tabindex="-1"></a>dat</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>           x        y        z
 1  11.756586 36.23698 30.64255
@@ -990,22 +961,9 @@ Z_i = \frac{(X_1-\mu)}{\sigma}
 [19,] 0.8083774 0.88880212 1.000000000
 [20,] 0.5822623 0.43739366 0.007383637</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb74"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb74-1"><a href="#cb74-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stderr">
-<pre><code>
-Attaching package: 'dplyr'</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>The following objects are masked from 'package:stats':
-
-    filter, lag</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>The following objects are masked from 'package:base':
-
-    intersect, setdiff, setequal, union</code></pre>
-</div>
-<div class="sourceCode cell-code" id="cb78"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb78-1"><a href="#cb78-1" aria-hidden="true" tabindex="-1"></a>dat <span class="sc">%&gt;%</span> <span class="fu">mutate_all</span>(std_0_1) <span class="sc">%&gt;%</span> <span class="fu">summary</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb74"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb74-1"><a href="#cb74-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
+<span id="cb74-2"><a href="#cb74-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb74-3"><a href="#cb74-3" aria-hidden="true" tabindex="-1"></a>dat <span class="sc">%&gt;%</span> <span class="fu">mutate_all</span>(std_0_1) <span class="sc">%&gt;%</span> <span class="fu">summary</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>       x                y                z         
  Min.   :0.0000   Min.   :0.0000   Min.   :0.0000  
@@ -1015,7 +973,7 @@ Attaching package: 'dplyr'</code></pre>
  3rd Qu.:0.6684   3rd Qu.:0.8194   3rd Qu.:0.7194  
  Max.   :1.0000   Max.   :1.0000   Max.   :1.0000  </code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb80"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb80-1"><a href="#cb80-1" aria-hidden="true" tabindex="-1"></a>dat <span class="sc">%&gt;%</span> <span class="fu">mutate_all</span>(std_1_1) <span class="sc">%&gt;%</span> <span class="fu">summary</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb76"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb76-1"><a href="#cb76-1" aria-hidden="true" tabindex="-1"></a>dat <span class="sc">%&gt;%</span> <span class="fu">mutate_all</span>(std_1_1) <span class="sc">%&gt;%</span> <span class="fu">summary</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>       x                   y                  z          
  Min.   :-1.000000   Min.   :-1.00000   Min.   :-1.0000  
@@ -1025,7 +983,7 @@ Attaching package: 'dplyr'</code></pre>
  3rd Qu.: 0.282624   3rd Qu.: 0.53057   3rd Qu.: 0.3098  
  Max.   : 0.918881   Max.   : 0.86789   Max.   : 0.8207  </code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb82"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb82-1"><a href="#cb82-1" aria-hidden="true" tabindex="-1"></a>dat <span class="sc">%&gt;%</span> <span class="fu">mutate_all</span>(std_min_max, <span class="at">a =</span> <span class="sc">-</span><span class="dv">2</span>, <span class="at">b =</span> <span class="dv">2</span>) <span class="sc">%&gt;%</span> <span class="fu">summary</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb78"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb78-1"><a href="#cb78-1" aria-hidden="true" tabindex="-1"></a>dat <span class="sc">%&gt;%</span> <span class="fu">mutate_all</span>(std_min_max, <span class="at">a =</span> <span class="sc">-</span><span class="dv">2</span>, <span class="at">b =</span> <span class="dv">2</span>) <span class="sc">%&gt;%</span> <span class="fu">summary</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>       x                  y                 z          
  Min.   :-2.00000   Min.   :-2.0000   Min.   :-2.0000  
@@ -1035,7 +993,7 @@ Attaching package: 'dplyr'</code></pre>
  3rd Qu.: 0.67369   3rd Qu.: 1.2776   3rd Qu.: 0.8775  
  Max.   : 2.00000   Max.   : 2.0000   Max.   : 2.0000  </code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb84"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb84-1"><a href="#cb84-1" aria-hidden="true" tabindex="-1"></a>dat <span class="sc">%&gt;%</span> <span class="fu">mutate_all</span>(std_z) <span class="sc">%&gt;%</span> <span class="fu">summary</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb80"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb80-1"><a href="#cb80-1" aria-hidden="true" tabindex="-1"></a>dat <span class="sc">%&gt;%</span> <span class="fu">mutate_all</span>(std_z) <span class="sc">%&gt;%</span> <span class="fu">summary</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>       x                  y                 z          
  Min.   :-2.27173   Min.   :-1.7088   Min.   :-1.9165  
@@ -1045,10 +1003,10 @@ Attaching package: 'dplyr'</code></pre>
  3rd Qu.: 0.64204   3rd Qu.: 0.9067   3rd Qu.: 0.5937  
  Max.   : 2.08745   Max.   : 1.4831   Max.   : 1.5729  </code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb86"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb86-1"><a href="#cb86-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Yapılan dönüşümler verinin dağılımını değiştirmemektedir.</span></span>
-<span id="cb86-2"><a href="#cb86-2" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow=</span><span class="fu">c</span>(<span class="dv">2</span>,<span class="dv">1</span>))</span>
-<span id="cb86-3"><a href="#cb86-3" aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>(dat<span class="sc">$</span>x,<span class="at">main=</span><span class="st">"original data"</span>,<span class="at">col=</span><span class="st">"blue"</span>)</span>
-<span id="cb86-4"><a href="#cb86-4" aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>(<span class="fu">std_0_1</span>(dat<span class="sc">$</span>x),<span class="at">main=</span><span class="st">"normalize data"</span>,<span class="at">col=</span><span class="st">"red"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb82"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb82-1"><a href="#cb82-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Yapılan dönüşümler verinin dağılımını değiştirmemektedir.</span></span>
+<span id="cb82-2"><a href="#cb82-2" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow=</span><span class="fu">c</span>(<span class="dv">2</span>,<span class="dv">1</span>))</span>
+<span id="cb82-3"><a href="#cb82-3" aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>(dat<span class="sc">$</span>x,<span class="at">main=</span><span class="st">"original data"</span>,<span class="at">col=</span><span class="st">"blue"</span>)</span>
+<span id="cb82-4"><a href="#cb82-4" aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>(<span class="fu">std_0_1</span>(dat<span class="sc">$</span>x),<span class="at">main=</span><span class="st">"normalize data"</span>,<span class="at">col=</span><span class="st">"red"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
