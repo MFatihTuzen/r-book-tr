@@ -195,64 +195,129 @@ Bu violin grafiği, kesim sınıfları arasında fiyat dağılımlarını karş�
 
 ## Saçılım Grafikleri
 
-Saçılım grafiği, genellikle fizik ve istatistik gibi bilimlerde kullanılan bir grafik türüdür. Saçılım grafiği, iki değişken arasındaki ilişkiyi görsel olarak göstermek için kullanılır. Bir eksende bir değişkenin değerleri, diğer eksende ise diğer değişkenin değerleri yer alır, ve her veri noktası bu iki değişkenin birleşimini temsil eder. Saçılım grafiği, veri noktalarının dağılımını, yoğunluklarını, odaklanma noktalarını ve olası eğilimleri anlamak için kullanılır. Bu grafik, veri setindeki aykırı değerleri tespit etmek, iki değişken arasındaki ilişkiyi değerlendirmek ve korelasyonu görsel olarak incelemek için oldukça kullanışlıdır.
+Saçılım (scatter) grafiği, genellikle fizik ve istatistik gibi bilimlerde kullanılan bir grafik türüdür. Saçılım grafiği, iki değişken arasındaki ilişkiyi görsel olarak göstermek için kullanılır. Bir eksende bir değişkenin değerleri, diğer eksende ise diğer değişkenin değerleri yer alır. Her bir nokta, veri setindeki bir gözlem birimini temsil eder. İki değişken arasındaki ilişki, noktaların dağılımı üzerinden anlaşılabilir.
+
+Saçılım grafiklerinin temel amaçları şunlar:
+
+1.  **İki Değişken Arasındaki İlişkiyi Görselleştirme:** Saçılım grafikleri, iki değişken arasındaki ilişkiyi anlamak için etkili bir araçtır. Pozitif, negatif, ya da hiçbir ilişki olup olmadığını hızlıca gösterir.
+
+2.  **Aykırı Değerleri ve Dağılımı Kontrol Etme:** Saçılım grafikleri, aykırı değerleri ve değişkenlerin dağılımını görsel olarak kontrol etmek için kullanılır.
+
+3.  **Korelasyon Analizi:** İki değişken arasındaki korelasyonu değerlendirmek için saçılım grafikleri kullanılabilir. İki değişken arasındaki doğrusal ilişkiyi belirlemek için korelasyon katsayısı kullanılabilir.
 
 Saçılım grafiği kullanarak, iki değişken arasındaki ilişkinin doğası hakkında bilgi edinebilirsiniz. Örneğin, pozitif bir korelasyon varsa, veri noktaları genellikle yukarı doğru bir eğilim gösterirken, negatif bir korelasyon varsa, veri noktaları genellikle aşağı doğru bir eğilim gösterir. Korelasyon olmaması durumunda ise veri noktaları dağınık bir şekilde yayılmış olur. Saçılım grafiği, istatistiksel analizlerde veri keşfi yapmak ve ilişkileri anlamak için önemli bir araçtır.
 
+Şimdi, bir örnek üzerinden saçılım grafiklerini R ile nasıl oluşturabileceğinize bakalım. Aşağıda, R'de **`mtcars`** veri seti üzerinden bir örnek bulunmaktadır.
+
 ```{r}
 
-# Bir önceki bölümde üretilen yeni değişkenleri mpg veri setine yine ekleyelim.
+# Saçılım grafiği oluşturma
+ggplot(mtcars, aes(x = wt, y = mpg)) +
+  geom_point() +
+  labs(title = "Saçılım Grafiği",
+       x = "Ağırlık (wt)",
+       y = "Miles Per Gallon (mpg)")
 
-# litre başına km hesaplama
-galonmil_to_ltkm <- function(x){
-  
-  km <- x * 1.609/3.79
-  return(km)
-}
-
-df <- mpg
-df$cty_ltkm <- galonmil_to_ltkm(df$cty)
-df$hwy_ltkm <- galonmil_to_ltkm(df$hwy)
-
-p1 <- ggplot(df,aes(x=displ,y=cty_ltkm)) +
-  geom_point(size=2,color="red")
-p1
-
-# gruplar düzeyinde grafiği çizdirme
-p2 <- ggplot(df,aes(x=displ,y=cty_ltkm,colour=as.factor(year))) +
-  geom_point(size=2) +
-  # grafiğe başlık ekleme
-  ggtitle("Motor Hacmi ve Yakıt Tüketimi Saçılım Grafiği") +
-  #eksenleri isimlendirme
-  xlab("Motor Hacmi") + 
-  ylab("Yakıt Tüketimi")+
-  theme_bw() + # tema değiştirme
-  theme(legend.position = "bottom",  # gruplama değişkeninin poziyounun değiştirme
-        plot.title = element_text(face = "bold"), # kalın başlık
-        legend.title = element_blank()) # grup başlığını kaldırma
-p2  
-
-ggplot(df,aes(x=displ,y=cty_ltkm)) +
-  geom_point(aes(size=factor(cyl)),color="red")
-
-# grafiğe model eğrisi ekleme
-p1 + geom_smooth(method = lm, se = TRUE)
-p1 + geom_smooth(method = loess, se = TRUE)
-
-# grup düzeyinde model eğrileri ve saçılım grafiği
-p3 <- df %>% 
-  ggplot(aes(x=displ,y=cty_ltkm,color=as.factor(cyl))) +
-  geom_point()  + 
-  geom_smooth(method = lm, se = TRUE)
-p3
-
-# grup ve yıl düzeyinde model eğrileri ve saçılım grafiği
-p3 + facet_wrap(~ year)
-p3 + facet_wrap(~ year+drv)
-p3 + facet_grid(drv ~ year) # eksen aralıkları sabit
-p3 + facet_grid(drv ~ year,scales = "free") # eksen aralıkları değişken
 
 ```
+
+Bu örnekte, **`mtcars`** veri setindeki ağırlık (**`wt`**) ve yakıt verimliliği (**`mpg`**) değişkenleri arasındaki ilişkiyi gösteren bir saçılım grafiği oluşturduk. **`ggplot2`** paketini kullanarak **`ggplot`** fonksiyonu ile grafiği oluşturduk, ardından **`geom_point()`** fonksiyonu ile noktaları ekledik ve **`labs()`** fonksiyonu ile ekseni etiketledik.
+
+Aşağıdaki örnek, çeşitli argümanların nasıl kullanılabileceğini göstermektedir. Saçılım grafiklerinde kullanılabilen birçok farklı argüman vardır ve ihtiyacınıza göre bunları özelleştirebilirsiniz. Bu argümanlar, grafikteki renkler, şekiller, boyutlar, saydamlıklar ve diğer estetik özellikleri kontrol etmenize olanak tanır.
+
+```{r}
+
+# Saçılım grafiği oluşturma ve özellikleri belirleme
+ggplot(mtcars, aes(x = wt, y = mpg, color = factor(cyl), size = hp)) +
+  geom_point(shape = 16, alpha = 0.7) +  # Nokta şekli ve saydamlık
+  labs(title = "Saçılım Grafiği",
+       x = "Ağırlık (wt)",
+       y = "Miles Per Gallon (mpg)",
+       color = "Silindir Sayısı",
+       size = "Güç (hp)") +
+  theme_minimal() +  # Tema seçimi
+  scale_color_manual(values = c("red", "green", "blue"))  # Renk paleti
+
+
+```
+
+-   **`color`**: **`factor(cyl)`** ile silindir sayısına göre renklendirme.
+
+-   **`size`**: **`hp`** ile güç değerine göre nokta boyutu.
+
+-   **`shape`**: **`16`** ile nokta şekli belirleme.
+
+-   **`alpha`**: **`0.7`** ile nokta saydamlığı.
+
+-   **`labs()`**: Grafik başlığı ve ekseni etiketleri.
+
+-   **`theme_minimal()`**: Minimal bir tema seçimi.
+
+-   **`scale_color_manual()`**: Renk paletinin manuel olarak belirlenmesi.
+
+**`geom_smooth()`**, **`ggplot2`** paketinde bulunan bir geometrik fonksiyondur ve saçılım grafiklerine regresyon çizgisi veya düzeltme çizgisi eklemek için kullanılır. Bu fonksiyon, veri üzerinde düzenli bir eğilimi görselleştirmek veya iki değişken arasındaki ilişkiyi özetlemek amacıyla kullanılır.
+
+**`geom_smooth()`** fonksiyonu, özellikle saçılım grafiklerindeki noktalar arasındaki eğilimi ifade etmek ve bu eğilimi göstermek için kullanılır. Bu çizgi, genellikle loess düzeltme çizgisi veya lineer regresyon çizgisi gibi yöntemlere dayanabilir.
+
+::: callout-note
+## Loess Hakkında
+
+LOESS (LOcally WEighted Scatterplot Smoother), bir veri setindeki noktalar arasındaki düzenliği ifade etmek için kullanılan bir regresyon yöntemidir. LOESS, birçok noktadan oluşan bir saçılım grafiğine uygulandığında, bu grafiği daha yumuşak bir eğriyle düzeltir ve genel bir eğilimi ifade eder.
+
+LOESS yöntemi, her bir noktanın çevresindeki komşu noktalara daha fazla ağırlık verir ve bu ağırlıkları kullanarak her bir noktanın regresyonunu hesaplar. Böylece, LOESS yöntemi, veri setindeki lokal düzenlemeleri daha iyi yakalayabilir ve genel eğilimi daha esnek bir şekilde ifade edebilir.
+:::
+
+Aşağıda, **`geom_smooth()`** fonksiyonu ile **`mtcars`** veri seti üzerinde bir örnek bulunmaktadır:
+
+```{r warning=FALSE}
+
+# Saçılım grafiği oluşturma ve düzeltme çizgisi ekleme
+ggplot(mtcars, aes(x = wt, y = mpg)) +
+  geom_point() +
+  geom_smooth(method = "lm", se = FALSE, color = "blue") +
+  labs(title = "Saçılım Grafiği with Düzeltme Çizgisi",
+       x = "Ağırlık (wt)",
+       y = "Miles Per Gallon (mpg)")
+
+
+```
+
+Bu örnekte:
+
+-   **`geom_smooth()`** fonksiyonu, düzeltme çizgisini eklemek için kullanılmıştır.
+
+-   **`method = "lm"`** parametresi, lineer regresyon modelini kullanmasını belirtir.
+
+-   **`se = FALSE`** parametresi, güven aralığını göstermemesini sağlar.
+
+-   **`color = "blue"`** parametresi, düzeltme çizgisinin rengini belirler.
+
+Bu örnek, ağırlık (**`wt`**) ile yakıt verimliliği (**`mpg`**) arasındaki ilişkiyi gösteren bir saçılım grafiği oluşturur ve bu grafiğe bir lineer regresyon düzeltme çizgisi ekler. Bu düzeltme çizgisi, iki değişken arasındaki genel eğilimi görsel olarak özetler.
+
+**`se=TRUE`** parametresi, **`geom_smooth()`** fonksiyonu kullanılarak eklenen düzeltme çizgisi veya eğilim çizgisi etrafında güven aralığı (confidence interval) göstermek için kullanılır. Güven aralığı, regresyon çizgisinin tahmini değeri etrafında belirli bir güven düzeyindeki belirsizliği ifade eder.
+
+Aşağıda, **`se=TRUE`** parametresi ile **`geom_smooth()`** kullanarak bir örnek bulunmaktadır:
+
+```{r}
+
+# Saçılım grafiği oluşturma ve düzeltme çizgisi ile güven aralığı ekleme
+ggplot(mtcars, aes(x = wt, y = mpg)) +
+  geom_point() +
+  geom_smooth(method = "loess", se = TRUE, color = "blue") +
+  labs(title = "Saçılım Grafiği-LOESS Düzeltme Çizgisi ve Güven Aralığı",
+       x = "Ağırlık (wt)",
+       y = "Miles Per Gallon (mpg)")
+
+
+```
+
+-   **`geom_smooth(method = "loess", se = TRUE, color = "blue")`** satırı, LOESS düzeltme çizgisini eklerken aynı zamanda güven aralığını da gösterir.
+
+-   **`se = TRUE`** parametresi, güven aralığını etkinleştirir.
+
+-   **`color = "blue"`** parametresi, çizginin rengini belirler.
+
+Bu örnek grafiğin sağ tarafında çizilen mavi bant, LOESS düzeltme çizgisinin etrafında %95 güven aralığını temsil eder. Yani, her x değeri için bu bant içinde düzeltilmiş tahmini değerlerin olasılığı %95'tir. Güven aralığı, regresyon çizgisinin ne kadar güvenilir olduğunu ve tahminlerin belirli bir güven düzeyinde ne kadar kesin olduğunu anlamak için kullanılır.
 
 ## Sütun Grafikleri
 
@@ -354,7 +419,7 @@ summary(economics)
 
 ```{r}
 
-p4 <- economics %>% 
+p <- economics %>% 
   ggplot(aes(x=date,y=pce)) +
   geom_line(color="blue") +
   theme_minimal() +
@@ -363,7 +428,7 @@ p4 <- economics %>%
        title = "Personal Consumption Expenditures Time Series",
        caption = "Economics Data",
        subtitle = "Economics Data (1967-2015)")
-p4
+p
 
 
 ```
@@ -385,13 +450,13 @@ Bu kod, **`economics`** veri setindeki tüketim harcamalarının zaman içindeki
 ```{r}
 
 # zaman eksenini ve legend ayarlama
-p4 + 
+p + 
   scale_x_date(date_breaks = "1 year", date_labels = "%Y") +
   theme(axis.text.x = element_text(angle = 45), legend.position = "top")
 
 ```
 
-**`p4`** ismini verdiğimiz grafik objesine eklenen kısım, **`scale_x_date()`** ve **`theme()`** fonksiyonlarıyla grafiğin x ekseni üzerindeki tarih etiketlerini ve genel görünümü özelleştirmektedir. Aşağıda bu kodun eklenmiş haliyle birlikte açıklamasını bulabilirsiniz:
+**`p`** ismini verdiğimiz grafik objesine eklenen kısım, **`scale_x_date()`** ve **`theme()`** fonksiyonlarıyla grafiğin x ekseni üzerindeki tarih etiketlerini ve genel görünümü özelleştirmektedir. Aşağıda bu kodun eklenmiş haliyle birlikte açıklamasını bulabilirsiniz:
 
 -   **`scale_x_date(date_breaks = "1 year", date_labels = "%Y")`**: Bu bölüm, x ekseni üzerindeki tarih etiketlerini özelleştirmek için kullanılır. **`date_breaks`** argümanı, tarih etiketlerinin kaç yılda bir görüneceğini belirler. **`date_labels`** argümanı ise tarih etiketlerinin nasıl formatlanacağını belirler. Bu örnekte, her yılın gösterilmesi ve yıl formatında görüntülenmesi belirlenmiştir.
 
@@ -401,7 +466,7 @@ Bu eklemelerle birlikte, grafiğin x ekseni üzerinde yıllık tarih etiketleri 
 
 ```{r}
 
-p4 + 
+p + 
   scale_x_date(date_breaks = "2 year", date_labels = "%Y",expand = c(0,0)) +
   theme(axis.text.x = element_text(angle = 45), legend.position = "top")
 
