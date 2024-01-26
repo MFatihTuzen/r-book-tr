@@ -345,8 +345,14 @@ Zaman serisi grafikleri, zamanla değişen verileri görsel olarak temsil etmek 
 
 ```{r}
 
+# verileri inceleyelim
 economics
 summary(economics)
+```
+
+**`economics`** veri setinde bulunan **`date`** ve **`pce`** (Personal Consumption Expenditures - Kişisel Tüketim Harcamaları) değişkenlerini kullanarak bir zaman serisi grafiği oluşturalım.
+
+```{r}
 
 p4 <- economics %>% 
   ggplot(aes(x=date,y=pce)) +
@@ -359,23 +365,89 @@ p4 <- economics %>%
        subtitle = "Economics Data (1967-2015)")
 p4
 
-# zaman eksenini ayarlama
+
+```
+
+Aşağıda bu kodun adım adım açıklamasını bulabilirsiniz:
+
+-   **`economics %>%`**: Bu işlem, "pipe" (**`%>%`**) operatörünü kullanarak **`economics`** veri setini bir dizi başka işleme yönlendirir. Bu, veri manipülasyonunu daha okunabilir ve zincirleme bir şekilde yapmamıza olanak tanır.
+
+-   **`ggplot(aes(x=date, y=pce))`**: **`ggplot()`** fonksiyonu, temel bir grafik oluşturur. **`aes()`** fonksiyonu içinde **`x`** ve **`y`** argümanları, grafiğin x ve y eksenine hangi verilerin yerleştirileceğini belirtir. Bu durumda, x ekseni **`date`** değişkenini, y ekseni ise **`pce`** değişkenini kullanır.
+
+-   **`geom_line(color="blue")`**: **`geom_line()`** fonksiyonu, bir çizgi grafiği ekler. Bu durumda, **`color="blue"`** argümanı ile çizgi rengi mavi olarak belirlenmiştir.
+
+-   **`theme_minimal()`**: Bu fonksiyon, grafiği daha sade bir görünüme getirmek için kullanılır. Başka temalar da seçilebilir.
+
+-   **`labs(x="", y="Personal Consumption Expenditures", title="Personal Consumption Expenditures Time Series", caption="Economics Data", subtitle="Economics Data (1967-2015)")`**: **`labs()`** fonksiyonu, grafiğin başlığını, eksen etiketlerini ve diğer metin öğelerini ayarlar. **`x=""`** ile x ekseninin başlığı kaldırılmış, **`y="Personal Consumption Expenditures"`** ile y ekseninin başlığı belirlenmiş, **`title="Personal Consumption Expenditures Time Series"`** ile grafik başlığı belirlenmiş, **`subtitle="Economics Data (1967-2015)"`** ile alt başlık eklenmiştir.
+
+Bu kod, **`economics`** veri setindeki tüketim harcamalarının zaman içindeki değişimini mavi bir çizgi grafiği ile gösteren bir ggplot2 grafiği oluşturur.
+
+```{r}
+
+# zaman eksenini ve legend ayarlama
 p4 + 
   scale_x_date(date_breaks = "1 year", date_labels = "%Y") +
   theme(axis.text.x = element_text(angle = 45), legend.position = "top")
 
+```
+
+**`p4`** ismini verdiğimiz grafik objesine eklenen kısım, **`scale_x_date()`** ve **`theme()`** fonksiyonlarıyla grafiğin x ekseni üzerindeki tarih etiketlerini ve genel görünümü özelleştirmektedir. Aşağıda bu kodun eklenmiş haliyle birlikte açıklamasını bulabilirsiniz:
+
+-   **`scale_x_date(date_breaks = "1 year", date_labels = "%Y")`**: Bu bölüm, x ekseni üzerindeki tarih etiketlerini özelleştirmek için kullanılır. **`date_breaks`** argümanı, tarih etiketlerinin kaç yılda bir görüneceğini belirler. **`date_labels`** argümanı ise tarih etiketlerinin nasıl formatlanacağını belirler. Bu örnekte, her yılın gösterilmesi ve yıl formatında görüntülenmesi belirlenmiştir.
+
+-   **`theme(axis.text.x = element_text(angle = 45), legend.position = "top")`**: Bu bölüm, genel görünümü özelleştirmek için kullanılır. **`axis.text.x`** ile x ekseni etiketlerinin açısını belirleyebiliriz (burada 45 derece olarak belirlenmiştir). **`legend.position`** ile ise lejantın grafiğin neresinde yer alacağını belirleyebiliriz (burada "top" olarak belirlenmiştir).
+
+Bu eklemelerle birlikte, grafiğin x ekseni üzerinde yıllık tarih etiketleri görünecek ve bu etiketler 45 derece eğimli olacak. Ayrıca, lejant grafiğin üst kısmına yerleştirilecektir.
+
+```{r}
+
 p4 + 
   scale_x_date(date_breaks = "2 year", date_labels = "%Y",expand = c(0,0)) +
   theme(axis.text.x = element_text(angle = 45), legend.position = "top")
+
+```
+
+Eklendiğiniz bu kod parçası ile x eksenindeki tarih etiketleri, 2 yılda bir görünecek şekilde ayarlanmıştır (**`date_breaks = "2 year"`**). Ayrıca, **`expand = c(0, 0)`** ile x ekseninin başlangıç ve bitişindeki boşluklar sıfır olarak belirlenmiştir. Bu, x ekseninin kenarlarına sıfır boşluk bırakarak grafiği daha kompakt hale getirir.
+
+```{r warning=FALSE}
 
 # çizgi türü değiştirilebilir
 economics %>% 
   ggplot(aes(x=date,y=pce)) +
   geom_line(linetype = "dashed", size = 1, colour = "blue")
 
-economics %>% 
-  ggplot(aes(x=date,y=pce)) +
-  geom_line(linetype = "dotted", size = 2, colour = "blue")
+
+```
+
+**`linetype`** argümanı, çizgi tipini belirler (burada "dashed" olarak belirlenmiştir). **`size`** argümanı, çizgi kalınlığını belirler (1 olarak belirlenmiştir). **`colour`** argümanı ise çizgi rengini belirler (mavi olarak belirlenmiştir).
+
+::: callout-tip
+## Ek Bilgi
+
+**`linetype`** parametresi, **`geom_line()`** fonksiyonu ile çizgi grafiği oluştururken çizgi tipini belirlemek için kullanılır. Bu parametre, çeşitli değerleri kabul eder. İşte yaygın olarak kullanılan bazı **`linetype`** değerleri:
+
+1.  **`"solid"`**: Tam çizgi (Varsayılan).
+
+2.  **`"dashed"`**: Kesikli çizgi.
+
+3.  **`"dotted"`**: Noktalı çizgi.
+
+4.  **`"dotdash"`**: Noktalı-kesikli çizgi.
+
+5.  **`"longdash"`**: Uzun kesikli çizgi.
+
+6.  **`"twodash"`**: Çift kesikli çizgi.
+
+7.  **`"blank"`**: Hiç çizgi çizme (görselde görüntülenmez).
+
+Örneğin, **`linetype = "dashed"`** ifadesi, çizginin kesikli olacağını belirtir. Bu değeri dışında başka özelleştirmeler de yapabilirsiniz. **`linetype`** parametresi, daha karmaşık çizgi tipleri oluşturmak için farklı uzunluk ve boşluk kombinasyonlarına da izin verir.
+
+**`linetype`** parametresine yerine sayısal değerleri de atanabilir. Örneğin **`linetype = 1`** ifadesi **`linetype = "solid"`** ile aynı anlama gelir. Yukarıda verilen **`linetype`** türlerinin yanındaki da rakamlar da kullanılabilir.
+:::
+
+**`economics`** veri setinden sadece 2010 yılı ve sonrasındaki verileri filtreleyip, bu verileri kullanarak bir zaman serisi çizgi grafiği oluşturalım. Aynı zamanda, **`geom_point()`** fonksiyonu kullanılarak çizgilerin üzerine kırmızı renkte ve büyük boyutta daireler ekleyelim.
+
+```{r}
 
 # zaman grafiğine noktalar ekleme
 economics %>% 
@@ -384,6 +456,44 @@ economics %>%
   geom_line()+
   geom_point(size = 3, shape= 7, colour = "red")
 
+```
+
+-   **`filter(lubridate::year(date) >= 2010)`**: Bu satır, **`lubridate`** paketini kullanarak **`date`** sütunundaki yıl bilgisine göre filtreleme yapar. Yalnızca 2010 yılı ve sonrasındaki verileri içeren bir alt küme oluşturur.
+
+-   **`ggplot(aes(x = date, y = pce))`**: Bu satır, ggplot nesnesini oluşturur ve x ekseni olarak **`date`** sütununu, y ekseni olarak ise **`pce`** sütununu belirler.
+
+-   **`geom_line()`**: Bu fonksiyon, çizgi grafiğini oluşturur.
+
+-   **`geom_point(size = 3, shape = 7, colour = "red")`**: Bu fonksiyon, nokta grafiğini oluşturur. **`size`** argümanı noktaların boyutunu, **`shape`** argümanı nokta tipini (7, çizgi içeren bir daire), **`colour`** argümanı ise nokta rengini belirler. Bu durumda, noktalar kırmızı renkte ve büyük boyutta çizgi içeren daireler olarak belirlenmiştir.
+
+::: callout-tip
+## Ek Bilgi
+
+**`size` Parametresi:**
+
+-   **Sayılar (Numeric):** Noktaların boyutunu belirtir. Örneğin, **`size = 3`** noktaları küçük, **`size = 5`** noktaları büyük yapar.
+
+**`shape` Parametresi:**
+
+**`shape`** parametresi, noktaların farklı şekillerde görüntülenmesini sağlar. İşte bazı yaygın **`shape`** değerleri:
+
+-   **Sayılar (Numeric):** Noktanın şeklini belirtir. Örneğin, **`shape = 0`** noktaları daire, **`shape = 1`** noktaları üçgen yapar.
+
+-   **Karakterler (Characters):** Belirli bir karakteri kullanarak şekli belirtirsiniz. Örneğin, **`shape = "A"`** noktaları yıldız, **`shape = "B"`** noktaları kare yapar.
+
+-   **Özel Semboller:** Belirli sembollerle ilişkilendirilmiş değerleri kullanabilirsiniz. Örneğin, **`shape = 16`** noktaları çarpı sembolü yapar.
+
+-   **Özel Sembollerin İsimleri:** Özel sembollerin adlarını da kullanabilirsiniz. Örneğin, **`shape = "cross"`** noktaları çarpı sembolü yapar.
+
+Bu değerlerin tam listeleri, R'nin resmi belgelerinde ve **`ggplot2`**'nin belgelerinde bulunabilir. Ayrıca, **`?geom_point`** komutunu R ortamında kullanarak doğrudan yardım belgesine erişebilir ve orada kullanılabilecek değerleri inceleyebilirsiniz.
+:::
+
+Zaman serilerini görselleştirmek için alan grafikleri de kullanılabilir. Alan grafiği (Area Plot), bir değişkenin zaman içinde veya başka bir değişkenle ilişkili olarak nasıl değiştiğini görselleştirmek için kullanılan bir grafik türüdür. Bu grafik, genellikle bir değişkenin toplamını veya yüzey alanını temsil eder. Alan grafiği, bir çizgi grafiği gibi trendleri gösterirken, aynı zamanda altındaki alanın renklendirilmesi ile de değişkenin toplamını anlamamıza yardımcı olur.
+
+**`economics`** veri setindeki **`date`** ve **`pce`** değişkenleri kullanılarak bir alan grafiği (area plot) oluşturalım. Aynı zamanda, y ekseni aralıkları belirli bir düzenle (**`scale_y_continuous`** fonksiyonu kullanılarak) özelleştirelim.
+
+```{r}
+
 # gölgeli zaman grafiği
 economics %>% 
   ggplot(aes(x=date,y=pce)) +
@@ -391,31 +501,46 @@ economics %>%
   # y ekseni aralıklarını ayarlama
   scale_y_continuous(breaks = seq(0, max(economics$pce), by = 1000))
 
-economics %>% 
-  ggplot(aes(x=date,y=uempmed )) +
-  geom_area(color="blue",fill="red",alpha=0.5) +
-  theme_light()
+```
 
-# çoklu zaman serisi grafiği
-economics_long
+-   **`geom_area(color = "blue", fill = "red", alpha = 0.6)`**: Bu satır, alan grafiğini oluşturur. **`color`** parametresi çizgi rengini, **`fill`** parametresi dolgu rengini, ve **`alpha`** parametresi saydamlığı belirler. Bu durumda, çizgi rengi mavi (**`blue`**), dolgu rengi kırmızı (**`red`**), ve saydamlık değeri 0.6 olarak belirlenmiştir.
 
-# serilerin ölçekleri farklı 
-economics_long %>% 
-  ggplot(aes(x=date,y=value,color=variable))+
-  geom_line()
+-   **`scale_y_continuous(breaks = seq(0, max(economics$pce), by = 1000))`**: Bu satır, y ekseni aralıklarını belirler. **`breaks`** parametresi ile belirli aralıklarda y ekseni etiketlerini belirleyebilirsiniz. Bu örnekte, 0'dan başlayarak **`pce`** sütunundaki maksimum değere kadar 1000'lik aralıklarla etiketler belirlenmiştir. Bu, y ekseni etiketlerini daha düzenli bir şekilde göstermeye yardımcı olur.
 
-economics_long %>% 
-  ggplot(aes(x=date,y=value))+
-  geom_line() +
-  facet_wrap(~variable,scales = "free_y")
+Sonuç olarak, bu kod **`economics`** veri setindeki kişisel tüketim harcamalarını temsil eden bir alan grafiği oluşturur.
 
+**`economics`** verisi geniş formatlı (wide format) bir veri setidir. Bu, her bir zaman noktasında bir satır ve değişkenleri sütunlarda içerir. Fakat bazı durumlarda uzun formatlı verileri kullanmak daha fazla avantaj sağlayabilir. **`economics_long`** ise uzun formatlı (long format) bir veri setidir. Bu, her bir gözlem biriminin (örneğin, bir tarih ve bir değişken kombinasyonu) bir satırda yer aldığı ve bir sütunun gözlemlenen değerleri içerdiği bir yapıdır. **`economics`** ve **`economics_long`** veri setleri, temelde aynı veri setini temsil eden farklı yapılandırmalara sahip veri setleridir.
+
+Geniş formatlı veri setleri genellikle analizlerde daha kolay okunabilir olabilir, ancak bazı analiz teknikleri için uygun olmayabilir. Uzun formatlı veri setleri genellikle analiz ve görselleştirmelerde daha esneklik sağlar. **`ggplot2`** gibi paketlerle kullanıldığında, farklı değişkenlere göre grafikler oluşturmak daha kolaydır.
+
+**`economics_long`** veri seti içindeki **`date`** , **`value`** ve **`variable`** değişkenlerini kullanarak çoklu bir zaman serisi çizgi grafiği oluşturalım.
+
+```{r}
+
+# verinin yapısını inceleyelim
+glimpse(economics_long)
+
+# ilk 10 gözleme bakalım
+head(economics_long,10)
+
+# çoklu zaman serisi grafiği oluşturalım
 economics_long %>% 
   ggplot(aes(x=date,y=value))+
   geom_line() +
   facet_wrap(~variable,scales = "free_y")+
-  scale_y_log10() # y eksenlerinin logatirması alınır
+  scale_y_log10() # y eksenlerinin logaritması alınır
 
 ```
+
+-   **`ggplot(aes(x = date, y = value))`**: Bu satır, ggplot nesnesini oluşturur ve x ekseni olarak **`date`** sütununu, y ekseni olarak ise **`value`** sütununu belirler.
+
+-   **`geom_line()`**: Bu fonksiyon, çizgi grafiğini oluşturur.
+
+-   **`facet_wrap(~variable, scales = "free_y")`**: Bu fonksiyon, **`variable`** değişkenine göre alt grafiklere ayrılmasını sağlar (**`facet_wrap`**). **`scales = "free_y"`** parametresi ile y ekseni ölçeğinin her alt grafikte bağımsız olarak ayarlanmasını sağlar.
+
+-   **`scale_y_log10()`**: Bu fonksiyon, y ekseni ölçeğini logaritmik olarak değiştirir. Bu, verilerin logaritmik ölçekte daha iyi anlaşılmasına yardımcı olabilir, özellikle büyük değerler arasında değişim olduğunda.
+
+Sonuç olarak, bu kod, **`economics_long`** veri setindeki farklı değişkenlere (**`variable`**) ait zaman serisi çizgi grafiklerini logaritmik y ekseni ile birleştirilmiş bir şekilde gösterir.
 
 ## Grafiklerin Kaydedilmesi
 
@@ -424,7 +549,7 @@ Grafik oluşturulduktan sonra, grafik objesini bir değişkende saklayabilirsini
 Aşağıda kod ile, işsizlik oranlarının aylık değişimini içeren bir çubuk grafik oluşturalım ve bu değişimleri pozitif veya negatif olarak etiketleyelim. Öncesinde işsizlik değişkenini kullanarak aylık değişim hesaplayalım ve bu değerleri "**pozitif**" ya da "**negatif**" olarak etiketleyelim. Daha sonra veri setindeki eksik değerleri temizleyelim ve belirli bir tarih aralığını filtreleyerek bir çubuk grafikle görselleştirelim. En son olarak da bu grafiği kaydedelim.
 
 ```{r}
-#| eval: false
+
 grafik <- economics %>%
   mutate(
     uemploy_mom = unemploy / lag(unemploy) * 100 - 100,
@@ -440,12 +565,19 @@ grafik <- economics %>%
 
 grafik
 
+```
+
+**`ggsave`** fonksiyonu, **`ggplot2`** paketinde oluşturulan grafikleri bir dosyaya kaydetmek için kullanılır. Bu fonksiyon, genellikle ggplot2 ile oluşturulan grafikleri bir resim dosyası (PNG, JPEG, PDF vb.) olarak kaydetmek için tercih edilen bir yöntemdir.
+
+```{r}
+#| eval: false
+
 ggsave(
-  "grafik1.png",
-  grafik,
-  width = 20,
-  height = 8,
-  units = "cm"
+  "grafik1.png", # kaydedilecek dosya adı
+  grafik, # kaydedilecek grafik nesnesi
+  width = 20, # grafiğin genişliği
+  height = 8, # grafiğin yüksekliği
+  units = "cm" # genişlik ve yüksekliğin birimi
 )
 
 # dpi ile çözünürlük ayarlanabilir
@@ -455,7 +587,25 @@ ggsave(
   width = 20,
   height = 8,
   unit = "cm",
-  dpi = 300
+  dpi = 300 # çözünürlük
 )
 
 ```
+
+**Argümanlar:**
+
+-   **`filename`**: Kaydedilecek dosyanın adı. Örneğin, "grafik.png" şeklinde bir dosya adı belirtilebilir.
+
+-   **`plot`**: Kaydedilecek ggplot nesnesi. Varsayılan olarak, en son oluşturulan grafik (**`last_plot()`**) kullanılır.
+
+-   **`device`**: Kaydedilecek dosya türünü belirler. Örneğin, "png", "jpeg", "pdf" gibi değerler alabilir.
+
+-   **`path`**: Kaydedilecek dosyanın yolu. Eğer belirtilmezse, çalışma dizini kullanılır.
+
+-   **`scale`**: Grafik ölçeğini belirler. Varsayılan değeri 1'dir.
+
+-   **`width`**, **`height`**: Grafik boyutunu belirler. Varsayılan olarak, ggplot nesnesinin orijinal boyutu kullanılır.
+
+-   **`units`**: **`width`** ve **`height`** argümanlarının birimi. Örneğin, "in" (inç), "cm" (santimetre), "mm" (milimetre) gibi değerler alabilir.
+
+-   **`dpi`**: Piksel başına inç (dots per inch) çözünürlük. Özellikle raster grafik dosyaları için önemlidir.

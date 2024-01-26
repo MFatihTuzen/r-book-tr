@@ -781,7 +781,8 @@ Dikkat
 <p>Zaman serisi grafikleri, zamanla değişen verileri görsel olarak temsil etmek için kullanılan grafiklerdir. Bu tür grafikler, belirli bir süre boyunca gözlemlenen verileri analiz etmek, eğilimleri belirlemek, dönemsel desenleri tanımak ve istatistiksel analizler yapmak için yaygın olarak kullanılır. Zaman serisi verileri genellikle sabit aralıklarla veya farklı zaman dilimlerinde toplanır. En yaygın olan türü çizgi grafikleri olmakla birlikte sütun ve alan grafikleri de zaman serilerinin görselleştirilmesinde kullanılabilmektedir.</p>
 <p>Örnekler ggplot2 paketi ile birlikte gelen <a href="https://ggplot2.tidyverse.org/reference/economics.html"><strong><code>economics</code></strong></a> veri seti ile yapılacaktır.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a>economics</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="co"># verileri inceleyelim</span></span>
+<span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a>economics</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 574 × 6
    date         pce    pop psavert uempmed unemploy
@@ -815,6 +816,9 @@ Dikkat
  3rd Qu.: 9.100   3rd Qu.: 8686  
  Max.   :25.200   Max.   :15352  </code></pre>
 </div>
+</div>
+<p><strong><code>economics</code></strong> veri setinde bulunan <strong><code>date</code></strong> ve <strong><code>pce</code></strong> (Personal Consumption Expenditures - Kişisel Tüketim Harcamaları) değişkenlerini kullanarak bir zaman serisi grafiği oluşturalım.</p>
+<div class="cell">
 <div class="sourceCode cell-code" id="cb40"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a>p4 <span class="ot">&lt;-</span> economics <span class="sc">%&gt;%</span> </span>
 <span id="cb40-2"><a href="#cb40-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x=</span>date,<span class="at">y=</span>pce)) <span class="sc">+</span></span>
 <span id="cb40-3"><a href="#cb40-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="at">color=</span><span class="st">"blue"</span>) <span class="sc">+</span></span>
@@ -828,97 +832,177 @@ Dikkat
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="ggplot2_files/figure-html/unnamed-chunk-16-1.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="ggplot2_files/figure-html/unnamed-chunk-17-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
-<div class="sourceCode cell-code" id="cb41"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a><span class="co"># zaman eksenini ayarlama</span></span>
+</div>
+<p>Aşağıda bu kodun adım adım açıklamasını bulabilirsiniz:</p>
+<ul>
+<li><p><strong><code>economics %&gt;%</code></strong>: Bu işlem, “pipe” (<strong><code>%&gt;%</code></strong>) operatörünü kullanarak <strong><code>economics</code></strong> veri setini bir dizi başka işleme yönlendirir. Bu, veri manipülasyonunu daha okunabilir ve zincirleme bir şekilde yapmamıza olanak tanır.</p></li>
+<li><p><strong><code>ggplot(aes(x=date, y=pce))</code></strong>: <strong><code>ggplot()</code></strong> fonksiyonu, temel bir grafik oluşturur. <strong><code>aes()</code></strong> fonksiyonu içinde <strong><code>x</code></strong> ve <strong><code>y</code></strong> argümanları, grafiğin x ve y eksenine hangi verilerin yerleştirileceğini belirtir. Bu durumda, x ekseni <strong><code>date</code></strong> değişkenini, y ekseni ise <strong><code>pce</code></strong> değişkenini kullanır.</p></li>
+<li><p><strong><code>geom_line(color="blue")</code></strong>: <strong><code>geom_line()</code></strong> fonksiyonu, bir çizgi grafiği ekler. Bu durumda, <strong><code>color="blue"</code></strong> argümanı ile çizgi rengi mavi olarak belirlenmiştir.</p></li>
+<li><p><strong><code>theme_minimal()</code></strong>: Bu fonksiyon, grafiği daha sade bir görünüme getirmek için kullanılır. Başka temalar da seçilebilir.</p></li>
+<li><p><strong><code>labs(x="", y="Personal Consumption Expenditures", title="Personal Consumption Expenditures Time Series", caption="Economics Data", subtitle="Economics Data (1967-2015)")</code></strong>: <strong><code>labs()</code></strong> fonksiyonu, grafiğin başlığını, eksen etiketlerini ve diğer metin öğelerini ayarlar. <strong><code>x=""</code></strong> ile x ekseninin başlığı kaldırılmış, <strong><code>y="Personal Consumption Expenditures"</code></strong> ile y ekseninin başlığı belirlenmiş, <strong><code>title="Personal Consumption Expenditures Time Series"</code></strong> ile grafik başlığı belirlenmiş, <strong><code>subtitle="Economics Data (1967-2015)"</code></strong> ile alt başlık eklenmiştir.</p></li>
+</ul>
+<p>Bu kod, <strong><code>economics</code></strong> veri setindeki tüketim harcamalarının zaman içindeki değişimini mavi bir çizgi grafiği ile gösteren bir ggplot2 grafiği oluşturur.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb41"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a><span class="co"># zaman eksenini ve legend ayarlama</span></span>
 <span id="cb41-2"><a href="#cb41-2" aria-hidden="true" tabindex="-1"></a>p4 <span class="sc">+</span> </span>
 <span id="cb41-3"><a href="#cb41-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_date</span>(<span class="at">date_breaks =</span> <span class="st">"1 year"</span>, <span class="at">date_labels =</span> <span class="st">"%Y"</span>) <span class="sc">+</span></span>
 <span id="cb41-4"><a href="#cb41-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">axis.text.x =</span> <span class="fu">element_text</span>(<span class="at">angle =</span> <span class="dv">45</span>), <span class="at">legend.position =</span> <span class="st">"top"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="ggplot2_files/figure-html/unnamed-chunk-16-2.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="ggplot2_files/figure-html/unnamed-chunk-18-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
+</div>
+<p><strong><code>p4</code></strong> ismini verdiğimiz grafik objesine eklenen kısım, <strong><code>scale_x_date()</code></strong> ve <strong><code>theme()</code></strong> fonksiyonlarıyla grafiğin x ekseni üzerindeki tarih etiketlerini ve genel görünümü özelleştirmektedir. Aşağıda bu kodun eklenmiş haliyle birlikte açıklamasını bulabilirsiniz:</p>
+<ul>
+<li><p><strong><code>scale_x_date(date_breaks = "1 year", date_labels = "%Y")</code></strong>: Bu bölüm, x ekseni üzerindeki tarih etiketlerini özelleştirmek için kullanılır. <strong><code>date_breaks</code></strong> argümanı, tarih etiketlerinin kaç yılda bir görüneceğini belirler. <strong><code>date_labels</code></strong> argümanı ise tarih etiketlerinin nasıl formatlanacağını belirler. Bu örnekte, her yılın gösterilmesi ve yıl formatında görüntülenmesi belirlenmiştir.</p></li>
+<li><p><strong><code>theme(axis.text.x = element_text(angle = 45), legend.position = "top")</code></strong>: Bu bölüm, genel görünümü özelleştirmek için kullanılır. <strong><code>axis.text.x</code></strong> ile x ekseni etiketlerinin açısını belirleyebiliriz (burada 45 derece olarak belirlenmiştir). <strong><code>legend.position</code></strong> ile ise lejantın grafiğin neresinde yer alacağını belirleyebiliriz (burada “top” olarak belirlenmiştir).</p></li>
+</ul>
+<p>Bu eklemelerle birlikte, grafiğin x ekseni üzerinde yıllık tarih etiketleri görünecek ve bu etiketler 45 derece eğimli olacak. Ayrıca, lejant grafiğin üst kısmına yerleştirilecektir.</p>
+<div class="cell">
 <div class="sourceCode cell-code" id="cb42"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a>p4 <span class="sc">+</span> </span>
 <span id="cb42-2"><a href="#cb42-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_date</span>(<span class="at">date_breaks =</span> <span class="st">"2 year"</span>, <span class="at">date_labels =</span> <span class="st">"%Y"</span>,<span class="at">expand =</span> <span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">0</span>)) <span class="sc">+</span></span>
 <span id="cb42-3"><a href="#cb42-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">axis.text.x =</span> <span class="fu">element_text</span>(<span class="at">angle =</span> <span class="dv">45</span>), <span class="at">legend.position =</span> <span class="st">"top"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="ggplot2_files/figure-html/unnamed-chunk-16-3.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="ggplot2_files/figure-html/unnamed-chunk-19-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
+</div>
+<p>Eklendiğiniz bu kod parçası ile x eksenindeki tarih etiketleri, 2 yılda bir görünecek şekilde ayarlanmıştır (<strong><code>date_breaks = "2 year"</code></strong>). Ayrıca, <strong><code>expand = c(0, 0)</code></strong> ile x ekseninin başlangıç ve bitişindeki boşluklar sıfır olarak belirlenmiştir. Bu, x ekseninin kenarlarına sıfır boşluk bırakarak grafiği daha kompakt hale getirir.</p>
+<div class="cell">
 <div class="sourceCode cell-code" id="cb43"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a><span class="co"># çizgi türü değiştirilebilir</span></span>
 <span id="cb43-2"><a href="#cb43-2" aria-hidden="true" tabindex="-1"></a>economics <span class="sc">%&gt;%</span> </span>
 <span id="cb43-3"><a href="#cb43-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x=</span>date,<span class="at">y=</span>pce)) <span class="sc">+</span></span>
 <span id="cb43-4"><a href="#cb43-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="at">linetype =</span> <span class="st">"dashed"</span>, <span class="at">size =</span> <span class="dv">1</span>, <span class="at">colour =</span> <span class="st">"blue"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Warning: Using `size` aesthetic for lines was deprecated in ggplot2 3.4.0.
-ℹ Please use `linewidth` instead.</code></pre>
-</div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="ggplot2_files/figure-html/unnamed-chunk-16-4.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="ggplot2_files/figure-html/unnamed-chunk-20-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
-<div class="sourceCode cell-code" id="cb45"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a>economics <span class="sc">%&gt;%</span> </span>
-<span id="cb45-2"><a href="#cb45-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x=</span>date,<span class="at">y=</span>pce)) <span class="sc">+</span></span>
-<span id="cb45-3"><a href="#cb45-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="at">linetype =</span> <span class="st">"dotted"</span>, <span class="at">size =</span> <span class="dv">2</span>, <span class="at">colour =</span> <span class="st">"blue"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p><strong><code>linetype</code></strong> argümanı, çizgi tipini belirler (burada “dashed” olarak belirlenmiştir). <strong><code>size</code></strong> argümanı, çizgi kalınlığını belirler (1 olarak belirlenmiştir). <strong><code>colour</code></strong> argümanı ise çizgi rengini belirler (mavi olarak belirlenmiştir).</p>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Ek Bilgi
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><strong><code>linetype</code></strong> parametresi, <strong><code>geom_line()</code></strong> fonksiyonu ile çizgi grafiği oluştururken çizgi tipini belirlemek için kullanılır. Bu parametre, çeşitli değerleri kabul eder. İşte yaygın olarak kullanılan bazı <strong><code>linetype</code></strong> değerleri:</p>
+<ol type="1">
+<li><p><strong><code>"solid"</code></strong>: Tam çizgi (Varsayılan).</p></li>
+<li><p><strong><code>"dashed"</code></strong>: Kesikli çizgi.</p></li>
+<li><p><strong><code>"dotted"</code></strong>: Noktalı çizgi.</p></li>
+<li><p><strong><code>"dotdash"</code></strong>: Noktalı-kesikli çizgi.</p></li>
+<li><p><strong><code>"longdash"</code></strong>: Uzun kesikli çizgi.</p></li>
+<li><p><strong><code>"twodash"</code></strong>: Çift kesikli çizgi.</p></li>
+<li><p><strong><code>"blank"</code></strong>: Hiç çizgi çizme (görselde görüntülenmez).</p></li>
+</ol>
+<p>Örneğin, <strong><code>linetype = "dashed"</code></strong> ifadesi, çizginin kesikli olacağını belirtir. Bu değeri dışında başka özelleştirmeler de yapabilirsiniz. <strong><code>linetype</code></strong> parametresi, daha karmaşık çizgi tipleri oluşturmak için farklı uzunluk ve boşluk kombinasyonlarına da izin verir.</p>
+<p><strong><code>linetype</code></strong> parametresine yerine sayısal değerleri de atanabilir. Örneğin <strong><code>linetype = 1</code></strong> ifadesi <strong><code>linetype = "solid"</code></strong> ile aynı anlama gelir. Yukarıda verilen <strong><code>linetype</code></strong> türlerinin yanındaki da rakamlar da kullanılabilir.</p>
+</div>
+</div>
+<p><strong><code>economics</code></strong> veri setinden sadece 2010 yılı ve sonrasındaki verileri filtreleyip, bu verileri kullanarak bir zaman serisi çizgi grafiği oluşturalım. Aynı zamanda, <strong><code>geom_point()</code></strong> fonksiyonu kullanılarak çizgilerin üzerine kırmızı renkte ve büyük boyutta daireler ekleyelim.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb44"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a><span class="co"># zaman grafiğine noktalar ekleme</span></span>
+<span id="cb44-2"><a href="#cb44-2" aria-hidden="true" tabindex="-1"></a>economics <span class="sc">%&gt;%</span> </span>
+<span id="cb44-3"><a href="#cb44-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(lubridate<span class="sc">::</span><span class="fu">year</span>(date) <span class="sc">&gt;=</span> <span class="dv">2010</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb44-4"><a href="#cb44-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x=</span>date,<span class="at">y=</span>pce)) <span class="sc">+</span></span>
+<span id="cb44-5"><a href="#cb44-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>()<span class="sc">+</span></span>
+<span id="cb44-6"><a href="#cb44-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">size =</span> <span class="dv">3</span>, <span class="at">shape=</span> <span class="dv">7</span>, <span class="at">colour =</span> <span class="st">"red"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="ggplot2_files/figure-html/unnamed-chunk-16-5.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="ggplot2_files/figure-html/unnamed-chunk-21-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
-<div class="sourceCode cell-code" id="cb46"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a><span class="co"># zaman grafiğine noktalar ekleme</span></span>
-<span id="cb46-2"><a href="#cb46-2" aria-hidden="true" tabindex="-1"></a>economics <span class="sc">%&gt;%</span> </span>
-<span id="cb46-3"><a href="#cb46-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(lubridate<span class="sc">::</span><span class="fu">year</span>(date) <span class="sc">&gt;=</span> <span class="dv">2010</span>) <span class="sc">%&gt;%</span> </span>
-<span id="cb46-4"><a href="#cb46-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x=</span>date,<span class="at">y=</span>pce)) <span class="sc">+</span></span>
-<span id="cb46-5"><a href="#cb46-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>()<span class="sc">+</span></span>
-<span id="cb46-6"><a href="#cb46-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">size =</span> <span class="dv">3</span>, <span class="at">shape=</span> <span class="dv">7</span>, <span class="at">colour =</span> <span class="st">"red"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<ul>
+<li><p><strong><code>filter(lubridate::year(date) &gt;= 2010)</code></strong>: Bu satır, <strong><code>lubridate</code></strong> paketini kullanarak <strong><code>date</code></strong> sütunundaki yıl bilgisine göre filtreleme yapar. Yalnızca 2010 yılı ve sonrasındaki verileri içeren bir alt küme oluşturur.</p></li>
+<li><p><strong><code>ggplot(aes(x = date, y = pce))</code></strong>: Bu satır, ggplot nesnesini oluşturur ve x ekseni olarak <strong><code>date</code></strong> sütununu, y ekseni olarak ise <strong><code>pce</code></strong> sütununu belirler.</p></li>
+<li><p><strong><code>geom_line()</code></strong>: Bu fonksiyon, çizgi grafiğini oluşturur.</p></li>
+<li><p><strong><code>geom_point(size = 3, shape = 7, colour = "red")</code></strong>: Bu fonksiyon, nokta grafiğini oluşturur. <strong><code>size</code></strong> argümanı noktaların boyutunu, <strong><code>shape</code></strong> argümanı nokta tipini (7, çizgi içeren bir daire), <strong><code>colour</code></strong> argümanı ise nokta rengini belirler. Bu durumda, noktalar kırmızı renkte ve büyük boyutta çizgi içeren daireler olarak belirlenmiştir.</p></li>
+</ul>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Ek Bilgi
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><strong><code>size</code> Parametresi:</strong></p>
+<ul>
+<li><strong>Sayılar (Numeric):</strong> Noktaların boyutunu belirtir. Örneğin, <strong><code>size = 3</code></strong> noktaları küçük, <strong><code>size = 5</code></strong> noktaları büyük yapar.</li>
+</ul>
+<p><strong><code>shape</code> Parametresi:</strong></p>
+<p><strong><code>shape</code></strong> parametresi, noktaların farklı şekillerde görüntülenmesini sağlar. İşte bazı yaygın <strong><code>shape</code></strong> değerleri:</p>
+<ul>
+<li><p><strong>Sayılar (Numeric):</strong> Noktanın şeklini belirtir. Örneğin, <strong><code>shape = 0</code></strong> noktaları daire, <strong><code>shape = 1</code></strong> noktaları üçgen yapar.</p></li>
+<li><p><strong>Karakterler (Characters):</strong> Belirli bir karakteri kullanarak şekli belirtirsiniz. Örneğin, <strong><code>shape = "A"</code></strong> noktaları yıldız, <strong><code>shape = "B"</code></strong> noktaları kare yapar.</p></li>
+<li><p><strong>Özel Semboller:</strong> Belirli sembollerle ilişkilendirilmiş değerleri kullanabilirsiniz. Örneğin, <strong><code>shape = 16</code></strong> noktaları çarpı sembolü yapar.</p></li>
+<li><p><strong>Özel Sembollerin İsimleri:</strong> Özel sembollerin adlarını da kullanabilirsiniz. Örneğin, <strong><code>shape = "cross"</code></strong> noktaları çarpı sembolü yapar.</p></li>
+</ul>
+<p>Bu değerlerin tam listeleri, R’nin resmi belgelerinde ve <strong><code>ggplot2</code></strong>’nin belgelerinde bulunabilir. Ayrıca, <strong><code>?geom_point</code></strong> komutunu R ortamında kullanarak doğrudan yardım belgesine erişebilir ve orada kullanılabilecek değerleri inceleyebilirsiniz.</p>
+</div>
+</div>
+<p>Zaman serilerini görselleştirmek için alan grafikleri de kullanılabilir. Alan grafiği (Area Plot), bir değişkenin zaman içinde veya başka bir değişkenle ilişkili olarak nasıl değiştiğini görselleştirmek için kullanılan bir grafik türüdür. Bu grafik, genellikle bir değişkenin toplamını veya yüzey alanını temsil eder. Alan grafiği, bir çizgi grafiği gibi trendleri gösterirken, aynı zamanda altındaki alanın renklendirilmesi ile de değişkenin toplamını anlamamıza yardımcı olur.</p>
+<p><strong><code>economics</code></strong> veri setindeki <strong><code>date</code></strong> ve <strong><code>pce</code></strong> değişkenleri kullanılarak bir alan grafiği (area plot) oluşturalım. Aynı zamanda, y ekseni aralıkları belirli bir düzenle (<strong><code>scale_y_continuous</code></strong> fonksiyonu kullanılarak) özelleştirelim.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb45"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a><span class="co"># gölgeli zaman grafiği</span></span>
+<span id="cb45-2"><a href="#cb45-2" aria-hidden="true" tabindex="-1"></a>economics <span class="sc">%&gt;%</span> </span>
+<span id="cb45-3"><a href="#cb45-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x=</span>date,<span class="at">y=</span>pce)) <span class="sc">+</span></span>
+<span id="cb45-4"><a href="#cb45-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_area</span>(<span class="at">color=</span><span class="st">"blue"</span>,<span class="at">fill=</span><span class="st">"red"</span>,<span class="at">alpha=</span><span class="fl">0.6</span>) <span class="sc">+</span></span>
+<span id="cb45-5"><a href="#cb45-5" aria-hidden="true" tabindex="-1"></a>  <span class="co"># y ekseni aralıklarını ayarlama</span></span>
+<span id="cb45-6"><a href="#cb45-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_y_continuous</span>(<span class="at">breaks =</span> <span class="fu">seq</span>(<span class="dv">0</span>, <span class="fu">max</span>(economics<span class="sc">$</span>pce), <span class="at">by =</span> <span class="dv">1000</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="ggplot2_files/figure-html/unnamed-chunk-16-6.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="ggplot2_files/figure-html/unnamed-chunk-22-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
-<div class="sourceCode cell-code" id="cb47"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a><span class="co"># gölgeli zaman grafiği</span></span>
-<span id="cb47-2"><a href="#cb47-2" aria-hidden="true" tabindex="-1"></a>economics <span class="sc">%&gt;%</span> </span>
-<span id="cb47-3"><a href="#cb47-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x=</span>date,<span class="at">y=</span>pce)) <span class="sc">+</span></span>
-<span id="cb47-4"><a href="#cb47-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_area</span>(<span class="at">color=</span><span class="st">"blue"</span>,<span class="at">fill=</span><span class="st">"red"</span>,<span class="at">alpha=</span><span class="fl">0.6</span>) <span class="sc">+</span></span>
-<span id="cb47-5"><a href="#cb47-5" aria-hidden="true" tabindex="-1"></a>  <span class="co"># y ekseni aralıklarını ayarlama</span></span>
-<span id="cb47-6"><a href="#cb47-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_y_continuous</span>(<span class="at">breaks =</span> <span class="fu">seq</span>(<span class="dv">0</span>, <span class="fu">max</span>(economics<span class="sc">$</span>pce), <span class="at">by =</span> <span class="dv">1000</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="ggplot2_files/figure-html/unnamed-chunk-16-7.png" class="img-fluid figure-img" width="672"></p>
-</figure>
 </div>
-</div>
-<div class="sourceCode cell-code" id="cb48"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true" tabindex="-1"></a>economics <span class="sc">%&gt;%</span> </span>
-<span id="cb48-2"><a href="#cb48-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x=</span>date,<span class="at">y=</span>uempmed )) <span class="sc">+</span></span>
-<span id="cb48-3"><a href="#cb48-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_area</span>(<span class="at">color=</span><span class="st">"blue"</span>,<span class="at">fill=</span><span class="st">"red"</span>,<span class="at">alpha=</span><span class="fl">0.5</span>) <span class="sc">+</span></span>
-<span id="cb48-4"><a href="#cb48-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_light</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="ggplot2_files/figure-html/unnamed-chunk-16-8.png" class="img-fluid figure-img" width="672"></p>
-</figure>
-</div>
-</div>
-<div class="sourceCode cell-code" id="cb49"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb49-1"><a href="#cb49-1" aria-hidden="true" tabindex="-1"></a><span class="co"># çoklu zaman serisi grafiği</span></span>
-<span id="cb49-2"><a href="#cb49-2" aria-hidden="true" tabindex="-1"></a>economics_long</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<ul>
+<li><p><strong><code>geom_area(color = "blue", fill = "red", alpha = 0.6)</code></strong>: Bu satır, alan grafiğini oluşturur. <strong><code>color</code></strong> parametresi çizgi rengini, <strong><code>fill</code></strong> parametresi dolgu rengini, ve <strong><code>alpha</code></strong> parametresi saydamlığı belirler. Bu durumda, çizgi rengi mavi (<strong><code>blue</code></strong>), dolgu rengi kırmızı (<strong><code>red</code></strong>), ve saydamlık değeri 0.6 olarak belirlenmiştir.</p></li>
+<li><p><strong><code>scale_y_continuous(breaks = seq(0, max(economics$pce), by = 1000))</code></strong>: Bu satır, y ekseni aralıklarını belirler. <strong><code>breaks</code></strong> parametresi ile belirli aralıklarda y ekseni etiketlerini belirleyebilirsiniz. Bu örnekte, 0’dan başlayarak <strong><code>pce</code></strong> sütunundaki maksimum değere kadar 1000’lik aralıklarla etiketler belirlenmiştir. Bu, y ekseni etiketlerini daha düzenli bir şekilde göstermeye yardımcı olur.</p></li>
+</ul>
+<p>Sonuç olarak, bu kod <strong><code>economics</code></strong> veri setindeki kişisel tüketim harcamalarını temsil eden bir alan grafiği oluşturur.</p>
+<p><strong><code>economics</code></strong> verisi geniş formatlı (wide format) bir veri setidir. Bu, her bir zaman noktasında bir satır ve değişkenleri sütunlarda içerir. Fakat bazı durumlarda uzun formatlı verileri kullanmak daha fazla avantaj sağlayabilir. <strong><code>economics_long</code></strong> ise uzun formatlı (long format) bir veri setidir. Bu, her bir gözlem biriminin (örneğin, bir tarih ve bir değişken kombinasyonu) bir satırda yer aldığı ve bir sütunun gözlemlenen değerleri içerdiği bir yapıdır. <strong><code>economics</code></strong> ve <strong><code>economics_long</code></strong> veri setleri, temelde aynı veri setini temsil eden farklı yapılandırmalara sahip veri setleridir.</p>
+<p>Geniş formatlı veri setleri genellikle analizlerde daha kolay okunabilir olabilir, ancak bazı analiz teknikleri için uygun olmayabilir. Uzun formatlı veri setleri genellikle analiz ve görselleştirmelerde daha esneklik sağlar. <strong><code>ggplot2</code></strong> gibi paketlerle kullanıldığında, farklı değişkenlere göre grafikler oluşturmak daha kolaydır.</p>
+<p><strong><code>economics_long</code></strong> veri seti içindeki <strong><code>date</code></strong> , <strong><code>value</code></strong> ve <strong><code>variable</code></strong> değişkenlerini kullanarak çoklu bir zaman serisi çizgi grafiği oluşturalım.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb46"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a><span class="co"># verinin yapısını inceleyelim</span></span>
+<span id="cb46-2"><a href="#cb46-2" aria-hidden="true" tabindex="-1"></a><span class="fu">glimpse</span>(economics_long)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 2,870 × 4
+<pre><code>Rows: 2,870
+Columns: 4
+$ date     &lt;date&gt; 1967-07-01, 1967-08-01, 1967-09-01, 1967-10-01, 1967-11-01, …
+$ variable &lt;chr&gt; "pce", "pce", "pce", "pce", "pce", "pce", "pce", "pce", "pce"…
+$ value    &lt;dbl&gt; 506.7, 509.8, 515.6, 512.2, 517.4, 525.1, 530.9, 533.6, 544.3…
+$ value01  &lt;dbl&gt; 0.0000000000, 0.0002652497, 0.0007615234, 0.0004706043, 0.000…</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb48"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ilk 10 gözleme bakalım</span></span>
+<span id="cb48-2"><a href="#cb48-2" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(economics_long,<span class="dv">10</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 10 × 4
    date       variable value  value01
    &lt;date&gt;     &lt;chr&gt;    &lt;dbl&gt;    &lt;dbl&gt;
  1 1967-07-01 pce       507. 0       
@@ -930,83 +1014,88 @@ Dikkat
  7 1968-01-01 pce       531. 0.00207 
  8 1968-02-01 pce       534. 0.00230 
  9 1968-03-01 pce       544. 0.00322 
-10 1968-04-01 pce       544  0.00319 
-# ℹ 2,860 more rows</code></pre>
+10 1968-04-01 pce       544  0.00319 </code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb51"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb51-1"><a href="#cb51-1" aria-hidden="true" tabindex="-1"></a><span class="co"># serilerin ölçekleri farklı </span></span>
-<span id="cb51-2"><a href="#cb51-2" aria-hidden="true" tabindex="-1"></a>economics_long <span class="sc">%&gt;%</span> </span>
-<span id="cb51-3"><a href="#cb51-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x=</span>date,<span class="at">y=</span>value,<span class="at">color=</span>variable))<span class="sc">+</span></span>
-<span id="cb51-4"><a href="#cb51-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb50"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb50-1"><a href="#cb50-1" aria-hidden="true" tabindex="-1"></a><span class="co"># çoklu zaman serisi grafiği oluşturalım</span></span>
+<span id="cb50-2"><a href="#cb50-2" aria-hidden="true" tabindex="-1"></a>economics_long <span class="sc">%&gt;%</span> </span>
+<span id="cb50-3"><a href="#cb50-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x=</span>date,<span class="at">y=</span>value))<span class="sc">+</span></span>
+<span id="cb50-4"><a href="#cb50-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>() <span class="sc">+</span></span>
+<span id="cb50-5"><a href="#cb50-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span>variable,<span class="at">scales =</span> <span class="st">"free_y"</span>)<span class="sc">+</span></span>
+<span id="cb50-6"><a href="#cb50-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_y_log10</span>() <span class="co"># y eksenlerinin logaritması alınır</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="ggplot2_files/figure-html/unnamed-chunk-16-9.png" class="img-fluid figure-img" width="672"></p>
-</figure>
-</div>
-</div>
-<div class="sourceCode cell-code" id="cb52"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb52-1"><a href="#cb52-1" aria-hidden="true" tabindex="-1"></a>economics_long <span class="sc">%&gt;%</span> </span>
-<span id="cb52-2"><a href="#cb52-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x=</span>date,<span class="at">y=</span>value))<span class="sc">+</span></span>
-<span id="cb52-3"><a href="#cb52-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>() <span class="sc">+</span></span>
-<span id="cb52-4"><a href="#cb52-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span>variable,<span class="at">scales =</span> <span class="st">"free_y"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="ggplot2_files/figure-html/unnamed-chunk-16-10.png" class="img-fluid figure-img" width="672"></p>
-</figure>
-</div>
-</div>
-<div class="sourceCode cell-code" id="cb53"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb53-1"><a href="#cb53-1" aria-hidden="true" tabindex="-1"></a>economics_long <span class="sc">%&gt;%</span> </span>
-<span id="cb53-2"><a href="#cb53-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x=</span>date,<span class="at">y=</span>value))<span class="sc">+</span></span>
-<span id="cb53-3"><a href="#cb53-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>() <span class="sc">+</span></span>
-<span id="cb53-4"><a href="#cb53-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span>variable,<span class="at">scales =</span> <span class="st">"free_y"</span>)<span class="sc">+</span></span>
-<span id="cb53-5"><a href="#cb53-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_y_log10</span>() <span class="co"># y eksenlerinin logatirması alınır</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="ggplot2_files/figure-html/unnamed-chunk-16-11.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="ggplot2_files/figure-html/unnamed-chunk-23-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
 </div>
+<ul>
+<li><p><strong><code>ggplot(aes(x = date, y = value))</code></strong>: Bu satır, ggplot nesnesini oluşturur ve x ekseni olarak <strong><code>date</code></strong> sütununu, y ekseni olarak ise <strong><code>value</code></strong> sütununu belirler.</p></li>
+<li><p><strong><code>geom_line()</code></strong>: Bu fonksiyon, çizgi grafiğini oluşturur.</p></li>
+<li><p><strong><code>facet_wrap(~variable, scales = "free_y")</code></strong>: Bu fonksiyon, <strong><code>variable</code></strong> değişkenine göre alt grafiklere ayrılmasını sağlar (<strong><code>facet_wrap</code></strong>). <strong><code>scales = "free_y"</code></strong> parametresi ile y ekseni ölçeğinin her alt grafikte bağımsız olarak ayarlanmasını sağlar.</p></li>
+<li><p><strong><code>scale_y_log10()</code></strong>: Bu fonksiyon, y ekseni ölçeğini logaritmik olarak değiştirir. Bu, verilerin logaritmik ölçekte daha iyi anlaşılmasına yardımcı olabilir, özellikle büyük değerler arasında değişim olduğunda.</p></li>
+</ul>
+<p>Sonuç olarak, bu kod, <strong><code>economics_long</code></strong> veri setindeki farklı değişkenlere (<strong><code>variable</code></strong>) ait zaman serisi çizgi grafiklerini logaritmik y ekseni ile birleştirilmiş bir şekilde gösterir.</p>
 </section>
 <section id="grafiklerin-kaydedilmesi" class="level2">
 <h2 class="anchored" data-anchor-id="grafiklerin-kaydedilmesi">Grafiklerin Kaydedilmesi</h2>
 <p>Grafik oluşturulduktan sonra, grafik objesini bir değişkende saklayabilirsiniz (aşağıdaki örnekte “grafik” adını kullandık). Grafik objesini bir değişkende sakladıktan sonra, <strong><code>ggsave()</code></strong> fonksiyonunu kullanarak grafik dosyasını kaydedebilirsiniz. Grafikleri ayrıca RStudio penceresinin sağ alt kısmında yer alan <strong>Plots</strong> sekmesindeki <strong><code>Export</code></strong> ile kayıt altına alabilirsiniz.</p>
 <p>Aşağıda kod ile, işsizlik oranlarının aylık değişimini içeren bir çubuk grafik oluşturalım ve bu değişimleri pozitif veya negatif olarak etiketleyelim. Öncesinde işsizlik değişkenini kullanarak aylık değişim hesaplayalım ve bu değerleri “<strong>pozitif</strong>” ya da “<strong>negatif</strong>” olarak etiketleyelim. Daha sonra veri setindeki eksik değerleri temizleyelim ve belirli bir tarih aralığını filtreleyerek bir çubuk grafikle görselleştirelim. En son olarak da bu grafiği kaydedelim.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb54"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb54-1"><a href="#cb54-1" aria-hidden="true" tabindex="-1"></a>grafik <span class="ot">&lt;-</span> economics <span class="sc">%&gt;%</span></span>
-<span id="cb54-2"><a href="#cb54-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
-<span id="cb54-3"><a href="#cb54-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">uemploy_mom =</span> unemploy <span class="sc">/</span> <span class="fu">lag</span>(unemploy) <span class="sc">*</span> <span class="dv">100</span> <span class="sc">-</span> <span class="dv">100</span>,</span>
-<span id="cb54-4"><a href="#cb54-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">growth =</span> <span class="fu">ifelse</span>(uemploy_mom <span class="sc">&gt;</span> <span class="dv">0</span>, <span class="st">"pozitif"</span>, <span class="st">"negatif"</span>)</span>
-<span id="cb54-5"><a href="#cb54-5" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span></span>
-<span id="cb54-6"><a href="#cb54-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">na.omit</span>() <span class="sc">%&gt;%</span></span>
-<span id="cb54-7"><a href="#cb54-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(lubridate<span class="sc">::</span><span class="fu">year</span>(date) <span class="sc">&gt;=</span> <span class="dv">2010</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb54-8"><a href="#cb54-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> date, <span class="at">y =</span> uemploy_mom, <span class="at">fill =</span> growth)) <span class="sc">+</span></span>
-<span id="cb54-9"><a href="#cb54-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_col</span>() <span class="sc">+</span></span>
-<span id="cb54-10"><a href="#cb54-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">"none"</span>) <span class="sc">+</span></span>
-<span id="cb54-11"><a href="#cb54-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">y =</span> <span class="st">"Aylık Değişim"</span>,</span>
-<span id="cb54-12"><a href="#cb54-12" aria-hidden="true" tabindex="-1"></a>       <span class="at">title =</span> <span class="st">"Yıllara göre Aylık İstihdam Değişimi (2010-2015)"</span>)</span>
-<span id="cb54-13"><a href="#cb54-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb54-14"><a href="#cb54-14" aria-hidden="true" tabindex="-1"></a>grafik</span>
-<span id="cb54-15"><a href="#cb54-15" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb54-16"><a href="#cb54-16" aria-hidden="true" tabindex="-1"></a><span class="fu">ggsave</span>(</span>
-<span id="cb54-17"><a href="#cb54-17" aria-hidden="true" tabindex="-1"></a>  <span class="st">"grafik1.png"</span>,</span>
-<span id="cb54-18"><a href="#cb54-18" aria-hidden="true" tabindex="-1"></a>  grafik,</span>
-<span id="cb54-19"><a href="#cb54-19" aria-hidden="true" tabindex="-1"></a>  <span class="at">width =</span> <span class="dv">20</span>,</span>
-<span id="cb54-20"><a href="#cb54-20" aria-hidden="true" tabindex="-1"></a>  <span class="at">height =</span> <span class="dv">8</span>,</span>
-<span id="cb54-21"><a href="#cb54-21" aria-hidden="true" tabindex="-1"></a>  <span class="at">units =</span> <span class="st">"cm"</span></span>
-<span id="cb54-22"><a href="#cb54-22" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb54-23"><a href="#cb54-23" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb54-24"><a href="#cb54-24" aria-hidden="true" tabindex="-1"></a><span class="co"># dpi ile çözünürlük ayarlanabilir</span></span>
-<span id="cb54-25"><a href="#cb54-25" aria-hidden="true" tabindex="-1"></a><span class="fu">ggsave</span>(</span>
-<span id="cb54-26"><a href="#cb54-26" aria-hidden="true" tabindex="-1"></a>  <span class="st">"grafik1.png"</span>,</span>
-<span id="cb54-27"><a href="#cb54-27" aria-hidden="true" tabindex="-1"></a>  grafik,</span>
-<span id="cb54-28"><a href="#cb54-28" aria-hidden="true" tabindex="-1"></a>  <span class="at">width =</span> <span class="dv">20</span>,</span>
-<span id="cb54-29"><a href="#cb54-29" aria-hidden="true" tabindex="-1"></a>  <span class="at">height =</span> <span class="dv">8</span>,</span>
-<span id="cb54-30"><a href="#cb54-30" aria-hidden="true" tabindex="-1"></a>  <span class="at">unit =</span> <span class="st">"cm"</span>,</span>
-<span id="cb54-31"><a href="#cb54-31" aria-hidden="true" tabindex="-1"></a>  <span class="at">dpi =</span> <span class="dv">300</span></span>
-<span id="cb54-32"><a href="#cb54-32" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb51"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb51-1"><a href="#cb51-1" aria-hidden="true" tabindex="-1"></a>grafik <span class="ot">&lt;-</span> economics <span class="sc">%&gt;%</span></span>
+<span id="cb51-2"><a href="#cb51-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb51-3"><a href="#cb51-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">uemploy_mom =</span> unemploy <span class="sc">/</span> <span class="fu">lag</span>(unemploy) <span class="sc">*</span> <span class="dv">100</span> <span class="sc">-</span> <span class="dv">100</span>,</span>
+<span id="cb51-4"><a href="#cb51-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">growth =</span> <span class="fu">ifelse</span>(uemploy_mom <span class="sc">&gt;</span> <span class="dv">0</span>, <span class="st">"pozitif"</span>, <span class="st">"negatif"</span>)</span>
+<span id="cb51-5"><a href="#cb51-5" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span></span>
+<span id="cb51-6"><a href="#cb51-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">na.omit</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb51-7"><a href="#cb51-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(lubridate<span class="sc">::</span><span class="fu">year</span>(date) <span class="sc">&gt;=</span> <span class="dv">2010</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb51-8"><a href="#cb51-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> date, <span class="at">y =</span> uemploy_mom, <span class="at">fill =</span> growth)) <span class="sc">+</span></span>
+<span id="cb51-9"><a href="#cb51-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_col</span>() <span class="sc">+</span></span>
+<span id="cb51-10"><a href="#cb51-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">"none"</span>) <span class="sc">+</span></span>
+<span id="cb51-11"><a href="#cb51-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">y =</span> <span class="st">"Aylık Değişim"</span>,</span>
+<span id="cb51-12"><a href="#cb51-12" aria-hidden="true" tabindex="-1"></a>       <span class="at">title =</span> <span class="st">"Yıllara göre Aylık İstihdam Değişimi (2010-2015)"</span>)</span>
+<span id="cb51-13"><a href="#cb51-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb51-14"><a href="#cb51-14" aria-hidden="true" tabindex="-1"></a>grafik</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="ggplot2_files/figure-html/unnamed-chunk-24-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
 </div>
+</div>
+</div>
+<p><strong><code>ggsave</code></strong> fonksiyonu, <strong><code>ggplot2</code></strong> paketinde oluşturulan grafikleri bir dosyaya kaydetmek için kullanılır. Bu fonksiyon, genellikle ggplot2 ile oluşturulan grafikleri bir resim dosyası (PNG, JPEG, PDF vb.) olarak kaydetmek için tercih edilen bir yöntemdir.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb52"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb52-1"><a href="#cb52-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggsave</span>(</span>
+<span id="cb52-2"><a href="#cb52-2" aria-hidden="true" tabindex="-1"></a>  <span class="st">"grafik1.png"</span>, <span class="co"># kaydedilecek dosya adı</span></span>
+<span id="cb52-3"><a href="#cb52-3" aria-hidden="true" tabindex="-1"></a>  grafik, <span class="co"># kaydedilecek grafik nesnesi</span></span>
+<span id="cb52-4"><a href="#cb52-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">width =</span> <span class="dv">20</span>, <span class="co"># grafiğin genişliği</span></span>
+<span id="cb52-5"><a href="#cb52-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">height =</span> <span class="dv">8</span>, <span class="co"># grafiğin yüksekliği</span></span>
+<span id="cb52-6"><a href="#cb52-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">units =</span> <span class="st">"cm"</span> <span class="co"># genişlik ve yüksekliğin birimi</span></span>
+<span id="cb52-7"><a href="#cb52-7" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb52-8"><a href="#cb52-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb52-9"><a href="#cb52-9" aria-hidden="true" tabindex="-1"></a><span class="co"># dpi ile çözünürlük ayarlanabilir</span></span>
+<span id="cb52-10"><a href="#cb52-10" aria-hidden="true" tabindex="-1"></a><span class="fu">ggsave</span>(</span>
+<span id="cb52-11"><a href="#cb52-11" aria-hidden="true" tabindex="-1"></a>  <span class="st">"grafik1.png"</span>,</span>
+<span id="cb52-12"><a href="#cb52-12" aria-hidden="true" tabindex="-1"></a>  grafik,</span>
+<span id="cb52-13"><a href="#cb52-13" aria-hidden="true" tabindex="-1"></a>  <span class="at">width =</span> <span class="dv">20</span>,</span>
+<span id="cb52-14"><a href="#cb52-14" aria-hidden="true" tabindex="-1"></a>  <span class="at">height =</span> <span class="dv">8</span>,</span>
+<span id="cb52-15"><a href="#cb52-15" aria-hidden="true" tabindex="-1"></a>  <span class="at">unit =</span> <span class="st">"cm"</span>,</span>
+<span id="cb52-16"><a href="#cb52-16" aria-hidden="true" tabindex="-1"></a>  <span class="at">dpi =</span> <span class="dv">300</span> <span class="co"># çözünürlük</span></span>
+<span id="cb52-17"><a href="#cb52-17" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p><strong>Argümanlar:</strong></p>
+<ul>
+<li><p><strong><code>filename</code></strong>: Kaydedilecek dosyanın adı. Örneğin, “grafik.png” şeklinde bir dosya adı belirtilebilir.</p></li>
+<li><p><strong><code>plot</code></strong>: Kaydedilecek ggplot nesnesi. Varsayılan olarak, en son oluşturulan grafik (<strong><code>last_plot()</code></strong>) kullanılır.</p></li>
+<li><p><strong><code>device</code></strong>: Kaydedilecek dosya türünü belirler. Örneğin, “png”, “jpeg”, “pdf” gibi değerler alabilir.</p></li>
+<li><p><strong><code>path</code></strong>: Kaydedilecek dosyanın yolu. Eğer belirtilmezse, çalışma dizini kullanılır.</p></li>
+<li><p><strong><code>scale</code></strong>: Grafik ölçeğini belirler. Varsayılan değeri 1’dir.</p></li>
+<li><p><strong><code>width</code></strong>, <strong><code>height</code></strong>: Grafik boyutunu belirler. Varsayılan olarak, ggplot nesnesinin orijinal boyutu kullanılır.</p></li>
+<li><p><strong><code>units</code></strong>: <strong><code>width</code></strong> ve <strong><code>height</code></strong> argümanlarının birimi. Örneğin, “in” (inç), “cm” (santimetre), “mm” (milimetre) gibi değerler alabilir.</p></li>
+<li><p><strong><code>dpi</code></strong>: Piksel başına inç (dots per inch) çözünürlük. Özellikle raster grafik dosyaları için önemlidir.</p></li>
+</ul>
 
 
 </section>
