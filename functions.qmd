@@ -43,8 +43,7 @@ f_kare <- function(x) {
    x^2
  }
 
-f_kare(15)
-f_kare(x=20)
+f_kare(x=15)
 
 ```
 
