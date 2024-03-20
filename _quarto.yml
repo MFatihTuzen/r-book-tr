@@ -24,7 +24,6 @@ book:
   chapters:
     - index.qmd
     - r_about.qmd
-    
     - part: R_intro.qmd
       chapters: 
         - basics.qmd
