@@ -1,4 +1,4 @@
-## Verilerin İçe ve Dışa Aktarılması
+# Verilerin İçe ve Dışa Aktarılması
 
 Temel anlamda R içerisinde excel ortamından (virgül ya da noktalı virgül ile ayrılmış) veri aktarımı (import) için `read.table, read.csv, read.csv2` fonksiyonları kullanılmaktadır. Excel'den veri aktarımı için `readxl` veya `openxlsx`paketi kullanılabilir. Verilerin dışa aktarılması için ise `write.csv, write.table` fonksiyonları kullanılabilir.
 

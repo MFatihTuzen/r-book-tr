@@ -180,7 +180,7 @@ Bu örnekte, **`for`** döngüsü kullanılarak Fibonacci serisi hesaplanıyor v
 
 Seri şu şekilde ilerler:
 
-0, 1, 1, 2, 3, 5, 8, 13, 21, \...
+0, 1, 1, 2, 3, 5, 8, 13, 21, ...
 
 Her sayı, kendisinden önce gelen iki sayının toplamıdır. Örneğin, 2 sayısı 1 ve 1'in toplamıdır, 3 sayısı ise 1 ve 2'nin toplamıdır ve bu şekilde devam eder.
 
