@@ -104,6 +104,35 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   }
 }</script>
 
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
 
 <link rel="stylesheet" href="styles.css">
 </head>
@@ -256,7 +285,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">İçindekiler</h2>
+   
+  <ul>
+  <li><a href="#varsayılan-argümanlar-nedir" id="toc-varsayılan-argümanlar-nedir" class="nav-link active" data-scroll-target="#varsayılan-argümanlar-nedir"><span class="header-section-number">3.1</span> <strong>Varsayılan Argümanlar Nedir?</strong></a></li>
+  <li><a href="#değişken-argümanlar-nedir" id="toc-değişken-argümanlar-nedir" class="nav-link" data-scroll-target="#değişken-argümanlar-nedir"><span class="header-section-number">3.2</span> Değişken Argümanlar Nedir?</a></li>
+  </ul>
+<div class="toc-actions"><ul><li><a href="https://github.com/MFatihTuzen/r-book-tr/edit/main/functions.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/MFatihTuzen/r-book-tr/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
@@ -280,7 +316,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
-<p>Fonksiyonlar çoğu programlama dillerinin çok önemli bir özelliğidir. Yalnızca mevcut fonksiyonları kullanmak yerine, belirli işleri yapmak için kendimize ait fonksiyonlar yazabiliriz. Ama neden fonksiyon yazmalıyız?</p>
+<p>R ile fonksiyon yazmak, etkili, okunabilir ve sürdürülebilir kod oluşturmanın temel bir unsurudur. Fonksiyonlar çoğu programlama dillerinin çok önemli bir özelliğidir. Yalnızca mevcut fonksiyonları kullanmak yerine, belirli işleri yapmak için kendimize ait fonksiyonlar yazabiliriz. Ama neden fonksiyon yazmalıyız?</p>
 <ul>
 <li><p>Tekrarlardan kaçınmanızı sağlar.</p></li>
 <li><p>Yeniden kullanımı kolaylaştırır.</p></li>
@@ -288,7 +324,22 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li><p>Hata ayıklamayı kolaylaştırır.</p></li>
 </ul>
 <p>Bir fonksiyonun temel kod yapısı aşağıdak gibidir:</p>
-<pre><code>function_name &lt;- function(arg_1, arg_2, ...) {    Function body }</code></pre>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>fonksiyon_adi <span class="ot">&lt;-</span> <span class="cf">function</span>(parametre1, parametre2, ...) {</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Fonksiyonun içeriği</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>  <span class="co"># İşlem yapılacak kod bloğu</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(sonuc)  <span class="co"># Opsiyonel: Sonucun dönüşü</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Bu yapıda:</p>
+<ul>
+<li><p><strong><code>fonksiyon_adi</code></strong>: Fonksiyonun adıdır ve çağrılması gerektiğinde bu ad kullanılır. Mümkün olduğunca kısa ve fonksiyonun işlevini çağrıştıran bir ad kullanılması önerilir.</p></li>
+<li><p><strong><code>parametre1</code></strong>, <strong><code>parametre2</code></strong>, …: Fonksiyonun alabileceği parametrelerdir. Bu parametreler opsiyonel olabilir ve fonksiyonun işlevselliğine göre değişir.</p></li>
+<li><p><strong><code># Fonksiyonun içeriği</code></strong>: Fonksiyonun gerçekleştireceği işlemleri içeren kod bloğudur. Bu blok, fonksiyon çağrıldığında çalıştırılır.</p></li>
+<li><p><strong><code>return(sonuc)</code></strong>: Opsiyonel olarak, fonksiyonun bir sonucu veya değeri döndürmesi gerekiyorsa kullanılır. <strong><code>return</code></strong> ifadesiyle fonksiyonun sonucu belirtilir.</p></li>
+</ul>
+<p>Örneğin aşağıdaki fonksiyon bir x argümanına sahiptir ve işlemlerini bu argüman üzerinde gerçekleştirir.</p>
+<p>Buna göre bu fonksiyon aldığı sayının karesini hesaplar ve sonucu döndürür .</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># kare alma fonksiyonu</span></span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>f_kare <span class="ot">&lt;-</span> <span class="cf">function</span>(x) {</span>
@@ -303,60 +354,97 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 400</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># standart sapma fonksiyonu</span></span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Standart sapmanın hesaplanması</span></span>
-<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a><span class="co"># sqrt(sum((x - mean(x))^2) / (length(x) - 1))</span></span>
-<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">123</span>) <span class="co"># Pseudo-randomization</span></span>
-<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>x1 <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(<span class="dv">1000</span>, <span class="dv">0</span>, <span class="fl">1.0</span>)</span>
-<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>x2 <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(<span class="dv">1000</span>, <span class="dv">0</span>, <span class="fl">1.5</span>)</span>
-<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a>x3 <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(<span class="dv">1000</span>, <span class="dv">0</span>, <span class="fl">5.0</span>)</span>
-<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a><span class="co"># her serinin ayrı ayrı standart sapmasının hesaplanması</span></span>
-<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a>sd1 <span class="ot">&lt;-</span> <span class="fu">sqrt</span>(<span class="fu">sum</span>((x1 <span class="sc">-</span> <span class="fu">mean</span>(x1))<span class="sc">^</span><span class="dv">2</span>) <span class="sc">/</span> (<span class="fu">length</span>(x1) <span class="sc">-</span> <span class="dv">1</span>))</span>
-<span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a>sd2 <span class="ot">&lt;-</span> <span class="fu">sqrt</span>(<span class="fu">sum</span>((x2 <span class="sc">-</span> <span class="fu">mean</span>(x2))<span class="sc">^</span><span class="dv">2</span>) <span class="sc">/</span> (<span class="fu">length</span>(x2) <span class="sc">-</span> <span class="dv">1</span>))</span>
-<span id="cb6-14"><a href="#cb6-14" aria-hidden="true" tabindex="-1"></a>sd3 <span class="ot">&lt;-</span> <span class="fu">sqrt</span>(<span class="fu">sum</span>((x3 <span class="sc">-</span> <span class="fu">mean</span>(x1))<span class="sc">^</span><span class="dv">2</span>) <span class="sc">/</span> (<span class="fu">length</span>(x3) <span class="sc">-</span> <span class="dv">1</span>))</span>
-<span id="cb6-15"><a href="#cb6-15" aria-hidden="true" tabindex="-1"></a><span class="fu">c</span>(<span class="at">sd1 =</span> sd1, <span class="at">sd2 =</span> sd2, <span class="at">sd3 =</span> sd3)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Mesela standart sapma hesaplamak için bir fonksiyon tanımlamamız gerektiğini düşünelim. standart sapmanı nasıl hesaplandığı aşağıda belitilmiştir. Bu formülasyonu kullanarak bir fonksyon yazalım.</p>
+<p><span class="math display">\[\text{Standart Sapma} = \sqrt{\frac{1}{n} \sum{(x - \bar{x})^2}}\]</span></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># fonksiyonu oluşturalım</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>f_sd <span class="ot">&lt;-</span> <span class="cf">function</span>(x) {</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>  result <span class="ot">&lt;-</span> <span class="fu">sqrt</span>(<span class="fu">sum</span>((x <span class="sc">-</span> <span class="fu">mean</span>(x))<span class="sc">^</span><span class="dv">2</span>) <span class="sc">/</span> (<span class="fu">length</span>(x) <span class="sc">-</span> <span class="dv">1</span>))</span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(result)</span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a><span class="co"># örnek bir vektör oluşturalım</span></span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">123</span>) <span class="co"># Üreteç sabitlenir</span></span>
+<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(<span class="dv">1000</span>, <span class="dv">0</span>, <span class="dv">1</span>) <span class="co"># normal dağılımdan 1000 adet sayı üretilir</span></span>
+<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a><span class="fu">f_sd</span>(x)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>     sd1      sd2      sd3 
-0.991695 1.514511 4.893180 </code></pre>
+<pre><code>[1] 0.991695</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># fonksiyonu oluşturalım</span></span>
-<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>f_sd <span class="ot">&lt;-</span> <span class="cf">function</span>(x) {</span>
-<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>  result <span class="ot">&lt;-</span> <span class="fu">sqrt</span>(<span class="fu">sum</span>((x <span class="sc">-</span> <span class="fu">mean</span>(x))<span class="sc">^</span><span class="dv">2</span>) <span class="sc">/</span> (<span class="fu">length</span>(x) <span class="sc">-</span> <span class="dv">1</span>))</span>
-<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(result)</span>
-<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>sd1 <span class="ot">&lt;-</span> <span class="fu">f_sd</span>(x1)</span>
-<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a>sd2 <span class="ot">&lt;-</span> <span class="fu">f_sd</span>(x2)</span>
-<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a>sd3 <span class="ot">&lt;-</span> <span class="fu">f_sd</span>(x3)</span>
-<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a><span class="fu">c</span>(<span class="at">sd1 =</span> sd1, <span class="at">sd2 =</span> sd2, <span class="at">sd3 =</span> sd3)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<section id="varsayılan-argümanlar-nedir" class="level2" data-number="3.1">
+<h2 data-number="3.1" class="anchored" data-anchor-id="varsayılan-argümanlar-nedir"><span class="header-section-number">3.1</span> <strong>Varsayılan Argümanlar Nedir?</strong></h2>
+<p>Varsayılan argümanlar, bir fonksiyonun çağrılması sırasında belirtilmediği takdirde kullanılacak olan önceden belirlenmiş değerlerdir. Bu, fonksiyonun kullanılmasını esnek hale getirir ve bazı parametrelerin belirtilmemesi durumunda fonksiyonun çalışmasını sağlar. Bir fonksiyon tanımlarken, parametrelerin yanına <strong><code>= değer</code></strong> şeklinde varsayılan değerler atanabilir. Örneğin, aşağıdaki fonksiyon, <strong><code>x</code></strong> parametresine herhangi bir değer belirtilmediğinde varsayılan olarak 2’yi alır.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>kare_al <span class="ot">&lt;-</span> <span class="cf">function</span>(<span class="at">x =</span> <span class="dv">2</span>) {</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(x<span class="sc">^</span><span class="dv">2</span>)</span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Varsayılan Argümanlar Kullanılmayan Durum:</span></span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a><span class="fu">kare_al</span>(<span class="dv">3</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>     sd1      sd2      sd3 
-0.991695 1.514511 4.891787 </code></pre>
+<pre><code>[1] 9</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co"># standartlaştırma fonksiyonu</span></span>
-<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>f_std <span class="ot">&lt;-</span> <span class="cf">function</span>(x) {</span>
-<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>m <span class="ot">&lt;-</span> <span class="fu">mean</span>(x)</span>
-<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>s <span class="ot">&lt;-</span> <span class="fu">sd</span>(x)</span>
-<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>(x <span class="sc">-</span> m) <span class="sc">/</span> s</span>
-<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a>x4 <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(<span class="dv">10</span>,<span class="dv">5</span>,<span class="dv">10</span>)</span>
-<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a>x4</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Bu durumda, <strong><code>x</code></strong> parametresine 3 değeri geçirilmiştir. Dolayısıyla fonksiyon 3’ün karesi olan 9’u döndürür.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Varsayılan Argümanlar Kullanılan Durum:</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="fu">kare_al</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code> [1]  3.496925  1.722429 -9.481653 -1.972846 30.984902  4.625850 14.134919
- [8]  3.154735 11.098243  4.472732</code></pre>
+<pre><code>[1] 4</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">f_std</span>(x4)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Bu durumda ise, <strong><code>x</code></strong> parametresine herhangi bir değer belirtilmemiştir. Fonksiyon, varsayılan olarak 2’yi alarak 2’nin karesi olan 4’ü döndürür.</p>
+<p><strong>Varsayılan Argümanların Faydaları:</strong></p>
+<ul>
+<li><p>Kullanıcıya esneklik sağlar ve belirli parametrelerin belirtilmemesi durumunda fonksiyonun hala çalışmasını sağlar.</p></li>
+<li><p>Fonksiyonun daha kullanıcı dostu olmasını sağlar, çünkü tüm parametrelerin her zaman belirtilmesi gerekmez.</p></li>
+<li><p>Kodun daha okunabilir olmasını sağlar, çünkü fonksiyonun ne yaptığını anlamak için varsayılan değerlerin dökümantasyonu gibi ek bilgilere ihtiyaç yoktur.</p></li>
+</ul>
+</section>
+<section id="değişken-argümanlar-nedir" class="level2" data-number="3.2">
+<h2 data-number="3.2" class="anchored" data-anchor-id="değişken-argümanlar-nedir"><span class="header-section-number">3.2</span> Değişken Argümanlar Nedir?</h2>
+<p>Değişken argümanlar kavramı, bir fonksiyonun istediğiniz sayıda argümanı kabul etmesini sağlar. <strong><code>...</code></strong> (ellipsis olarak ifade edilmektedir) işareti, R programlamada değişken argümanları temsil eder. Bu özellik, fonksiyonların daha esnek ve çok amaçlı olmasını sağlar. <strong><code>...</code></strong> işareti, bir fonksiyonun değişken sayıda argüman almasına izin verir. Fonksiyon tanımında belirli olmayan argümanlar için kullanılır. Bu şekilde, fonksiyonunuzu daha esnek hale getirebilir ve çeşitli durumlara uyum sağlayabilirsiniz.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>topla <span class="ot">&lt;-</span> <span class="cf">function</span>(...) {</span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>  toplam <span class="ot">&lt;-</span> <span class="fu">sum</span>(...)</span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(toplam)</span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Kullanım</span></span>
+<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a><span class="fu">topla</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>)  <span class="co"># Çıktı: 6</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code> [1] -0.2517201 -0.4155359 -1.4498610 -0.7566719  2.2858821 -0.1475014
- [7]  0.7303455 -0.2833100  0.4500093 -0.1616367</code></pre>
+<pre><code>[1] 6</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="fu">topla</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">5</span>)  <span class="co"># Çıktı: 15</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 15</code></pre>
 </div>
 </div>
+<p>Bu örnekte, <strong><code>topla</code></strong> fonksiyonu değişken sayıda argüman alır. <strong><code>...</code></strong> ifadesi, fonksiyona geçirilen tüm argümanları toplar ve sonucu döndürür.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>birlestir <span class="ot">&lt;-</span> <span class="cf">function</span>(..., <span class="at">ayrac =</span> <span class="st">", "</span>) {</span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>  metin <span class="ot">&lt;-</span> <span class="fu">paste</span>(..., <span class="at">sep =</span> ayrac)</span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(metin)</span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Kullanım</span></span>
+<span id="cb16-7"><a href="#cb16-7" aria-hidden="true" tabindex="-1"></a><span class="fu">birlestir</span>(<span class="st">"merhaba"</span>, <span class="st">"dünya"</span>, <span class="st">"nasılsınız?"</span>)  </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "merhaba, dünya, nasılsınız?"</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="fu">birlestir</span>(<span class="st">"elma"</span>, <span class="st">"armut"</span>, <span class="st">"muz"</span>, <span class="at">ayrac =</span> <span class="st">" - "</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "elma - armut - muz"</code></pre>
+</div>
+</div>
+<p>Bu örnekte, <strong><code>birlestir</code></strong> fonksiyonu değişken sayıda metin argüman alır. <strong><code>...</code></strong> ifadesi, fonksiyona geçirilen her bir metni belirtilen ayıracı kullanarak birleştirir.</p>
+<p>Bu örneklerde görüldüğü gibi, <strong><code>...</code></strong> işareti R’de fonksiyonlara esneklik kazandırır ve değişken sayıda argüman alabilmelerini sağlar. Bu özellik, fonksiyonlarınızı daha genel ve çok amaçlı hale getirmenize olanak tanır.</p>
 
 
+</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
@@ -905,7 +993,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </div>   
     <div class="nav-footer-center">
       &nbsp;
-    <div class="toc-actions"><ul><li><a href="https://github.com/MFatihTuzen/r-book-tr/edit/main/functions.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/MFatihTuzen/r-book-tr/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div>
+    <div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/MFatihTuzen/r-book-tr/edit/main/functions.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/MFatihTuzen/r-book-tr/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div>
     <div class="nav-footer-right">
 <p>Bu kitap <a href="https://quarto.org/">Quarto</a> ile hazırlanmıştır.</p>
 </div>

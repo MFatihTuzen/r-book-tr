@@ -228,5 +228,38 @@
     "crumbs": [
       "ggplot2 ile Veri Görselleştirme"
     ]
+  },
+  {
+    "objectID": "functions.html",
+    "href": "functions.html",
+    "title": "3  Fonksiyonlar",
+    "section": "",
+    "text": "3.1 Varsayılan Argümanlar Nedir?\nVarsayılan argümanlar, bir fonksiyonun çağrılması sırasında belirtilmediği takdirde kullanılacak olan önceden belirlenmiş değerlerdir. Bu, fonksiyonun kullanılmasını esnek hale getirir ve bazı parametrelerin belirtilmemesi durumunda fonksiyonun çalışmasını sağlar. Bir fonksiyon tanımlarken, parametrelerin yanına = değer şeklinde varsayılan değerler atanabilir. Örneğin, aşağıdaki fonksiyon, x parametresine herhangi bir değer belirtilmediğinde varsayılan olarak 2’yi alır.\nkare_al &lt;- function(x = 2) {\n  return(x^2)\n}\n\n# Varsayılan Argümanlar Kullanılmayan Durum:\nkare_al(3)\n\n[1] 9\nBu durumda, x parametresine 3 değeri geçirilmiştir. Dolayısıyla fonksiyon 3’ün karesi olan 9’u döndürür.\n# Varsayılan Argümanlar Kullanılan Durum:\nkare_al()\n\n[1] 4\nBu durumda ise, x parametresine herhangi bir değer belirtilmemiştir. Fonksiyon, varsayılan olarak 2’yi alarak 2’nin karesi olan 4’ü döndürür.\nVarsayılan Argümanların Faydaları:",
+    "crumbs": [
+      "R Programlamaya Giriş",
+      "<span class='chapter-number'>3</span>  <span class='chapter-title'>Fonksiyonlar</span>"
+    ]
+  },
+  {
+    "objectID": "functions.html#varsayılan-argümanlar-nedir",
+    "href": "functions.html#varsayılan-argümanlar-nedir",
+    "title": "3  Fonksiyonlar",
+    "section": "",
+    "text": "Kullanıcıya esneklik sağlar ve belirli parametrelerin belirtilmemesi durumunda fonksiyonun hala çalışmasını sağlar.\nFonksiyonun daha kullanıcı dostu olmasını sağlar, çünkü tüm parametrelerin her zaman belirtilmesi gerekmez.\nKodun daha okunabilir olmasını sağlar, çünkü fonksiyonun ne yaptığını anlamak için varsayılan değerlerin dökümantasyonu gibi ek bilgilere ihtiyaç yoktur.",
+    "crumbs": [
+      "R Programlamaya Giriş",
+      "<span class='chapter-number'>3</span>  <span class='chapter-title'>Fonksiyonlar</span>"
+    ]
+  },
+  {
+    "objectID": "functions.html#değişken-argümanlar-nedir",
+    "href": "functions.html#değişken-argümanlar-nedir",
+    "title": "3  Fonksiyonlar",
+    "section": "3.2 Değişken Argümanlar Nedir?",
+    "text": "3.2 Değişken Argümanlar Nedir?\nDeğişken argümanlar kavramı, bir fonksiyonun istediğiniz sayıda argümanı kabul etmesini sağlar. ... (ellipsis olarak ifade edilmektedir) işareti, R programlamada değişken argümanları temsil eder. Bu özellik, fonksiyonların daha esnek ve çok amaçlı olmasını sağlar. ... işareti, bir fonksiyonun değişken sayıda argüman almasına izin verir. Fonksiyon tanımında belirli olmayan argümanlar için kullanılır. Bu şekilde, fonksiyonunuzu daha esnek hale getirebilir ve çeşitli durumlara uyum sağlayabilirsiniz.\n\ntopla &lt;- function(...) {\n  toplam &lt;- sum(...)\n  return(toplam)\n}\n\n# Kullanım\ntopla(1, 2, 3)  # Çıktı: 6\n\n[1] 6\n\ntopla(1, 2, 3, 4, 5)  # Çıktı: 15\n\n[1] 15\n\n\nBu örnekte, topla fonksiyonu değişken sayıda argüman alır. ... ifadesi, fonksiyona geçirilen tüm argümanları toplar ve sonucu döndürür.\n\nbirlestir &lt;- function(..., ayrac = \", \") {\n  metin &lt;- paste(..., sep = ayrac)\n  return(metin)\n}\n\n# Kullanım\nbirlestir(\"merhaba\", \"dünya\", \"nasılsınız?\")  \n\n[1] \"merhaba, dünya, nasılsınız?\"\n\nbirlestir(\"elma\", \"armut\", \"muz\", ayrac = \" - \")\n\n[1] \"elma - armut - muz\"\n\n\nBu örnekte, birlestir fonksiyonu değişken sayıda metin argüman alır. ... ifadesi, fonksiyona geçirilen her bir metni belirtilen ayıracı kullanarak birleştirir.\nBu örneklerde görüldüğü gibi, ... işareti R’de fonksiyonlara esneklik kazandırır ve değişken sayıda argüman alabilmelerini sağlar. Bu özellik, fonksiyonlarınızı daha genel ve çok amaçlı hale getirmenize olanak tanır.",
+    "crumbs": [
+      "R Programlamaya Giriş",
+      "<span class='chapter-number'>3</span>  <span class='chapter-title'>Fonksiyonlar</span>"
+    ]
   }
 ]

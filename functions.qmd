@@ -1,6 +1,6 @@
 # Fonksiyonlar
 
-Fonksiyonlar çoğu programlama dillerinin çok önemli bir özelliğidir. Yalnızca mevcut fonksiyonları kullanmak yerine, belirli işleri yapmak için kendimize ait fonksiyonlar yazabiliriz. Ama neden fonksiyon yazmalıyız?
+R ile fonksiyon yazmak, etkili, okunabilir ve sürdürülebilir kod oluşturmanın temel bir unsurudur. Fonksiyonlar çoğu programlama dillerinin çok önemli bir özelliğidir. Yalnızca mevcut fonksiyonları kullanmak yerine, belirli işleri yapmak için kendimize ait fonksiyonlar yazabiliriz. Ama neden fonksiyon yazmalıyız?
 
 -   Tekrarlardan kaçınmanızı sağlar.
 
@@ -12,9 +12,29 @@ Fonksiyonlar çoğu programlama dillerinin çok önemli bir özelliğidir. Yaln�
 
 Bir fonksiyonun temel kod yapısı aşağıdak gibidir:
 
-```         
-function_name <- function(arg_1, arg_2, ...) {    Function body }
+```{r}
+#| eval: false
+fonksiyon_adi <- function(parametre1, parametre2, ...) {
+  # Fonksiyonun içeriği
+  # İşlem yapılacak kod bloğu
+  return(sonuc)  # Opsiyonel: Sonucun dönüşü
+}
+
 ```
+
+Bu yapıda:
+
+-   **`fonksiyon_adi`**: Fonksiyonun adıdır ve çağrılması gerektiğinde bu ad kullanılır. Mümkün olduğunca kısa ve fonksiyonun işlevini çağrıştıran bir ad kullanılması önerilir.
+
+-   **`parametre1`**, **`parametre2`**, ...: Fonksiyonun alabileceği parametrelerdir. Bu parametreler opsiyonel olabilir ve fonksiyonun işlevselliğine göre değişir.
+
+-   **`# Fonksiyonun içeriği`**: Fonksiyonun gerçekleştireceği işlemleri içeren kod bloğudur. Bu blok, fonksiyon çağrıldığında çalıştırılır.
+
+-   **`return(sonuc)`**: Opsiyonel olarak, fonksiyonun bir sonucu veya değeri döndürmesi gerekiyorsa kullanılır. **`return`** ifadesiyle fonksiyonun sonucu belirtilir.
+
+Örneğin aşağıdaki fonksiyon bir x argümanına sahiptir ve işlemlerini bu argüman üzerinde gerçekleştirir.
+
+Buna göre bu fonksiyon aldığı sayının karesini hesaplar ve sonucu döndürür .
 
 ```{r}
 
@@ -26,21 +46,13 @@ f_kare <- function(x) {
 f_kare(15)
 f_kare(x=20)
 
-# standart sapma fonksiyonu
+```
 
-# Standart sapmanın hesaplanması
-# sqrt(sum((x - mean(x))^2) / (length(x) - 1))
+Mesela standart sapma hesaplamak için bir fonksiyon tanımlamamız gerektiğini düşünelim. standart sapmanı nasıl hesaplandığı aşağıda belitilmiştir. Bu formülasyonu kullanarak bir fonksyon yazalım.
 
-set.seed(123) # Pseudo-randomization
-x1 <- rnorm(1000, 0, 1.0)
-x2 <- rnorm(1000, 0, 1.5)
-x3 <- rnorm(1000, 0, 5.0)
+$$\text{Standart Sapma} = \sqrt{\frac{1}{n} \sum{(x - \bar{x})^2}}$$
 
-# her serinin ayrı ayrı standart sapmasının hesaplanması
-sd1 <- sqrt(sum((x1 - mean(x1))^2) / (length(x1) - 1))
-sd2 <- sqrt(sum((x2 - mean(x2))^2) / (length(x2) - 1))
-sd3 <- sqrt(sum((x3 - mean(x1))^2) / (length(x3) - 1))
-c(sd1 = sd1, sd2 = sd2, sd3 = sd3)
+```{r}
 
 # fonksiyonu oluşturalım
 f_sd <- function(x) {
@@ -48,20 +60,84 @@ f_sd <- function(x) {
   return(result)
 }
 
-sd1 <- f_sd(x1)
-sd2 <- f_sd(x2)
-sd3 <- f_sd(x3)
-c(sd1 = sd1, sd2 = sd2, sd3 = sd3)
+# örnek bir vektör oluşturalım
 
-# standartlaştırma fonksiyonu
-f_std <- function(x) {
-m <- mean(x)
-s <- sd(x)
-(x - m) / s
-}
+set.seed(123) # Üreteç sabitlenir
+x <- rnorm(1000, 0, 1) # normal dağılımdan 1000 adet sayı üretilir
 
-x4 <- rnorm(10,5,10)
-x4
-f_std(x4)
+f_sd(x)
 
 ```
+
+## **Varsayılan Argümanlar Nedir?**
+
+Varsayılan argümanlar, bir fonksiyonun çağrılması sırasında belirtilmediği takdirde kullanılacak olan önceden belirlenmiş değerlerdir. Bu, fonksiyonun kullanılmasını esnek hale getirir ve bazı parametrelerin belirtilmemesi durumunda fonksiyonun çalışmasını sağlar. Bir fonksiyon tanımlarken, parametrelerin yanına **`= değer`** şeklinde varsayılan değerler atanabilir. Örneğin, aşağıdaki fonksiyon, **`x`** parametresine herhangi bir değer belirtilmediğinde varsayılan olarak 2'yi alır.
+
+```{r}
+
+kare_al <- function(x = 2) {
+  return(x^2)
+}
+
+# Varsayılan Argümanlar Kullanılmayan Durum:
+kare_al(3)
+
+```
+
+Bu durumda, **`x`** parametresine 3 değeri geçirilmiştir. Dolayısıyla fonksiyon 3'ün karesi olan 9'u döndürür.
+
+```{r}
+
+# Varsayılan Argümanlar Kullanılan Durum:
+kare_al()
+
+```
+
+Bu durumda ise, **`x`** parametresine herhangi bir değer belirtilmemiştir. Fonksiyon, varsayılan olarak 2'yi alarak 2'nin karesi olan 4'ü döndürür.
+
+**Varsayılan Argümanların Faydaları:**
+
+-   Kullanıcıya esneklik sağlar ve belirli parametrelerin belirtilmemesi durumunda fonksiyonun hala çalışmasını sağlar.
+
+-   Fonksiyonun daha kullanıcı dostu olmasını sağlar, çünkü tüm parametrelerin her zaman belirtilmesi gerekmez.
+
+-   Kodun daha okunabilir olmasını sağlar, çünkü fonksiyonun ne yaptığını anlamak için varsayılan değerlerin dökümantasyonu gibi ek bilgilere ihtiyaç yoktur.
+
+## Değişken Argümanlar Nedir?
+
+Değişken argümanlar kavramı, bir fonksiyonun istediğiniz sayıda argümanı kabul etmesini sağlar. **`...`** (ellipsis olarak ifade edilmektedir) işareti, R programlamada değişken argümanları temsil eder. Bu özellik, fonksiyonların daha esnek ve çok amaçlı olmasını sağlar. **`...`** işareti, bir fonksiyonun değişken sayıda argüman almasına izin verir. Fonksiyon tanımında belirli olmayan argümanlar için kullanılır. Bu şekilde, fonksiyonunuzu daha esnek hale getirebilir ve çeşitli durumlara uyum sağlayabilirsiniz.
+
+```{r}
+
+topla <- function(...) {
+  toplam <- sum(...)
+  return(toplam)
+}
+
+# Kullanım
+topla(1, 2, 3)
+
+topla(1, 2, 3, 4, 5)
+
+
+```
+
+Bu örnekte, **`topla`** fonksiyonu değişken sayıda argüman alır. **`...`** ifadesi, fonksiyona geçirilen tüm argümanları toplar ve sonucu döndürür.
+
+```{r}
+
+birlestir <- function(..., ayrac = ", ") {
+  metin <- paste(..., sep = ayrac)
+  return(metin)
+}
+
+# Kullanım
+birlestir("merhaba", "dünya", "nasılsınız?")  
+birlestir("elma", "armut", "muz", ayrac = " - ")
+
+
+```
+
+Bu örnekte, **`birlestir`** fonksiyonu değişken sayıda metin argüman alır. **`...`** ifadesi, fonksiyona geçirilen her bir metni belirtilen ayıracı kullanarak birleştirir.
+
+Bu örneklerde görüldüğü gibi, **`...`** işareti R'de fonksiyonlara esneklik kazandırır ve hem değişken hem çoklu sayıda argüman alabilmelerini sağlar. Bu özellik, fonksiyonlarınızı daha genel ve çok amaçlı hale getirmenize olanak tanır.
