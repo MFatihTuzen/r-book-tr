@@ -47,7 +47,7 @@ f_kare(x=15)
 
 ```
 
-Mesela standart sapma hesaplamak için bir fonksiyon tanımlamamız gerektiğini düşünelim. Standart sapmanı nasıl hesaplandığı aşağıda belitilmiştir. Bu formülasyonu kullanarak bir fonksyon yazalım.
+Mesela standart sapma hesaplamak için bir fonksiyon tanımlamamız gerektiğini düşünelim. Standart sapmanın nasıl hesaplandığı aşağıda belitilmiştir. Bu formülasyonu kullanarak bir fonksiyon yazalım.
 
 $$\text{Standart Sapma} = \sqrt{\frac{1}{n} \sum{(x - \bar{x})^2}}$$
 
