@@ -2,7 +2,7 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://rprogramlama.netlify.app/basics.html</loc>
-    <lastmod>2024-01-05T20:35:40.722Z</lastmod>
+    <lastmod>2024-01-08T07:33:46.353Z</lastmod>
   </url>
   <url>
     <loc>https://rprogramlama.netlify.app/data_analysis.html</loc>
@@ -26,7 +26,7 @@
   </url>
   <url>
     <loc>https://rprogramlama.netlify.app/functions.html</loc>
-    <lastmod>2024-03-20T14:42:47.873Z</lastmod>
+    <lastmod>2024-03-21T10:21:42.351Z</lastmod>
   </url>
   <url>
     <loc>https://rprogramlama.netlify.app/if_else_for.html</loc>
@@ -47,5 +47,9 @@
   <url>
     <loc>https://rprogramlama.netlify.app/date_time.html</loc>
     <lastmod>2024-01-08T07:33:46.478Z</lastmod>
+  </url>
+  <url>
+    <loc>https://rprogramlama.netlify.app/data_types.html</loc>
+    <lastmod>2024-03-21T10:21:59.498Z</lastmod>
   </url>
 </urlset>
