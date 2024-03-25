@@ -14,7 +14,7 @@ Bir fonksiyonun temel kod yapısı aşağıdak gibidir:
 
 ```{r}
 #| eval: false
-fonksiyon_adi <- function(parametre1, parametre2, ...) {
+fonksiyon_adi <- function(argüman1, argüman2, ...) {
   # Fonksiyonun içeriği
   # İşlem yapılacak kod bloğu
   return(sonuc)  # Opsiyonel: Sonucun dönüşü
@@ -26,7 +26,7 @@ Bu yapıda:
 
 -   **`fonksiyon_adi`**: Fonksiyonun adıdır ve çağrılması gerektiğinde bu ad kullanılır. Mümkün olduğunca kısa ve fonksiyonun işlevini çağrıştıran bir ad kullanılması önerilir.
 
--   **`parametre1`**, **`parametre2`**, ...: Fonksiyonun alabileceği parametrelerdir. Bu parametreler opsiyonel olabilir ve fonksiyonun işlevselliğine göre değişir.
+-   **`argüman1`**, **`argüman2`**, ...: Fonksiyonun alabileceği parametrelerdir. Bu parametreler opsiyonel olabilir ve fonksiyonun işlevselliğine göre değişir.
 
 -   **`# Fonksiyonun içeriği`**: Fonksiyonun gerçekleştireceği işlemleri içeren kod bloğudur. Bu blok, fonksiyon çağrıldığında çalıştırılır.
 

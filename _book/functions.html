@@ -325,7 +325,7 @@ window.Quarto = {
 </ul>
 <p>Bir fonksiyonun temel kod yapısı aşağıdak gibidir:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>fonksiyon_adi <span class="ot">&lt;-</span> <span class="cf">function</span>(parametre1, parametre2, ...) {</span>
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>fonksiyon_adi <span class="ot">&lt;-</span> <span class="cf">function</span>(argüman1, argüman2, ...) {</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Fonksiyonun içeriği</span></span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>  <span class="co"># İşlem yapılacak kod bloğu</span></span>
 <span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(sonuc)  <span class="co"># Opsiyonel: Sonucun dönüşü</span></span>
@@ -334,7 +334,7 @@ window.Quarto = {
 <p>Bu yapıda:</p>
 <ul>
 <li><p><strong><code>fonksiyon_adi</code></strong>: Fonksiyonun adıdır ve çağrılması gerektiğinde bu ad kullanılır. Mümkün olduğunca kısa ve fonksiyonun işlevini çağrıştıran bir ad kullanılması önerilir.</p></li>
-<li><p><strong><code>parametre1</code></strong>, <strong><code>parametre2</code></strong>, …: Fonksiyonun alabileceği parametrelerdir. Bu parametreler opsiyonel olabilir ve fonksiyonun işlevselliğine göre değişir.</p></li>
+<li><p><strong><code>argüman1</code></strong>, <strong><code>argüman2</code></strong>, …: Fonksiyonun alabileceği parametrelerdir. Bu parametreler opsiyonel olabilir ve fonksiyonun işlevselliğine göre değişir.</p></li>
 <li><p><strong><code># Fonksiyonun içeriği</code></strong>: Fonksiyonun gerçekleştireceği işlemleri içeren kod bloğudur. Bu blok, fonksiyon çağrıldığında çalıştırılır.</p></li>
 <li><p><strong><code>return(sonuc)</code></strong>: Opsiyonel olarak, fonksiyonun bir sonucu veya değeri döndürmesi gerekiyorsa kullanılır. <strong><code>return</code></strong> ifadesiyle fonksiyonun sonucu belirtilir.</p></li>
 </ul>

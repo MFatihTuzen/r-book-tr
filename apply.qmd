@@ -12,68 +12,399 @@
 
 -   `tapply()`: faktör ya da grup düzeyinde fonksiyon uygular.
 
+## apply
+
+**`apply`** fonksiyonu, bir veri yapısında bir fonksiyonu belirli bir boyuta uygulamak için kullanılır. Temel olarak üç ana parametre alır:
+
+-   **`X`**: Uygulanacak veri yapısı (matris, veri çerçevesi veya dizi).
+
+-   **`MARGIN`**: Fonksiyonun uygulanacağı boyut. **`1`** ise satırlar, **`2`** ise sütunlar üzerinde uygulanır.
+
+-   **`FUN`**: Uygulanacak fonksiyon.
+
 ```{r}
 
+set.seed(1234)
+
 # apply
-x <-matrix(rnorm(30), nrow=5, ncol=6)
+x <-matrix(rnorm(20), nrow=5, ncol=4)
 x
 
-apply(x, 2 ,sum) # sütunlar üzerinde işlem yapar
-apply(x, 1 ,sum) # satırlar üzerinde işlem yapar
+apply(x, 2 ,sum) # sütunların toplama işlemini yapar
+apply(x, 1 ,mean) # satırların ortamalasını üretir
+```
 
-apply(x, 2 ,sd)
-apply(x, 1 ,mean)
+### Özel Fonksiyon Kullanımı
 
-mat <- matrix(c(1:12),nrow=4)
-mat
+R içerisindeki hazır fonskiyonlarının yanı sıra kullanıcı tarafından belirli bir amaca yönelik olarak tanımlanmış fonksiyonlar da **`apply`** ile birlikte kullanılabilir. Örneğin aşağıdaki fonksiyon, bir sayının değerine bağlı olarak "Küçük" veya "Büyük" şeklinde bir etiket atama işlemi yapmaktadır.
 
-apply(mat,2,function(x) x^2) # gözlemlerin karesi alınır
-apply(mat,2, quantile,probs=c(0.25,0.5,0.75)) # extra argüman eklenebilir
+Bu fonksiyon, **`x`** adında bir argüman alır ve bu argümanın değerine bağlı olarak bir etiket üretir. Eğer **`x`** 5'ten küçükse, "Küçük" değeri döndürür, aksi halde "Büyük" değerini döndürür. Daha sonra, örneğin bir veri çerçevesi oluşturarak bu fonksiyonu **`apply`** fonksiyonuyla nasıl kullanabileceğimizi gösterebiliriz:
 
+```{r}
 
-# lapply
+# Özel bir fonksiyon tanımlayalım
+custom_function <- function(x) {
+  ifelse(x < 5, "Küçük", "Büyük")
+}
 
-a <-matrix(1:9, 3,3)
-b <-matrix(4:15, 4,3)
-c <-matrix(8:10, 3,2)
-mylist<-list(a,b,c)
-mylist
+# Örnek bir veri çerçevesi oluşturalım
+veri <- data.frame(A = c(3, 7, 8), B = c(6, 2, 4))
 
-lapply(mylist,mean)
-lapply(mylist,sum)
+# Özel fonksiyonu veri çerçevesinin her bir elemanına uygulayalım
+sonuç <- apply(veri, c(1, 2), custom_function)
 
-lapply(mylist, function(x) x[,1]) # listedeki her matrisin ilk kolonunu çıkar
+sonuç
 
-mylist2 <- list(a = 1:4, b = rnorm(10), c = rnorm(20, 1), d = rnorm(100, 5))
-mylist2
-lapply(mylist2, mean)
-
-# sapply
-
-head(cars)
-
-lapply(cars,sum)
-sapply(cars,sum)
-sapply(cars,median)
-sapply(cars,mean)
-
-# mapply
-
-l1 <- list(a=c(1:5),b=c(6:10))
-l2 <- list(c=c(11:15),d=c(16:20))
-
-mapply(sum,l1$a,l1$b,l2$c,l2$d) # gözlemlerin toplamı
-mapply(prod,l1$a,l1$b,l2$c,l2$d) # gözlemlerin çarpımı
-
-# tapply
-
-df <- data.frame(x =round(runif(15,min=1,max=10)),
-                 group=sample(c(1:3),15,replace = TRUE))
-df
-
-tapply(df$x,df$group, FUN = mean)
-tapply(df$x,df$group, FUN = sum)
-tapply(df$x,df$group, FUN = length)
-tapply(df$x,df$group, FUN = range)
 
 ```
+
+Bu kod parçacığı, **`apply`** fonksiyonunu kullanarak **`veri`** adında bir veri çerçevesinin her bir elemanına **`custom_function`** adlı özel fonksiyonu uygular. **`c(1, 2)`** parametresi, fonksiyonun hem satır hem de sütun boyunca uygulanmasını sağlar. Sonuç olarak, her elemanın "Küçük" veya "Büyük" olarak etiketlendiği bir matris elde edilir.
+
+### Fonksiyonun **`apply`** ile Birlikte Tanımlanması
+
+**`apply`** fonksiyonu içinde bir fonksiyon tanımlayıp kullanmak da oldukça yaygın bir uygulamadır. Bu, özellikle küçük veya bir kez kullanılacak fonksiyonlar için faydalıdır çünkü bu fonksiyonları ayrı olarak tanımlamak yerine, doğrudan **`apply`** fonksiyonu içine yazarak kodunuzu daha temiz ve derli toplu hale getirebilirsiniz.
+
+```{r}
+
+# Örnek bir matris oluşturalım
+matris <- matrix(1:9, nrow = 3, ncol = 3)
+
+# Her bir sütunun maksimum değerini bulan özel bir fonksiyonu apply ile kullanalım
+sütun_max <- apply(matris, 2, function(x) max(x))
+
+sütun_max
+
+
+```
+
+Bu kod parçasında, **`apply`** fonksiyonu içinde, her bir sütunun maksimum değerini bulmak için özel bir fonksiyon tanımlıyoruz. Bu fonksiyon, **`function(x)`** ile başlayıp **`x`** argümanını alır ve bu argümanın maksimum değerini döndürür. **`apply`** fonksiyonu bu özel fonksiyonu matrisin her bir sütununa uygular ve her sütunun maksimum değerlerini içeren bir vektör döndürür.
+
+Bu şekilde, tek seferlik veya daha spesifik kullanımlar için özel fonksiyonları **`apply`** fonksiyonu içinde tanımlayabilirsiniz. Bu, kodunuzu daha okunabilir ve anlaşılır hale getirebilir ve gereksiz isim çakışmalarını önleyerek kod tabanınızı daha düzenli hale getirebilir.
+
+### Ek Argümanların Kullanımı
+
+**`apply`** fonksiyonu, birinci argüman olarak veri yapısını (**`X`**), ikinci argüman olarak işlem yapılacak boyutu (**`MARGIN`**) ve üçüncü argüman olarak uygulanacak fonksiyonu (**`FUN`**) alır. Ancak, **`FUN`** (üçüncü argüman) dışında ek argümanlar da kullanabilirsiniz. Bu, **`apply`** fonksiyonunu daha esnek hale getirir ve işlemlerinizi daha geniş bir yelpazede yapmanıza olanak tanır.
+
+Örneğin, eğer kullanacağınız fonksiyonun ek argümanları varsa, bu argümanları **`...`** (üç nokta) kullanarak **`apply`** fonksiyonuna iletebilirsiniz. Bu argümanlar, **`FUN`** fonksiyonuna aktarılır ve işlemlerde kullanılabilir.
+
+```{r}
+
+# Özel bir fonksiyon tanımlayalım
+custom_function <- function(x, threshold) {
+  ifelse(x < threshold, "Küçük", "Büyük")
+}
+
+# Özel fonksiyonu apply ile kullanırken ek bir argümanı (threshold) nasıl iletebileceğimizi görelim
+threshold_value <- 5
+sonuç <- apply(matris, c(1, 2), custom_function, threshold = threshold_value)
+
+sonuç
+
+
+```
+
+Bu kod parçasında, **`custom_function`** adlı özel bir fonksiyon tanımlıyoruz. Bu fonksiyon, **`x`** değerini ve **`threshold`** adında ek bir argümanı alır. **`x`** değeri, elemanın değerini temsil ederken, **`threshold`** değeri ise bir eşik değeri olarak kullanılır.
+
+Daha sonra, **`apply`** fonksiyonunu kullanırken **`threshold`** argümanını belirli bir değere (**`threshold_değer`**) ayarlıyoruz. Bu, **`apply`** fonksiyonu tarafından çağrılan **`custom_function`** fonksiyonuna bu değerin iletileceği anlamına gelir.
+
+Sonuç olarak, **`apply`** fonksiyonu **`custom_function`** fonksiyonunu çağırırken her elemanın değerini ve belirlenen eşik değerini dikkate alarak sonuçları oluşturur. Bu şekilde, **`apply`** fonksiyonunu çok daha esnek bir şekilde kullanabilir ve ihtiyacınıza göre işlevsellik ekleyebilirsiniz.
+
+## lapply
+
+Elbette, **`lapply`** fonksiyonu, listenin her bir elemanına belirtilen bir işlevi uygulamak için kullanılır ve sonuçları bir liste olarak döndürür. Bu fonksiyon, R'deki döngü yapısını vektörleştirmenin güçlü bir yoludur ve kodunuzu daha temiz ve etkili hale getirebilir.
+
+```{r}
+
+# Örnek bir liste oluşturalım
+liste <- list(a = 1:5, b = 6:10, c = 11:15)
+
+# Her bir liste elemanının karesini alalım
+kareler <- lapply(liste, function(x) x^2)
+
+kareler
+
+```
+
+Bu kod, **`liste`** adlı bir liste oluşturur ve her bir liste elemanının karesini almak için **`lapply`** fonksiyonunu kullanır. Sonuç olarak, her bir liste elemanının karesini içeren yeni bir liste oluşturulur.
+
+Örneğin, bir liste içindeki veri çerçevelerini düşünelim. Her bir veri çerçevesinin farklı sayıda sütunu olabilir ve her bir veri çerçevesinin sadece ilk sütununu alan ve bu sütunları bir liste olarak döndüren bir işlem yapmak istiyoruz.
+
+```{r}
+
+# Örnek bir liste oluşturalım
+mylist <- list(data.frame(A = 1:3, B = 4:6),
+               data.frame(X = 7:9, Y = 10:12),
+               data.frame(M = 13:15, N = 16:18))
+
+# Her bir liste elemanının ilk sütununu alalım
+sonuç <- lapply(mylist, function(x) x[,1])
+
+sonuç
+
+
+```
+
+Bu kod, **`mylist`** adlı bir liste oluşturur ve her bir elemanı farklı sütunlara sahip üç adet veri çerçevesi içerir. Yukarıdak işlem her bir veri çerçevesinin ilk sütununu seçer ve bu sütunları bir liste olarak döndürür. Sonuç olarak, her bir liste elemanının ilk sütununu içeren yeni bir liste elde edilir.
+
+Örneğin, her biri bir veri çerçevesi için sütunların ortalamasını hesaplamak isteyelim. Bunun için önceki aşamada oluşturduğumuz listeyi kullanalım.
+
+```{r}
+
+lapply(mylist,colMeans)
+
+```
+
+Bu örnek, **`lapply`** fonksiyonunu yerleşik bir R fonksiyonu olan **`colMeans`** ile kullanmanın bir örneğidir. Bu tür işlevler, veri analizi yaparken veri yapısının her bir elemanına uygulanarak kolayca özet istatistikler elde etmenizi sağlar.
+
+## sapply
+
+**`sapply`**, bir işlevi bir veri yapısının her bir elemanına uygular ve sonuçları bir vektör veya dizi olarak döndürür. Diğer **`apply`** fonksiyonlarından farkı, sonucun yapısını belirleyebilme esnekliğine sahip olmasıdır.
+
+Örneğin bir liste elemanlarının ortalamasını bulmak isteyelim.
+
+```{r}
+
+# Örnek bir liste oluşturalım
+liste <- list(a = c(1, 2, 3), b = c(4, 5, 6), c = c(7, 8, 9))
+
+# Her bir liste elemanının ortalamasını bulalım
+ortalama <- sapply(liste, mean)
+
+ortalama
+
+
+```
+
+Bu kod, **`liste`** adlı bir liste oluşturur ve her bir liste elemanının ortalamasını bulmak için **`sapply`** fonksiyonunu kullanır. Sonuç olarak, her bir liste elemanının ortalamasını içeren bir vektör elde edilir.
+
+**`sapply`** fonksiyonu sonucun yapısını belirlemek için, veri yapısının elemanlarına uygulanan işlevin çıktısına dayanır. Örneğin, eğer uygulanan işlevin çıktısı her bir eleman için bir skaler (tek bir değer) ise, sonuç bir vektör olacaktır. Eğer uygulanan işlevin çıktısı farklı uzunlukta vektörler ise, sonuç bir matris olacaktır. Eğer uygulanan işlevin çıktısı liste ise, sonuç da bir liste olacaktır.
+
+```{r}
+
+# Her bir liste elemanının uzunluğunu bulan işlev
+uzunluk_bul <- function(x) length(x)
+
+# Her bir liste elemanının uzunluğunu bulalım
+sonuç <- sapply(liste, uzunluk_bul)
+
+sonuç
+
+
+```
+
+Bu kod içerisinde her bir elemanının uzunluğunu bulmak için **`uzunluk_bul`** adlı bir işlev tanımlanır. **`sapply`** fonksiyonu, bu işlevi listenin her bir elemanına uygular. Çıktıya dikkat ederseniz, işlevin çıktısı her eleman için bir skaler (uzunluk) olduğu için sonuç bir vektör olarak döner. Ancak, eğer işlevin çıktısı her bir eleman için farklı uzunlukta bir vektör olsaydı, sonuç bir matris olarak dönecekti.
+
+```{r}
+
+
+# Her bir liste elemanının karelerini bulan işlev
+kare_bul <- function(x) x^2
+
+# Her bir liste elemanının karelerini bulalım
+sonuç <- sapply(liste, kare_bul)
+
+sonuç
+
+
+```
+
+Bu kodda, **`kare_bul`** işlevi her bir liste elemanının karesini alır. Ancak, çıktıdaki farklı uzunluktaki vektörler, sonucun bir matris olmasını sağlar.
+
+Bu örneklerden de görebileceğiniz gibi, **`sapply`** fonksiyonunun sonucun yapısını belirlemek için uygulanan işlevin çıktısına dayandığını görebiliriz. Bu, **`sapply`** fonksiyonunun sonucun yapısını esnek bir şekilde belirlemesini sağlar.
+
+## tapply
+
+R programlama dilinde, verileri bir faktöre veya belirli bir kategorik değişkene göre gruplamak ve her bir grup için bir işlem yapmak sıkça gereklidir. **`tapply`** fonksiyonu, bu tür durumlar için kullanışlı bir araçtır. **`tapply`**, bir veri setini bir veya birden fazla faktöre göre gruplayarak her grup için bir işlem yapmanıza olanak tanır.
+
+**`apply`** fonksiyonlarının aksine, **`tapply`** fonksiyonu veri setini faktörlere veya gruplara göre böler ve her bir grup için belirtilen bir işlemi uygular. Temel kullanımı şu şekildedir:
+
+```{r}
+#| eval: false
+tapply(X, INDEX, FUN)
+
+```
+
+Burada:
+
+-   **`X`** : Uygulanacak işlemi gerektiren vektör.
+
+-   **`INDEX`**: Gruplandırılacak faktör veya grup değişkeni.
+
+-   **`FUN`**: Her bir gruba uygulanacak işlev.
+
+```{r}
+
+# Örnek veri seti oluşturalım
+veri <- data.frame(Aylar = rep(c("Ocak", "Şubat", "Mart"), each = 4),
+                   Degerler = c(10, 15, 20, 25, 30, 35, 40, 45, 50, 55, 60, 65))
+
+# Aylara göre değerlerin ortalamasını hesaplayalım
+ortalama <- tapply(veri$Degerler, veri$Aylar, mean)
+
+ortalama
+
+```
+
+Bu kod parçası, **`veri`** adında bir veri seti oluşturur. Bu veri setinde "Aylar" ve "Değerler" adlı iki sütun bulunmaktadır. **`tapply`** fonksiyonu, **`veri$Değerler`** sütununu **`veri$Aylar`** sütununa göre gruplar ve her bir ay için değerlerin ortalamasını hesaplar.
+
+Eğer iki faktöre ya da değişkene göre bir hesapalama yapmak istersek faktörleri bir liste olarak fonksiyona belirtmemiz yeterlidir. Diyelim ki, bir veri setindeki öğrencilerin matematik ve fen bilgisi notları var ve bu notları cinsiyet ve sınıf düzeyi gibi iki farklı grup değişkenine göre incelemek istiyoruz. **`tapply`** fonksiyonunu kullanarak her bir kombinasyon için not ortalamalarını bulabiliriz.
+
+```{r}
+
+# Örnek veri seti oluşturalım
+ogrenciler <- data.frame(
+  Cinsiyet = c("K", "E", "K", "E", "K", "E", "K", "E", "K", "E"),
+  Sinif = c(9, 9, 10, 10, 11, 11, 9, 9, 10, 10),
+  Matematik = c(70, 75, 80, 85, 90, 95, 85, 80, 75, 70),
+  FenBilgisi = c(75, 80, 85, 90, 95, 100, 80, 85, 90, 95)
+)
+
+# Her bir kombinasyon için matematik ve fen bilgisi notlarının ortalamasını bulalım
+sonuç <- with(ogrenciler, tapply(Matematik, list(Cinsiyet, Sinif), mean))
+sonuç
+
+
+```
+
+Bu kod, öğrencilerin cinsiyet ve sınıf düzeylerine göre matematik notlarının ortalamasını hesaplar. **`list(Cinsiyet, Sinif)`** ifadesi, **`Cinsiyet`** ve **`Sinif`** değişkenlerinin tüm kombinasyonlarını oluşturur. **`tapply`** fonksiyonu, bu kombinasyonlar için matematik notlarının ortalamasını hesaplar.
+
+### **`tapply`'ın Avantajları ve Kullanım Alanları**
+
+1.  **Grup Bazında İşlem Yapma**: **`tapply`** fonksiyonu, verileri belirli faktörler veya gruplar altında gruplayarak her bir grup için işlem yapmanıza olanak tanır. Bu, veri analizi ve özetleme işlemlerinde çok kullanışlıdır.
+
+2.  **Esneklik**: **`tapply`** fonksiyonu, birden fazla faktörü kullanarak verileri gruplamak ve her bir grup için farklı işlemler yapmak için esneklik sağlar. Bu, çeşitli veri analizi senaryolarına uyarlanabilirlik sağlar.
+
+3.  **Faktörlere Göre Toplamak ve Özetlemek**: **`tapply`** fonksiyonu, verileri belirli bir faktöre göre toplamak ve özetlemek için ideal bir araçtır. Özellikle kategorik değişkenlerle çalışırken grup bazında işlem yapmak istediğinizde kullanışlıdır.
+
+**`tapply`** fonksiyonu, veri analizi ve işleme süreçlerinde grup bazında işlem yapmanın hızlı ve etkili bir yolunu sunar. Farklı faktörler veya gruplar altında verileri gruplamak ve her bir grup için farklı işlemler yapmak için kullanılabilir. Bu, veri analizindeki pek çok senaryoda kullanışlı bir araçtır.
+
+## mapply
+
+R programlama dilinde, bir işlevi birden çok giriş değeri veya argüman ile uygulamak gerekebilir. **`mapply`** fonksiyonu, bu tür durumlar için kullanışlı bir araçtır. Bu fonksiyon, birden çok vektör veya listeye sahip olduğunuzda, her bir girişe bir işlev uygular ve sonuçları birleştirir. Temel kullanımı şu şekildedir:
+
+```{r}
+#| eval: false
+mapply(FUN, ..., MoreArgs = NULL, SIMPLIFY = TRUE, USE.NAMES = TRUE)
+
+```
+
+Burada:
+
+-   **`FUN`**: Uygulanacak işlev.
+
+-   **`...`**: Birden çok vektör veya liste.
+
+-   **`MoreArgs`**: İşlevin sabit argümanları (opsiyonel).
+
+-   **`SIMPLIFY`**: Sonuçların basitleştirilip basitleştirilmeyeceğini belirten bir mantıksal değer (varsayılan olarak **`TRUE`**).
+
+-   **`USE.NAMES`**: Sonuçlarda isimlerin kullanılıp kullanılmayacağını belirten bir mantıksal değer (varsayılan olarak **`TRUE`**).
+
+Aşağıdaki örnekte, **`mapply`** fonksiyonu **`*`** (çarpma) işlemini **`a`** ve **`b`** vektörlerinin karşılıklı elemanlarına uygular.
+
+```{r}
+
+# İki vektör oluşturalım
+a <- c(1, 2, 3)
+b <- c(4, 5, 6)
+
+# Her iki vektördeki elemanları çarparak sonuçları hesaplayalım
+sonuç <- mapply(FUN = "*", a, b)
+
+sonuç
+
+
+```
+
+Bu örnekte ise **`mapply`** fonksiyonu iki farklı işlevi (**`üs_al`** ve **`çarp`**) aynı anda iki vektörün karşılıklı elemanlarına uygular.
+
+```{r}
+
+# İki farklı fonksiyon tanımlayalım
+üs_al <- function(x, y) x^y
+çarp <- function(x, y) x * y
+
+# İki vektör oluşturalım
+a <- c(1, 2, 3)
+b <- c(2, 3, 4)
+
+# Her bir vektördeki elemanları farklı işlevlere uygulayarak sonuçları hesaplayalım
+sonuç1 <- mapply(üs_al, a, b)
+sonuç2 <- mapply(çarp, a, b)
+
+sonuç1
+sonuç2
+
+
+```
+
+Bu örnekte, **`mapply`** fonksiyonu **`paste`** işlemini liste elemanlarına uygular ve **`collapse`** argümanını kullanarak sonuçları birleştirir.
+
+```{r}
+
+# Örnek bir liste oluşturalım
+liste <- list(a = c(1, 2, 3), b = c(4, 5, 6), c = c(7, 8, 9))
+
+# Her bir liste elemanını birleştirerek sonuçları hesaplayalım
+sonuç <- mapply(FUN = paste, liste, collapse = "-")
+
+sonuç
+
+
+```
+
+### **`mapply` Fonksiyonunun Kullanım Alanları**
+
+-   **Birden Çok Vektör veya Liste ile İşlev Uygulama**: **`mapply`**, birden çok giriş değeri ile bir işlevi uygulamak için kullanılır.
+
+-   **Döngüsüz Programlama**: **`mapply`**, döngüsüz programlama yaklaşımını benimseyerek kodun daha temiz ve etkili olmasını sağlar.
+
+-   **Veri Çerçevesi İşlemleri**: **`mapply`**, veri çerçevelerinde veya matrislerdeki satır veya sütunlar arasında işlevleri uygulamak için kullanılabilir.
+
+**`mapply`** fonksiyonu, birden çok giriş değeri ile bir işlevi uygulamak için kullanılan kullanışlı bir araçtır. Bu fonksiyon, programlamada döngülerin azaltılması ve kodun daha temiz hale getirilmesine yardımcı olur.
+
+## vapply
+
+**`vapply`** fonksiyonu, bir vektör üzerinde belirli bir işlevi uygularken, işlevin çıktı türünü önceden belirleyebileceğiniz bir yöntem sunar. Genel olarak, **`sapply`** fonksiyonuna benzer şekilde çalışır, ancak dönüş değerlerinin türünü belirleyebilme özelliğiyle farklılık gösterir. Bu, çıktının türünü bilmeniz gerektiğinde ve istenmeyen bir tür dönüşümünü önlemek istediğinizde oldukça faydalıdır.
+
+İşlevi şu şekildedir:
+
+```{r}
+#| eval: false
+vapply(X, FUN, FUN.VALUE, ...)
+
+```
+
+Burada:
+
+-   **`X`**: İşlevin uygulanacağı vektör veya dizi.
+
+-   **`FUN`**: Uygulanacak işlev.
+
+-   **`FUN.VALUE`**: İşlevin çıktı türünü belirten bir örnek veya örnek vektör.
+
+-   **`...`**: Ek argümanlar (opsiyonel).
+
+Örnek olarak, bir vektördeki her bir elemanın uzunluğunu bulalım, ancak çıktı olarak her zaman bir tamsayı vektörü almak isteyelim:
+
+```{r}
+
+# Örnek bir vektör oluşturalım
+v <- c("abc", "de", "fghi")
+
+# Her bir elemanın uzunluğunu bulan işlevi tanımlayalım
+uzunluk_bul <- function(x) {
+  return(nchar(x))
+}
+
+# Çıktı olarak her zaman bir tamsayı vektörü almak için vapply'i kullanalım
+sonuç <- vapply(v, uzunluk_bul, FUN.VALUE = integer(1))
+
+sonuç
+
+
+```
+
+Bu örnekte, **`vapply`**, "v" vektöründeki her bir elemanın uzunluğunu bulmak için **`nchar`** işlevini uygular. Ancak, **`FUN.VALUE = integer(1)`** argümanı sayesinde, her zaman bir tamsayı vektörü döndürülmesini sağlar. Bu, her elemanın uzunluğunun tamsayı olarak dönmesini garanti eder.
+
+**`vapply`** fonksiyonu, işlevin çıktı türünü önceden belirlemek istediğinizde oldukça kullanışlıdır ve programınızın daha sağlam ve öngörülebilir olmasına yardımcı olabilir.
