@@ -78,10 +78,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
 <link href="site_libs/bootstrap/bootstrap-dark.min.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
 <script id="quarto-search-options" type="application/json">{
-  "location": "navbar",
+  "location": "sidebar",
   "copy-button": false,
   "collapse-after": 3,
-  "panel-placement": "end",
+  "panel-placement": "start",
   "type": "textbox",
   "limit": 50,
   "keyboard-shortcut": [
@@ -89,6 +89,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     "/",
     "s"
   ],
+  "show-item-context": false,
   "language": {
     "search-no-results-text": "No results",
     "search-matching-documents-text": "matching documents",
@@ -120,6 +121,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
         <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./R_intro.html">R Programlamaya Giriş</a></li><li class="breadcrumb-item"><a href="./if_else_for.html"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Kontrol İfadeleri</span></a></li></ol></nav>
         <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
+      <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
     </div>
   </nav>
 </header>
@@ -141,6 +145,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
     </div>
       </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
     <div class="sidebar-menu-container"> 
     <ul class="list-unstyled mt-1">
         <li class="sidebar-item">
@@ -224,6 +233,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <div class="sidebar-item-container"> 
   <a href="./data_transformation.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Veri Dönüştürme</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./data_join.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Veri Birleştirme</span></a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -581,29 +596,19 @@ Uyarı
 <span id="cb29-6"><a href="#cb29-6" aria-hidden="true" tabindex="-1"></a>  }</span>
 <span id="cb29-7"><a href="#cb29-7" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] 0.8590391
-[1] 0.2027698
-[1] 0.6803846
-[1] 0.5732225
-[1] 0.1169653
-[1] 0.5248264
-[1] 0.4555799
-[1] 0.0510703
-[1] 0.1898328
-[1] 0.7426567
-[1] 0.834594
-[1] 0.7603503
-[1] 0.7836257
-[1] 0.8273791
-[1] 0.06347537
-[1] 0.7662924
-[1] 0.421617
-[1] 0.04575214
-[1] 0.7619247
-[1] 0.4699118
-[1] 0.1416975
-[1] 0.7420814
-[1] 0.9967594</code></pre>
+<pre><code>[1] 0.543787
+[1] 0.324433
+[1] 0.5637773
+[1] 0.7491012
+[1] 0.1625035
+[1] 0.5460025
+[1] 0.6146379
+[1] 0.8452702
+[1] 0.1217738
+[1] 0.6022902
+[1] 0.4623328
+[1] 0.01746738
+[1] 0.9977307</code></pre>
 </div>
 </div>
 <p>Bu örnekte, <strong><code>repeat</code></strong> döngüsü 0 ile 1 arasında rastgele sayılar üretir ve bu sayılar 0.9’dan büyük olduğunda döngüyü sonlandırır.</p>

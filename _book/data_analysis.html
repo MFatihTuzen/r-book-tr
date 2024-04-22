@@ -65,7 +65,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
 <link href="./ggplot2.html" rel="next">
-<link href="./data_transformation.html" rel="prev">
+<link href="./data_join.html" rel="prev">
 <script src="site_libs/quarto-html/quarto.js"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
@@ -78,10 +78,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
 <link href="site_libs/bootstrap/bootstrap-dark.min.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
 <script id="quarto-search-options" type="application/json">{
-  "location": "navbar",
+  "location": "sidebar",
   "copy-button": false,
   "collapse-after": 3,
-  "panel-placement": "end",
+  "panel-placement": "start",
   "type": "textbox",
   "limit": 50,
   "keyboard-shortcut": [
@@ -89,6 +89,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     "/",
     "s"
   ],
+  "show-item-context": false,
   "language": {
     "search-no-results-text": "No results",
     "search-matching-documents-text": "matching documents",
@@ -124,6 +125,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
         <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./data_analysis.html">Keşifçi Veri Analizi</a></li></ol></nav>
         <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
+      <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
     </div>
   </nav>
 </header>
@@ -145,6 +149,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
     </div>
       </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
     <div class="sidebar-menu-container"> 
     <ul class="list-unstyled mt-1">
         <li class="sidebar-item">
@@ -228,6 +237,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <div class="sidebar-item-container"> 
   <a href="./data_transformation.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Veri Dönüştürme</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./data_join.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Veri Birleştirme</span></a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -891,32 +906,32 @@ manufacturer      1999      2008
 <span id="cb95-2"><a href="#cb95-2" aria-hidden="true" tabindex="-1"></a>ts <span class="ot">&lt;-</span> <span class="fu">ts</span>(<span class="fu">rnorm</span>(<span class="fu">length</span>(AirPassengers),<span class="dv">250</span>,<span class="dv">100</span>),<span class="at">start =</span> <span class="fu">c</span>(<span class="dv">1949</span>,<span class="dv">1</span>),<span class="at">frequency=</span><span class="dv">12</span>)</span>
 <span id="cb95-3"><a href="#cb95-3" aria-hidden="true" tabindex="-1"></a>ts</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>           Jan       Feb       Mar       Apr       May       Jun       Jul
-1949 235.79454 255.64097 239.79220 321.44567 188.65374 358.91105 100.09674
-1950 194.56909 351.46839 295.00832 271.73784 153.31058 196.99851 283.65082
-1951 356.61745 220.61937 272.55469 143.84427  63.70905 222.72959 209.25775
-1952 328.38358 170.76108 198.73592 246.86161 428.85731 418.77920 106.37902
-1953 308.44974 348.18866 279.36754 294.49429 192.92973 291.99418 236.24330
-1954 300.57676 360.87147 349.05059 189.93448 163.85856 232.07069 328.19260
-1955 307.92753 241.93204 166.56039 193.93632 168.04325 312.16077 288.21576
-1956 277.90217 354.23135 341.50200 226.32423 193.68040 271.21759 400.69903
-1957 192.91340 241.14675 254.47277 172.12442 274.23350 328.47430 316.92212
-1958 108.90706  61.75883 306.68939 245.82517 337.37362 390.70920 272.95837
-1959 134.41835  75.96002 296.70158 304.74356 322.29514 337.79907 151.49633
-1960 378.24426 171.33451 232.73744 406.52888 412.25448 138.89876 198.57474
-           Aug       Sep       Oct       Nov       Dec
-1949  49.57118 214.84816 259.89095 231.43592 257.87476
-1950 224.75656 175.63048 274.63632 149.45956 233.24095
-1951 250.05321 189.67358 253.35254 337.03481 337.73139
-1952 300.45527 112.84881 214.40693 326.72291 330.62101
-1953 408.76223 160.40620 289.87825 131.76560 263.88052
-1954 319.52583 231.30761 234.09182 337.97111 323.50488
-1955 392.35654 352.83925 119.09658  18.11675 376.99943
-1956 235.48040 191.45148 258.18907 235.08040 339.28695
-1957 273.35122 311.17775 212.55206 373.19474 185.71919
-1958 204.44427 193.66301 378.51120 124.97711 223.48093
-1959 280.87286 383.09666 121.00422 211.54960  78.09684
-1960 273.74516 197.17288 166.38085 319.47722 232.30949</code></pre>
+<pre><code>            Jan        Feb        Mar        Apr        May        Jun
+1949 290.786144 192.203541 298.816237 277.792359 275.752298 483.380534
+1950  87.985113 285.602389 284.799728 235.234485 260.002547 262.359041
+1951 279.958255 107.868519 288.220234 296.539513  68.817558 186.224247
+1952 125.355915 344.716070 437.832946 280.521461 225.968306 336.365552
+1953 120.044058 125.365069 224.895050 166.447837 256.316684 281.970705
+1954 210.881369 257.078095 295.248679 217.025387 365.108962 218.089700
+1955 342.513866 280.595432 456.396255 341.697685  89.806982 254.642112
+1956 232.175201 238.863344 240.363646 269.182453 286.571773 405.714868
+1957 292.486754 108.355436 398.456227 160.725594 151.592262 299.731173
+1958 148.584450 229.450069 213.228687 223.996785 125.029413 329.705333
+1959 216.137185 369.413156 294.616891 190.316239 146.717585 174.484329
+1960 185.030458 387.551935 240.217553 139.553012 224.352199 215.939564
+            Jul        Aug        Sep        Oct        Nov        Dec
+1949 310.487662 272.929838 320.731558 393.505893 387.991728 261.558988
+1950 120.997382 266.531430 153.304370 327.456574 404.266784 411.233188
+1951 362.302010 297.592098  -7.025727 269.088641 293.862720 226.535469
+1952  27.328671 335.469696 154.552897 171.979387 210.137189  18.858206
+1953 420.210522 226.850490 331.121369 187.550683 273.952172 144.442567
+1954 412.661922 247.280086 323.766596 313.101114 283.898841 256.974980
+1955 257.447070 186.651684 173.963017 183.487437 304.141186 314.631940
+1956 169.632962 286.693946 217.165810 254.049509 432.508624 -63.943851
+1957 309.529856 176.089947 265.976974 399.154902 184.414114 201.488682
+1958 213.529328 202.912267 168.892189 247.978620 204.058201 322.841891
+1959 211.850271 357.303627 219.375886 190.245596 226.145147 144.097063
+1960 168.937756 262.774203 309.185121  75.155980 283.032284 384.061062</code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb97"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb97-1"><a href="#cb97-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(AirPassengers,<span class="at">type =</span> <span class="st">"l"</span>,<span class="at">col =</span> <span class="st">"red"</span>)</span>
 <span id="cb97-2"><a href="#cb97-2" aria-hidden="true" tabindex="-1"></a><span class="fu">lines</span>(ts, <span class="at">type =</span> <span class="st">"l"</span>, <span class="at">col =</span> <span class="st">"blue"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -2196,8 +2211,8 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="./data_transformation.html" class="pagination-link" aria-label="Veri Dönüştürme">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Veri Dönüştürme</span>
+      <a href="./data_join.html" class="pagination-link" aria-label="Veri Birleştirme">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Veri Birleştirme</span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
