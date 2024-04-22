@@ -8,7 +8,7 @@ R programlama dilinde **`dplyr`** paketinde bulunan **`left_join()`**, **`right_
 
 **`left_join()`** fonksiyonu, sol veri çerçevesi ile sağ veri çerçevesi arasında birleştirme işlemi yapar ve sol veri çerçevesindeki tüm gözlemleri korur. Eğer sağ veri çerçevesinde eşleşen gözlem yoksa, NA değerleri ile doldurulur.
 
-```{r}
+```{r message=FALSE}
 library(dplyr)
 
 veri1 <- data.frame(
