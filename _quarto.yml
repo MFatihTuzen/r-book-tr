@@ -8,9 +8,6 @@ book:
     name: "Muhammed Fatih Tüzen"
     url: https://www.linkedin.com/in/dr-m-fatih-t-2b2a4328/
   reader-mode: true
-  search: 
-    location: navbar
-    type: textbox
   page-footer:
     left: |
       &copy; 2023, [Muhammed Fatih Tüzen](https://www.linkedin.com/in/dr-m-fatih-t-2b2a4328/)
@@ -36,6 +33,7 @@ book:
         - import_export.qmd
     - data_manipulation.qmd
     - data_transformation.qmd
+    - data_join.qmd
     - data_analysis.qmd
     - ggplot2.qmd
     - data_preprocess.qmd

@@ -1,0 +1,78 @@
+# Veri Birleştirme {#part-datajoin .unnumbered}
+
+[![https://r4ds.hadley.nz/joins](images/joins.png){fig-align="center"}](https://r4ds.hadley.nz/joins)
+
+R programlama dilinde **`dplyr`** paketinde bulunan **`left_join()`**, **`right_join()`**, **`inner_join()`**, ve **`full_join()`** gibi fonksiyonlar, veri çerçeveleri veya veri tabloları arasında birleştirme (join) işlemleri yapmak için kullanılır. Bu fonksiyonlar, farklı veri kaynaklarını birleştirmenizi veya ilişkilendirmenizi sağlar.
+
+## `left_join`
+
+**`left_join()`** fonksiyonu, sol veri çerçevesi ile sağ veri çerçevesi arasında birleştirme işlemi yapar ve sol veri çerçevesindeki tüm gözlemleri korur. Eğer sağ veri çerçevesinde eşleşen gözlem yoksa, NA değerleri ile doldurulur.
+
+```{r}
+library(dplyr)
+
+veri1 <- data.frame(
+  Oğrenci = c("Ali", "Esra", "Osman"),
+  Puan1 = c(90, 85, 78)
+)
+
+veri2 <- data.frame(
+  Oğrenci = c("Ali", "Derya", "Merve"),
+  Puan2 = c(88, 92, 85)
+)
+
+birlesik_veri <- left_join(veri1, veri2, by = "Oğrenci")
+
+print(birlesik_veri)
+
+```
+
+Bu kod, "Öğrenci" sütununa göre iki veri çerçevesini birleştirir. Sol veri çerçevesi (**`veri1`**) tüm gözlemleri içerir ve sağ veri çerçevesinde (**`veri2`**) eşleşen değerler varsa birleştirir.
+
+## **`right_join`**
+
+**`right_join()`** fonksiyonu, **`left_join()`** ile benzerdir, ancak sağ veri çerçevesindeki tüm gözlemleri korur. Eğer sol veri çerçevesinde eşleşen gözlem yoksa, NA değerleri ile doldurulur.
+
+```{r}
+
+birlesik_veri <- right_join(veri1, veri2, by = "Oğrenci")
+
+print(birlesik_veri)
+
+```
+
+Bu kod, sağ veri çerçevesi (**`veri2`**) tüm gözlemleri içerir ve sol veri çerçevesinde (**`veri1`**) eşleşen değerler varsa birleştirir.
+
+## **`inner_join`**
+
+**`inner_join()`** fonksiyonu, sol ve sağ veri çerçeveleri arasında iç birleştirme yapar ve yalnızca ortak gözlemleri korur. Ortak gözlemleri içermeyen diğer gözlemleri atar.
+
+```{r}
+
+birlesik_veri <- inner_join(veri1, veri2, by = "Oğrenci")
+
+print(birlesik_veri)
+
+```
+
+Bu kod, sadece sol ve sağ veri çerçevelerinde (**`veri1`** ve **`veri2`**) ortak olan gözlemleri korur.
+
+## **`full_join`**
+
+**`full_join()`** fonksiyonu, sol ve sağ veri çerçeveleri arasında tam birleştirme yapar ve tüm gözlemleri korur. Ortak olmayan değerler NA ile doldurulur.
+
+```{r}
+
+birlesik_veri <- full_join(veri1, veri2, by = "Oğrenci")
+
+print(birlesik_veri)
+
+```
+
+Bu kod, sol ve sağ veri çerçevelerini (**`veri1`** ve **`veri2`**) tamamen birleştirir ve tüm gözlemleri içerir.
+
+::: callout-note
+### Not
+
+Bu dört join fonksiyonu, farklı veri kaynaklarını birleştirme işlemlerinde kullanılır ve veri analizi sürecinde verileri daha kapsamlı bir şekilde incelemek için oldukça kullanışlıdır. Hangi join işleminin kullanılacağı, veri yapısına ve ihtiyaca bağlı olarak değişebilir.
+:::

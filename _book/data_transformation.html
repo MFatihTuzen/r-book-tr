@@ -64,7 +64,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
-<link href="./data_analysis.html" rel="next">
+<link href="./data_join.html" rel="next">
 <link href="./data_manipulation.html" rel="prev">
 <script src="site_libs/quarto-html/quarto.js"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
@@ -228,6 +228,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
+  <a href="./data_join.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Veri Birleştirme</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
   <a href="./data_analysis.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Keşifçi Veri Analizi</span></a>
   </div>
@@ -267,10 +273,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
    
   <ul>
   <li><a href="#uzun-format-dönüşümü---pivot_longer" id="toc-uzun-format-dönüşümü---pivot_longer" class="nav-link active" data-scroll-target="#uzun-format-dönüşümü---pivot_longer">Uzun Format Dönüşümü - <code>pivot_longer</code></a></li>
-  <li><a href="#geniş-format-dönüşümü---pivot_wider" id="toc-geniş-format-dönüşümü---pivot_wider" class="nav-link" data-scroll-target="#geniş-format-dönüşümü---pivot_wider"><strong>Geniş Format Dönüşümü - <code>pivot_wider</code></strong></a></li>
-  <li><a href="#değişken-birleştirme---unite" id="toc-değişken-birleştirme---unite" class="nav-link" data-scroll-target="#değişken-birleştirme---unite"><strong>Değişken Birleştirme - <code>unite</code></strong></a></li>
-  <li><a href="#değişken-bölme--separate" id="toc-değişken-bölme--separate" class="nav-link" data-scroll-target="#değişken-bölme--separate"><strong>Değişken Bölme- <code>separate</code></strong></a></li>
-  <li><a href="#join" id="toc-join" class="nav-link" data-scroll-target="#join">join</a></li>
+  <li><a href="#geniş-format-dönüşümü---pivot_wider" id="toc-geniş-format-dönüşümü---pivot_wider" class="nav-link" data-scroll-target="#geniş-format-dönüşümü---pivot_wider">Geniş Format Dönüşümü - <code>pivot_wider</code></a></li>
+  <li><a href="#değişken-birleştirme---unite" id="toc-değişken-birleştirme---unite" class="nav-link" data-scroll-target="#değişken-birleştirme---unite">Değişken Birleştirme - <code>unite</code></a></li>
+  <li><a href="#değişken-bölme--separate" id="toc-değişken-bölme--separate" class="nav-link" data-scroll-target="#değişken-bölme--separate">Değişken Bölme- <code>separate</code></a></li>
   </ul>
 <div class="toc-actions"><ul><li><a href="https://github.com/MFatihTuzen/r-book-tr/edit/main/data_transformation.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/MFatihTuzen/r-book-tr/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></nav>
     </div>
@@ -516,7 +521,7 @@ Alternatif Yol
 </div>
 </section>
 <section id="geniş-format-dönüşümü---pivot_wider" class="level2">
-<h2 class="anchored" data-anchor-id="geniş-format-dönüşümü---pivot_wider"><strong>Geniş Format Dönüşümü - <code>pivot_wider</code></strong></h2>
+<h2 class="anchored" data-anchor-id="geniş-format-dönüşümü---pivot_wider">Geniş Format Dönüşümü - <code>pivot_wider</code></h2>
 <p>Uzun formatlı (long format) veriyi geniş formatlı (wide format) hale dönüştürmek için kullanılır. Her bir gözlemi temsil eden uzun formatlı veri setlerini, her bir sütunun bir değişkeni temsil ettiği geniş formatlı veri setlerine dönüştürmek için kullanılır.</p>
 <ul>
 <li><p><strong>Kullanım Alanları</strong>:</p>
@@ -748,7 +753,7 @@ Dikkat
 </div>
 </section>
 <section id="değişken-birleştirme---unite" class="level2">
-<h2 class="anchored" data-anchor-id="değişken-birleştirme---unite"><strong>Değişken Birleştirme - <code>unite</code></strong></h2>
+<h2 class="anchored" data-anchor-id="değişken-birleştirme---unite">Değişken Birleştirme - <code>unite</code></h2>
 <p>Belirli sütunlardaki değerleri birleştirerek yeni bir sütun oluşturmak için kullanılır. Genellikle, ayrı sütunlarda bulunan bilgileri birleştirerek yeni bir kategorik değişken oluşturmak için kullanılır.</p>
 <ul>
 <li><p><strong>Kullanım Alanları</strong>:</p>
@@ -801,7 +806,7 @@ Dikkat
 <p>Bu kod, adres bileşenlerini her birinin arasına <code>","</code> koyarak birleştirir ve “adres” sütununu oluşturur. Varsayılan olarak, <strong><code>remove = TRUE</code></strong> olduğundan, <strong><code>unite()</code></strong> fonksiyonu, birleştirilen sütunları oluşturduktan sonra orijinal sütunları kaldırır. Eğer <strong><code>remove = FALSE</code></strong> olarak ayarlanırsa, <strong><code>unite()</code></strong> fonksiyonu, birleştirilen sütunları oluştururken orijinal sütunları kaldırmaz. Bu durumda, hem birleştirilen sütunlar hem de orijinal sütunlar veri setinde kalır.</p>
 </section>
 <section id="değişken-bölme--separate" class="level2">
-<h2 class="anchored" data-anchor-id="değişken-bölme--separate"><strong>Değişken Bölme- <code>separate</code></strong></h2>
+<h2 class="anchored" data-anchor-id="değişken-bölme--separate">Değişken Bölme- <code>separate</code></h2>
 <p>Bir sütundaki değerleri belirli bir ayırıcıya göre parçalayarak yeni sütunlar oluşturmak için kullanılır. Genellikle, tek bir sütunda bulunan bilgileri ayrı ayrı sütunlara bölmek için kullanılır.</p>
 <ul>
 <li><p><strong>Kullanım Alanları</strong>:</p>
@@ -832,90 +837,6 @@ Dikkat
 </div>
 </div>
 <p>Önceki bölümde oluşturduğumuz birleşik adres sütunu, bu kod ile bileşenlerine ayrıştırılmaktadır.</p>
-</section>
-<section id="join" class="level2">
-<h2 class="anchored" data-anchor-id="join">join</h2>
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="images/join.jpg" class="img-fluid quarto-figure quarto-figure-center figure-img"></p>
-</figure>
-</div>
-<p>R programlama dilinde <strong><code>dplyr</code></strong> paketinde bulunan <strong><code>left_join()</code></strong>, <strong><code>right_join()</code></strong>, <strong><code>inner_join()</code></strong>, ve <strong><code>full_join()</code></strong> gibi fonksiyonlar, veri çerçeveleri veya veri tabloları arasında birleştirme (join) işlemleri yapmak için kullanılır. Bu fonksiyonlar, farklı veri kaynaklarını birleştirmenizi veya ilişkilendirmenizi sağlar.</p>
-<p><strong><code>left_join()</code></strong> fonksiyonu, sol veri çerçevesi ile sağ veri çerçevesi arasında birleştirme işlemi yapar ve sol veri çerçevesindeki tüm gözlemleri korur. Eğer sağ veri çerçevesinde eşleşen gözlem yoksa, NA değerleri ile doldurulur.</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb41"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a>veri1 <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
-<span id="cb41-2"><a href="#cb41-2" aria-hidden="true" tabindex="-1"></a>  Oğrenci <span class="ot">=</span> <span class="fu">c</span>(<span class="st">"Ali"</span>, <span class="st">"Esra"</span>, <span class="st">"Osman"</span>),</span>
-<span id="cb41-3"><a href="#cb41-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">Puan1 =</span> <span class="fu">c</span>(<span class="dv">90</span>, <span class="dv">85</span>, <span class="dv">78</span>)</span>
-<span id="cb41-4"><a href="#cb41-4" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb41-5"><a href="#cb41-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb41-6"><a href="#cb41-6" aria-hidden="true" tabindex="-1"></a>veri2 <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
-<span id="cb41-7"><a href="#cb41-7" aria-hidden="true" tabindex="-1"></a>  Oğrenci <span class="ot">=</span> <span class="fu">c</span>(<span class="st">"Ali"</span>, <span class="st">"Derya"</span>, <span class="st">"Merve"</span>),</span>
-<span id="cb41-8"><a href="#cb41-8" aria-hidden="true" tabindex="-1"></a>  <span class="at">Puan2 =</span> <span class="fu">c</span>(<span class="dv">88</span>, <span class="dv">92</span>, <span class="dv">85</span>)</span>
-<span id="cb41-9"><a href="#cb41-9" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb41-10"><a href="#cb41-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb41-11"><a href="#cb41-11" aria-hidden="true" tabindex="-1"></a>birlesik_veri <span class="ot">&lt;-</span> <span class="fu">left_join</span>(veri1, veri2, <span class="at">by =</span> <span class="st">"Oğrenci"</span>)</span>
-<span id="cb41-12"><a href="#cb41-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb41-13"><a href="#cb41-13" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(birlesik_veri)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>  Oğrenci Puan1 Puan2
-1     Ali    90    88
-2    Esra    85    NA
-3   Osman    78    NA</code></pre>
-</div>
-</div>
-<p>Bu kod, “Öğrenci” sütununa göre iki veri çerçevesini birleştirir. Sol veri çerçevesi (<strong><code>veri1</code></strong>) tüm gözlemleri içerir ve sağ veri çerçevesinde (<strong><code>veri2</code></strong>) eşleşen değerler varsa birleştirir.</p>
-<p><strong><code>right_join()</code></strong> fonksiyonu, <strong><code>left_join()</code></strong> ile benzerdir, ancak sağ veri çerçevesindeki tüm gözlemleri korur. Eğer sol veri çerçevesinde eşleşen gözlem yoksa, NA değerleri ile doldurulur.</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb43"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a>birlesik_veri <span class="ot">&lt;-</span> <span class="fu">right_join</span>(veri1, veri2, <span class="at">by =</span> <span class="st">"Oğrenci"</span>)</span>
-<span id="cb43-2"><a href="#cb43-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb43-3"><a href="#cb43-3" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(birlesik_veri)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>  Oğrenci Puan1 Puan2
-1     Ali    90    88
-2   Derya    NA    92
-3   Merve    NA    85</code></pre>
-</div>
-</div>
-<p>Bu kod, sağ veri çerçevesi (<strong><code>veri2</code></strong>) tüm gözlemleri içerir ve sol veri çerçevesinde (<strong><code>veri1</code></strong>) eşleşen değerler varsa birleştirir.</p>
-<p><strong><code>inner_join()</code></strong> fonksiyonu, sol ve sağ veri çerçeveleri arasında iç birleştirme yapar ve yalnızca ortak gözlemleri korur. Ortak gözlemleri içermeyen diğer gözlemleri atar.</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb45"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a>birlesik_veri <span class="ot">&lt;-</span> <span class="fu">inner_join</span>(veri1, veri2, <span class="at">by =</span> <span class="st">"Oğrenci"</span>)</span>
-<span id="cb45-2"><a href="#cb45-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb45-3"><a href="#cb45-3" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(birlesik_veri)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>  Oğrenci Puan1 Puan2
-1     Ali    90    88</code></pre>
-</div>
-</div>
-<p>Bu kod, sadece sol ve sağ veri çerçevelerinde (<strong><code>veri1</code></strong> ve <strong><code>veri2</code></strong>) ortak olan gözlemleri korur.</p>
-<p><strong><code>full_join()</code></strong> fonksiyonu, sol ve sağ veri çerçeveleri arasında tam birleştirme yapar ve tüm gözlemleri korur. Ortak olmayan değerler NA ile doldurulur.</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb47"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a>birlesik_veri <span class="ot">&lt;-</span> <span class="fu">full_join</span>(veri1, veri2, <span class="at">by =</span> <span class="st">"Oğrenci"</span>)</span>
-<span id="cb47-2"><a href="#cb47-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb47-3"><a href="#cb47-3" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(birlesik_veri)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>  Oğrenci Puan1 Puan2
-1     Ali    90    88
-2    Esra    85    NA
-3   Osman    78    NA
-4   Derya    NA    92
-5   Merve    NA    85</code></pre>
-</div>
-</div>
-<p>Bu kod, sol ve sağ veri çerçevelerini (<strong><code>veri1</code></strong> ve <strong><code>veri2</code></strong>) tamamen birleştirir ve tüm gözlemleri içerir.</p>
-<div class="callout callout-style-default callout-note callout-titled">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-Not
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p>Bu dört join fonksiyonu, farklı veri kaynaklarını birleştirme işlemlerinde kullanılır ve veri analizi sürecinde verileri daha kapsamlı bir şekilde incelemek için oldukça kullanışlıdır. Hangi join işleminin kullanılacağı, veri yapısına ve ihtiyaca bağlı olarak değişebilir.</p>
-</div>
-</div>
 
 
 </section>
@@ -1481,8 +1402,8 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./data_analysis.html" class="pagination-link" aria-label="Keşifçi Veri Analizi">
-        <span class="nav-page-text">Keşifçi Veri Analizi</span> <i class="bi bi-arrow-right-short"></i>
+      <a href="./data_join.html" class="pagination-link" aria-label="Veri Birleştirme">
+        <span class="nav-page-text">Veri Birleştirme</span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>

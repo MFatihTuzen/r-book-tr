@@ -2,6 +2,18 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://rprogramlama.netlify.app/data_transformation.html</loc>
-    <lastmod>2024-04-19T11:21:17.274Z</lastmod>
+    <lastmod>2024-04-22T07:32:42.132Z</lastmod>
+  </url>
+  <url>
+    <loc>https://rprogramlama.netlify.app/data_manipulation.html</loc>
+    <lastmod>2024-04-22T06:28:13.278Z</lastmod>
+  </url>
+  <url>
+    <loc>https://rprogramlama.netlify.app/index.html</loc>
+    <lastmod>2024-01-08T07:33:46.539Z</lastmod>
+  </url>
+  <url>
+    <loc>https://rprogramlama.netlify.app/data_join.html</loc>
+    <lastmod>2024-04-22T07:49:12.186Z</lastmod>
   </url>
 </urlset>
