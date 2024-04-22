@@ -1,0 +1,459 @@
+# Veri Dönüştürme {#part-datatransformation .unnumbered}
+
+[![https://tidyr.tidyverse.org/](images/tidyr.png){fig-align="center"}](https://tidyr.tidyverse.org/)
+
+Veri dönüştürme işlemleri, veri setlerinin yapılarını değiştirerek veri analizi veya görselleştirme işlemleri için daha uygun hale getirir. Bu işlemler, veri setlerinin formatlarını veya içeriğini değiştirerek veri analizini kolaylaştırır, sonuçların daha anlamlı olmasını sağlar ve genellikle veri hazırlığı sürecinin önemli bir parçasıdır.
+
+R programlama dilinde **`tidyr`** paketinin içinde bulunan **`pivot_longer()`**, **`pivot_wider()`**, **`unite()`**, ve **`separate()`** gibi fonksiyonlar, veri manipülasyonu ve veri dönüşümü işlemlerinde kullanılır. Bu fonksiyonlar, veri çerçevesi içindeki verileri yeniden düzenlemek, sütunları birleştirmek veya bölmek, veriyi daha uygun bir yapıya getirmek için kullanılır.
+
+Veri dönüştürme işlemleri, genellikle şu iki temel kategori altında incelenebilir:
+
+1.  **Yapısal Dönüşümler**: Bu tür dönüşümler, veri setinin yapısal yapısını değiştirir. Örneğin, **`pivot_longer`** ve **`pivot_wider`** fonksiyonları geniş formatlı (wide format) ve uzun formatlı (long format) veri setleri arasında dönüşümler gerçekleştirir. Bu işlemler, veri setlerinin gözlemleri ve değişkenleri arasındaki ilişkiyi değiştirir ve genellikle analiz için daha uygun bir yapıya dönüştürür.
+
+2.  **İçerik Dönüşümleri**: Bu tür dönüşümler, veri setindeki değerlerin içeriğini değiştirir. Örneğin, **`unite`** ve **`separate`** fonksiyonları bir sütundaki değerleri birleştirerek veya ayırarak yeni değişkenler oluşturur. Bu işlemler, veri setindeki bilgilerin organize edilmesini veya ayrıştırılmasını sağlar.
+
+Her bir fonksiyonun argümanları ve yapıları farklıdır ve bu argümanlar, işlevin belirli bir görevi yerine getirmesini sağlar.
+
+## Uzun Format Dönüşümü - `pivot_longer`
+
+Geniş formatlı (wide format) veriyi uzun formatlı (long format) hale dönüştürmek için kullanılır. Her bir sütunun bir değişkeni temsil ettiği geniş formatlı veri setlerini, her bir gözlemi temsil eden uzun formatlı veri setlerine dönüştürmek için kullanılır.
+
+-   **Kullanım Alanları**:
+
+    -   Çapraz-tablo verilerini analiz etmek veya görselleştirmek için.
+
+    -   İstatistiksel analizlerde veri hazırlığı sürecinde, bazı modellere uygun hale getirmek için.
+
+    -   Veri setindeki değişkenlerin (sütunların) gruplandırılması veya kategorize edilmesi gerektiğinde.
+
+```{r}
+#| eval: false
+pivot_longer(data, cols, names_to, values_to, names_prefix = NULL, names_sep = "_", names_pattern = NULL, ...)
+
+```
+
+-   **`data`**: İşlem yapılacak olan veri seti.
+
+-   **`cols`**: Uzun formatlı hale dönüştürülecek sütunların belirtilmesi.
+
+-   **`names_to`**: Yeni oluşturulacak sütunun adı.
+
+-   **`values_to`**: Sütun içerisindeki değerlerin yer alacağı sütunun adı.
+
+-   Diğer argümanlar, isteğe bağlı olarak sütun adlarının belirtilmesi için kullanılır.
+
+Çeşitli örnekler yapmak için [billboard](https://waxy.org/2008/05/the_whitburn_project/) veri setini kullanalım. `billboard` veri seti, tidyr paketinde bulunan ve müzik endüstrisindeki popülerlik sıralamalarını içeren bir veri setidir. Veri seti, 1999-2000 yılları arasında Billboard Hot 100 listesindeki şarkıların haftalık sıralamalarını içerir. Her bir hafta için bir sütun bulunur ve bu sütunlar, o haftadaki şarkıların sıralamalarını içerir. Öncelikle veri setini inceleyelim.
+
+```{r}
+
+library(tidyr)
+billboard
+
+```
+
+**`artist`**: Şarkının sanatçısının adı.
+
+**`track`**: Şarkının adı.
+
+**`date.entered`**: Şarkının Billboard Hot 100 listesine girdiği tarih.
+
+**`wk1`**, **`wk2`**, ..., **`wk76`**: Haftalık sıralama bilgilerini içeren sütunlar. Her bir sütun, bir haftaya ait sıralamaları içerir. Örneğin, **`wk1`** sütunu, şarkının ilk haftadaki sıralamasını içerir.
+
+Bu değişkenler, şarkıların sanatçıları, adları ve haftalık sıralamaları gibi bilgileri içerir. Veri setindeki haftalık sıralama sütunları, her bir hafta için şarkıların sıralamasını içerir. Bu sıralama bilgileri, her bir hafta için bir sütunda bulunur ve bu sütunlar "wk1", "wk2", ..., "wk76" gibi adlarla temsil edilir.
+
+Dikkat edilirse tablonun 317 satır ve 79 sütundan oluştuğu görülmektedir. Ayrıca hafta değişkenleri yatay olarak herbiri ayrı kolonlarda hafta numaraları ile belirtilmektedir. Şimdi bu verii uzun formata dönüştürerek daha kullanışlı bir formata dönüştürelim.
+
+```{r}
+
+billboard_long <- billboard |> 
+  pivot_longer(
+    cols = starts_with("wk"), 
+    names_to = "week", 
+    values_to = "rank",
+    values_drop_na = TRUE
+  )
+
+billboard_long
+```
+
+1.  **`billboard |>`**: Bu ifade, "billboard" veri setini işlemek üzere bir dizi dplyr fonksiyonuna (veya tidyverse fonksiyonuna) zincirlenmiş bir işlem başlatır. **`|>`** operatörü, bir işlemin çıktısını bir sonraki işlemin ilk argümanı olarak kullanmamızı sağlar.
+
+2.  **`pivot_longer()`**: Bu fonksiyon, veri setindeki sütunları uzun formata dönüştürmek için kullanılır. Yani, sütunları satırlara dönüştürür. Bu örnekte, **`pivot_longer`** fonksiyonu kullanılarak sütunlar uzun formata dönüştürülecektir.
+
+3.  **`cols = starts_with("wk")`**: **`pivot_longer`** fonksiyonunun ilk argümanı olan **`cols`**, dönüştürülecek sütunların seçimini belirler. Bu durumda, "wk" ile başlayan sütunlar seçilir. "wk" ile başlayan sütunlar, haftalık müzik sıralamalarını içerir.
+
+4.  **`names_to = "week"`**: **`pivot_longer`** fonksiyonunun ikinci argümanı olan **`names_to`**, dönüştürülen sütunların isimlerinin atanacağı yeni sütunun adını belirler. Bu durumda, dönüştürülen sütunların isimleri "week" olarak atanacaktır.
+
+5.  **`values_to = "rank"`**: **`pivot_longer`** fonksiyonunun üçüncü argümanı olan **`values_to`**, dönüştürülen sütunlardaki değerlerin atanacağı yeni sütunun adını belirler. Bu durumda, dönüştürülen sütunlardaki değerler "rank" olarak atanacaktır.
+
+6.  **`values_drop_na = TRUE`**: Bu parametre, dönüştürülen sütunlardaki **`NA`** değerlerin (boş hücrelerin) kaldırılıp kaldırılmayacağını belirler. **`TRUE`** olarak ayarlandığında, **`NA`** değerler kaldırılır. Bu, dönüştürülen sütunlardaki eksik değerlerin işlenme şeklini kontrol eder. Bu örnekte, **`NA`** değerler kaldırılarak işlenir.
+
+Bu şekilde, **`pivot_longer`** fonksiyonu kullanılarak "wk" ile başlayan sütunlar uzun formata dönüştürülür ve her bir hafta için şarkı sıralamaları tek bir sütun altında toplanır. "week" sütunu, hafta numaralarını, "rank" sütunu ise şarkı sıralamalarını içerir.
+
+```{r}
+
+dim(billboard_long)
+
+```
+
+Uzun formata dönüştürüldükten sonra, her bir hafta için her bir şarkının sıralamasını içeren sütunlar tek bir sütun altında toplanır. Bu, sütun sayısının azaldığı anlamına gelirken, satır sayısının arttığı anlamına gelir. Dolayısıyla, tablo boyutunda bir değişiklik olur. Örneğin, başlangıçta her hafta için bir sütun vardı ve bu sütunlar "wk1", "wk2", ..., "wk76" olarak adlandırılıyordu. Ancak uzun formata dönüştürdükten sonra, her bir şarkının her hafta için bir sıralama değeri içeren bir sütunu vardır. Bu, sütun sayısının arttığı ve satır sayısının da arttığı bir durumdur. Dolayısı ile uzun tablonun boyutu 5307 satır ve 5 kolondan oluşmaktadır.
+
+::: callout-important
+## Önemli
+
+Eğer `values_drop_na = TRUE` argümanında `FALSE` değerini kullansaydık daha fazla satır sayısına sahip bir sonuç elde ederdik.
+
+```{r}
+
+billboard_long_with_na <- billboard |> 
+  pivot_longer(
+    cols = starts_with("wk"), 
+    names_to = "week", 
+    values_to = "rank",
+    values_drop_na = FALSE
+  )
+
+dim(billboard_long_with_na)
+
+```
+
+Bu şekilde üretilen tablonu satır sayısına baktığımızda **24092** satır olduğunu görürüz. Bu aslında başlangıçta yer alan 317 satırın 76 hafta verisi (`wk` ile başlayan 76 hafta olduğundan) ile tekrarlaması anlamına gelir. Doğal olarak `317 * 76 = 24092` satır sayısı ortaya çıkar ve wk ile başlamayan sütunlar da tekrar ederek satırlarda oluşur.
+:::
+
+Eğer veri setini daha düzenli hale getirmek amacıyla `week` kolonundaki değerlerin başındak wk ifadesini kaldırmak istersek aşağıdaki şekilde bir düzenleme yapabiliriz.
+
+```{r}
+
+billboard |> 
+  pivot_longer(
+    cols = starts_with("wk"), 
+    names_to = "week", 
+    names_transform = readr::parse_number,
+    values_to = "rank",
+    values_drop_na = TRUE,
+  )
+
+```
+
+Bu kodda, **`pivot_longer`** fonksiyonunu kullanarak "wk" ile başlayan sütunları uzun formata dönüştürüyoruz. Ancak, bu sefer **`names_transform`** argümanını da kullanıyoruz. Bu argüman, sütun adlarından sayısal değerleri çıkarmak için **`readr::parse_number`** fonksiyonunu kullanır.
+
+**`names_transform = readr::parse_number`** ifadesiyle, sütun adlarından "wk" ifadesini ve ardından gelen sayısal değerleri ayırıyoruz. Örneğin, "wk1", "wk2", ..., "wk76" gibi sütun adlarından sadece sayısal kısmı alarak, her bir sütunun haftayı temsil etmesini sağlıyoruz. Böylelikle, uzun formata dönüşümü daha anlamlı hale getiriyoruz. Artık her bir sütun, hangi haftaya ait olduğunu temsil ederken, her bir satır bir şarkının o haftaki sıralamasını içerir. Bu sayede, veri seti daha düzenli hale gelir ve analizler için daha uygun hale gelir.
+
+::: callout-tip
+## Alternatif Yol
+
+Bu amaçla aşağıdaki kod da benzer işi yapmaktadır.
+
+```{r}
+
+billboard |> 
+  pivot_longer(
+    cols = starts_with("wk"), 
+    names_to = "week", 
+    names_prefix = "wk",   # Her bir değişken adının başından "wk" metni kaldırır
+    names_transform = as.integer,   # Sütun adlarından sayısal değerleri alır
+    values_to = "rank",
+    values_drop_na = TRUE,
+  )
+
+
+```
+
+Bu kod parçası öncekiyle benzer bir dönüşüm gerçekleştiriyor ancak birkaç farklılık bulunuyor.
+
+1.  **`names_prefix = "wk"`** : Bu argüman her bir değişken adının başından "wk" metni kaldırır. Yani, "wk1", "wk2", ..., "wk76" gibi sütun adlarından "wk" metni kaldırılır. Bu, her bir sütunun hangi haftaya ait olduğunu temsil eden sayısal değerlerin elde edilmesini sağlar.
+
+2.  **`names_transform = as.integer`**: Bu argüman, sütun adlarından sayısal değerleri almak için **`as.integer`** fonksiyonunu kullanır. Önceki örnekte olduğu gibi, sütun adlarından sayıları alırken bu sefer **`as.integer`** fonksiyonunu kullanarak sayıları dönüştürürüz.
+
+Bu dönüşüm, önceki örnekle benzerdir ancak sütun adlarının öne eklenmesi ve sayısal dönüşümün yapıldığı yerdeki farklılıklar dikkate alınmalıdır. Bu farklılıklar, dönüşüm sonucunda elde edilen uzun formatlı veri setinin nasıl yapılandırıldığına ve nasıl yorumlanacağına etki edebilir.
+:::
+
+## **Geniş Format Dönüşümü - `pivot_wider`**
+
+Uzun formatlı (long format) veriyi geniş formatlı (wide format) hale dönüştürmek için kullanılır. Her bir gözlemi temsil eden uzun formatlı veri setlerini, her bir sütunun bir değişkeni temsil ettiği geniş formatlı veri setlerine dönüştürmek için kullanılır.
+
+-   **Kullanım Alanları**:
+
+    -   Çapraz-tablo verilerini oluşturmak için.
+
+    -   Uzun formatlı veri setlerini daha okunabilir ve anlamlı bir şekilde görselleştirmek için.
+
+    -   Veri setindeki bazı grupların veya kategorilerin karşılaştırılması için.
+
+```{r}
+#| eval: false
+pivot_wider(data, names_from, values_from, values_fn = list, values_fill = list(), names_prefix = NULL, names_sep = "_", names_repair = "check_unique", id_cols = NULL, values_fn_args = list(), ...)
+
+```
+
+-   **`data`**: İşlem yapılacak olan veri seti.
+
+-   **`names_from`**: Geniş formatlı hale dönüştürülecek olan sütunların adı.
+
+-   **`values_from`**: Yeni sütunlara değerlerin alınacağı sütunun adı.
+
+-   Diğer argümanlar, isteğe bağlı olarak sütun adlarının belirtilmesi ve eksik değerlerin doldurulması için kullanılır.
+
+Bu fonksiyon ile bazı örnekler yapmak için `tidyr` paketindeki `us_rent_income` veri setini kullanabiliriz. Veri seti 2017 yılına ait American Community Survey ile edilmiştir. Bu araştırma Amerika Birleşik Devletleri'nde federal hükümet tarafından her yıl gerçekleştirilen bir nüfus sayımı ve sosyo-ekonomik anket programıdır. Bu anket, Amerika'nın demografik ve ekonomik özellikleri hakkında geniş kapsamlı veriler sağlar.
+
+```{r}
+
+us_rent_income
+
+```
+
+Veri setinde 104 satır ve 5 sütun bulunmaktadır.
+
+1.  **GEOID**: Bu değişken, Amerika Birleşik Devletleri'ndeki belirli bir coğrafi alanın benzersiz kimlik numarasını içerir. **FIP state identifier** olarak bilinen bu değişken, Amerika Birleşik Devletleri'ndeki bir eyaletin Federal Bilgi İşlem Standartları (FIPS) kodunu içerir.
+
+2.  **NAME**: Bu değişken, eyaletin veya coğrafi bölgenin adını içerir.
+
+3.  **variable**: Bu değişken, veri setinde ölçülen değişkenin adını belirtir. İki farklı değer alabilir: "income" (ortalama yıllık gelir) veya "rent" (ortalama aylık kira).
+
+4.  **estimate**: Bu değişken, belirli bir coğrafi alandaki tahmini değeri içerir. Örneğin, belirli bir eyalet için ortalama yıllık gelir veya ortalama aylık kira miktarı gibi.
+
+5.  **moe**: Bu değişken, tahmini değerin 90% güven aralığı içindeki marj hatasını (margin of error) içerir. Marj hatası, tahmini değerin gerçek değerden ne kadar sapabileceğini gösterir. Bu, tahminin güvenilirliğini değerlendirmeye yardımcı olur.
+
+```{r}
+
+us_rent_income |> 
+  pivot_wider(
+    names_from = variable,
+    values_from = c(estimate, moe)
+  )
+
+```
+
+Bu kod, **`us_rent_income`** veri setini **`pivot_wider()`** fonksiyonu ile veri setindeki uzun formattan geniş formata dönüştürmeye olanak tanır.
+
+-   **`names_from = variable`**: Bu argüman, genişletilecek sütunların isimlerini belirtir. Burada **`variable`** değişkeni kullanılarak genişletilecek sütunlar belirlenir. Bu durumda, **`variable`** değişkenindeki değerler (**`income`** ve **`rent`**) sütun adlarına dönüştürülecek.
+
+-   **`values_from = c(estimate, moe)`**: Bu argüman, yeni genişletilmiş sütunların değerlerinin hangi sütunlardan alınacağını belirtir. **`estimate`** ve **`moe`** sütunlarındaki değerler, genişletilmiş sütunların içeriğini oluşturur.
+
+Sonuç olarak, bu kod **`us_rent_income`** veri setini **`income_estimate`**, **`income_moe`**, **`rent_estimate`** ve **`rent_moe`** olmak üzere dört yeni sütun içeren bir geniş formatlı veri setine dönüştürür.
+
+Dikkat edilirse değişken isimlerinin arasına `"_"` ifadesi konmuştur. Bu ifadenin gelmesinin sebebi, **`pivot_wider()`** fonksiyonunda kullanılan **`names_sep`** parametresinin varsayılan değerinin `"_"` olmasından kaynaklıdır. Eğer **`names_sep`** parametresi belirtilmezse değişken isimlerinin arasında `"_"` kullanılır.
+
+Bu nedenle, **`values_from = c(estimate, moe)`** ifadesindeki **`estimate`** ve **`moe`** sütunları, genişletilmiş sütunların adlarında alt çizgi ile ayrılır. Sonuç olarak, yeni oluşturulan sütunlar **`income_estimate`**, **`income_moe`**, **`rent_estimate`** ve **`rent_moe`** adlarına sahip olur. Eğer `"_"` yerine `"."` (nokta) koymak istersek kodu aşağıdaki şekilde güncellememiz gerekir.
+
+```{r}
+
+us_rent_income |> 
+  pivot_wider(
+    names_from = variable,
+    values_from = c(estimate, moe),
+    names_sep = "."
+  )
+
+
+```
+
+Başka dikkat edilecek bir husus ise, değişken isminin önce `variable` değişkeninden gelmesi ve sonrasında değer ile ilgli kısımdan gelerek birleştirilmesidir. Örneğin `"estimate.income"` isminin noktadan önceki kısmı variable değişkeninden, sonraki kısmı ise income değişken isminden gelmektedir. Arzu edilirse bu durumun tersi de yapılabilir.
+
+```{r}
+
+us_rent_income |> 
+  pivot_wider(
+    names_from = variable,
+    names_glue = "{variable}_{.value}",
+    values_from = c(estimate, moe)
+  )
+
+```
+
+**`names_glue`** parametresi, sütun adlarını oluşturmak için bir şablon sağlar. **`{variable}_{.value}`** ifadesi, yeni oluşturulan sütunların adlarını belirler. **`{variable}`** değişkenin adını, **`.value`** ise genişletilen değerlerin adını temsil eder. Örneğin, **`income_estimate`**, **`income_moe`**, **`rent_estimate`** ve **`rent_moe`** sütunlarına denk gelir.
+
+Yapacağımız diğer bir örnek ise veri setinde olmayan bir durum olduğunda boş gelebilecek gözlemlere ne işlem yapılacağıdır. Örneğin veri setinin ilk satırındaki Alabama eyaletine ilişkin `income` verilerinin hiç olmadığını varsayalım.
+
+```{r}
+library(dplyr)
+us_rent_income |> 
+  slice(-1) # ilk gözlem haricindeki satırlar seçilir
+
+```
+
+Bu durumda veri setinin geniş formata dönüştürmek istersek income değişkenleri kayıp gözlem yani `NA` olarak değerlendirilir.
+
+```{r}
+
+us_rent_income |> 
+  slice(-1) |> 
+  pivot_wider(
+    names_from = variable,
+    values_from = c(estimate,moe),
+    
+  )
+
+```
+
+Eğer bu şekilde oluşan gözlemlere değer atamak istersek `values_fill` argümanını kullanabiliriz. Örneğin bu şekilde oluşan bir durumda NA değerlere 0 değerini atanmasını varsayalım. Aşağıki kod ile bunu gerçekleştirebiliriz.
+
+```{r}
+
+us_rent_income |> 
+  slice(-1) |> 
+  pivot_wider(
+    names_from = variable,
+    values_from = c(estimate,moe),
+    values_fill = 0
+  )
+
+```
+
+::: callout-caution
+## Dikkat
+
+Orijinal veri setindeki eksik değerlerin zaten **`NA`** olduğu durumda **`values_fill`** kullanmak işe yaramaz. Çünkü mevcut durumda zaten veri setinde NA gözlem bulunmaktadır. **`values_fill`** dönüşüm sonrası oluşabilecek NA gözlemler için kullanılır.
+
+Bu nedenle, **`values_fill`** parametresi yerine R içerisinde farklı opsiyonlar ile tüm **`NA`** değerlerini doldurmak daha uygun olacaktır. Yani, boş hücrelerin tümünü 0 ile doldurmak için **`values_fill`** parametresi kullanılmaz.
+:::
+
+## **Değişken Birleştirme - `unite`**
+
+Belirli sütunlardaki değerleri birleştirerek yeni bir sütun oluşturmak için kullanılır. Genellikle, ayrı sütunlarda bulunan bilgileri birleştirerek yeni bir kategorik değişken oluşturmak için kullanılır.
+
+-   **Kullanım Alanları**:
+
+    -   Birden fazla sütundaki bilgileri tek bir değişkende birleştirme.
+
+    -   Tarih ve saat gibi bilgileri tek bir sütunda birleştirme.
+
+```{r}
+#| eval: false
+unite(data, col, ..., sep = "_", remove = TRUE)
+
+```
+
+-   **`data`**: İşlem yapılacak olan veri seti.
+
+-   **`col`**: Birleştirilen sütunun adı.
+
+-   **`...`**: Birleştirilecek olan sütunların adları.
+
+-   **`sep`**: Birleştirme işlemi sırasında kullanılacak ayırıcı karakter.
+
+-   **`remove`**: Orijinal sütunları kaldırma veya koruma seçeneği.
+
+```{r}
+
+adresler <- tibble(
+  sokak = c("Örnek Sokak", "Şehitler Caddesi", "Atatürk Bulvarı"),
+  mahalle = c("Merkez", "Güneşli", "Bahçelievler"),
+  ilce = c("Çankaya", "Bağcılar", "Üsküdar"),
+  sehir = c("Ankara", "İstanbul", "İstanbul"),
+  posta_kodu = c("06000", "34100", "34662")
+)
+
+adresler
+
+adresler_unite <- adresler %>%
+  unite(adres, sokak, mahalle, ilce, sehir, posta_kodu, sep = ", ")
+
+adresler_unite
+```
+
+Bu kod, adres bileşenlerini her birinin arasına `","` koyarak birleştirir ve "adres" sütununu oluşturur. Varsayılan olarak, **`remove = TRUE`** olduğundan, **`unite()`** fonksiyonu, birleştirilen sütunları oluşturduktan sonra orijinal sütunları kaldırır. Eğer **`remove = FALSE`** olarak ayarlanırsa, **`unite()`** fonksiyonu, birleştirilen sütunları oluştururken orijinal sütunları kaldırmaz. Bu durumda, hem birleştirilen sütunlar hem de orijinal sütunlar veri setinde kalır.
+
+## **Değişken Bölme- `separate`**
+
+Bir sütundaki değerleri belirli bir ayırıcıya göre parçalayarak yeni sütunlar oluşturmak için kullanılır. Genellikle, tek bir sütunda bulunan bilgileri ayrı ayrı sütunlara bölmek için kullanılır.
+
+-   **Kullanım Alanları**:
+
+    -   Tek bir sütundaki bilgileri ayrı ayrı sütunlara bölmek.
+
+    -   Tarih, saat veya adres gibi bilgileri ayrı sütunlara bölmek.
+
+```{r}
+#| eval: false
+separate(data, col, into, sep = "[^[:alnum:]]+", remove = TRUE, convert = FALSE, extra = "warn", fill = "warn")
+```
+
+-   **`data`**: İşlem yapılacak olan veri seti.
+
+-   **`col`**: Parçalanacak olan sütunun adı.
+
+-   **`into`**: Oluşturulacak yeni sütunların adları.
+
+-   **`sep`**: Parçalama işlemi sırasında kullanılacak ayırıcı karakter.
+
+-   Diğer argümanlar, isteğe bağlı olarak sütunların türünün dönüştürülmesi ve eksik değerlerin doldurulması için kullanılır.
+
+```{r}
+
+separate(adresler_unite, adres, into = c("sokak", "mahalle","ilce","sehir","posta_kodu"), sep = ",")
+
+
+```
+
+Önceki bölümde oluşturduğumuz birleşik adres sütunu, bu kod ile bileşenlerine ayrıştırılmaktadır.
+
+## join
+
+![](images/join.jpg){fig-align="center"}
+
+R programlama dilinde **`dplyr`** paketinde bulunan **`left_join()`**, **`right_join()`**, **`inner_join()`**, ve **`full_join()`** gibi fonksiyonlar, veri çerçeveleri veya veri tabloları arasında birleştirme (join) işlemleri yapmak için kullanılır. Bu fonksiyonlar, farklı veri kaynaklarını birleştirmenizi veya ilişkilendirmenizi sağlar.
+
+**`left_join()`** fonksiyonu, sol veri çerçevesi ile sağ veri çerçevesi arasında birleştirme işlemi yapar ve sol veri çerçevesindeki tüm gözlemleri korur. Eğer sağ veri çerçevesinde eşleşen gözlem yoksa, NA değerleri ile doldurulur.
+
+```{r}
+
+veri1 <- data.frame(
+  Oğrenci = c("Ali", "Esra", "Osman"),
+  Puan1 = c(90, 85, 78)
+)
+
+veri2 <- data.frame(
+  Oğrenci = c("Ali", "Derya", "Merve"),
+  Puan2 = c(88, 92, 85)
+)
+
+birlesik_veri <- left_join(veri1, veri2, by = "Oğrenci")
+
+print(birlesik_veri)
+
+```
+
+Bu kod, "Öğrenci" sütununa göre iki veri çerçevesini birleştirir. Sol veri çerçevesi (**`veri1`**) tüm gözlemleri içerir ve sağ veri çerçevesinde (**`veri2`**) eşleşen değerler varsa birleştirir.
+
+**`right_join()`** fonksiyonu, **`left_join()`** ile benzerdir, ancak sağ veri çerçevesindeki tüm gözlemleri korur. Eğer sol veri çerçevesinde eşleşen gözlem yoksa, NA değerleri ile doldurulur.
+
+```{r}
+
+birlesik_veri <- right_join(veri1, veri2, by = "Oğrenci")
+
+print(birlesik_veri)
+
+```
+
+Bu kod, sağ veri çerçevesi (**`veri2`**) tüm gözlemleri içerir ve sol veri çerçevesinde (**`veri1`**) eşleşen değerler varsa birleştirir.
+
+**`inner_join()`** fonksiyonu, sol ve sağ veri çerçeveleri arasında iç birleştirme yapar ve yalnızca ortak gözlemleri korur. Ortak gözlemleri içermeyen diğer gözlemleri atar.
+
+```{r}
+
+birlesik_veri <- inner_join(veri1, veri2, by = "Oğrenci")
+
+print(birlesik_veri)
+
+```
+
+Bu kod, sadece sol ve sağ veri çerçevelerinde (**`veri1`** ve **`veri2`**) ortak olan gözlemleri korur.
+
+**`full_join()`** fonksiyonu, sol ve sağ veri çerçeveleri arasında tam birleştirme yapar ve tüm gözlemleri korur. Ortak olmayan değerler NA ile doldurulur.
+
+```{r}
+
+birlesik_veri <- full_join(veri1, veri2, by = "Oğrenci")
+
+print(birlesik_veri)
+
+```
+
+Bu kod, sol ve sağ veri çerçevelerini (**`veri1`** ve **`veri2`**) tamamen birleştirir ve tüm gözlemleri içerir.
+
+::: callout-note
+### Not
+
+Bu dört join fonksiyonu, farklı veri kaynaklarını birleştirme işlemlerinde kullanılır ve veri analizi sürecinde verileri daha kapsamlı bir şekilde incelemek için oldukça kullanışlıdır. Hangi join işleminin kullanılacağı, veri yapısına ve ihtiyaca bağlı olarak değişebilir.
+:::

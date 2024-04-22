@@ -35,6 +35,7 @@ book:
         - apply.qmd
         - import_export.qmd
     - data_manipulation.qmd
+    - data_transformation.qmd
     - data_analysis.qmd
     - ggplot2.qmd
     - data_preprocess.qmd

@@ -1,55 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>https://rprogramlama.netlify.app/basics.html</loc>
-    <lastmod>2024-01-08T07:33:46.353Z</lastmod>
-  </url>
-  <url>
-    <loc>https://rprogramlama.netlify.app/data_analysis.html</loc>
-    <lastmod>2024-01-05T20:23:35.143Z</lastmod>
-  </url>
-  <url>
-    <loc>https://rprogramlama.netlify.app/ggplot2.html</loc>
-    <lastmod>2024-01-26T12:57:29.730Z</lastmod>
-  </url>
-  <url>
-    <loc>https://rprogramlama.netlify.app/data_preprocess.html</loc>
-    <lastmod>2024-03-20T19:50:26.443Z</lastmod>
-  </url>
-  <url>
-    <loc>https://rprogramlama.netlify.app/statistics.html</loc>
-    <lastmod>2024-01-08T07:33:46.556Z</lastmod>
-  </url>
-  <url>
-    <loc>https://rprogramlama.netlify.app/regresyon.html</loc>
-    <lastmod>2024-01-08T07:33:46.540Z</lastmod>
-  </url>
-  <url>
-    <loc>https://rprogramlama.netlify.app/functions.html</loc>
-    <lastmod>2024-03-22T08:52:57.230Z</lastmod>
-  </url>
-  <url>
-    <loc>https://rprogramlama.netlify.app/if_else_for.html</loc>
-    <lastmod>2024-03-21T10:12:57.310Z</lastmod>
-  </url>
-  <url>
-    <loc>https://rprogramlama.netlify.app/strings.html</loc>
-    <lastmod>2024-03-20T20:25:31.908Z</lastmod>
-  </url>
-  <url>
-    <loc>https://rprogramlama.netlify.app/import_export.html</loc>
-    <lastmod>2024-03-21T10:12:57.310Z</lastmod>
-  </url>
-  <url>
-    <loc>https://rprogramlama.netlify.app/apply.html</loc>
-    <lastmod>2024-03-25T11:26:20.462Z</lastmod>
-  </url>
-  <url>
-    <loc>https://rprogramlama.netlify.app/date_time.html</loc>
-    <lastmod>2024-01-08T07:33:46.478Z</lastmod>
-  </url>
-  <url>
-    <loc>https://rprogramlama.netlify.app/data_types.html</loc>
-    <lastmod>2024-03-21T10:21:59.498Z</lastmod>
+    <loc>https://rprogramlama.netlify.app/data_transformation.html</loc>
+    <lastmod>2024-04-19T11:21:17.274Z</lastmod>
   </url>
 </urlset>

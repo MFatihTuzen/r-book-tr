@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.4.538">
+<meta name="generator" content="quarto-1.4.551">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -65,7 +65,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
 <link href="./ggplot2.html" rel="next">
-<link href="./data_manipulation.html" rel="prev">
+<link href="./data_transformation.html" rel="prev">
 <script src="site_libs/quarto-html/quarto.js"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
@@ -104,7 +104,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   }
 }</script>
 <script src="site_libs/kePrint-0.0.1/kePrint.js"></script>
+
 <link href="site_libs/lightable-0.0.1/lightable.css" rel="stylesheet">
+
 
 
 <link rel="stylesheet" href="styles.css">
@@ -220,6 +222,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <div class="sidebar-item-container"> 
   <a href="./data_manipulation.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Veri Manipulasyonu</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./data_transformation.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Veri Dönüştürme</span></a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -883,32 +891,32 @@ manufacturer      1999      2008
 <span id="cb95-2"><a href="#cb95-2" aria-hidden="true" tabindex="-1"></a>ts <span class="ot">&lt;-</span> <span class="fu">ts</span>(<span class="fu">rnorm</span>(<span class="fu">length</span>(AirPassengers),<span class="dv">250</span>,<span class="dv">100</span>),<span class="at">start =</span> <span class="fu">c</span>(<span class="dv">1949</span>,<span class="dv">1</span>),<span class="at">frequency=</span><span class="dv">12</span>)</span>
 <span id="cb95-3"><a href="#cb95-3" aria-hidden="true" tabindex="-1"></a>ts</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>            Jan        Feb        Mar        Apr        May        Jun
-1949  91.520700 252.499799 266.971868 206.584771 124.326453 400.828356
-1950 260.064457 184.801724 325.554731 332.581433 360.910579 202.431493
-1951 421.175967 273.521697 108.710990 214.530854 225.766043 118.976556
-1952 160.271228 318.563902 302.554963 191.659748 342.446609 268.606315
-1953 371.793929 287.405619 263.038541 329.669592 376.813183 279.946212
-1954 301.894074 161.049754 194.376398 213.970898 179.362166 356.735927
-1955 230.239821 -49.358533 403.342802 239.555407 155.630740 187.125378
-1956 248.966925 304.774630 418.200498 132.387248 252.009769 218.964328
-1957 223.275575 300.482100 384.223128 206.250463  92.231953 374.502585
-1958 315.108077 313.803153 112.793012 380.572728 366.071538 201.348952
-1959   9.903135 404.564545 397.004719 422.989953 328.220901 173.173095
-1960 185.168846  39.509138 124.598326 285.455026 175.243508 305.393804
-            Jul        Aug        Sep        Oct        Nov        Dec
-1949 107.337043 178.264259 196.684673 381.119607 352.720716 260.968305
-1950 252.675755 288.098526 317.325484 172.924492 102.982059 389.624435
-1951 188.340575 279.403184  91.614466 147.355071 215.816739  85.516853
-1952 227.120265 273.669055  84.814669 355.856794 220.192591 210.136016
-1953 293.692022 199.317956 247.638852 282.607789 199.508987  72.677552
-1954 150.675007 399.929419 360.042060 323.316194 436.085311 249.708535
-1955 122.590017  91.724780 248.801170 350.729680 141.985530 338.541343
-1956 210.189962 345.237193 201.428836 255.687979  95.571710 294.859016
-1957 227.712944 196.780979 233.901036 408.836445 100.605700 426.890289
-1958 237.088360 346.461757 276.697761 336.885356  98.857646 125.675913
-1959 187.606975 333.727436 181.187581 277.342145 216.225251 334.054170
-1960 193.984363 298.170953 266.145389 184.560959 237.917333 266.504090</code></pre>
+<pre><code>           Jan       Feb       Mar       Apr       May       Jun       Jul
+1949 235.79454 255.64097 239.79220 321.44567 188.65374 358.91105 100.09674
+1950 194.56909 351.46839 295.00832 271.73784 153.31058 196.99851 283.65082
+1951 356.61745 220.61937 272.55469 143.84427  63.70905 222.72959 209.25775
+1952 328.38358 170.76108 198.73592 246.86161 428.85731 418.77920 106.37902
+1953 308.44974 348.18866 279.36754 294.49429 192.92973 291.99418 236.24330
+1954 300.57676 360.87147 349.05059 189.93448 163.85856 232.07069 328.19260
+1955 307.92753 241.93204 166.56039 193.93632 168.04325 312.16077 288.21576
+1956 277.90217 354.23135 341.50200 226.32423 193.68040 271.21759 400.69903
+1957 192.91340 241.14675 254.47277 172.12442 274.23350 328.47430 316.92212
+1958 108.90706  61.75883 306.68939 245.82517 337.37362 390.70920 272.95837
+1959 134.41835  75.96002 296.70158 304.74356 322.29514 337.79907 151.49633
+1960 378.24426 171.33451 232.73744 406.52888 412.25448 138.89876 198.57474
+           Aug       Sep       Oct       Nov       Dec
+1949  49.57118 214.84816 259.89095 231.43592 257.87476
+1950 224.75656 175.63048 274.63632 149.45956 233.24095
+1951 250.05321 189.67358 253.35254 337.03481 337.73139
+1952 300.45527 112.84881 214.40693 326.72291 330.62101
+1953 408.76223 160.40620 289.87825 131.76560 263.88052
+1954 319.52583 231.30761 234.09182 337.97111 323.50488
+1955 392.35654 352.83925 119.09658  18.11675 376.99943
+1956 235.48040 191.45148 258.18907 235.08040 339.28695
+1957 273.35122 311.17775 212.55206 373.19474 185.71919
+1958 204.44427 193.66301 378.51120 124.97711 223.48093
+1959 280.87286 383.09666 121.00422 211.54960  78.09684
+1960 273.74516 197.17288 166.38085 319.47722 232.30949</code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb97"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb97-1"><a href="#cb97-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(AirPassengers,<span class="at">type =</span> <span class="st">"l"</span>,<span class="at">col =</span> <span class="st">"red"</span>)</span>
 <span id="cb97-2"><a href="#cb97-2" aria-hidden="true" tabindex="-1"></a><span class="fu">lines</span>(ts, <span class="at">type =</span> <span class="st">"l"</span>, <span class="at">col =</span> <span class="st">"blue"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -976,6 +984,7 @@ manufacturer      1999      2008
 <span id="cb101-5"><a href="#cb101-5" aria-hidden="true" tabindex="-1"></a><span class="co"># kategorik verilere hızlı bir bakış</span></span>
 <span id="cb101-6"><a href="#cb101-6" aria-hidden="true" tabindex="-1"></a><span class="fu">datasummary_skim</span>(mpg, <span class="st">"categorical"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
+<div>
 <table class="table table-sm table-striped small" data-quarto-postprocess="true">
 <thead>
 <tr class="header">
@@ -1459,9 +1468,11 @@ manufacturer      1999      2008
 
 
 </div>
+</div>
 <div class="sourceCode cell-code" id="cb102"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb102-1"><a href="#cb102-1" aria-hidden="true" tabindex="-1"></a><span class="co"># nümerik verilere hızlı bir bakış</span></span>
 <span id="cb102-2"><a href="#cb102-2" aria-hidden="true" tabindex="-1"></a><span class="fu">datasummary_skim</span>(mpg, <span class="st">"numeric"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
+<div>
 <table class="table table-sm table-striped small" data-quarto-postprocess="true">
 <colgroup>
 <col style="width: 11%">
@@ -1622,6 +1633,7 @@ manufacturer      1999      2008
 </table>
 
 
+</div>
 </div>
 </div>
 
@@ -1852,6 +1864,24 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     // clear code selection
     e.clearSelection();
   });
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+    var mailtoRegex = new RegExp(/^mailto:/);
+      var filterRegex = new RegExp("https:\/\/rprogramlama\.netlify\.app\/");
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+        // undo the damage that might have been done by quarto-nav.js in the case of
+        // links that we want to consider external
+        if (link.dataset.originalHref !== undefined) {
+          link.href = link.dataset.originalHref;
+        }
+      }
+    }
   function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
     const config = {
       allowHTML: true,
@@ -1886,7 +1916,11 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       try { href = new URL(href).hash; } catch {}
       const id = href.replace(/^#\/?/, "");
       const note = window.document.getElementById(id);
-      return note.innerHTML;
+      if (note) {
+        return note.innerHTML;
+      } else {
+        return "";
+      }
     });
   }
   const xrefs = window.document.querySelectorAll('a.quarto-xref');
@@ -1934,7 +1968,12 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       if (window.Quarto?.typesetMath) {
         window.Quarto.typesetMath(note);
       }
-      return note.innerHTML;
+      // TODO in 1.5, we should make sure this works without a callout special case
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
+      }
     }
   }
   for (var i=0; i<xrefs.length; i++) {
@@ -2157,8 +2196,8 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="./data_manipulation.html" class="pagination-link  aria-label=" veri="" manipulasyonu"="">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Veri Manipulasyonu</span>
+      <a href="./data_transformation.html" class="pagination-link" aria-label="Veri Dönüştürme">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Veri Dönüştürme</span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">

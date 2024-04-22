@@ -1,6 +1,6 @@
 # Veri Manipulasyonu {#part-manipulation .unnumbered}
 
-![](images/dplyr2.jpg){fig-align="center" width="495"}
+![](images/dplyr.png){fig-align="center"}
 
 Veri manipülasyonu, veri çerçeveleri üzerinde verileri dönüştürmek, filtrelemek, birleştirmek veya yeniden düzenlemek gibi işlemleri içeren önemli bir veri bilimi becerisidir. R programlama dili, veri manipülasyonu için oldukça güçlü ve esnek bir araç sunar. Bu yazıda, R kullanarak veri manipülasyonunu nasıl yapabileceğinizi öğreneceğiz.
 
@@ -48,7 +48,7 @@ glimpse(counties)
 
 ```
 
-## select
+## Değişken Seçme - `select`
 
 Tabloyu (veri çerçevesi) seçmek ve dönüştürmek için R'da **`dplyr`** paketinde bulunan **`select()`** fonksiyonu oldukça kullanışlıdır. Bu fonksiyon, belirli sütunları seçmek veya sütun adlarını değiştirmek için kullanılır. **`select()`** fonksiyonunu kullanarak veri çerçevesinde sütunları seçme ve dönüştürme işlemlerinin nasıl yapıldığına dair aşağıda örnekler mevcuttur.
 
@@ -93,7 +93,7 @@ counties %>%
 select(census_id,pop = population)
 ```
 
-## arrange
+## Veri Sıralama - `arrange`
 
 **`dplyr`** paketinde bulunan **`arrange()`** fonksiyonu, veri çerçevesindeki satırları belirli bir sıraya göre düzenlemek için kullanılır. Bu sıralama işlemi, bir veya daha fazla sütunun değerlerine göre yapılabilir. **`arrange()`** fonksiyonu, veri analizi ve veri keşfi sırasında verilerinizi anlamak ve analiz etmek için önemli bir araçtır.
 
@@ -117,7 +117,7 @@ arrange(state,desc(population))
 
 ```
 
-## filter
+## Veri Filtreleme - `filter`
 
 **`dplyr`** paketindeki **`filter()`** fonksiyonu, veri çerçevesinde belirli bir koşulu karşılayan satırları seçmek için kullanılır. Bu fonksiyon, veri analizi sırasında verilerinizi filtrelemek ve istediğiniz verileri elde etmek için oldukça kullanışlıdır. **`filter()`** fonksiyonu, veri çerçevesindeki satırları seçerken belirli sütunlardaki değerlere dayalı koşulları uygulamanıza olanak tanır.
 
@@ -145,7 +145,7 @@ filter(state == "New York"| unemployment < 6)
 
 ```
 
-## mutate
+## Değişken Güncelleme ve Oluşturma- `mutate`
 
 **`dplyr`** paketindeki **`mutate()`** fonksiyonu, bir veri çerçevesinde yeni sütunlar oluşturmak veya mevcut sütunları dönüştürmek için kullanılır. Bu fonksiyon, veri çerçevesindeki herhangi bir sütunu işleyerek yeni bilgiler eklemenize veya mevcut sütunları değiştirmenize olanak tanır. **`mutate()`** fonksiyonu, veri analizi sırasında verilerinizi özelleştirmek için oldukça kullanışlıdır.
 
@@ -210,7 +210,49 @@ counties_selected %>%
 -   **`transmute()`**, yeni sütunlar oluştururken orijinal veri çerçevesini değiştirmez. Ancak, **`transmute()`** fonksiyonu yalnızca belirtilen sütunları ve yeni sütunları içeren bir veri çerçevesi döndürür. Diğer orijinal sütunlar bu yeni veri çerçevesinde yer almaz. Bu, veri çerçevesini daha küçük ve özgünleştirilmiş bir hale getirir.
 :::
 
-## rename
+### Koşullu Değişken Oluşturma - `case_when`
+
+**`case_when()`** fonksiyonu, R programlama dilinde **`dplyr`** paketi içinde bulunan ve çoklu koşullara dayalı olarak yeni bir sütun oluşturmak veya mevcut bir sütunu dönüştürmek için kullanılan bir fonksiyondur. Bu fonksiyon, özellikle veri çerçevelerinde veya veri tablolarında, belirli koşullara dayalı olarak işlem yapmanız gerektiğinde oldukça kullanışlıdır. **`case_when()`** fonksiyonu, birden fazla koşulu kontrol ederek her bir koşula uygun bir değer veya işlem döndürmenizi sağlar. **`case_when()`** fonksiyonu, bir veya daha fazla koşul ifadesi ve bu koşullara karşılık gelecek değerler içeren çiftlerin bir listesini alır. Bu çiftler, **`~`** operatörü ile ayrılır.
+
+```{r}
+
+# Örnek bir veri çerçevesi oluşturalım
+veri <- data.frame(
+  Ogrenci_Ad = c("Ali", "Esra", "Erkan", "Derya"),
+  Puan = c(90, 75, 60, 80)
+)
+
+# Yeni bir sütun oluşturma: Puan kategorisi
+veri <- veri %>%
+  mutate(Puan_Kategorisi = case_when(
+    Puan >= 90 ~ "AA",
+    Puan >= 80 ~ "BA",
+    Puan >= 70 ~ "BB",
+    Puan >= 60 ~ "CB",
+    TRUE ~ "FF"  # Tüm diğer durumlar için
+  ))
+
+print(veri)
+
+```
+
+**`case_when()`** fonksiyonunu birden fazla koşul ile kullanabilirsiniz. Koşullar yukarıdan aşağıya sırayla kontrol edilir ve ilk koşulu sağlayan değer kullanılır.
+
+```{r}
+
+veri <- veri %>%
+  mutate(Not_Durumu = case_when(
+    Puan >= 90 ~ "Geçti",
+    Puan >= 60 & Puan < 70 ~ "Şartlı Geçti",
+    Puan < 60 ~ "Kaldı",
+    TRUE ~ "Bilinmiyor"  # Tüm diğer durumlar için
+  ))
+
+veri
+
+```
+
+## Değişken İsimlendirme - `rename`
 
 **`rename()`** fonksiyonu, R programlama dilinde veri çerçevesi içindeki sütunların adlarını değiştirmek için kullanılır. Veri çerçevesi sütunlarının daha açıklayıcı veya kullanıcı dostu adlara sahip olmasını sağlar. Bu, veri analizi ve raporlama süreçlerini daha anlaşılır ve düzenli hale getirmenize yardımcı olabilir.
 
@@ -232,7 +274,7 @@ select(state, county, population, unemployment_rate = unemployment)
 **`rename`** fonksiyonunda eşitliğin sol tarafına yeni isim, sağ tarafına ise önceki isim yazılır.
 :::
 
-## count
+## Verileri Sayma - `count`
 
 **`count()`** fonksiyonu, R programlama dilindeki **`dplyr`** paketinde bulunan ve belirli bir sütuna göre veri çerçevesindeki gözlemlerin sayısını hesaplamak için kullanılan bir fonksiyondur. Bu fonksiyon, veri çerçevesindeki belirli bir kategorik değişkenin benzersiz değerlerini ve her bir değer için kaç gözlemin olduğunu hesaplamak için oldukça kullanışlıdır.
 
@@ -258,7 +300,7 @@ count(state, wt = population, sort = TRUE)
 
 ```
 
-## group_by ve summarize
+## Veri Özetleme - `summarize`
 
 **`group_by()`** ve **`summarize()`** fonksiyonları, R programlama dilinde veri çerçevesi üzerinde gruplama ve özetleme işlemleri yapmak için kullanılan önemli **`dplyr`** fonksiyonlarıdır. Bu fonksiyonlar, veri analizi sürecinde verilerinizi daha iyi anlamak ve özetlemek için oldukça güçlü araçlardır.
 
@@ -366,194 +408,4 @@ Aynı veri setinde farklı sonuçlar elde edildiğine dikkat edelim. Eğer **`gr
 ## Not
 
 **`group_by`** sadece `summarize` fonksiyonu ile değil `mutate`, `transmute` gibi diğer fonksiyonlar ile birlikte de kullanılabilir.
-:::
-
-## case when
-
-**`case_when()`** fonksiyonu, R programlama dilinde **`dplyr`** paketi içinde bulunan ve çoklu koşullara dayalı olarak yeni bir sütun oluşturmak veya mevcut bir sütunu dönüştürmek için kullanılan bir fonksiyondur. Bu fonksiyon, özellikle veri çerçevelerinde veya veri tablolarında, belirli koşullara dayalı olarak işlem yapmanız gerektiğinde oldukça kullanışlıdır. **`case_when()`** fonksiyonu, birden fazla koşulu kontrol ederek her bir koşula uygun bir değer veya işlem döndürmenizi sağlar. **`case_when()`** fonksiyonu, bir veya daha fazla koşul ifadesi ve bu koşullara karşılık gelecek değerler içeren çiftlerin bir listesini alır. Bu çiftler, **`~`** operatörü ile ayrılır.
-
-```{r}
-
-# Örnek bir veri çerçevesi oluşturalım
-veri <- data.frame(
-  Ogrenci_Ad = c("Ali", "Esra", "Erkan", "Derya"),
-  Puan = c(90, 75, 60, 80)
-)
-
-# Yeni bir sütun oluşturma: Puan kategorisi
-veri <- veri %>%
-  mutate(Puan_Kategorisi = case_when(
-    Puan >= 90 ~ "AA",
-    Puan >= 80 ~ "BA",
-    Puan >= 70 ~ "BB",
-    Puan >= 60 ~ "CB",
-    TRUE ~ "FF"  # Tüm diğer durumlar için
-  ))
-
-print(veri)
-
-```
-
-**`case_when()`** fonksiyonunu birden fazla koşul ile kullanabilirsiniz. Koşullar yukarıdan aşağıya sırayla kontrol edilir ve ilk koşulu sağlayan değer kullanılır.
-
-```{r}
-
-veri <- veri %>%
-  mutate(Not_Durumu = case_when(
-    Puan >= 90 ~ "Geçti",
-    Puan >= 60 & Puan < 70 ~ "Şartlı Geçti",
-    Puan < 60 ~ "Kaldı",
-    TRUE ~ "Bilinmiyor"  # Tüm diğer durumlar için
-  ))
-
-veri
-```
-
-## reshaping
-
-![](images/reshape.jpg){fig-align="center"}
-
-R programlama dilinde **`tidyr`** paketinin içinde bulunan **`gather()`**, **`spread()`**, **`unite()`**, ve **`separate()`** gibi fonksiyonlar, veri manipülasyonu ve veri dönüşümü işlemlerinde kullanılır. Bu fonksiyonlar, veri çerçevesi içindeki verileri yeniden düzenlemek, sütunları birleştirmek veya bölmek, veriyi daha uygun bir yapıya getirmek için kullanılır.
-
-**`gather()`** fonksiyonu, geniş formatlı (wide format) veriyi uzun formatlı (long format) bir yapıya dönüştürmek için kullanılır. Genellikle sütun adlarını bir "anahtar" sütununda toplamak için kullanılır.
-
-```{r}
-
-library(tidyr)
-
-veri <- data.frame(
-  isim = c("Ali", "Esra"),
-  Matematik = c(90, 85),
-  Fizik = c(88, 76)
-)
-
-uzun_format_veri <- gather(veri, Ders, Not, -isim)
-
-print(uzun_format_veri)
-
-```
-
-Bu kod, **`Matematik`** ve **`Fizik`** sütunlarını toplar ve bir "Ders" sütunu oluşturur.
-
-**`spread()`** fonksiyonu, uzun formatlı veriyi geniş formatlı bir yapıya dönüştürmek için kullanılır. Genellikle "anahtar" sütunu içindeki değerleri sütun adları olarak kullanmak için kullanılır.
-
-```{r}
-
-genis_format_veri <- spread(uzun_format_veri, Ders, Not)
-
-print(genis_format_veri)
-
-```
-
-Bu kod, "Ders" sütunundaki değerleri sütun adlarına dönüştürür.
-
-**`unite()`** fonksiyonu, iki veya daha fazla sütunu birleştirerek yeni bir sütun oluşturmak için kullanılır.
-
-```{r}
-
-veri <- data.frame(
-  Ad = c("Ali", "Esra"),
-  Soyad = c("Yılmaz", "Mutlu")
-)
-
-veri <- unite(veri, AdSoyad, Ad, Soyad, sep = " ")
-
-print(veri)
-
-```
-
-Bu kod, "Ad" ve "Soyad" sütunlarını birleştirerek "AdSoyad" sütununu oluşturur.
-
-**`separate()`** fonksiyonu, bir sütunu belirli bir ayırıcı karakterle bölmek için kullanılır. Bölen değerleri yeni sütunlarda saklar.
-
-```{r}
-
-veri <- data.frame(
-  AdSoyad = c("Ali Yılmaz", "Esra Mutlu")
-)
-
-veri <- separate(veri, AdSoyad, c("Ad", "Soyad"), sep = " ")
-
-print(veri)
-
-```
-
-Bu kod, "AdSoyad" sütununu boşluk karakterine göre böler ve "Ad" ve "Soyad" sütunlarını oluşturur.
-
-::: callout-tip
-### Tavsiye
-
-Bu fonksiyonlar, veri çerçevesi içindeki verileri dönüştürmek ve düzenlemek için oldukça kullanışlıdır. Veri analizi sürecinde veri çerçevesini istediğiniz formata getirmek ve veriyi daha iyi anlamak için bu fonksiyonları kullanabilirsiniz. Daha ileri seviyede kullanmak için fonksiyonların argümanlarının nasıl kullanıldığını help kısmından ya da internetten araştırmanızı tavsiye ederim.
-
-Ayrıca **`gather`** ve **`spread`** fonksiyonları yerine bunların daha kullanışlı bir karşılığı olan **`pivot_longer`** ve **`pivot_wider`** fonksiyonlarını da tercih edebilirsiniz. Bu konudaki örnekleri incelemenizi tavisye ederim. Belki bunları daha çok sevebilirsiniz.
-:::
-
-## join
-
-![](images/join.jpg){fig-align="center"}
-
-R programlama dilinde **`dplyr`** paketinde bulunan **`left_join()`**, **`right_join()`**, **`inner_join()`**, ve **`full_join()`** gibi fonksiyonlar, veri çerçeveleri veya veri tabloları arasında birleştirme (join) işlemleri yapmak için kullanılır. Bu fonksiyonlar, farklı veri kaynaklarını birleştirmenizi veya ilişkilendirmenizi sağlar.
-
-**`left_join()`** fonksiyonu, sol veri çerçevesi ile sağ veri çerçevesi arasında birleştirme işlemi yapar ve sol veri çerçevesindeki tüm gözlemleri korur. Eğer sağ veri çerçevesinde eşleşen gözlem yoksa, NA değerleri ile doldurulur.
-
-```{r}
-
-veri1 <- data.frame(
-  Oğrenci = c("Ali", "Esra", "Osman"),
-  Puan1 = c(90, 85, 78)
-)
-
-veri2 <- data.frame(
-  Oğrenci = c("Ali", "Derya", "Merve"),
-  Puan2 = c(88, 92, 85)
-)
-
-birlesik_veri <- left_join(veri1, veri2, by = "Oğrenci")
-
-print(birlesik_veri)
-
-```
-
-Bu kod, "Öğrenci" sütununa göre iki veri çerçevesini birleştirir. Sol veri çerçevesi (**`veri1`**) tüm gözlemleri içerir ve sağ veri çerçevesinde (**`veri2`**) eşleşen değerler varsa birleştirir.
-
-**`right_join()`** fonksiyonu, **`left_join()`** ile benzerdir, ancak sağ veri çerçevesindeki tüm gözlemleri korur. Eğer sol veri çerçevesinde eşleşen gözlem yoksa, NA değerleri ile doldurulur.
-
-```{r}
-
-birlesik_veri <- right_join(veri1, veri2, by = "Oğrenci")
-
-print(birlesik_veri)
-
-```
-
-Bu kod, sağ veri çerçevesi (**`veri2`**) tüm gözlemleri içerir ve sol veri çerçevesinde (**`veri1`**) eşleşen değerler varsa birleştirir.
-
-**`inner_join()`** fonksiyonu, sol ve sağ veri çerçeveleri arasında iç birleştirme yapar ve yalnızca ortak gözlemleri korur. Ortak gözlemleri içermeyen diğer gözlemleri atar.
-
-```{r}
-
-birlesik_veri <- inner_join(veri1, veri2, by = "Oğrenci")
-
-print(birlesik_veri)
-
-```
-
-Bu kod, sadece sol ve sağ veri çerçevelerinde (**`veri1`** ve **`veri2`**) ortak olan gözlemleri korur.
-
-**`full_join()`** fonksiyonu, sol ve sağ veri çerçeveleri arasında tam birleştirme yapar ve tüm gözlemleri korur. Ortak olmayan değerler NA ile doldurulur.
-
-```{r}
-
-birlesik_veri <- full_join(veri1, veri2, by = "Oğrenci")
-
-print(birlesik_veri)
-
-```
-
-Bu kod, sol ve sağ veri çerçevelerini (**`veri1`** ve **`veri2`**) tamamen birleştirir ve tüm gözlemleri içerir.
-
-::: callout-note
-### Not
-
-Bu dört join fonksiyonu, farklı veri kaynaklarını birleştirme işlemlerinde kullanılır ve veri analizi sürecinde verileri daha kapsamlı bir şekilde incelemek için oldukça kullanışlıdır. Hangi join işleminin kullanılacağı, veri yapısına ve ihtiyaca bağlı olarak değişebilir.
 :::
