@@ -317,9 +317,7 @@ which.min(vektor)
 
 ```{r}
 
-veri <- 1:10
-
-mean(veri) # NA varsa sonuç NA döner
+(veri <- 1:10)
 mean(veri, na.rm = TRUE) # aritmetik ortalama
 median(veri) # medyan (ortanca)
 sum(veri,na.rm = TRUE) # vektör toplamını verir
@@ -545,12 +543,12 @@ na.omit(data) # NA olan satırları siler.
 
 ```
 
-### tibble
+::: callout-tip
+## Not
 
 **`tibble`**, Hadley Wickham tarafından geliştirilen ve **`dplyr`** paketi ile sıkça kullanılan bir veri yapısıdır. **`tibble`**, **`data.frame`**'e benzerdir, ancak bazı önemli farklar vardır. **`tibble`**, daha düzenli ve okunabilir bir çıktı üretir ve bazı varsayılan davranışları **`data.frame`**'den farklıdır. Modern data.frame olarak tanımlanmaktadır.
 
 ```{r}
-
 # tibble örneği
 library(tibble)
 
@@ -568,9 +566,6 @@ print(ogrenciler_tibble)
 ```
 
 Yukarıdaki örnekte, "ogrenciler_tibble" adında bir **`tibble`** oluşturuldu. **`tibble`**, sütun adlarını ve içeriği daha okunabilir bir şekilde görüntüler ve sütunların başlık ve veri tipi (**`~Ad`**, **`~Yas`**, **`~Cinsiyet`**) gibi özelliklerini korur.
-
-::: callout-note
-### Not
 
 Hem **`dataframe`** hem de **`tibble`** veri analizi ve işleme işlemlerinde kullanışlıdır. Hangi veri yapısını kullanacağınız, projenizin gereksinimlerine ve kişisel tercihinize bağlıdır. Özellikle veri analizi için **`dplyr`** gibi paketlerle çalışırken **`tibble`** tercih edilir.
 :::
@@ -626,13 +621,5 @@ print(order_df2)
 # ordered=TRUE ile seviyelerin sıralı olduğu ifade edilir
 order_df2 <- factor(factor_df2,levels = c("yüksek","orta","düşük"),ordered = TRUE)
 print(order_df2)
-
-# Faktör seviyesi üretme
-
-# gl() fonksiyonunu kullanarak faktör seviyeleri üretebiliriz. 
-# Girdi olarak kaç seviye ve her seviyeden kaç tane sayı oalcağı belirtilir.
-
-faktor <- gl(n=3, k=4, labels = c("level1", "level2","level3"),ordered = TRUE)
-print(faktor)
 
 ```
