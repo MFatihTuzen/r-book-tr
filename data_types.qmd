@@ -126,9 +126,9 @@ v3 / v4
 
 ```
 
-#### Vektörler İle Kullanılabilecek Bazı Temel Fonksiyonlar
+Aşağıda vektörler ile birlikte sıklıkla kulanılan bazı fonksiyonlara yer verilmiştir.
 
-**seq()**
+#### **seq**
 
 **`seq()`** fonksiyonu, ardışık sayı dizileri oluşturmak için kullanılır. Bu fonksiyon, başlangıç ve bitiş değerlerinin yanı sıra belirli bir artış veya azalış miktarını belirterek ardışık bir dizi oluşturmanızı sağlar.
 
@@ -148,7 +148,7 @@ seq(5,1,-1) # 5 ile baslayıp 1'e kadar 1'er azaltarak vektor olusturma
 
 ```
 
-**rep()**
+#### **rep**
 
 **`rep()`** fonksiyonu, R programlama dilinde tekrarlanan öğelerden oluşan vektörler oluşturmak için kullanılır. Bu fonksiyon, belirli bir öğenin veya öğelerin tekrarlanarak bir vektör oluşturulmasına izin verir.
 
@@ -163,86 +163,80 @@ seq(5,1,-1) # 5 ile baslayıp 1'e kadar 1'er azaltarak vektor olusturma
 -   **`length.out:`** çıktının istenen uzunluğu
 
 ```{r}
+# 8 tane 10 değeri olan vektör
+rep(10,times = 8) 
 
-rep(10,times = 8) # 8 tane 10 değeri olan vektör
-rep(c(1,2,3), times = 4) # 1,2,3 vektörünün 4 defa tekrarlanması
-rep(c(1,2,3), each = 4) # each argünmanı ile sıralı ve tekrarlı vektör
-rep(1:4, each = 2, length.out = 4) # sadece ilk 4 elemanı verir
+# 1,2,3 vektörünün 4 defa tekrarlanması
+rep(c(1,2,3), times = 4) 
 
-```
+# each argünmanı ile sıralı ve tekrarlı vektör
+rep(c(1,2,3), each = 4)
 
-**rev()**
-
-**`rev()`** fonksiyonu, bir vektörün elemanlarını tersine çevirerek yeni bir vektör oluşturur. Bu fonksiyon, vektörün sıralamasını tam tersine çevirir ve baştan sona sıralanan elemanları sondan başa doğru sıralar.
-
-```{r}
-
-v5 <- c(3,5,6,1,NA,12,NA,8,9) # R'da NA boş gözlemi ifade eder.
-rev(v5) # vektörü tersine çevirir
+# sadece ilk 4 elemanı verir
+rep(1:4, each = 2, length.out = 4) 
 
 ```
 
-**rank()**
-
-**`rank()`** fonksiyonu, bir vektörün değerlerini sıralamak için kullanılır ve her bir elemanın sıralamadaki yerini belirler. Bu fonksiyon, vektördeki her bir elemanın sıralamadaki konumunu döndürür.
-
-```{r}
-
-rank(v5) # elemanların sıra numarasını verir
-rank(v5, na.last = TRUE) # NA leri son sıraya atar.
-rank(v5, na.last = FALSE) # NA leri en başa koyar.
-rank(v5, na.last = NA) # NA değerlere yer verilmez
-rank(v5, na.last = "keep") # NA değerler oldukları gibi görünürler.
-
-```
-
-**all()**
+#### **all**
 
 **`all()`** fonksiyonu, R programlama dilinde bir mantıksal vektörün tüm elemanlarının **`TRUE`** olup olmadığını kontrol etmek için kullanılır. Eğer vektörde en az bir **`FALSE`** değer varsa, **`FALSE`** sonucunu verir. Eğer vektördeki tüm elemanlar **`TRUE`** ise, **`TRUE`** döndürür. Bu fonksiyon genellikle koşullu ifadelerde ve vektörlerin doğruluğunu kontrol etmek için kullanılır.
 
 ```{r}
 
-all(v5>5) # vektördeki tüm elemanların şartı sağlayıp sağlamadıkları test edilir.
-all(v5>0) # vektörde NA varsa sonuç NA döner
-all(v5>0, na.rm = TRUE) # NA gözlemler hariç tutularak sonuç üretir.
+# Bir vektör oluşturalım
+sayi_vektoru <- c(10, 20, 30, 40, 50)
+
+# Tüm sayıların 0 ile 60 arasında olup olmadığını kontrol edelim
+all(sayi_vektoru > 0 & sayi_vektoru < 60)
+
+# vektördeki tüm elemanların şartı sağlayıp sağlamadıkları test edelim
+all(sayi_vektoru > 30) 
+
 
 ```
 
-**any()**
+#### **any**
 
 **`any()`** fonksiyonu, R programlama dilinde bir mantıksal vektörün içinde en az bir tane **`TRUE`** değerinin olup olmadığını kontrol etmek için kullanılır. Eğer vektörde en az bir **`TRUE`** değer varsa, **`TRUE`** sonucunu verir. Eğer vektördeki tüm elemanlar **`FALSE`** ise, **`FALSE`** döndürür. Bu fonksiyon genellikle koşullu ifadelerde ve vektörlerin içeriğini kontrol etmek için kullanılır.
 
 ```{r}
 
-any(v5>6) # vektördeki en az bir elemanın şartı sağlayıp sağlamadığı test edilir.
-any(v5==9) 
+# vektördeki en az bir elemanın şartı sağlayıp sağlamadığı test edelim
+any(sayi_vektoru) 
+
+# Vektörde en az bir elemanın 10 olup olmadığını kontrol edelim
+any(sayi_vektoru==10) 
 
 ```
 
-**unique()**
+#### **unique**
 
 **`unique()`** fonksiyonu, R programlama dilinde bir vektördeki benzersiz (tekrar etmeyen) elemanları bulmak için kullanılır. Bu fonksiyon, vektördeki tekrarlanan elemanları kaldırarak yalnızca benzersiz elemanları içeren yeni bir vektör oluşturur. Bu fonksiyon, veri temizleme veya benzersiz değerlerin bulunması gibi durumlarda sıklıkla kullanılır.
 
 ```{r}
 
-v6 <- rep(1:5,3)
-v6
-unique(v6) # tekrarlı gözlemler temizlenir
+# Tekrarlı gözlmeleri olan bir vektör oluşturalım
+vektor <- rep(1:5,3)
+vektor
+unique(vektor) # tekrarlı gözlemler temizlenir
 
 ```
 
-**duplicated()**
+#### **duplicated**
 
 **`duplicated()`** fonksiyonu, bir vektördeki tekrarlanan değerleri tespit etmek için kullanılır. Bu fonksiyon, bir vektördeki her bir elemanın önceki elemanlar arasında daha önce görülüp görülmediğini kontrol eder ve tekrar eden değerleri belirler. Bu fonksiyon, veri temizleme veya tekrarlanan değerlerin tespit edilmesi gereken durumlarda kullanışlıdır.
 
 ```{r}
 
-duplicated(v6) # tekrarlı gözlemlerin varlığını kontrol eder
-v6[duplicated(v6)] # tekrarlı gözlemleri listeler
+# tekrarlı gözlemlerin varlığını kontrol eder
+duplicated(vektor) 
+
+# tekrarlı gözlemleri listeler
+vektor[duplicated(vektor)]
 
 ```
 
-**sort()**
+#### **sort**
 
 **`sort()`** fonksiyonu, vektörleri sıralamak için kullanılır. Bu fonksiyon, sayısal veya karakter vektörlerin elemanlarını artan veya azalan sıraya göre sıralar.
 
@@ -259,71 +253,83 @@ Burada:
 
 ```{r}
 
-sort(v5) # küçükten büyüğe sıralama yapar.
-sort(v5,decreasing = TRUE) # azalan sırada sıralama yapar.
+# Bir sayısal vektör oluşturalım
+vektor <- c(5, 2, 8, 1, 4)
 
+# küçükten büyüğe yani artan sıralama yapar.
+sort(vektor)
+
+# büyükten küçüğe yani azalan sıralama yapar.
+sort(vektor,decreasing = TRUE) 
+
+# Bir karakter vektörü oluşturalım
+karakter_vektor <- c("elma", "armut", "muz", "kavun")
+
+# karakter tipinideki vektörler alfabetik sıraya göre sıralanır
+sort(karakter_vektor)
+sort(karakter_vektor,decreasing = TRUE) 
 ```
 
-**diff()**
-
-**`diff()`** fonksiyonu, R programlama dilinde bir vektördeki ardışık elemanlar arasındaki farkları hesaplamak için kullanılır. Bu fonksiyon, ardışık elemanların birbirleri arasındaki farkları içeren yeni bir vektör döndürür.
-
-**`diff()`** fonksiyonunun genel kullanımı şu şekildedir:
-
-```{r}
-#| eval: false
-diff(x, lag = 1)
-```
-
-Burada:
-
--   **`x`**, farklarının hesaplanacağı vektördür.
-
--   **`lag`**, elemanlar arasındaki farkın kaçıncı dereceden olacağını belirten bir sayıdır (varsayılan olarak **`1`**).
-
-```{r}
-v5
-diff(v5,  lag = 1) # vektörde ardışık elemanlar arasındaki farkı bulur.
-diff(na.omit(v5)) # na.omit vektördeki NA gözlemleri temizler
-diff(na.omit(v5), lag = 2 ) # ikinci dereceden fark alma
-```
-
-**is.na()**
+#### **is.na**
 
 **`is.na()`** fonksiyonu, R programlama dilinde bir vektördeki veya veri çerçevesindeki değerlerin **`NA`** (Not Available - Mevcut Değil) olup olmadığını kontrol etmek ve verilerin içinde eksik veya mevcut olmayan değerleri tespit etmek için kullanılır.için kullanılır. Her **`NA`** değeri için ilgili konumda **`TRUE`**, değilse **`FALSE`** döndürür. Veri temizleme ve analiz aşamalarında oldukça faydalıdır.
 
 ```{r}
 
-is.na(v5) # vektördeki elamanların NA olup olmadığını test eder.
-is.nan(v5) # NaN aynı zamanda bir NA'dir.
+# Bir vektör oluşturalım
+vektor <- c(1, 2, NA, 4, NA, 6)
+
+# vektördeki elamanların NA olup olmadığını test eder.
+is.na(vektor)
+
+# NA olmayan değerleri filtreleyelim
+vektor[!is.na(vektor)]
+
+# NA değerlerini bir başka değerle değiştirelim, örneğin 0 ile
+vektor[is.na(vektor)] <- 0
+vektor
 
 ```
 
-**which()**
+#### **which**
 
 **`which()`** fonksiyonu, belirli bir koşulu sağlayan veya belirli bir değere sahip olan elemanların konumlarını bulmak için kullanılır. Bu fonksiyon, bir vektörde veya bir koşulu karşılayan elemanların indislerini döndürür. Filtreleme veya koşullu indeksleme gibi durumlarda oldukça faydalıdır.
 
 ```{r}
 
-which(v5==12) # 6 sayısının posizyonunu gösterir
-which.max(v5) # vektördeki maximum elemanın posizyonunu gösterir
-which.min(v5) # vektördeki minimum elemanın posizyonunu gösterir
-v5[which.min(v5)] # vektördeki minimum elemanı gösterir
+# Bir vektör oluşturalım
+vektor <- c(10, 20, 30, 40, 50)
+
+# 30'dan büyük olan elemanların indekslerini bulalım
+which(vektor > 30)
+vektor[which(vektor > 30)]
+
+# vektördeki maximum elemanın posizyonunu gösterir
+which.max(vektor)
+
+# vektördeki minimum elemanın posizyonunu gösterir
+which.min(vektor) 
+
 
 ```
 
-**Temel İstatistiksel Bazı Fonksiyonlar**
+#### **Temel İstatistiksel Bazı Fonksiyonlar**
 
 ```{r}
 
-mean(v5) # NA varsa sonuç NA döner
-mean(v5, na.rm = TRUE) # aritmetik ortalama
-median(v5,na.rm = TRUE) # medyan (ortanca)
-sum(v5,na.rm = TRUE) # vektör toplamını verir
-min(v5,na.rm = TRUE) # vektörün minimum değeri
-max(v5,na.rm = TRUE) # vektörün maximum değeri
-sd(v5,na.rm = TRUE) # standart sapma
-var(v5,na.rm = TRUE) # varyans
+veri <- 1:10
+
+mean(veri) # NA varsa sonuç NA döner
+mean(veri, na.rm = TRUE) # aritmetik ortalama
+median(veri) # medyan (ortanca)
+sum(veri,na.rm = TRUE) # vektör toplamını verir
+min(veri,na.rm = TRUE) # vektörün minimum değeri
+max(veri,na.rm = TRUE) # vektörün maximum değeri
+sd(veri,na.rm = TRUE) # standart sapma
+var(veri) # varyans
+summary(veri) # Özet istatistikler
+quantile(veri) # Çeyreklikler
+
 
 ```
 
