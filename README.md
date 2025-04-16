@@ -43,3 +43,11 @@ Bu kitabın amacı, R programlama dilini veri analizi süreçlerinizde güvenle 
 -   [R ile Temel İstatistik](https://rprogramlama.netlify.app/statistics)
 
 -   [Doğrusal Regresyon](https://rprogramlama.netlify.app/regresyon)
+
+
+---
+
+## License
+
+Text and visual content of this book is licensed under [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/).  
+R code examples are licensed under the [MIT License](https://opensource.org/licenses/MIT).
