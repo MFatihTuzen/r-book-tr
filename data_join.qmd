@@ -2,77 +2,649 @@
 
 [![https://r4ds.hadley.nz/joins](images/joins.png){fig-align="center"}](https://r4ds.hadley.nz/joins)
 
-R programlama dilinde **`dplyr`** paketinde bulunan **`left_join()`**, **`right_join()`**, **`inner_join()`**, ve **`full_join()`** gibi fonksiyonlar, veri çerçeveleri veya veri tabloları arasında birleştirme (join) işlemleri yapmak için kullanılır. Bu fonksiyonlar, farklı veri kaynaklarını birleştirmenizi veya ilişkilendirmenizi sağlar.
+Veri analizi sürecinde, çoğu zaman birden fazla tabloyu **ortak bir anahtar** üzerinden birleştirmemiz gerekir.\
+Bu işlem, farklı kaynaklardaki bilgileri **tek bir veri yapısında bütünleştirmemizi** sağlar.\
+Örneğin, bir tabloda müşteri bilgileri, diğerinde sipariş bilgileri olabilir; analiz yapmak için bu tabloları birleştirmemiz gerekir.
 
-## `left_join`
+R’da veri birleştirme işlemleri hem **base R fonksiyonları** (`merge()`) hem de **dplyr paketindeki** join fonksiyonları (`left_join()`, `inner_join()`, vb.) ile yapılabilir.\
+Bu bölümde iki yaklaşımı da aynı veri seti üzerinden adım adım göstereceğiz.
 
-**`left_join()`** fonksiyonu, sol veri çerçevesi ile sağ veri çerçevesi arasında birleştirme işlemi yapar ve sol veri çerçevesindeki tüm gözlemleri korur. Eğer sağ veri çerçevesinde eşleşen gözlem yoksa, NA değerleri ile doldurulur.
+::: callout-tip
+**Amaç:**\
+Bu bölümün sonunda, birleştirme türlerini ve hangi durumda hangisinin kullanılacağını öğreneceksiniz.\
+Ayrıca aynı işlemi hem `dplyr` hem de `base R` ile nasıl yapabileceğinizi göreceksiniz.
+:::
 
-```{r message=FALSE}
+------------------------------------------------------------------------
+
+```{r}
+#| label: setup
+#| include: false
+#| message: false
+#| warning: false
+
+knitr::opts_chunk$set(
+  message = FALSE,
+  warning = FALSE,
+  cache = TRUE
+)
+```
+
+## Kullanacağımız Veri Setleri
+
+Bu bölümde `nycflights13` paketindeki veri setlerini kullanacağız. Bu paket, **2013 yılı New York uçuş verilerini** içerir ve ilişkisel yapıdadır. Yani birkaç tablo, ortak anahtarlar aracılığıyla birbirine bağlanabilir.
+
+```{r}
 library(dplyr)
-
-veri1 <- data.frame(
-  Oğrenci = c("Ali", "Esra", "Osman"),
-  Puan1 = c(90, 85, 78)
-)
-
-veri2 <- data.frame(
-  Oğrenci = c("Ali", "Derya", "Merve"),
-  Puan2 = c(88, 92, 85)
-)
-
-birlesik_veri <- left_join(veri1, veri2, by = "Oğrenci")
-
-print(birlesik_veri)
-
+library(nycflights13)
 ```
 
-Bu kod, "Öğrenci" sütununa göre iki veri çerçevesini birleştirir. Sol veri çerçevesi (**`veri1`**) tüm gözlemleri içerir ve sağ veri çerçevesinde (**`veri2`**) eşleşen değerler varsa birleştirir.
-
-## **`right_join`**
-
-**`right_join()`** fonksiyonu, **`left_join()`** ile benzerdir, ancak sağ veri çerçevesindeki tüm gözlemleri korur. Eğer sol veri çerçevesinde eşleşen gözlem yoksa, NA değerleri ile doldurulur.
+| Tablo      | İçerik              | Anahtar Değişken  | Kayıt Sayısı       | Sütun Sayısı       |
+|---------------|---------------|---------------|---------------|---------------|
+| `flights`  | Uçuş detayları      | `carrier`, `dest` | `r nrow(flights)`  | `r ncol(flights)`  |
+| `airlines` | Havayolu adları     | `carrier`         | `r nrow(airlines)` | `r ncol(airlines)` |
+| `airports` | Havaalanı bilgileri | `faa`             | `r nrow(airports)` | `r ncol(airports)` |
 
 ```{r}
-
-birlesik_veri <- right_join(veri1, veri2, by = "Oğrenci")
-
-print(birlesik_veri)
-
+glimpse(flights)
+glimpse(airlines)
+glimpse(airports)
 ```
 
-Bu kod, sağ veri çerçevesi (**`veri2`**) tüm gözlemleri içerir ve sol veri çerçevesinde (**`veri1`**) eşleşen değerler varsa birleştirir.
+## Anahtar Değişken Nedir?
 
-## **`inner_join`**
+Birleştirme işlemlerinde kullanılan sütunlara **anahtar değişken** denir. Bu değişkenler, iki tablo arasında eşleştirmeyi sağlar. Örneğin:
 
-**`inner_join()`** fonksiyonu, sol ve sağ veri çerçeveleri arasında iç birleştirme yapar ve yalnızca ortak gözlemleri korur. Ortak gözlemleri içermeyen diğer gözlemleri atar.
+-   `flights` tablosundaki **`carrier`**, `airlines` tablosundaki **`carrier`** ile eşleştirilir.
 
-```{r}
-
-birlesik_veri <- inner_join(veri1, veri2, by = "Oğrenci")
-
-print(birlesik_veri)
-
-```
-
-Bu kod, sadece sol ve sağ veri çerçevelerinde (**`veri1`** ve **`veri2`**) ortak olan gözlemleri korur.
-
-## **`full_join`**
-
-**`full_join()`** fonksiyonu, sol ve sağ veri çerçeveleri arasında tam birleştirme yapar ve tüm gözlemleri korur. Ortak olmayan değerler NA ile doldurulur.
-
-```{r}
-
-birlesik_veri <- full_join(veri1, veri2, by = "Oğrenci")
-
-print(birlesik_veri)
-
-```
-
-Bu kod, sol ve sağ veri çerçevelerini (**`veri1`** ve **`veri2`**) tamamen birleştirir ve tüm gözlemleri içerir.
+-   `flights` tablosundaki **`dest`**, `airports` tablosundaki **`faa`** ile eşleştirilir.
 
 ::: callout-note
-### Not
+**Anahtar Değişken Özellikleri**
 
-Bu dört join fonksiyonu, farklı veri kaynaklarını birleştirme işlemlerinde kullanılır ve veri analizi sürecinde verileri daha kapsamlı bir şekilde incelemek için oldukça kullanışlıdır. Hangi join işleminin kullanılacağı, veri yapısına ve ihtiyaca bağlı olarak değişebilir.
+-   İki tabloda da aynı bilgiyi temsil eder.
+
+-   Veri tipleri uyumlu olmalıdır (örneğin, her ikisi de karakter olmalı).
+
+-   Tekil veya tekrar eden değerler içerebilir. Tekrarlara göre **ilişki türü (1–1, 1–N, N–M)** belirlenir.
+:::
+
+# Join Kavramı ve Türleri
+
+### Join Nedir?
+
+**Join**, iki veya daha fazla veri tablosunu ortak bir anahtar üzerinden birleştirme işlemidir. Sonuçta, tablolar tek bir veri çerçevesinde birleştirilir. Join türleri, hangi satırların korunacağına veya eleneceğine göre farklılık gösterir.
+
+| Join Türü    | Tanım                                                        | Tutulan Satırlar          |
+|------------------------|------------------------|------------------------|
+| `left_join`  | Soldaki tüm satırları korur, sağdan eşleşenleri getirir      | Tüm sol tablo             |
+| `inner_join` | Her iki tabloda eşleşen satırları getirir                    | Ortak anahtarlar          |
+| `right_join` | Sağdaki tüm satırları korur                                  | Tüm sağ tablo             |
+| `full_join`  | Her iki tablodaki tüm satırları birleştirir                  | Her iki tablo             |
+| `semi_join`  | Sadece sol tablodan, eşleşen satırların alt kümesini getirir | Sol tablo (eşleşenler)    |
+| `anti_join`  | Sol tablodan, eşleşmeyen satırları getirir                   | Sol tablo (eşleşmeyenler) |
+
+### Kardinalite (İlişki Türü)
+
+İki tablo arasındaki ilişki, anahtar değişkenlerin yapısına bağlıdır:
+
+| İlişki Türü      | Tanım                                    | Örnek                       |
+|------------------------|------------------------|------------------------|
+| 1–1 (bire bir)   | Her anahtar her tabloda bir kez geçer    | T.C. kimlik numarası ↔ kişi |
+| 1–N (bire çok)   | Sol tablo tekil, sağ tablo tekrar içerir | Havayolu ↔ Uçuşlar          |
+| N–M (çoktan çok) | Her iki tabloda da tekrarlar vardır      | Öğrenci ↔ Ders              |
+
+Bu durum, birleştirme sonrası satır sayısını doğrudan etkiler. Örneğin 1–N ilişkisinde satır sayısı artabilir.
+
+### R’de Join Yaklaşımları
+
+R dilinde iki temel yaklaşım vardır:
+
+| Yaklaşım  | Fonksiyon                                                                                  | Paket   |
+|------------------------|------------------------|------------------------|
+| Base R    | `merge()`                                                                                  | Temel R |
+| Tidyverse | `left_join()`, `inner_join()`, `right_join()`, `full_join()`, `semi_join()`, `anti_join()` | `dplyr` |
+
+::: callout-note
+`dplyr` fonksiyonları daha **okunabilir**, **tutarlı**, ve **pipe (%\>%)** yapısı ile çalışmaya uygundur.\
+Ancak `merge()` hâlâ birçok eski kodda ve küçük projelerde yaygın biçimde kullanılır.\
+Bu yüzden bu bölümde her iki yöntemi de göreceğiz.
+:::
+
+## Left Join
+
+`left_join()` veya `merge(..., all.x = TRUE)` işlemleri, **soldaki tablodaki tüm satırları** koruyup, sağdaki tablodan yalnızca eşleşen kayıtları ekler. Bu en sık kullanılan birleştirme türüdür; çünkü genellikle “asıl veri setini” korumak isteriz.
+
+**Amaç:** Her uçuşun `carrier` bilgisine karşılık gelen **havayolu adını** ekleyelim. Yani `flights` tablosundaki `carrier` değişkenini, `airlines` tablosundaki `carrier` ile eşleştireceğiz.
+
+**Beklenti**
+
+-   Satır sayısı **flights ile aynı** kalmalı.
+-   Eşleşmeyen `carrier` değerleri varsa `NA` gözükecek.
+-   Sonuçta yeni sütun: `name` (= havayolu adı).
+
+------------------------------------------------------------------------
+
+```{r}
+
+fl_joined <- flights %>%
+  left_join(airlines, by = "carrier")
+
+# Satır sayısı değişti mi?
+tibble(
+  onceki = nrow(flights),
+  sonraki = nrow(fl_joined)
+)
+```
+
+Sonuç değişmedi: `left_join()` soldaki tabloyu (flights) esas alır.
+
+Yeni değişkenleri görelim:
+
+```{r}
+fl_joined %>%
+select(year, month, day, carrier, name) %>%
+distinct(carrier, name) %>%
+arrange(carrier) %>%
+head(10)
+```
+
+::: callout-note
+Burada `name` sütunu `airlines` tablosundan geldi.\
+Eğer iki tabloda aynı isimli başka sütunlar olsaydı, `dplyr` otomatik olarak `.x` ve `.y` sonekleri eklerdi.
+:::
+
+**Base R ile Aynı İşlem**
+
+Base R’de aynı işlem `merge()` ile yapılır. `all.x = TRUE` parametresi, soldan birleştirme anlamına gelir.
+
+```{r}
+fl_joined_base <- merge(
+flights,
+airlines,
+by = "carrier",
+all.x = TRUE
+)
+
+# Satır sayısı kontrolü
+
+c(before = nrow(flights), after = nrow(fl_joined_base))
+
+```
+
+```{r}
+head(fl_joined_base[c("carrier", "name")], 10)
+
+```
+
+| Özellik       | `dplyr::left_join()`              | `base::merge()`                                                     |
+|------------------------|------------------------|------------------------|
+| Sözdizimi     | Daha okunaklı (`by = "carrier"`)  | Uzun, parametre odaklı                                              |
+| Varsayılan    | Sadece belirttiğin `by` üzerinden | Eğer `by` yoksa, ortak isimleri bulup otomatik join yapar (dikkat!) |
+| Sonekler      | `.x` ve `.y`                      | `.x` ve `.y` veya `.1` ve `.2`                                      |
+| Performans    | Genelde daha hızlı                | Büyük veride yavaş olabilir                                         |
+| Okunabilirlik | 👍                                | 🟡                                                                  |
+
+### Küçük Deneme: Eşleşmeyen Anahtar Durumu
+
+Varsayalım `airlines` tablosundan bir satırı çıkaralım ve join yapalım; ne olur?
+
+```{r}
+airlines_miss <- airlines %>% filter(carrier != "UA")
+fl_test <- flights %>% left_join(airlines_miss, by = "carrier")
+
+fl_test %>%
+filter(is.na(name)) %>%
+distinct(carrier) %>%
+head()
+
+```
+
+Sonuçta `name = NA` olan satırlar, `airlines` tablosunda karşılığı olmayan taşıyıcılardır.
+
+::: callout-note
+Bu tip satırlar **veri tutarlılığı** açısından önemlidir.\
+Gerçek analizlerde bu tür durumlar genellikle hatalı veya eksik kod anlamına gelir.
+:::
+
+## Kısa Özet
+
+-   `left_join()`: soldaki tüm satırları korur.
+
+-   `merge(..., all.x = TRUE)`: aynı işlevi base R’de yapar.
+
+-   Eşleşmeyen kayıtlar → `NA`.
+
+-   Kontrol: satır sayısı değişmemeli.
+
+-   Kod tabloları eklemek için en güvenli yöntemdir.
+
+## Inner Join
+
+`inner_join()` veya `merge(..., all = FALSE)` işlemleri, iki tablodaki **ortak anahtar değerlerine sahip** satırları getirir. Yani her iki tabloda da eşleşen kayıtlar kalır; eşleşmeyenler atılır.
+
+**Amaç:** Yalnızca hem `flights` hem de `airlines` tablolarında **karşılığı olan havayolu kodlarını** içeren satırları tutmak.
+
+**Beklenti**
+
+-   Satır sayısı `flights`’tan **daha az** olabilir.
+-   Her iki tablodan da `carrier` eşleşmeyenler çıkarılır.
+-   `NA` değer **olmamalıdır** çünkü sadece eşleşenler alınır.
+
+------------------------------------------------------------------------
+
+**dplyr ile Inner Join**
+
+```{r}
+
+fl_inner <- flights %>%
+  inner_join(airlines, by = "carrier")
+
+tibble(
+  flights_satir = nrow(flights),
+  inner_join_satir = nrow(fl_inner)
+)
+```
+
+Görüldüğü gibi satır sayısı azaldıysa, bazı `carrier` değerleri yalnızca bir tabloda var demektir. Sonuçtan küçük bir örnek:
+
+```{r}
+fl_inner %>%
+select(year, month, day, carrier, name) %>%
+distinct(carrier, name) %>%
+arrange(carrier) %>%
+head(10)
+```
+
+::: callout-tip
+`inner_join()` genellikle **veri kesişimlerini** bulmak için kullanılır. Örneğin, yalnızca hem satış listesinde hem stok listesinde bulunan ürünleri görmek istediğinizde.
+:::
+
+**Base R ile Inner Join**
+
+Aynı mantık `merge()` fonksiyonunda varsayılan olarak geçerlidir. Yani `all = FALSE` (veya hiç yazmazsanız) **inner join** anlamına gelir.
+
+```{r}
+fl_inner_base <- merge(
+flights,
+airlines,
+by = "carrier",
+all = FALSE
+)
+
+c(before = nrow(flights), after = nrow(fl_inner_base))
+```
+
+```{r}
+head(fl_inner_base[c("carrier", "name")], 10)
+```
+
+| Özellik             | `dplyr::inner_join()`         | `base::merge()`               |
+|------------------------|------------------------|------------------------|
+| Varsayılan davranış | Yalnızca eşleşenleri tutar    | Aynı                          |
+| Satır sayısı        | Azalabilir                    | Azalabilir                    |
+| `NA` değerler       | Oluşmaz                       | Oluşmaz                       |
+| Kullanım alanı      | Eşleşen kayıtları filtrelemek | Eşleşen kayıtları filtrelemek |
+
+::: callout-note
+**Kısa Hatırlatma:**\
+
+`inner_join()` sadece **ortak anahtarları** getirir. Bir tabloda olup diğerinde olmayan kayıtlar **tamamen dışlanır**. Bu nedenle veri kaybı olmaması istenen durumlarda `left_join()` tercih edilmelidir.
+:::
+
+## Right Join ve Full Join
+
+Bu iki join türü, kapsayıcı birleştirmeler olarak adlandırılır.\
+Amaç, iki tablodaki **tüm bilgileri korumaktır** — ancak satırların hangi taraftan korunduğu değişir.
+
+### Right Join
+
+`right_join()` veya `merge(..., all.y = TRUE)` işlemleri, **sağdaki tablonun tüm satırlarını** korur.\
+Soldaki tablodan yalnızca eşleşen kayıtlar getirilir.
+
+**Amaç:** Tüm `airlines` kayıtlarını koruyalım, fakat `flights` tablosundan sadece eşleşenleri alalım. Bu, “sağ tarafı referans alan” bir birleştirmedir.
+
+------------------------------------------------------------------------
+
+**dplyr ile Right Join**
+
+```{r}
+fl_right <- flights %>%
+  right_join(airlines, by = "carrier")
+
+tibble(
+  flights_satir = nrow(flights),
+  airlines_satir = nrow(airlines),
+  right_join_satir = nrow(fl_right)
+)
+```
+
+```{r}
+fl_right %>%
+select(carrier, name) %>%
+distinct(carrier, name)
+```
+
+::: callout-note
+`right_join()` işlemi özellikle “kod tablosu” tarafındaki tüm değerlerin korunmasını istediğimiz durumlarda kullanılır.\
+Örneğin: tüm müşteri listesi sağda, yalnızca satış yapanlar soldaysa.
+:::
+
+**Base R ile Right Join**
+
+Base R’de aynı işlem `merge(..., all.y = TRUE)` parametresiyle yapılır.
+
+```{r}
+fl_right_base <- merge(
+flights,
+airlines,
+by = "carrier",
+all.y = TRUE
+)
+
+c(before = nrow(airlines), after = nrow(fl_right_base))
+```
+
+```{r}
+head(fl_right_base[c("carrier", "name")], 10)
+```
+
+### Full Join
+
+`full_join()` veya `merge(..., all = TRUE)` işlemleri, **her iki tablodaki tüm anahtar değerlerini** birleştirir.\
+Eşleşmeyen satırların bulunduğu taraflarda `NA` değerler oluşur.
+
+**Amaç:** `flights` ve `airlines` tablolarını tüm anahtarlarla birleştirelim. Böylece her iki tarafta olup diğerinde olmayan kayıtlar da görünür.
+
+**dplyr ile Full Join**
+
+```{r}
+fl_full <- flights %>%
+full_join(airlines, by = "carrier")
+
+tibble(
+flights_satir = nrow(flights),
+airlines_satir = nrow(airlines),
+full_join_satir = nrow(fl_full)
+)
+```
+
+```{r}
+fl_full %>%
+select(carrier, name) %>%
+distinct(carrier, name) %>%
+arrange(carrier) %>%
+head(10)
+```
+
+**Base R ile Full Join**
+
+Base R’de `all = TRUE` kullanıldığında **full join** elde edilir:
+
+```{r}
+fl_full_base <- merge(
+flights,
+airlines,
+by = "carrier",
+all = TRUE
+)
+
+c(before = nrow(flights) + nrow(airlines), after = nrow(fl_full_base))
+```
+
+```{r}
+head(fl_full_base[c("carrier", "name")], 10)
+```
+
+## Özet
+
+| Join Türü  | dplyr Fonksiyonu | Base R Eşdeğeri            | Korunan Taraf | Eşleşmeyenler                    |
+|---------------|---------------|---------------|---------------|---------------|
+| Left Join  | `left_join()`    | `merge(..., all.x = TRUE)` | Sol tablo     | Sağ taraf `NA`                   |
+| Right Join | `right_join()`   | `merge(..., all.y = TRUE)` | Sağ tablo     | Sol taraf `NA`                   |
+| Full Join  | `full_join()`    | `merge(..., all = TRUE)`   | Her iki tablo | Her iki tarafta da `NA` olabilir |
+
+::: callout-note
+`full_join()` verilerin iki farklı kaynaktan geldiği ve **birleştirmenin tamlığı** kontrol edilmek istendiği durumlarda kullanışlıdır. Örneğin: iki dönem verisini, iki kurum listesini veya iki sürümü birleştirirken.
+:::
+
+## Filtreleme Türü Join’ler (Semi Join ve Anti Join)
+
+Bu iki join türü, tablo yapısını değiştirmez; yalnızca **satır seçimi (filtreleme)** yapar. Yani `semi_join()` ve `anti_join()` yeni sütunlar eklemez, sadece **sol tablodan** bazı satırları seçer. Bu işlemler SQL’de sırasıyla *WHERE EXISTS* ve *WHERE NOT EXISTS* karşılığına denktir.
+
+### semi_join()
+
+`semi_join()` sol tablodaki satırlardan, sağ tablodaki anahtarlarla **eşleşenleri** tutar. Eşleşmeyen satırlar atılır. Yeni sütun eklenmez, sadece satır sayısı azalabilir.
+
+**Amaç:** `flights` tablosundan, `airlines` tablosunda karşılığı bulunan `carrier` kayıtlarını alalım.
+
+------------------------------------------------------------------------
+
+**dplyr ile Semi Join**
+
+```{r}
+fl_semi <- flights %>%
+  semi_join(airlines, by = "carrier")
+
+tibble(
+  flights_satir = nrow(flights),
+  semi_join_satir = nrow(fl_semi)
+)
+```
+
+```{r}
+fl_semi %>%
+select(carrier) %>%
+distinct(carrier) %>%
+arrange(carrier)
+```
+
+::: callout-note
+`semi_join()` özellikle veri filtreleme veya “kesişimde olan kayıtları koruma” amacıyla kullanılır. Örneğin, sadece aktif müşteriler listesinde bulunan siparişleri görmek istediğinizde.
+:::
+
+**Base R ile Semi Join Benzeri İşlem**
+
+Base R’de doğrudan `semi_join()` yoktur, ancak aynı etkiyi `merge()` veya `%in%` operatörüyle elde edebiliriz.
+
+```{r}
+fl_semi_base <- subset(
+flights,
+carrier %in% airlines$carrier
+)
+
+unique(fl_semi_base$carrier)
+```
+
+Yukarıdaki işlemde `flights` içinden sadece `airlines`’ta yer alan `carrier` değerlerine sahip satırlar alındı. Yani bu da `semi_join()` ile aynı sonucu verir.
+
+::: callout-note
+### 💡 Neden `semi_join()` Kullanılır?
+
+Bazı durumlarda yalnızca bir tablodaki kayıtların, başka bir tabloda **var olup olmadığını** kontrol etmek isteriz.\
+Bu durumda `inner_join()` gereksiz ek sütunlar üretir, `filter()` ise özellikle birden fazla anahtar değişken olduğunda karmaşık hale gelir.
+
+`semi_join()` bu iki uç arasında denge kurar ve yalnızca **eşleşen satırları** döndürür, ama **sadece sol tablonun sütunlarını** korur.
+
+Böylece hem daha okunaklı hem de ilişkiselliği koruyan bir filtreleme yapılmış olur.
+:::
+
+### anti_join()
+
+`anti_join()` ise tam tersini yapar: sol tablodaki satırlardan, sağda **eşleşmeyenleri** getirir. Bu, veri temizliği için çok kullanışlıdır.
+
+**Amaç:** `flights` tablosunda olup `airlines` tablosunda **karşılığı olmayan** `carrier` değerlerini bulalım.
+
+**dplyr ile Anti Join**
+
+```{r}
+fl_anti <- flights %>%
+  anti_join(airlines, by = "carrier")
+
+fl_anti %>%
+select(carrier) %>%
+distinct()
+```
+
+Bu, `flights` içinde olup `airlines` tablosunda bulunmayan `carrier` kodlarını listeler. Bu, veri kalitesi kontrolünde çok işe yarar. Örneğin, `flights` verisinde bir `carrier` kodu geçiyor ama bu kod `airlines` tablosunda tanımlı değilse, muhtemelen bu kod hatalı ya da eski bir değerdir.
+
+::: callout-note
+`anti_join()` veri bütünlüğü testleri için güçlü bir araçtır.\
+Örneğin; satış tablosundaki müşteri kodlarından bazıları müşteri kayıt tablosunda yoksa bu durum veri tutarsızlığına işaret eder.
+:::
+
+**Base R ile Anti Join Benzeri İşlem**
+
+Aynı mantığı base R’de `%in%` operatörüyle kurabiliriz:
+
+```{r}
+fl_anti_base <- subset(
+flights,
+!(carrier %in% airlines$carrier)
+)
+
+unique(fl_anti_base$carrier)
+```
+
+### Özet
+
+| Join Türü | Amaç                   | dplyr Fonksiyonu | Base R Yaklaşımı     | Dönen Satırlar              |
+|---------------|---------------|---------------|---------------|---------------|
+| Semi Join | Eşleşenleri getirir    | `semi_join()`    | `subset(..., %in%)`  | Sol tablodan, eşleşenler    |
+| Anti Join | Eşleşmeyenleri getirir | `anti_join()`    | `subset(..., !%in%)` | Sol tablodan, eşleşmeyenler |
+
+::: callout-tip
+**Özetle:**\
+Bu iki fonksiyon tabloyu “filtreler”, yeni sütun eklemez.
+
+-   `semi_join()` → ortak kayıtları bulur.
+
+-   `anti_join()` → eksik veya hatalı kayıtları bulur. Özellikle veri temizliği, kalite kontrolü ve kod doğrulama süreçlerinde sıklıkla kullanılır.
+:::
+
+## **Join İşlemlerinde Anahtar Yönetimi**
+
+### 🔑 Anahtar Değişkenlerin İsimleri Farklıysa
+
+Bazı durumlarda iki tablodaki anahtar sütunların isimleri **aynı olmayabilir**. Örneğin `flights` tablosunda **`dest`**, `airports` tablosunda ise **`faa`** değişkeni aynı bilgiyi temsil eder. Bu durumda, her iki tabloda da hangi sütunun kullanılacağını `by` argümanı ile açıkça belirtmemiz gerekir.
+
+**✅ dplyr Örneği**
+
+```{r}
+flights %>%
+  left_join(airports, by = c("dest" = "faa")) %>%
+  select(dest, name, lat, lon) %>%
+  head()
+```
+
+Burada `"dest" = "faa"` ifadesi:
+
+-   Sol tablodaki (`flights`) `dest` sütunu,
+
+-   Sağ tablodaki (`airports`) `faa` sütunu ile eşleştirileceğini belirtir.
+
+**✅ Base R Örneği**
+
+Base R’de aynı işlem şu şekilde yapılır:
+
+```{r}
+merge(
+flights,
+airports,
+by.x = "dest",  # sol tablodaki değişken
+by.y = "faa",   # sağ tablodaki değişken
+all.x = TRUE
+)[c("dest", "name", "lat", "lon")] %>% head()
+```
+
+Eğer iki tabloda anahtar isimleri aynıysa, `by = "carrier"` veya `by.x = "carrier", by.y = "carrier"` şeklinde açıkça belirtmek her zaman iyi bir pratiktir. Böylece hem okunabilirlik artar hem de gelecekte değişiklik olduğunda hatalar önlenir.
+
+### 🧩 Birden Fazla Anahtar Değişken ile Join
+
+Bazen iki tabloyu birden fazla değişken üzerinden eşleştirmemiz gerekir. Örneğin `flights` tablosunu başka bir tabloyla hem **yıl**, hem **ay**, hem de **havayolu kodu (`carrier`)** üzerinden birleştirmek isteyebiliriz. Bu durumda anahtarları `by` argümanı içinde bir **vektör** olarak belirtiriz.
+
+**✅ dplyr Örneği**
+
+```{r}
+# Örnek amaçlı küçük bir tablo oluşturalım
+stats <- flights %>%
+  group_by(year, month, carrier) %>%
+  summarise(avg_delay = mean(dep_delay, na.rm = TRUE), .groups = "drop")
+
+# Aynı üç değişken üzerinden birleştirme
+fl_enriched <- flights %>%
+  left_join(stats, by = c("year", "month", "carrier"))
+
+fl_enriched %>% select(year, month, carrier, avg_delay) %>% head()
+```
+
+**✅ Base R Örneği**
+
+```{r}
+fl_enriched_base <- merge(
+flights,
+stats,
+by = c("year", "month", "carrier"),
+all.x = TRUE
+)
+
+head(fl_enriched_base[c("year", "month", "carrier", "avg_delay")])
+```
+
+Birden fazla değişken kullanmak özellikle **panel veriler** veya **zaman serileri** ile çalışırken oldukça yaygındır. Ancak anahtarların her iki tabloda da **aynı sırayla ve aynı tipte** (örneğin karakter veya sayı) olduğuna emin olun. )
+
+### 🔄 Farklı İsimli Birden Fazla Anahtar Değişken ile Join
+
+Eğer iki tabloda **birden fazla anahtar değişken** var ve bu değişkenlerin isimleri her iki tabloda **aynı değilse**,\
+her bir çifti eşleştirerek açıkça belirtmemiz gerekir.
+
+**✅ dplyr Örneği**
+
+```{r}
+# flights -> other_tbl_keys : sadece anahtarlar, tekilleştirilmiş
+other_tbl_keys <- flights %>%
+  distinct(year, month, day, carrier) %>%
+  rename(yil = year, ay = month, gun = day)
+
+fl_merge <- flights %>%
+  left_join(
+    other_tbl_keys,
+    by = c("year" = "yil", "month" = "ay", "day" = "gun", "carrier" = "carrier")
+  )
+
+# Satır sayısı beklenen: flights kadar
+dplyr::tibble(before = nrow(flights), after = nrow(fl_merge))
+
+
+```
+
+**✅ Base R Örneği**
+
+```{r}
+
+other_tbl_keys <- flights %>%
+  distinct(year, month, day, carrier) %>%
+  rename(yil = year, ay = month, gun = day)
+
+fl_merge_ok2 <- merge(
+  flights, other_tbl_keys,
+  by.x = c("year","month","day","carrier"),
+  by.y = c("yil","ay","gun","carrier"),
+  all.x = TRUE,
+  sort = FALSE
+)
+
+c(before = nrow(flights), after = nrow(fl_merge_ok2))
+```
+
+::: callout-note
+### 💡 Neden `distinct()` ile tekilleştirdik? (dplyr + Base R)
+
+`flights`’tan türettiğimiz sağ tablolarda (`other_tbl_keys`) anahtarlar (`year`, `month`, `day`, `carrier`) **tekrar ediyordu**.\
+Bu durumda `left_join()` / `merge()` her eşleşen kombinasyonu **çarpan** şekilde birleştirir.
+
+→ **N–M patlaması**: satır sayısı çok büyür, bellek/işlem süresi artar.
+
+**Çözüm:** Sağ tabloyu join öncesinde `distinct()` ile **tekilleştir** → ilişkiyi **N–M’den 1–N’e** indir.\
+Böylece her anahtar **yalnızca bir kez** eşleşir; hem hızlı hem mantıksal olarak doğru sonuç alırsın.
 :::

@@ -36,13 +36,13 @@ R programlamayı öğrenmek ve geliştirmek için bir dizi faydalı kaynak bulun
 
 4.  **R Belgeleri**: R'nin resmi belgeleme ([**https://cran.r-project.org/manuals.html**](https://cran.r-project.org/manuals.html)) kaynakları, R dilinin temellerini ve paketlerini öğrenmek için çok faydalıdır. R'deki komutlar ve fonksiyonlar hakkında ayrıntılı bilgi içerirler.
 
-5.  **Kitaplar**: R programlamayı öğrenmek için yazılmış birçok kitap bulunmaktadır. Örnek olarak, "R Graphics Cookbook" (Hadley Wickham), "R for Data Science" (Hadley Wickham ve Garrett Grolemund), "Advanced R" (Hadley Wickham) gibi kitaplar önerilebilir.
+5.  **Kitaplar**: R programlamayı öğrenmek için yazılmış birçok kitap bulunmaktadır. Örnek olarak, [R for Data Science (Hadley Wickham ve Garrett Grolemund)](https://r4ds.hadley.nz/), [Advanced R (Hadley Wickham)](https://adv-r.hadley.nz/) gibi kitaplar önerilebilir.
 
 6.  **Stack Overflow**: Programlama sorunları ve hatalarıyla karşılaştığınızda, Stack Overflow gibi forumlarda R ile ilgili sorular sormak ve cevaplamak için topluluktan yardım alabilirsiniz.
 
 7.  **GitHub**: R ile ilgili açık kaynaklı projeleri incelemek ve kendi projelerinizi paylaşmak için GitHub gibi platformları kullanabilirsiniz. GitHub'da R kodlarını içeren birçok depo bulunmaktadır.
 
-8.  **Bloglar ve Videolar**: R ile ilgili bloglar ve YouTube kanalları, öğrenmek ve güncel kalmak için harika kaynaklardır. RStudio Blog ([**https://blog.rstudio.com/**](https://blog.rstudio.com/)) ve YouTube'da R ile ilgili videoları bulabileceğiniz RStudio'nun resmi kanalı bunlara örnektir.
+8.  **Bloglar ve Videolar**: R ile ilgili bloglar ve YouTube kanalları, öğrenmek ve güncel kalmak için harika kaynaklardır. RStudio Blog ([https://posit.co/blog](https://posit.co/blog/)[/](https://posit.co/blog/)) ve YouTube'da R ile ilgili videoları bulabileceğiniz RStudio'nun resmi kanalı bunlara örnektir.
 
 ::: callout-tip
 ## Tavsiye
