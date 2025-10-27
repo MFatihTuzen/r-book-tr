@@ -27,7 +27,7 @@ library(nycflights13)
 ```
 
 | Tablo      | İçerik              | Anahtar Değişken  | Kayıt Sayısı       | Sütun Sayısı       |
-|---------------|---------------|---------------|---------------|---------------|
+|------------|---------------------|-------------------|--------------------|--------------------|
 | `flights`  | Uçuş detayları      | `carrier`, `dest` | `r nrow(flights)`  | `r ncol(flights)`  |
 | `airlines` | Havayolu adları     | `carrier`         | `r nrow(airlines)` | `r ncol(airlines)` |
 | `airports` | Havaalanı bilgileri | `faa`             | `r nrow(airports)` | `r ncol(airports)` |
@@ -63,7 +63,7 @@ Birleştirme işlemlerinde kullanılan sütunlara **anahtar değişken** denir. 
 **Join**, iki veya daha fazla veri tablosunu ortak bir anahtar üzerinden birleştirme işlemidir. Sonuçta, tablolar tek bir veri çerçevesinde birleştirilir. Join türleri, hangi satırların korunacağına veya eleneceğine göre farklılık gösterir.
 
 | Join Türü    | Tanım                                                        | Tutulan Satırlar          |
-|------------------------|------------------------|------------------------|
+|--------------|--------------------------------------------------------------|---------------------------|
 | `left_join`  | Soldaki tüm satırları korur, sağdan eşleşenleri getirir      | Tüm sol tablo             |
 | `inner_join` | Her iki tabloda eşleşen satırları getirir                    | Ortak anahtarlar          |
 | `right_join` | Sağdaki tüm satırları korur                                  | Tüm sağ tablo             |
@@ -76,7 +76,7 @@ Birleştirme işlemlerinde kullanılan sütunlara **anahtar değişken** denir. 
 İki tablo arasındaki ilişki, anahtar değişkenlerin yapısına bağlıdır:
 
 | İlişki Türü      | Tanım                                    | Örnek                       |
-|------------------------|------------------------|------------------------|
+|------------------|------------------------------------------|-----------------------------|
 | 1–1 (bire bir)   | Her anahtar her tabloda bir kez geçer    | T.C. kimlik numarası ↔ kişi |
 | 1–N (bire çok)   | Sol tablo tekil, sağ tablo tekrar içerir | Havayolu ↔ Uçuşlar          |
 | N–M (çoktan çok) | Her iki tabloda da tekrarlar vardır      | Öğrenci ↔ Ders              |
@@ -88,7 +88,7 @@ Bu durum, birleştirme sonrası satır sayısını doğrudan etkiler. Örneğin 
 R dilinde iki temel yaklaşım vardır:
 
 | Yaklaşım  | Fonksiyon                                                                                  | Paket   |
-|------------------------|------------------------|------------------------|
+|-----------|--------------------------------------------------------------------------------------------|---------|
 | Base R    | `merge()`                                                                                  | Temel R |
 | Tidyverse | `left_join()`, `inner_join()`, `right_join()`, `full_join()`, `semi_join()`, `anti_join()` | `dplyr` |
 
@@ -165,7 +165,7 @@ head(fl_joined_base[c("carrier", "name")], 10)
 ```
 
 | Özellik       | `dplyr::left_join()`              | `base::merge()`                                                     |
-|------------------------|------------------------|------------------------|
+|---------------|-----------------------------------|---------------------------------------------------------------------|
 | Sözdizimi     | Daha okunaklı (`by = "carrier"`)  | Uzun, parametre odaklı                                              |
 | Varsayılan    | Sadece belirttiğin `by` üzerinden | Eğer `by` yoksa, ortak isimleri bulup otomatik join yapar (dikkat!) |
 | Sonekler      | `.x` ve `.y`                      | `.x` ve `.y` veya `.1` ve `.2`                                      |
@@ -267,7 +267,7 @@ head(fl_inner_base[c("carrier", "name")], 10)
 ```
 
 | Özellik             | `dplyr::inner_join()`         | `base::merge()`               |
-|------------------------|------------------------|------------------------|
+|---------------------|-------------------------------|-------------------------------|
 | Varsayılan davranış | Yalnızca eşleşenleri tutar    | Aynı                          |
 | Satır sayısı        | Azalabilir                    | Azalabilir                    |
 | `NA` değerler       | Oluşmaz                       | Oluşmaz                       |
@@ -386,7 +386,7 @@ head(fl_full_base[c("carrier", "name")], 10)
 ## Özet
 
 | Join Türü  | dplyr Fonksiyonu | Base R Eşdeğeri            | Korunan Taraf | Eşleşmeyenler                    |
-|---------------|---------------|---------------|---------------|---------------|
+|------------|------------------|----------------------------|---------------|----------------------------------|
 | Left Join  | `left_join()`    | `merge(..., all.x = TRUE)` | Sol tablo     | Sağ taraf `NA`                   |
 | Right Join | `right_join()`   | `merge(..., all.y = TRUE)` | Sağ tablo     | Sol taraf `NA`                   |
 | Full Join  | `full_join()`    | `merge(..., all = TRUE)`   | Her iki tablo | Her iki tarafta da `NA` olabilir |
@@ -496,7 +496,7 @@ unique(fl_anti_base$carrier)
 ### Özet
 
 | Join Türü | Amaç                   | dplyr Fonksiyonu | Base R Yaklaşımı     | Dönen Satırlar              |
-|---------------|---------------|---------------|---------------|---------------|
+|-----------|------------------------|------------------|----------------------|-----------------------------|
 | Semi Join | Eşleşenleri getirir    | `semi_join()`    | `subset(..., %in%)`  | Sol tablodan, eşleşenler    |
 | Anti Join | Eşleşmeyenleri getirir | `anti_join()`    | `subset(..., !%in%)` | Sol tablodan, eşleşmeyenler |
 

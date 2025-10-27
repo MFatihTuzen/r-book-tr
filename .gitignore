@@ -5,3 +5,5 @@
 _book
 /.quarto/
 /*.html
+
+**/*.quarto_ipynb
