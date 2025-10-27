@@ -1,0 +1,14 @@
+
+main {
+    box-sizing: border-box;
+    /*margin: 100px !important;*/
+    text-align: justify !important;
+    justify-content: center !important;
+    padding-top: 0px;
+    padding-bottom: 30px;
+    padding-right: 30px;
+    padding-left: 30px;
+}
+
+
+

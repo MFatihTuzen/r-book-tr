@@ -1,0 +1,1445 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.6.40">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>Veri Dönüştürme – R Programlama</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<link href="./data_join.html" rel="next">
+<link href="./data_manipulation.html" rel="prev">
+<script src="site_libs/quarto-html/quarto.js"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-549806ee2085284f45b00abea8c6df48.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-dark-8ea72dc5fed832574809a9c94082fbbb.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap-1ccbc09170d6d559ed2114ae69d8a77e.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap-dark-e52668a91f5ec55536531c4088279e75.min.css" rel="prefetch" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+
+<link rel="stylesheet" href="styles.css">
+</head>
+
+<body class="nav-sidebar floating">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./data_transformation.html">Veri Dönüştürme</a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+    <div class="sidebar-title mb-0 py-0">
+      <a href="./">R Programlama</a> 
+        <div class="sidebar-tools-main tools-wide">
+    <a href="https://github.com/MFatihTuzen/r-book-tr" title="Source Code" class="quarto-navigation-tool px-1" aria-label="Source Code"><i class="bi bi-github"></i></a>
+  <a href="" class="quarto-color-scheme-toggle quarto-navigation-tool  px-1" onclick="window.quartoToggleColorScheme(); return false;" title="Toggle dark mode"><i class="bi"></i></a>
+  <a href="" class="quarto-reader-toggle quarto-navigation-tool px-1" onclick="window.quartoToggleReader(); return false;" title="Toggle reader mode">
+  <div class="quarto-reader-toggle-btn">
+  <i class="bi"></i>
+  </div>
+</a>
+</div>
+    </div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Önsöz</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./r_about.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">R Programlama Hakkında</span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="./R_intro.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">R Programlamaya Giriş</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./basics.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Temel Fonksiyonlar</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./data_types.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Veri Tipleri ve Yapıları</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./functions.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Fonksiyonlar</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./if_else_for.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Kontrol İfadeleri</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./date_time.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Tarih ve Zaman İşlemleri</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./strings.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Metin İşlemleri</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./apply.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Apply Ailesi</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./import_export.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Verilerin İçe ve Dışa Aktarılması</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./data_manipulation.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Veri Manipulasyonu</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./data_transformation.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">Veri Dönüştürme</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./data_join.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Veri Birleştirme</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./data_analysis.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Keşifçi Veri Analizi</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./ggplot2.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">ggplot2 ile Veri Görselleştirme</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./data_preprocess.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Veri Ön İşleme</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./statistics.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">R ile Temel İstatistik</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./regresyon.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Doğrusal Regresyon</span></a>
+  </div>
+</li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">İçindekiler</h2>
+   
+  <ul>
+  <li><a href="#uzun-format-dönüşümü---pivot_longer" id="toc-uzun-format-dönüşümü---pivot_longer" class="nav-link active" data-scroll-target="#uzun-format-dönüşümü---pivot_longer">Uzun Format Dönüşümü - <code>pivot_longer</code></a></li>
+  <li><a href="#geniş-format-dönüşümü---pivot_wider" id="toc-geniş-format-dönüşümü---pivot_wider" class="nav-link" data-scroll-target="#geniş-format-dönüşümü---pivot_wider">Geniş Format Dönüşümü - <code>pivot_wider</code></a></li>
+  <li><a href="#değişken-birleştirme---unite" id="toc-değişken-birleştirme---unite" class="nav-link" data-scroll-target="#değişken-birleştirme---unite">Değişken Birleştirme - <code>unite</code></a></li>
+  <li><a href="#değişken-bölme--separate" id="toc-değişken-bölme--separate" class="nav-link" data-scroll-target="#değişken-bölme--separate">Değişken Bölme- <code>separate</code></a></li>
+  </ul>
+<div class="toc-actions"><ul><li><a href="https://github.com/MFatihTuzen/r-book-tr/edit/main/data_transformation.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/MFatihTuzen/r-book-tr/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title"><span id="part-datatransformation" class="quarto-section-identifier">Veri Dönüştürme</span></h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><a href="https://tidyr.tidyverse.org/"><img src="images/tidyr.png" class="img-fluid quarto-figure quarto-figure-center figure-img" alt="https://tidyr.tidyverse.org/"></a></p>
+</figure>
+</div>
+<figcaption>https://tidyr.tidyverse.org/</figcaption>
+</figure>
+</div>
+<p>Veri dönüştürme işlemleri, veri setlerinin yapılarını değiştirerek veri analizi veya görselleştirme işlemleri için daha uygun hale getirir. Bu işlemler, veri setlerinin formatlarını veya içeriğini değiştirerek veri analizini kolaylaştırır, sonuçların daha anlamlı olmasını sağlar ve genellikle veri hazırlığı sürecinin önemli bir parçasıdır.</p>
+<p>R programlama dilinde <strong><code>tidyr</code></strong> paketinin içinde bulunan <strong><code>pivot_longer()</code></strong>, <strong><code>pivot_wider()</code></strong>, <strong><code>unite()</code></strong>, ve <strong><code>separate()</code></strong> gibi fonksiyonlar, veri manipülasyonu ve veri dönüşümü işlemlerinde kullanılır. Bu fonksiyonlar, veri çerçevesi içindeki verileri yeniden düzenlemek, sütunları birleştirmek veya bölmek, veriyi daha uygun bir yapıya getirmek için kullanılır.</p>
+<p>Veri dönüştürme işlemleri, genellikle şu iki temel kategori altında incelenebilir:</p>
+<ol type="1">
+<li><p><strong>Yapısal Dönüşümler</strong>: Bu tür dönüşümler, veri setinin yapısal yapısını değiştirir. Örneğin, <strong><code>pivot_longer</code></strong> ve <strong><code>pivot_wider</code></strong> fonksiyonları geniş formatlı (wide format) ve uzun formatlı (long format) veri setleri arasında dönüşümler gerçekleştirir. Bu işlemler, veri setlerinin gözlemleri ve değişkenleri arasındaki ilişkiyi değiştirir ve genellikle analiz için daha uygun bir yapıya dönüştürür.</p></li>
+<li><p><strong>İçerik Dönüşümleri</strong>: Bu tür dönüşümler, veri setindeki değerlerin içeriğini değiştirir. Örneğin, <strong><code>unite</code></strong> ve <strong><code>separate</code></strong> fonksiyonları bir sütundaki değerleri birleştirerek veya ayırarak yeni değişkenler oluşturur. Bu işlemler, veri setindeki bilgilerin organize edilmesini veya ayrıştırılmasını sağlar.</p></li>
+</ol>
+<p>Her bir fonksiyonun argümanları ve yapıları farklıdır ve bu argümanlar, işlevin belirli bir görevi yerine getirmesini sağlar.</p>
+<section id="uzun-format-dönüşümü---pivot_longer" class="level2">
+<h2 class="anchored" data-anchor-id="uzun-format-dönüşümü---pivot_longer">Uzun Format Dönüşümü - <code>pivot_longer</code></h2>
+<p>Geniş formatlı (wide format) veriyi uzun formatlı (long format) hale dönüştürmek için kullanılır. Her bir sütunun bir değişkeni temsil ettiği geniş formatlı veri setlerini, her bir gözlemi temsil eden uzun formatlı veri setlerine dönüştürmek için kullanılır.</p>
+<ul>
+<li><p><strong>Kullanım Alanları</strong>:</p>
+<ul>
+<li><p>Çapraz-tablo verilerini analiz etmek veya görselleştirmek için.</p></li>
+<li><p>İstatistiksel analizlerde veri hazırlığı sürecinde, bazı modellere uygun hale getirmek için.</p></li>
+<li><p>Veri setindeki değişkenlerin (sütunların) gruplandırılması veya kategorize edilmesi gerektiğinde.</p></li>
+</ul></li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">pivot_longer</span>(data, cols, names_to, values_to, <span class="at">names_prefix =</span> <span class="cn">NULL</span>, <span class="at">names_sep =</span> <span class="st">"_"</span>, <span class="at">names_pattern =</span> <span class="cn">NULL</span>, ...)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<ul>
+<li><p><strong><code>data</code></strong>: İşlem yapılacak olan veri seti.</p></li>
+<li><p><strong><code>cols</code></strong>: Uzun formatlı hale dönüştürülecek sütunların belirtilmesi.</p></li>
+<li><p><strong><code>names_to</code></strong>: Yeni oluşturulacak sütunun adı.</p></li>
+<li><p><strong><code>values_to</code></strong>: Sütun içerisindeki değerlerin yer alacağı sütunun adı.</p></li>
+<li><p>Diğer argümanlar, isteğe bağlı olarak sütun adlarının belirtilmesi için kullanılır.</p></li>
+</ul>
+<p>Çeşitli örnekler yapmak için <a href="https://waxy.org/2008/05/the_whitburn_project/">billboard</a> veri setini kullanalım. <code>billboard</code> veri seti, tidyr paketinde bulunan ve müzik endüstrisindeki popülerlik sıralamalarını içeren bir veri setidir. Veri seti, 1999-2000 yılları arasında Billboard Hot 100 listesindeki şarkıların haftalık sıralamalarını içerir. Her bir hafta için bir sütun bulunur ve bu sütunlar, o haftadaki şarkıların sıralamalarını içerir. Öncelikle veri setini inceleyelim.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyr)</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>billboard</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 317 × 79
+   artist     track date.entered   wk1   wk2   wk3   wk4   wk5   wk6   wk7   wk8
+   &lt;chr&gt;      &lt;chr&gt; &lt;date&gt;       &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
+ 1 2 Pac      Baby… 2000-02-26      87    82    72    77    87    94    99    NA
+ 2 2Ge+her    The … 2000-09-02      91    87    92    NA    NA    NA    NA    NA
+ 3 3 Doors D… Kryp… 2000-04-08      81    70    68    67    66    57    54    53
+ 4 3 Doors D… Loser 2000-10-21      76    76    72    69    67    65    55    59
+ 5 504 Boyz   Wobb… 2000-04-15      57    34    25    17    17    31    36    49
+ 6 98^0       Give… 2000-08-19      51    39    34    26    26    19     2     2
+ 7 A*Teens    Danc… 2000-07-08      97    97    96    95   100    NA    NA    NA
+ 8 Aaliyah    I Do… 2000-01-29      84    62    51    41    38    35    35    38
+ 9 Aaliyah    Try … 2000-03-18      59    53    38    28    21    18    16    14
+10 Adams, Yo… Open… 2000-08-26      76    76    74    69    68    67    61    58
+# ℹ 307 more rows
+# ℹ 68 more variables: wk9 &lt;dbl&gt;, wk10 &lt;dbl&gt;, wk11 &lt;dbl&gt;, wk12 &lt;dbl&gt;,
+#   wk13 &lt;dbl&gt;, wk14 &lt;dbl&gt;, wk15 &lt;dbl&gt;, wk16 &lt;dbl&gt;, wk17 &lt;dbl&gt;, wk18 &lt;dbl&gt;,
+#   wk19 &lt;dbl&gt;, wk20 &lt;dbl&gt;, wk21 &lt;dbl&gt;, wk22 &lt;dbl&gt;, wk23 &lt;dbl&gt;, wk24 &lt;dbl&gt;,
+#   wk25 &lt;dbl&gt;, wk26 &lt;dbl&gt;, wk27 &lt;dbl&gt;, wk28 &lt;dbl&gt;, wk29 &lt;dbl&gt;, wk30 &lt;dbl&gt;,
+#   wk31 &lt;dbl&gt;, wk32 &lt;dbl&gt;, wk33 &lt;dbl&gt;, wk34 &lt;dbl&gt;, wk35 &lt;dbl&gt;, wk36 &lt;dbl&gt;,
+#   wk37 &lt;dbl&gt;, wk38 &lt;dbl&gt;, wk39 &lt;dbl&gt;, wk40 &lt;dbl&gt;, wk41 &lt;dbl&gt;, wk42 &lt;dbl&gt;, …</code></pre>
+</div>
+</div>
+<p><strong><code>artist</code></strong>: Şarkının sanatçısının adı.</p>
+<p><strong><code>track</code></strong>: Şarkının adı.</p>
+<p><strong><code>date.entered</code></strong>: Şarkının Billboard Hot 100 listesine girdiği tarih.</p>
+<p><strong><code>wk1</code></strong>, <strong><code>wk2</code></strong>, …, <strong><code>wk76</code></strong>: Haftalık sıralama bilgilerini içeren sütunlar. Her bir sütun, bir haftaya ait sıralamaları içerir. Örneğin, <strong><code>wk1</code></strong> sütunu, şarkının ilk haftadaki sıralamasını içerir.</p>
+<p>Bu değişkenler, şarkıların sanatçıları, adları ve haftalık sıralamaları gibi bilgileri içerir. Veri setindeki haftalık sıralama sütunları, her bir hafta için şarkıların sıralamasını içerir. Bu sıralama bilgileri, her bir hafta için bir sütunda bulunur ve bu sütunlar “wk1”, “wk2”, …, “wk76” gibi adlarla temsil edilir.</p>
+<p>Dikkat edilirse tablonun 317 satır ve 79 sütundan oluştuğu görülmektedir. Ayrıca hafta değişkenleri yatay olarak herbiri ayrı kolonlarda hafta numaraları ile belirtilmektedir. Şimdi bu verii uzun formata dönüştürerek daha kullanışlı bir formata dönüştürelim.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>billboard_long <span class="ot">&lt;-</span> billboard <span class="sc">|&gt;</span> </span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">cols =</span> <span class="fu">starts_with</span>(<span class="st">"wk"</span>), </span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">names_to =</span> <span class="st">"week"</span>, </span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">values_to =</span> <span class="st">"rank"</span>,</span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">values_drop_na =</span> <span class="cn">TRUE</span></span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>billboard_long</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 5,307 × 5
+   artist  track                   date.entered week   rank
+   &lt;chr&gt;   &lt;chr&gt;                   &lt;date&gt;       &lt;chr&gt; &lt;dbl&gt;
+ 1 2 Pac   Baby Don't Cry (Keep... 2000-02-26   wk1      87
+ 2 2 Pac   Baby Don't Cry (Keep... 2000-02-26   wk2      82
+ 3 2 Pac   Baby Don't Cry (Keep... 2000-02-26   wk3      72
+ 4 2 Pac   Baby Don't Cry (Keep... 2000-02-26   wk4      77
+ 5 2 Pac   Baby Don't Cry (Keep... 2000-02-26   wk5      87
+ 6 2 Pac   Baby Don't Cry (Keep... 2000-02-26   wk6      94
+ 7 2 Pac   Baby Don't Cry (Keep... 2000-02-26   wk7      99
+ 8 2Ge+her The Hardest Part Of ... 2000-09-02   wk1      91
+ 9 2Ge+her The Hardest Part Of ... 2000-09-02   wk2      87
+10 2Ge+her The Hardest Part Of ... 2000-09-02   wk3      92
+# ℹ 5,297 more rows</code></pre>
+</div>
+</div>
+<ol type="1">
+<li><p><strong><code>billboard |&gt;</code></strong>: Bu ifade, “billboard” veri setini işlemek üzere bir dizi dplyr fonksiyonuna (veya tidyverse fonksiyonuna) zincirlenmiş bir işlem başlatır. <strong><code>|&gt;</code></strong> operatörü, bir işlemin çıktısını bir sonraki işlemin ilk argümanı olarak kullanmamızı sağlar.</p></li>
+<li><p><strong><code>pivot_longer()</code></strong>: Bu fonksiyon, veri setindeki sütunları uzun formata dönüştürmek için kullanılır. Yani, sütunları satırlara dönüştürür. Bu örnekte, <strong><code>pivot_longer</code></strong> fonksiyonu kullanılarak sütunlar uzun formata dönüştürülecektir.</p></li>
+<li><p><strong><code>cols = starts_with("wk")</code></strong>: <strong><code>pivot_longer</code></strong> fonksiyonunun ilk argümanı olan <strong><code>cols</code></strong>, dönüştürülecek sütunların seçimini belirler. Bu durumda, “wk” ile başlayan sütunlar seçilir. “wk” ile başlayan sütunlar, haftalık müzik sıralamalarını içerir.</p></li>
+<li><p><strong><code>names_to = "week"</code></strong>: <strong><code>pivot_longer</code></strong> fonksiyonunun ikinci argümanı olan <strong><code>names_to</code></strong>, dönüştürülen sütunların isimlerinin atanacağı yeni sütunun adını belirler. Bu durumda, dönüştürülen sütunların isimleri “week” olarak atanacaktır.</p></li>
+<li><p><strong><code>values_to = "rank"</code></strong>: <strong><code>pivot_longer</code></strong> fonksiyonunun üçüncü argümanı olan <strong><code>values_to</code></strong>, dönüştürülen sütunlardaki değerlerin atanacağı yeni sütunun adını belirler. Bu durumda, dönüştürülen sütunlardaki değerler “rank” olarak atanacaktır.</p></li>
+<li><p><strong><code>values_drop_na = TRUE</code></strong>: Bu parametre, dönüştürülen sütunlardaki <strong><code>NA</code></strong> değerlerin (boş hücrelerin) kaldırılıp kaldırılmayacağını belirler. <strong><code>TRUE</code></strong> olarak ayarlandığında, <strong><code>NA</code></strong> değerler kaldırılır. Bu, dönüştürülen sütunlardaki eksik değerlerin işlenme şeklini kontrol eder. Bu örnekte, <strong><code>NA</code></strong> değerler kaldırılarak işlenir.</p></li>
+</ol>
+<p>Bu şekilde, <strong><code>pivot_longer</code></strong> fonksiyonu kullanılarak “wk” ile başlayan sütunlar uzun formata dönüştürülür ve her bir hafta için şarkı sıralamaları tek bir sütun altında toplanır. “week” sütunu, hafta numaralarını, “rank” sütunu ise şarkı sıralamalarını içerir.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">dim</span>(billboard_long)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 5307    5</code></pre>
+</div>
+</div>
+<p>Uzun formata dönüştürüldükten sonra, her bir hafta için her bir şarkının sıralamasını içeren sütunlar tek bir sütun altında toplanır. Bu, sütun sayısının azaldığı anlamına gelirken, satır sayısının arttığı anlamına gelir. Dolayısıyla, tablo boyutunda bir değişiklik olur. Örneğin, başlangıçta her hafta için bir sütun vardı ve bu sütunlar “wk1”, “wk2”, …, “wk76” olarak adlandırılıyordu. Ancak uzun formata dönüştürdükten sonra, her bir şarkının her hafta için bir sıralama değeri içeren bir sütunu vardır. Bu, sütun sayısının arttığı ve satır sayısının da arttığı bir durumdur. Dolayısı ile uzun tablonun boyutu 5307 satır ve 5 kolondan oluşmaktadır.</p>
+<div class="callout callout-style-default callout-important callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Önemli
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Eğer <code>values_drop_na = TRUE</code> argümanında <code>FALSE</code> değerini kullansaydık daha fazla satır sayısına sahip bir sonuç elde ederdik.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>billboard_long_with_na <span class="ot">&lt;-</span> billboard <span class="sc">|&gt;</span> </span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(</span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">cols =</span> <span class="fu">starts_with</span>(<span class="st">"wk"</span>), </span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">names_to =</span> <span class="st">"week"</span>, </span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">values_to =</span> <span class="st">"rank"</span>,</span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">values_drop_na =</span> <span class="cn">FALSE</span></span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a><span class="fu">dim</span>(billboard_long_with_na)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 24092     5</code></pre>
+</div>
+</div>
+<p>Bu şekilde üretilen tablonu satır sayısına baktığımızda <strong>24092</strong> satır olduğunu görürüz. Bu aslında başlangıçta yer alan 317 satırın 76 hafta verisi (<code>wk</code> ile başlayan 76 hafta olduğundan) ile tekrarlaması anlamına gelir. Doğal olarak <code>317 * 76 = 24092</code> satır sayısı ortaya çıkar ve wk ile başlamayan sütunlar da tekrar ederek satırlarda oluşur.</p>
+</div>
+</div>
+<p>Eğer veri setini daha düzenli hale getirmek amacıyla <code>week</code> kolonundaki değerlerin başındak wk ifadesini kaldırmak istersek aşağıdaki şekilde bir düzenleme yapabiliriz.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>billboard <span class="sc">|&gt;</span> </span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(</span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">cols =</span> <span class="fu">starts_with</span>(<span class="st">"wk"</span>), </span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">names_to =</span> <span class="st">"week"</span>, </span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">names_transform =</span> readr<span class="sc">::</span>parse_number,</span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">values_to =</span> <span class="st">"rank"</span>,</span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">values_drop_na =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 5,307 × 5
+   artist  track                   date.entered  week  rank
+   &lt;chr&gt;   &lt;chr&gt;                   &lt;date&gt;       &lt;dbl&gt; &lt;dbl&gt;
+ 1 2 Pac   Baby Don't Cry (Keep... 2000-02-26       1    87
+ 2 2 Pac   Baby Don't Cry (Keep... 2000-02-26       2    82
+ 3 2 Pac   Baby Don't Cry (Keep... 2000-02-26       3    72
+ 4 2 Pac   Baby Don't Cry (Keep... 2000-02-26       4    77
+ 5 2 Pac   Baby Don't Cry (Keep... 2000-02-26       5    87
+ 6 2 Pac   Baby Don't Cry (Keep... 2000-02-26       6    94
+ 7 2 Pac   Baby Don't Cry (Keep... 2000-02-26       7    99
+ 8 2Ge+her The Hardest Part Of ... 2000-09-02       1    91
+ 9 2Ge+her The Hardest Part Of ... 2000-09-02       2    87
+10 2Ge+her The Hardest Part Of ... 2000-09-02       3    92
+# ℹ 5,297 more rows</code></pre>
+</div>
+</div>
+<p>Bu kodda, <strong><code>pivot_longer</code></strong> fonksiyonunu kullanarak “wk” ile başlayan sütunları uzun formata dönüştürüyoruz. Ancak, bu sefer <strong><code>names_transform</code></strong> argümanını da kullanıyoruz. Bu argüman, sütun adlarından sayısal değerleri çıkarmak için <strong><code>readr::parse_number</code></strong> fonksiyonunu kullanır.</p>
+<p><strong><code>names_transform = readr::parse_number</code></strong> ifadesiyle, sütun adlarından “wk” ifadesini ve ardından gelen sayısal değerleri ayırıyoruz. Örneğin, “wk1”, “wk2”, …, “wk76” gibi sütun adlarından sadece sayısal kısmı alarak, her bir sütunun haftayı temsil etmesini sağlıyoruz. Böylelikle, uzun formata dönüşümü daha anlamlı hale getiriyoruz. Artık her bir sütun, hangi haftaya ait olduğunu temsil ederken, her bir satır bir şarkının o haftaki sıralamasını içerir. Bu sayede, veri seti daha düzenli hale gelir ve analizler için daha uygun hale gelir.</p>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Alternatif Yol
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Bu amaçla aşağıdaki kod da benzer işi yapmaktadır.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>billboard <span class="sc">|&gt;</span> </span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(</span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">cols =</span> <span class="fu">starts_with</span>(<span class="st">"wk"</span>), </span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">names_to =</span> <span class="st">"week"</span>, </span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">names_prefix =</span> <span class="st">"wk"</span>,   <span class="co"># Her bir değişken adının başından "wk" metni kaldırır</span></span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">names_transform =</span> as.integer,   <span class="co"># Sütun adlarından sayısal değerleri alır</span></span>
+<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">values_to =</span> <span class="st">"rank"</span>,</span>
+<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">values_drop_na =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb12-9"><a href="#cb12-9" aria-hidden="true" tabindex="-1"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 5,307 × 5
+   artist  track                   date.entered  week  rank
+   &lt;chr&gt;   &lt;chr&gt;                   &lt;date&gt;       &lt;int&gt; &lt;dbl&gt;
+ 1 2 Pac   Baby Don't Cry (Keep... 2000-02-26       1    87
+ 2 2 Pac   Baby Don't Cry (Keep... 2000-02-26       2    82
+ 3 2 Pac   Baby Don't Cry (Keep... 2000-02-26       3    72
+ 4 2 Pac   Baby Don't Cry (Keep... 2000-02-26       4    77
+ 5 2 Pac   Baby Don't Cry (Keep... 2000-02-26       5    87
+ 6 2 Pac   Baby Don't Cry (Keep... 2000-02-26       6    94
+ 7 2 Pac   Baby Don't Cry (Keep... 2000-02-26       7    99
+ 8 2Ge+her The Hardest Part Of ... 2000-09-02       1    91
+ 9 2Ge+her The Hardest Part Of ... 2000-09-02       2    87
+10 2Ge+her The Hardest Part Of ... 2000-09-02       3    92
+# ℹ 5,297 more rows</code></pre>
+</div>
+</div>
+<p>Bu kod parçası öncekiyle benzer bir dönüşüm gerçekleştiriyor ancak birkaç farklılık bulunuyor.</p>
+<ol type="1">
+<li><p><strong><code>names_prefix = "wk"</code></strong> : Bu argüman her bir değişken adının başından “wk” metni kaldırır. Yani, “wk1”, “wk2”, …, “wk76” gibi sütun adlarından “wk” metni kaldırılır. Bu, her bir sütunun hangi haftaya ait olduğunu temsil eden sayısal değerlerin elde edilmesini sağlar.</p></li>
+<li><p><strong><code>names_transform = as.integer</code></strong>: Bu argüman, sütun adlarından sayısal değerleri almak için <strong><code>as.integer</code></strong> fonksiyonunu kullanır. Önceki örnekte olduğu gibi, sütun adlarından sayıları alırken bu sefer <strong><code>as.integer</code></strong> fonksiyonunu kullanarak sayıları dönüştürürüz.</p></li>
+</ol>
+<p>Bu dönüşüm, önceki örnekle benzerdir ancak sütun adlarının öne eklenmesi ve sayısal dönüşümün yapıldığı yerdeki farklılıklar dikkate alınmalıdır. Bu farklılıklar, dönüşüm sonucunda elde edilen uzun formatlı veri setinin nasıl yapılandırıldığına ve nasıl yorumlanacağına etki edebilir.</p>
+</div>
+</div>
+</section>
+<section id="geniş-format-dönüşümü---pivot_wider" class="level2">
+<h2 class="anchored" data-anchor-id="geniş-format-dönüşümü---pivot_wider">Geniş Format Dönüşümü - <code>pivot_wider</code></h2>
+<p>Uzun formatlı (long format) veriyi geniş formatlı (wide format) hale dönüştürmek için kullanılır. Her bir gözlemi temsil eden uzun formatlı veri setlerini, her bir sütunun bir değişkeni temsil ettiği geniş formatlı veri setlerine dönüştürmek için kullanılır.</p>
+<ul>
+<li><p><strong>Kullanım Alanları</strong>:</p>
+<ul>
+<li><p>Çapraz-tablo verilerini oluşturmak için.</p></li>
+<li><p>Uzun formatlı veri setlerini daha okunabilir ve anlamlı bir şekilde görselleştirmek için.</p></li>
+<li><p>Veri setindeki bazı grupların veya kategorilerin karşılaştırılması için.</p></li>
+</ul></li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="fu">pivot_wider</span>(data, names_from, values_from, <span class="at">values_fn =</span> list, <span class="at">values_fill =</span> <span class="fu">list</span>(), <span class="at">names_prefix =</span> <span class="cn">NULL</span>, <span class="at">names_sep =</span> <span class="st">"_"</span>, <span class="at">names_repair =</span> <span class="st">"check_unique"</span>, <span class="at">id_cols =</span> <span class="cn">NULL</span>, <span class="at">values_fn_args =</span> <span class="fu">list</span>(), ...)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<ul>
+<li><p><strong><code>data</code></strong>: İşlem yapılacak olan veri seti.</p></li>
+<li><p><strong><code>names_from</code></strong>: Geniş formatlı hale dönüştürülecek olan sütunların adı.</p></li>
+<li><p><strong><code>values_from</code></strong>: Yeni sütunlara değerlerin alınacağı sütunun adı.</p></li>
+<li><p>Diğer argümanlar, isteğe bağlı olarak sütun adlarının belirtilmesi ve eksik değerlerin doldurulması için kullanılır.</p></li>
+</ul>
+<p>Bu fonksiyon ile bazı örnekler yapmak için <code>tidyr</code> paketindeki <code>us_rent_income</code> veri setini kullanabiliriz. Veri seti 2017 yılına ait American Community Survey ile edilmiştir. Bu araştırma Amerika Birleşik Devletleri’nde federal hükümet tarafından her yıl gerçekleştirilen bir nüfus sayımı ve sosyo-ekonomik anket programıdır. Bu anket, Amerika’nın demografik ve ekonomik özellikleri hakkında geniş kapsamlı veriler sağlar.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>us_rent_income</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 104 × 5
+   GEOID NAME       variable estimate   moe
+   &lt;chr&gt; &lt;chr&gt;      &lt;chr&gt;       &lt;dbl&gt; &lt;dbl&gt;
+ 1 01    Alabama    income      24476   136
+ 2 01    Alabama    rent          747     3
+ 3 02    Alaska     income      32940   508
+ 4 02    Alaska     rent         1200    13
+ 5 04    Arizona    income      27517   148
+ 6 04    Arizona    rent          972     4
+ 7 05    Arkansas   income      23789   165
+ 8 05    Arkansas   rent          709     5
+ 9 06    California income      29454   109
+10 06    California rent         1358     3
+# ℹ 94 more rows</code></pre>
+</div>
+</div>
+<p>Veri setinde 104 satır ve 5 sütun bulunmaktadır.</p>
+<ol type="1">
+<li><p><strong>GEOID</strong>: Bu değişken, Amerika Birleşik Devletleri’ndeki belirli bir coğrafi alanın benzersiz kimlik numarasını içerir. <strong>FIP state identifier</strong> olarak bilinen bu değişken, Amerika Birleşik Devletleri’ndeki bir eyaletin Federal Bilgi İşlem Standartları (FIPS) kodunu içerir.</p></li>
+<li><p><strong>NAME</strong>: Bu değişken, eyaletin veya coğrafi bölgenin adını içerir.</p></li>
+<li><p><strong>variable</strong>: Bu değişken, veri setinde ölçülen değişkenin adını belirtir. İki farklı değer alabilir: “income” (ortalama yıllık gelir) veya “rent” (ortalama aylık kira).</p></li>
+<li><p><strong>estimate</strong>: Bu değişken, belirli bir coğrafi alandaki tahmini değeri içerir. Örneğin, belirli bir eyalet için ortalama yıllık gelir veya ortalama aylık kira miktarı gibi.</p></li>
+<li><p><strong>moe</strong>: Bu değişken, tahmini değerin 90% güven aralığı içindeki marj hatasını (margin of error) içerir. Marj hatası, tahmini değerin gerçek değerden ne kadar sapabileceğini gösterir. Bu, tahminin güvenilirliğini değerlendirmeye yardımcı olur.</p></li>
+</ol>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>us_rent_income <span class="sc">|&gt;</span> </span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_wider</span>(</span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">names_from =</span> variable,</span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">values_from =</span> <span class="fu">c</span>(estimate, moe)</span>
+<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 52 × 6
+   GEOID NAME                 estimate_income estimate_rent moe_income moe_rent
+   &lt;chr&gt; &lt;chr&gt;                          &lt;dbl&gt;         &lt;dbl&gt;      &lt;dbl&gt;    &lt;dbl&gt;
+ 1 01    Alabama                        24476           747        136        3
+ 2 02    Alaska                         32940          1200        508       13
+ 3 04    Arizona                        27517           972        148        4
+ 4 05    Arkansas                       23789           709        165        5
+ 5 06    California                     29454          1358        109        3
+ 6 08    Colorado                       32401          1125        109        5
+ 7 09    Connecticut                    35326          1123        195        5
+ 8 10    Delaware                       31560          1076        247       10
+ 9 11    District of Columbia           43198          1424        681       17
+10 12    Florida                        25952          1077         70        3
+# ℹ 42 more rows</code></pre>
+</div>
+</div>
+<p>Bu kod, <strong><code>us_rent_income</code></strong> veri setini <strong><code>pivot_wider()</code></strong> fonksiyonu ile veri setindeki uzun formattan geniş formata dönüştürmeye olanak tanır.</p>
+<ul>
+<li><p><strong><code>names_from = variable</code></strong>: Bu argüman, genişletilecek sütunların isimlerini belirtir. Burada <strong><code>variable</code></strong> değişkeni kullanılarak genişletilecek sütunlar belirlenir. Bu durumda, <strong><code>variable</code></strong> değişkenindeki değerler (<strong><code>income</code></strong> ve <strong><code>rent</code></strong>) sütun adlarına dönüştürülecek.</p></li>
+<li><p><strong><code>values_from = c(estimate, moe)</code></strong>: Bu argüman, yeni genişletilmiş sütunların değerlerinin hangi sütunlardan alınacağını belirtir. <strong><code>estimate</code></strong> ve <strong><code>moe</code></strong> sütunlarındaki değerler, genişletilmiş sütunların içeriğini oluşturur.</p></li>
+</ul>
+<p>Sonuç olarak, bu kod <strong><code>us_rent_income</code></strong> veri setini <strong><code>income_estimate</code></strong>, <strong><code>income_moe</code></strong>, <strong><code>rent_estimate</code></strong> ve <strong><code>rent_moe</code></strong> olmak üzere dört yeni sütun içeren bir geniş formatlı veri setine dönüştürür.</p>
+<p>Dikkat edilirse değişken isimlerinin arasına <code>"_"</code> ifadesi konmuştur. Bu ifadenin gelmesinin sebebi, <strong><code>pivot_wider()</code></strong> fonksiyonunda kullanılan <strong><code>names_sep</code></strong> parametresinin varsayılan değerinin <code>"_"</code> olmasından kaynaklıdır. Eğer <strong><code>names_sep</code></strong> parametresi belirtilmezse değişken isimlerinin arasında <code>"_"</code> kullanılır.</p>
+<p>Bu nedenle, <strong><code>values_from = c(estimate, moe)</code></strong> ifadesindeki <strong><code>estimate</code></strong> ve <strong><code>moe</code></strong> sütunları, genişletilmiş sütunların adlarında alt çizgi ile ayrılır. Sonuç olarak, yeni oluşturulan sütunlar <strong><code>income_estimate</code></strong>, <strong><code>income_moe</code></strong>, <strong><code>rent_estimate</code></strong> ve <strong><code>rent_moe</code></strong> adlarına sahip olur. Eğer <code>"_"</code> yerine <code>"."</code> (nokta) koymak istersek kodu aşağıdaki şekilde güncellememiz gerekir.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>us_rent_income <span class="sc">|&gt;</span> </span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_wider</span>(</span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">names_from =</span> variable,</span>
+<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">values_from =</span> <span class="fu">c</span>(estimate, moe),</span>
+<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">names_sep =</span> <span class="st">"."</span></span>
+<span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 52 × 6
+   GEOID NAME                 estimate.income estimate.rent moe.income moe.rent
+   &lt;chr&gt; &lt;chr&gt;                          &lt;dbl&gt;         &lt;dbl&gt;      &lt;dbl&gt;    &lt;dbl&gt;
+ 1 01    Alabama                        24476           747        136        3
+ 2 02    Alaska                         32940          1200        508       13
+ 3 04    Arizona                        27517           972        148        4
+ 4 05    Arkansas                       23789           709        165        5
+ 5 06    California                     29454          1358        109        3
+ 6 08    Colorado                       32401          1125        109        5
+ 7 09    Connecticut                    35326          1123        195        5
+ 8 10    Delaware                       31560          1076        247       10
+ 9 11    District of Columbia           43198          1424        681       17
+10 12    Florida                        25952          1077         70        3
+# ℹ 42 more rows</code></pre>
+</div>
+</div>
+<p>Başka dikkat edilecek bir husus ise, değişken isminin önce <code>variable</code> değişkeninden gelmesi ve sonrasında değer ile ilgli kısımdan gelerek birleştirilmesidir. Örneğin <code>"estimate.income"</code> isminin noktadan önceki kısmı variable değişkeninden, sonraki kısmı ise income değişken isminden gelmektedir. Arzu edilirse bu durumun tersi de yapılabilir.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>us_rent_income <span class="sc">|&gt;</span> </span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_wider</span>(</span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">names_from =</span> variable,</span>
+<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">names_glue =</span> <span class="st">"{variable}_{.value}"</span>,</span>
+<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">values_from =</span> <span class="fu">c</span>(estimate, moe)</span>
+<span id="cb21-6"><a href="#cb21-6" aria-hidden="true" tabindex="-1"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 52 × 6
+   GEOID NAME                 income_estimate rent_estimate income_moe rent_moe
+   &lt;chr&gt; &lt;chr&gt;                          &lt;dbl&gt;         &lt;dbl&gt;      &lt;dbl&gt;    &lt;dbl&gt;
+ 1 01    Alabama                        24476           747        136        3
+ 2 02    Alaska                         32940          1200        508       13
+ 3 04    Arizona                        27517           972        148        4
+ 4 05    Arkansas                       23789           709        165        5
+ 5 06    California                     29454          1358        109        3
+ 6 08    Colorado                       32401          1125        109        5
+ 7 09    Connecticut                    35326          1123        195        5
+ 8 10    Delaware                       31560          1076        247       10
+ 9 11    District of Columbia           43198          1424        681       17
+10 12    Florida                        25952          1077         70        3
+# ℹ 42 more rows</code></pre>
+</div>
+</div>
+<p><strong><code>names_glue</code></strong> parametresi, sütun adlarını oluşturmak için bir şablon sağlar. <strong><code>{variable}_{.value}</code></strong> ifadesi, yeni oluşturulan sütunların adlarını belirler. <strong><code>{variable}</code></strong> değişkenin adını, <strong><code>.value</code></strong> ise genişletilen değerlerin adını temsil eder. Örneğin, <strong><code>income_estimate</code></strong>, <strong><code>income_moe</code></strong>, <strong><code>rent_estimate</code></strong> ve <strong><code>rent_moe</code></strong> sütunlarına denk gelir.</p>
+<p>Yapacağımız diğer bir örnek ise veri setinde olmayan bir durum olduğunda boş gelebilecek gözlemlere ne işlem yapılacağıdır. Örneğin veri setinin ilk satırındaki Alabama eyaletine ilişkin <code>income</code> verilerinin hiç olmadığını varsayalım.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>
+Attaching package: 'dplyr'</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>The following objects are masked from 'package:stats':
+
+    filter, lag</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>The following objects are masked from 'package:base':
+
+    intersect, setdiff, setequal, union</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>us_rent_income <span class="sc">|&gt;</span> </span>
+<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">slice</span>(<span class="sc">-</span><span class="dv">1</span>) <span class="co"># ilk gözlem haricindeki satırlar seçilir</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 103 × 5
+   GEOID NAME       variable estimate   moe
+   &lt;chr&gt; &lt;chr&gt;      &lt;chr&gt;       &lt;dbl&gt; &lt;dbl&gt;
+ 1 01    Alabama    rent          747     3
+ 2 02    Alaska     income      32940   508
+ 3 02    Alaska     rent         1200    13
+ 4 04    Arizona    income      27517   148
+ 5 04    Arizona    rent          972     4
+ 6 05    Arkansas   income      23789   165
+ 7 05    Arkansas   rent          709     5
+ 8 06    California income      29454   109
+ 9 06    California rent         1358     3
+10 08    Colorado   income      32401   109
+# ℹ 93 more rows</code></pre>
+</div>
+</div>
+<p>Bu durumda veri setinin geniş formata dönüştürmek istersek income değişkenleri kayıp gözlem yani <code>NA</code> olarak değerlendirilir.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a>us_rent_income <span class="sc">|&gt;</span> </span>
+<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">slice</span>(<span class="sc">-</span><span class="dv">1</span>) <span class="sc">|&gt;</span> </span>
+<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_wider</span>(</span>
+<span id="cb29-4"><a href="#cb29-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">names_from =</span> variable,</span>
+<span id="cb29-5"><a href="#cb29-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">values_from =</span> <span class="fu">c</span>(estimate,moe),</span>
+<span id="cb29-6"><a href="#cb29-6" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb29-7"><a href="#cb29-7" aria-hidden="true" tabindex="-1"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 52 × 6
+   GEOID NAME                 estimate_rent estimate_income moe_rent moe_income
+   &lt;chr&gt; &lt;chr&gt;                        &lt;dbl&gt;           &lt;dbl&gt;    &lt;dbl&gt;      &lt;dbl&gt;
+ 1 01    Alabama                        747              NA        3         NA
+ 2 02    Alaska                        1200           32940       13        508
+ 3 04    Arizona                        972           27517        4        148
+ 4 05    Arkansas                       709           23789        5        165
+ 5 06    California                    1358           29454        3        109
+ 6 08    Colorado                      1125           32401        5        109
+ 7 09    Connecticut                   1123           35326        5        195
+ 8 10    Delaware                      1076           31560       10        247
+ 9 11    District of Columbia          1424           43198       17        681
+10 12    Florida                       1077           25952        3         70
+# ℹ 42 more rows</code></pre>
+</div>
+</div>
+<p>Eğer bu şekilde oluşan gözlemlere değer atamak istersek <code>values_fill</code> argümanını kullanabiliriz. Örneğin bu şekilde oluşan bir durumda NA değerlere 0 değerini atanmasını varsayalım. Aşağıki kod ile bunu gerçekleştirebiliriz.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a>us_rent_income <span class="sc">|&gt;</span> </span>
+<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">slice</span>(<span class="sc">-</span><span class="dv">1</span>) <span class="sc">|&gt;</span> </span>
+<span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_wider</span>(</span>
+<span id="cb31-4"><a href="#cb31-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">names_from =</span> variable,</span>
+<span id="cb31-5"><a href="#cb31-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">values_from =</span> <span class="fu">c</span>(estimate,moe),</span>
+<span id="cb31-6"><a href="#cb31-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">values_fill =</span> <span class="dv">0</span></span>
+<span id="cb31-7"><a href="#cb31-7" aria-hidden="true" tabindex="-1"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 52 × 6
+   GEOID NAME                 estimate_rent estimate_income moe_rent moe_income
+   &lt;chr&gt; &lt;chr&gt;                        &lt;dbl&gt;           &lt;dbl&gt;    &lt;dbl&gt;      &lt;dbl&gt;
+ 1 01    Alabama                        747               0        3          0
+ 2 02    Alaska                        1200           32940       13        508
+ 3 04    Arizona                        972           27517        4        148
+ 4 05    Arkansas                       709           23789        5        165
+ 5 06    California                    1358           29454        3        109
+ 6 08    Colorado                      1125           32401        5        109
+ 7 09    Connecticut                   1123           35326        5        195
+ 8 10    Delaware                      1076           31560       10        247
+ 9 11    District of Columbia          1424           43198       17        681
+10 12    Florida                       1077           25952        3         70
+# ℹ 42 more rows</code></pre>
+</div>
+</div>
+<div class="callout callout-style-default callout-caution callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Dikkat
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Orijinal veri setindeki eksik değerlerin zaten <strong><code>NA</code></strong> olduğu durumda <strong><code>values_fill</code></strong> kullanmak işe yaramaz. Çünkü mevcut durumda zaten veri setinde NA gözlem bulunmaktadır. <strong><code>values_fill</code></strong> dönüşüm sonrası oluşabilecek NA gözlemler için kullanılır.</p>
+<p>Bu nedenle, <strong><code>values_fill</code></strong> parametresi yerine R içerisinde farklı opsiyonlar ile tüm <strong><code>NA</code></strong> değerlerini doldurmak daha uygun olacaktır. Yani, boş hücrelerin tümünü 0 ile doldurmak için <strong><code>values_fill</code></strong> parametresi kullanılmaz.</p>
+</div>
+</div>
+</section>
+<section id="değişken-birleştirme---unite" class="level2">
+<h2 class="anchored" data-anchor-id="değişken-birleştirme---unite">Değişken Birleştirme - <code>unite</code></h2>
+<p>Belirli sütunlardaki değerleri birleştirerek yeni bir sütun oluşturmak için kullanılır. Genellikle, ayrı sütunlarda bulunan bilgileri birleştirerek yeni bir kategorik değişken oluşturmak için kullanılır.</p>
+<ul>
+<li><p><strong>Kullanım Alanları</strong>:</p>
+<ul>
+<li><p>Birden fazla sütundaki bilgileri tek bir değişkende birleştirme.</p></li>
+<li><p>Tarih ve saat gibi bilgileri tek bir sütunda birleştirme.</p></li>
+</ul></li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="fu">unite</span>(data, col, ..., <span class="at">sep =</span> <span class="st">"_"</span>, <span class="at">remove =</span> <span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<ul>
+<li><p><strong><code>data</code></strong>: İşlem yapılacak olan veri seti.</p></li>
+<li><p><strong><code>col</code></strong>: Birleştirilen sütunun adı.</p></li>
+<li><p><strong><code>...</code></strong>: Birleştirilecek olan sütunların adları.</p></li>
+<li><p><strong><code>sep</code></strong>: Birleştirme işlemi sırasında kullanılacak ayırıcı karakter.</p></li>
+<li><p><strong><code>remove</code></strong>: Orijinal sütunları kaldırma veya koruma seçeneği.</p></li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a>adresler <span class="ot">&lt;-</span> <span class="fu">tibble</span>(</span>
+<span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">sokak =</span> <span class="fu">c</span>(<span class="st">"Örnek Sokak"</span>, <span class="st">"Şehitler Caddesi"</span>, <span class="st">"Atatürk Bulvarı"</span>),</span>
+<span id="cb34-3"><a href="#cb34-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">mahalle =</span> <span class="fu">c</span>(<span class="st">"Merkez"</span>, <span class="st">"Güneşli"</span>, <span class="st">"Bahçelievler"</span>),</span>
+<span id="cb34-4"><a href="#cb34-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">ilce =</span> <span class="fu">c</span>(<span class="st">"Çankaya"</span>, <span class="st">"Bağcılar"</span>, <span class="st">"Üsküdar"</span>),</span>
+<span id="cb34-5"><a href="#cb34-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">sehir =</span> <span class="fu">c</span>(<span class="st">"Ankara"</span>, <span class="st">"İstanbul"</span>, <span class="st">"İstanbul"</span>),</span>
+<span id="cb34-6"><a href="#cb34-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">posta_kodu =</span> <span class="fu">c</span>(<span class="st">"06000"</span>, <span class="st">"34100"</span>, <span class="st">"34662"</span>)</span>
+<span id="cb34-7"><a href="#cb34-7" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb34-8"><a href="#cb34-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb34-9"><a href="#cb34-9" aria-hidden="true" tabindex="-1"></a>adresler</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 3 × 5
+  sokak            mahalle      ilce     sehir    posta_kodu
+  &lt;chr&gt;            &lt;chr&gt;        &lt;chr&gt;    &lt;chr&gt;    &lt;chr&gt;     
+1 Örnek Sokak      Merkez       Çankaya  Ankara   06000     
+2 Şehitler Caddesi Güneşli      Bağcılar İstanbul 34100     
+3 Atatürk Bulvarı  Bahçelievler Üsküdar  İstanbul 34662     </code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a>adresler_unite <span class="ot">&lt;-</span> adresler <span class="sc">%&gt;%</span></span>
+<span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">unite</span>(adres, sokak, mahalle, ilce, sehir, posta_kodu, <span class="at">sep =</span> <span class="st">", "</span>)</span>
+<span id="cb36-3"><a href="#cb36-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-4"><a href="#cb36-4" aria-hidden="true" tabindex="-1"></a>adresler_unite</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 3 × 1
+  adres                                                  
+  &lt;chr&gt;                                                  
+1 Örnek Sokak, Merkez, Çankaya, Ankara, 06000            
+2 Şehitler Caddesi, Güneşli, Bağcılar, İstanbul, 34100   
+3 Atatürk Bulvarı, Bahçelievler, Üsküdar, İstanbul, 34662</code></pre>
+</div>
+</div>
+<p>Bu kod, adres bileşenlerini her birinin arasına <code>","</code> koyarak birleştirir ve “adres” sütununu oluşturur. Varsayılan olarak, <strong><code>remove = TRUE</code></strong> olduğundan, <strong><code>unite()</code></strong> fonksiyonu, birleştirilen sütunları oluşturduktan sonra orijinal sütunları kaldırır. Eğer <strong><code>remove = FALSE</code></strong> olarak ayarlanırsa, <strong><code>unite()</code></strong> fonksiyonu, birleştirilen sütunları oluştururken orijinal sütunları kaldırmaz. Bu durumda, hem birleştirilen sütunlar hem de orijinal sütunlar veri setinde kalır.</p>
+</section>
+<section id="değişken-bölme--separate" class="level2">
+<h2 class="anchored" data-anchor-id="değişken-bölme--separate">Değişken Bölme- <code>separate</code></h2>
+<p>Bir sütundaki değerleri belirli bir ayırıcıya göre parçalayarak yeni sütunlar oluşturmak için kullanılır. Genellikle, tek bir sütunda bulunan bilgileri ayrı ayrı sütunlara bölmek için kullanılır.</p>
+<ul>
+<li><p><strong>Kullanım Alanları</strong>:</p>
+<ul>
+<li><p>Tek bir sütundaki bilgileri ayrı ayrı sütunlara bölmek.</p></li>
+<li><p>Tarih, saat veya adres gibi bilgileri ayrı sütunlara bölmek.</p></li>
+</ul></li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb38"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a><span class="fu">separate</span>(data, col, into, <span class="at">sep =</span> <span class="st">"[^[:alnum:]]+"</span>, <span class="at">remove =</span> <span class="cn">TRUE</span>, <span class="at">convert =</span> <span class="cn">FALSE</span>, <span class="at">extra =</span> <span class="st">"warn"</span>, <span class="at">fill =</span> <span class="st">"warn"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<ul>
+<li><p><strong><code>data</code></strong>: İşlem yapılacak olan veri seti.</p></li>
+<li><p><strong><code>col</code></strong>: Parçalanacak olan sütunun adı.</p></li>
+<li><p><strong><code>into</code></strong>: Oluşturulacak yeni sütunların adları.</p></li>
+<li><p><strong><code>sep</code></strong>: Parçalama işlemi sırasında kullanılacak ayırıcı karakter.</p></li>
+<li><p>Diğer argümanlar, isteğe bağlı olarak sütunların türünün dönüştürülmesi ve eksik değerlerin doldurulması için kullanılır.</p></li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb39"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a><span class="fu">separate</span>(adresler_unite, adres, <span class="at">into =</span> <span class="fu">c</span>(<span class="st">"sokak"</span>, <span class="st">"mahalle"</span>,<span class="st">"ilce"</span>,<span class="st">"sehir"</span>,<span class="st">"posta_kodu"</span>), <span class="at">sep =</span> <span class="st">","</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 3 × 5
+  sokak            mahalle         ilce        sehir       posta_kodu
+  &lt;chr&gt;            &lt;chr&gt;           &lt;chr&gt;       &lt;chr&gt;       &lt;chr&gt;     
+1 Örnek Sokak      " Merkez"       " Çankaya"  " Ankara"   " 06000"  
+2 Şehitler Caddesi " Güneşli"      " Bağcılar" " İstanbul" " 34100"  
+3 Atatürk Bulvarı  " Bahçelievler" " Üsküdar"  " İstanbul" " 34662"  </code></pre>
+</div>
+</div>
+<p>Önceki bölümde oluşturduğumuz birleşik adres sütunu, bu kod ile bileşenlerine ayrıştırılmaktadır.</p>
+
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const disableStylesheet = (stylesheets) => {
+    for (let i=0; i < stylesheets.length; i++) {
+      const stylesheet = stylesheets[i];
+      stylesheet.rel = 'prefetch';
+    }
+  }
+  const enableStylesheet = (stylesheets) => {
+    for (let i=0; i < stylesheets.length; i++) {
+      const stylesheet = stylesheets[i];
+      stylesheet.rel = 'stylesheet';
+    }
+  }
+  const manageTransitions = (selector, allowTransitions) => {
+    const els = window.document.querySelectorAll(selector);
+    for (let i=0; i < els.length; i++) {
+      const el = els[i];
+      if (allowTransitions) {
+        el.classList.remove('notransition');
+      } else {
+        el.classList.add('notransition');
+      }
+    }
+  }
+  const toggleGiscusIfUsed = (isAlternate, darkModeDefault) => {
+    const baseTheme = document.querySelector('#giscus-base-theme')?.value ?? 'light';
+    const alternateTheme = document.querySelector('#giscus-alt-theme')?.value ?? 'dark';
+    let newTheme = '';
+    if(darkModeDefault) {
+      newTheme = isAlternate ? baseTheme : alternateTheme;
+    } else {
+      newTheme = isAlternate ? alternateTheme : baseTheme;
+    }
+    const changeGiscusTheme = () => {
+      // From: https://github.com/giscus/giscus/issues/336
+      const sendMessage = (message) => {
+        const iframe = document.querySelector('iframe.giscus-frame');
+        if (!iframe) return;
+        iframe.contentWindow.postMessage({ giscus: message }, 'https://giscus.app');
+      }
+      sendMessage({
+        setConfig: {
+          theme: newTheme
+        }
+      });
+    }
+    const isGiscussLoaded = window.document.querySelector('iframe.giscus-frame') !== null;
+    if (isGiscussLoaded) {
+      changeGiscusTheme();
+    }
+  }
+  const toggleColorMode = (alternate) => {
+    // Switch the stylesheets
+    const alternateStylesheets = window.document.querySelectorAll('link.quarto-color-scheme.quarto-color-alternate');
+    manageTransitions('#quarto-margin-sidebar .nav-link', false);
+    if (alternate) {
+      enableStylesheet(alternateStylesheets);
+      for (const sheetNode of alternateStylesheets) {
+        if (sheetNode.id === "quarto-bootstrap") {
+          toggleBodyColorMode(sheetNode);
+        }
+      }
+    } else {
+      disableStylesheet(alternateStylesheets);
+      toggleBodyColorPrimary();
+    }
+    manageTransitions('#quarto-margin-sidebar .nav-link', true);
+    // Switch the toggles
+    const toggles = window.document.querySelectorAll('.quarto-color-scheme-toggle');
+    for (let i=0; i < toggles.length; i++) {
+      const toggle = toggles[i];
+      if (toggle) {
+        if (alternate) {
+          toggle.classList.add("alternate");     
+        } else {
+          toggle.classList.remove("alternate");
+        }
+      }
+    }
+    // Hack to workaround the fact that safari doesn't
+    // properly recolor the scrollbar when toggling (#1455)
+    if (navigator.userAgent.indexOf('Safari') > 0 && navigator.userAgent.indexOf('Chrome') == -1) {
+      manageTransitions("body", false);
+      window.scrollTo(0, 1);
+      setTimeout(() => {
+        window.scrollTo(0, 0);
+        manageTransitions("body", true);
+      }, 40);  
+    }
+  }
+  const isFileUrl = () => { 
+    return window.location.protocol === 'file:';
+  }
+  const hasAlternateSentinel = () => {  
+    let styleSentinel = getColorSchemeSentinel();
+    if (styleSentinel !== null) {
+      return styleSentinel === "alternate";
+    } else {
+      return false;
+    }
+  }
+  const setStyleSentinel = (alternate) => {
+    const value = alternate ? "alternate" : "default";
+    if (!isFileUrl()) {
+      window.localStorage.setItem("quarto-color-scheme", value);
+    } else {
+      localAlternateSentinel = value;
+    }
+  }
+  const getColorSchemeSentinel = () => {
+    if (!isFileUrl()) {
+      const storageValue = window.localStorage.getItem("quarto-color-scheme");
+      return storageValue != null ? storageValue : localAlternateSentinel;
+    } else {
+      return localAlternateSentinel;
+    }
+  }
+  const darkModeDefault = false;
+  let localAlternateSentinel = darkModeDefault ? 'alternate' : 'default';
+  // Dark / light mode switch
+  window.quartoToggleColorScheme = () => {
+    // Read the current dark / light value 
+    let toAlternate = !hasAlternateSentinel();
+    toggleColorMode(toAlternate);
+    setStyleSentinel(toAlternate);
+    toggleGiscusIfUsed(toAlternate, darkModeDefault);
+  };
+  // Ensure there is a toggle, if there isn't float one in the top right
+  if (window.document.querySelector('.quarto-color-scheme-toggle') === null) {
+    const a = window.document.createElement('a');
+    a.classList.add('top-right');
+    a.classList.add('quarto-color-scheme-toggle');
+    a.href = "";
+    a.onclick = function() { try { window.quartoToggleColorScheme(); } catch {} return false; };
+    const i = window.document.createElement("i");
+    i.classList.add('bi');
+    a.appendChild(i);
+    window.document.body.appendChild(a);
+  }
+  // Switch to dark mode if need be
+  if (hasAlternateSentinel()) {
+    toggleColorMode(true);
+  } else {
+    toggleColorMode(false);
+  }
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const onCopySuccess = function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  }
+  const getTextToCopy = function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+    text: getTextToCopy
+  });
+  clipboard.on('success', onCopySuccess);
+  if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+    const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+      text: getTextToCopy,
+      container: window.document.getElementById('quarto-embedded-source-code-modal')
+    });
+    clipboardModal.on('success', onCopySuccess);
+  }
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+    var mailtoRegex = new RegExp(/^mailto:/);
+      var filterRegex = new RegExp("https:\/\/rprogramlama\.netlify\.app\/");
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+        // undo the damage that might have been done by quarto-nav.js in the case of
+        // links that we want to consider external
+        if (link.dataset.originalHref !== undefined) {
+          link.href = link.dataset.originalHref;
+        }
+      }
+    }
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+    const config = {
+      allowHTML: true,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start',
+    };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      if (note) {
+        return note.innerHTML;
+      } else {
+        return "";
+      }
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
+        return container.innerHTML
+      } else {
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
+      }
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            div.style.left = 0;
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="./data_manipulation.html" class="pagination-link" aria-label="Veri Manipulasyonu">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Veri Manipulasyonu</span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="./data_join.html" class="pagination-link" aria-label="Veri Birleştirme">
+        <span class="nav-page-text">Veri Birleştirme</span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+<footer class="footer">
+  <div class="nav-footer">
+    <div class="nav-footer-left">
+<p>© 2023, <a href="https://www.linkedin.com/in/dr-m-fatih-t-2b2a4328/">Muhammed Fatih Tüzen</a></p>
+</div>   
+    <div class="nav-footer-center">
+      &nbsp;
+    <div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/MFatihTuzen/r-book-tr/edit/main/data_transformation.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/MFatihTuzen/r-book-tr/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div>
+    <div class="nav-footer-right">
+<p>Bu kitap <a href="https://quarto.org/">Quarto</a> ile hazırlanmıştır.</p>
+</div>
+  </div>
+</footer>
+
+
+
+
+</body></html>
