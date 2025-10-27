@@ -6,13 +6,11 @@ Veri analizi sürecinde, çoğu zaman birden fazla tabloyu **ortak bir anahtar**
 Bu işlem, farklı kaynaklardaki bilgileri **tek bir veri yapısında bütünleştirmemizi** sağlar.\
 Örneğin, bir tabloda müşteri bilgileri, diğerinde sipariş bilgileri olabilir; analiz yapmak için bu tabloları birleştirmemiz gerekir.
 
-R’da veri birleştirme işlemleri hem **base R fonksiyonları** (`merge()`) hem de **dplyr paketindeki** join fonksiyonları (`left_join()`, `inner_join()`, vb.) ile yapılabilir.\
-Bu bölümde iki yaklaşımı da aynı veri seti üzerinden adım adım göstereceğiz.
+R’da veri birleştirme işlemleri hem **base R fonksiyonları** (`merge()`) hem de **dplyr paketindeki** join fonksiyonları (`left_join()`, `inner_join()`, vb.) ile yapılabilir. Bu bölümde iki yaklaşımı da aynı veri seti üzerinden adım adım göstereceğiz.
 
 ::: callout-tip
 **Amaç:**\
-Bu bölümün sonunda, birleştirme türlerini ve hangi durumda hangisinin kullanılacağını öğreneceksiniz.\
-Ayrıca aynı işlemi hem `dplyr` hem de `base R` ile nasıl yapabileceğinizi göreceksiniz.
+Bu bölümün sonunda, birleştirme türlerini ve hangi durumda hangisinin kullanılacağını öğreneceksiniz. Ayrıca aynı işlemi hem `dplyr` hem de `base R` ile nasıl yapabileceğinizi göreceksiniz.
 :::
 
 ------------------------------------------------------------------------
@@ -25,8 +23,7 @@ Ayrıca aynı işlemi hem `dplyr` hem de `base R` ile nasıl yapabileceğinizi g
 
 knitr::opts_chunk$set(
   message = FALSE,
-  warning = FALSE,
-  cache = TRUE
+  warning = FALSE
 )
 ```
 

@@ -2,19 +2,27 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://rprogramlama.netlify.app/data_join.html</loc>
-    <lastmod>2025-10-27T09:07:49.037Z</lastmod>
+    <lastmod>2025-10-27T09:28:30.132Z</lastmod>
   </url>
   <url>
-    <loc>https://rprogramlama.netlify.app/index.html</loc>
-    <lastmod>2024-01-08T07:33:46.539Z</lastmod>
+    <loc>https://rprogramlama.netlify.app/data_analysis.html</loc>
+    <lastmod>2024-01-08T07:33:46.368Z</lastmod>
   </url>
   <url>
-    <loc>https://rprogramlama.netlify.app/data_transformation.html</loc>
-    <lastmod>2024-04-22T07:32:42.132Z</lastmod>
+    <loc>https://rprogramlama.netlify.app/ggplot2.html</loc>
+    <lastmod>2024-01-26T12:57:29.730Z</lastmod>
   </url>
   <url>
-    <loc>https://rprogramlama.netlify.app/data_types.html</loc>
-    <lastmod>2024-05-24T15:02:19.934Z</lastmod>
+    <loc>https://rprogramlama.netlify.app/data_preprocess.html</loc>
+    <lastmod>2024-01-25T12:05:43.966Z</lastmod>
+  </url>
+  <url>
+    <loc>https://rprogramlama.netlify.app/statistics.html</loc>
+    <lastmod>2024-01-08T07:33:46.556Z</lastmod>
+  </url>
+  <url>
+    <loc>https://rprogramlama.netlify.app/regresyon.html</loc>
+    <lastmod>2024-01-08T07:33:46.540Z</lastmod>
   </url>
   <url>
     <loc>https://rprogramlama.netlify.app/r_about.html</loc>
