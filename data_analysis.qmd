@@ -279,9 +279,9 @@ Bu paket, araştırmacılar, veri bilimcileri veya istatistikçilerin farklı mo
 library(modelsummary)
 
 # kategorik verilere hızlı bir bakış
-datasummary_skim(mpg, "categorical")
+datasummary_skim(mpg, type = "categorical")
 
 # nümerik verilere hızlı bir bakış
-datasummary_skim(mpg, "numeric")
+datasummary_skim(mpg, type = "numeric")
 
 ```

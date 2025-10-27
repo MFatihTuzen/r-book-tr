@@ -50,10 +50,10 @@ format:
       light: sandstone
       dark: cyborg
     css: styles.css
-  # pdf:
-  #   documentclass: scrreprt
-  #   pdf-engine: xelatex
-  #   keep-tex: true
+  pdf:
+    documentclass: scrreprt
+    pdf-engine: xelatex
+    keep-tex: true
 
 editor: visual
 
