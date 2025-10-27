@@ -52,6 +52,8 @@ format:
     css: styles.css
   pdf:
     documentclass: scrreprt
+    pdf-engine: xelatex
+    keep-tex: true
 
 editor: visual
 
