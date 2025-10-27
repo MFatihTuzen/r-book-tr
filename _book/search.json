@@ -358,5 +358,91 @@
     "crumbs": [
       "R Programlama Hakkında"
     ]
+  },
+  {
+    "objectID": "R_intro.html",
+    "href": "R_intro.html",
+    "title": "R Programlamaya Giriş",
+    "section": "",
+    "text": "R kodunun çalıştırılması oldukça basittir ve R Studio gibi entegre geliştirme ortamları (IDE’ler) kullanırken daha da kolaylaşır. R kodunu çalıştırmak için temel adımlar:\n\nR Studio’yu Açın: İlk adım, R Studio veya başka bir R IDE’sini açmaktır.\nYeni Bir script uluşturun veya mevcut bir script kullanın:\n\nR Studio’da, sol üst köşede bulunan “File” (Dosya) menüsünden “New Script”seçeneği ile yeni bir R scripti oluşturabilirsiniz.\nMevcut bir scripte gitmek istiyorsanız, “File” menüsünden “Open Script” seçeneğini kullanabilirsiniz.\n\nR Kodunu Scripte Yazın: Oluşturduğunuz veya açtığınız R skriptinde, R kodlarını yazın veya yapıştırın. Örneğin, basit bir hesaplama yapmak için aşağıdaki kodu kullanabilirsiniz:\n\nx &lt;- 5\ny &lt;- 10\nz &lt;- x + y\nz\n\n[1] 15\n\n\nKodu Çalıştırma:\n\nÇalıştırmak istediğiniz kodu seçin veya imleci çalıştırmak istediğiniz satıra getirin.\nÇalıştırma işlemi için aşağıdaki yöntemlerden birini kullanabilirsiniz:\n\nKlavyede varsayılan olarak “Ctrl+Enter” (Windows/Linux) veya “Command+Enter” (Mac) tuş kombinasyonunu kullanabilirsiniz.\nR Studio’daki “Run” (Çalıştır) düğmesini veya “Run” (Çalıştır) menüsünü kullanabilirsiniz.\nÇalıştırmak istediğiniz kodu seçtikten sonra sağ tıklarsanız, “Run” (Çalıştır) seçeneğini göreceksiniz.\n\n\nSonuçları İnceleyin: Çalıştırılan kodun sonuçları konsol penceresinde veya çıktı bölümünde görüntülenir. Örneğin, yukarıdaki örnekte “z” değişkeninin değeri olan “15” sonucunu göreceksiniz.\n\n\n\n\n\n\n\nDikkat\n\n\n\nBir script üzerinden çalıştırılan R kodunun sonuçlarını sol alt kısımda yer alan Console bölümünde görebilirsiniz. Aynı şekilde kodu Console bölümüne yazıp Enter tuşuna bastığınızda yine sonuç alabilirsiniz. Ancak script içerisinde yazılan kodları bir .R uzantılı dosya olarak saklama ve daha sonradan bu dosyaya ulaşma şansınız varken, Console ile çalıştırılan kodları bir .R dosyası olarak saklama şansınız yoktur. Console tarafındaki sonuçlar geçici olarak ekranda kalır ve R Studio’yu kapatıp açtığınızda tekrar yazdığınız ve çalıştırdığınız kodlara ulaşamayabilirsiniz.\n\n\n\n\n\n\n\n\nİpucu\n\n\n\nConsole tarafına yansıyan kodların ve sonuçların farklı formatlarda saklama şansımız vardır. Bunun için sink fonksiyonunu araştırmanızı önerebilirim.",
+    "crumbs": [
+      "R Programlamaya Giriş"
+    ]
+  },
+  {
+    "objectID": "basics.html",
+    "href": "basics.html",
+    "title": "1  Temel Fonksiyonlar",
+    "section": "",
+    "text": "1.1 Çalışma Dizini\nÇalışma Dizini, üzerinde çalıştığınız projenin tüm gerekli dosya ve belgelerini içerdiği yerdir. Çalışma dizininizi ayarlamanın iki yolu vardır. İlk yol getwd ve setwd işlevlerini kullanmaktır. Diğer yol ise RStudio üzerinden Session&gt;Set Working Directory youluyla yapılabilir.\ngetwd()",
+    "crumbs": [
+      "R Programlamaya Giriş",
+      "<span class='chapter-number'>1</span>  <span class='chapter-title'>Temel Fonksiyonlar</span>"
+    ]
+  },
+  {
+    "objectID": "basics.html#çalışma-dizini",
+    "href": "basics.html#çalışma-dizini",
+    "title": "1  Temel Fonksiyonlar",
+    "section": "",
+    "text": "dir veya list.files komutları ile dizinde yer alan dosyalar öğrenilebilir.\ndir.create komutu ile yeni bir klasör oluşturmak mümkündür.\nfile.exists kullanılarak klasörün var olup olmadığı sorgulanabilir.",
+    "crumbs": [
+      "R Programlamaya Giriş",
+      "<span class='chapter-number'>1</span>  <span class='chapter-title'>Temel Fonksiyonlar</span>"
+    ]
+  },
+  {
+    "objectID": "basics.html#yardımcı-bilgiler",
+    "href": "basics.html#yardımcı-bilgiler",
+    "title": "1  Temel Fonksiyonlar",
+    "section": "1.2 Yardımcı Bilgiler",
+    "text": "1.2 Yardımcı Bilgiler\nR komutlarında Büyük-küçük harf duyarlılığı (case sensitive) vardır.\n\na &lt;- 5  \nprint(a)  \n\n[1] 5\n\nA &lt;- 6  \nprint(A) \n\n[1] 6\n\n\nNoktalı virgül (;) işareti ile aynı satırda birden fazla kod çalıştırılabilir hale getirilir.\n\nx &lt;- 1 ; y &lt;- 2 ; z &lt;- 3  \nx; y; z\n\n[1] 1\n\n\n[1] 2\n\n\n[1] 3\n\n\nKomutlar arası açıklamaları ve yorumları #(hashtag) ile yazabiliriz. Hastagli satırlar, kod olarak algılanıp çalıştırılmaz. Bu kısımlara yazılan kodlar ile ilgili hatırlatıcı bilgiler (comment) yazılabilir.\n\n#6 ile başyalan ve  10 ile  biten tamsayıları c vektörüne atayalım  \nc &lt;- 6:10 \nc\n\n[1]  6  7  8  9 10\n\n\n\nls() çalışma alanındaki nesne ve fonksiyonları listeler.\nrm(a) çalışma alanından a nesnesini siler.\nrm(list=ls()) bütün çalışma alanını temizler.\nq() R’dan çıkış yapmayı sağlar.\ninstall.packages(\"package\") paket yüklemeyi sağlar.\nlibrary(\"package\") yüklü olan paketi getirir.\ninstalled.packages() yüklü olan paketleri listeler\noptions(digits=10) sayılarda ondalık kısmın basamak sayısını ifade eder.\nhelp() fonksiyonu ya da ? ile bir fonksiyon hakkında yardım alınabilir. Örneğin mean fonksiyonu ile ilgili yardım almak için scripte ?mean ya da help(mean) yazmanız ve çalıştırmanız yeterlidir. Bunun yanı sıra R Studio penceresinin sağ alt kısmındaki help alanını kullanabilirsiniz.",
+    "crumbs": [
+      "R Programlamaya Giriş",
+      "<span class='chapter-number'>1</span>  <span class='chapter-title'>Temel Fonksiyonlar</span>"
+    ]
+  },
+  {
+    "objectID": "basics.html#atama-operatörü",
+    "href": "basics.html#atama-operatörü",
+    "title": "1  Temel Fonksiyonlar",
+    "section": "1.3 Atama Operatörü",
+    "text": "1.3 Atama Operatörü\nBir değişkene, tabloya veya objeye değer atarken ‘&lt;-’ veya ‘=’ operatörü kullanılır. ‘&lt;-’ atama operatöründe ok hangi yöndeyse o tarafa atama yapılır. Genellikle ‘&lt;-’ operatörü kullanılmaktadır. Çünkü ‘=’ operatörü filtrelemelerde veya işlemlerdeki ‘==’ ile karıştırılabilmektedir. Ayrıca fonksiyonlar içinde de kullanılabildiği için kod karmaşasına sebebiyet verebilir. Her iki operatör de aynı işlevi görmektedir.\n\n# a'ya 20 değerini atayalım  \na &lt;- 20    \n# tabloyu ya da değeri görüntülemek için nesnenin kendisi de direkt yazılabilir.  \n# ya da print fonksiyonu kullanılabilir.   \nprint(a)    \n\n[1] 20\n\n# b'ye 12 değerini atayalım  \nb &lt;- 12  \nprint(b)   \n\n[1] 12\n\n# a ve b değerlerinden üretilen bir c değeri üretelim.   \nc &lt;- 2 * a + 3 * b  \nprint(c) \n\n[1] 76\n\n\nc() ile vektör oluştutulabilir. c “combine” (birleştirmek) kelimesinin ilk harfini ifade eder. Bir değişkene birden fazla değer atamak istediğimizde kullanılır.\n\n# d adında bir vektör oluşturalım ve değerler atayalım.   \nd &lt;- c(4,7,13)  \nd \n\n[1]  4  7 13\n\n\nBir metini değişkene atamak istersek de aşağıdaki gibi metin “” işareti içine yazılmalıdır.\n\nmetin &lt;- \"Merhaba Arkadaşlar\"  \nprint(metin)\n\n[1] \"Merhaba Arkadaşlar\"",
+    "crumbs": [
+      "R Programlamaya Giriş",
+      "<span class='chapter-number'>1</span>  <span class='chapter-title'>Temel Fonksiyonlar</span>"
+    ]
+  },
+  {
+    "objectID": "basics.html#matematiksel-operatörler",
+    "href": "basics.html#matematiksel-operatörler",
+    "title": "1  Temel Fonksiyonlar",
+    "section": "1.4 Matematiksel Operatörler",
+    "text": "1.4 Matematiksel Operatörler\nR ve R Studio, güçlü bir hesap makinesi olarak kabul edilebilir.\n\n3+5 \n\n[1] 8\n\n7*8 \n\n[1] 56\n\n88/2 \n\n[1] 44\n\n3*(12+(15/3-2)) \n\n[1] 45\n\n9^2 # karesini alır \n\n[1] 81\n\na &lt;-  3 \nb &lt;-  a^2 \nprint(b) \n\n[1] 9\n\nlog(15) #ln15 yani doğal logaritma \n\n[1] 2.70805\n\nlog10(1000) # 10 tabanına göre hesaplama \n\n[1] 3\n\nexp(12) #exponential power of the number. e (2.718) üzeri 12 \n\n[1] 162754.8\n\nfactorial(6) # faktöriyel hesaplama yapar \n\n[1] 720\n\nsqrt(81) # karekök alma \n\n[1] 9\n\nabs(-3) # mutlak değer \n\n[1] 3\n\nsign(-5) # işaret bulma \n\n[1] -1\n\nsin(45) # sinüs \n\n[1] 0.8509035\n\ncos(90) # cosinüs \n\n[1] -0.4480736\n\npi # pi sayısı \n\n[1] 3.141593\n\ntan(pi) # tanjant\n\n[1] -1.224647e-16",
+    "crumbs": [
+      "R Programlamaya Giriş",
+      "<span class='chapter-number'>1</span>  <span class='chapter-title'>Temel Fonksiyonlar</span>"
+    ]
+  },
+  {
+    "objectID": "basics.html#mantıksal-operatörler",
+    "href": "basics.html#mantıksal-operatörler",
+    "title": "1  Temel Fonksiyonlar",
+    "section": "1.5 Mantıksal Operatörler",
+    "text": "1.5 Mantıksal Operatörler\nMantıksal sorgulamalar, koşullarda ve filtrelerde kullanılmaktadır. Verilen koşul veya filtre sağlandığında TRUE, sağlanmadığında ise FALSE değerleri elde edilmektedir. Bu mantıksal operatörler ayrıca komutlar içindeki özellikleri aktifleştirmek ve pasifleştirmek için de kullanılmaktadır.\nMantıksal operatörler aşağıdaki şekilde kullanılmaktadır:\n\neşittir : ==\neşit değildir : !=\nküçüktür : &lt;\nküçük eşittir : &lt;=\nbüyüktür : &gt;\nbüyük eşittir : &gt;=\nx değil : !x\nx ve y : x&y\nx veya y: x|y\n\n\n3 &gt; 5\n\n[1] FALSE\n\n# & (ve) operatörü\n# iki durumda TRUE ise sonuç TRUE döner.\n3 &lt; 5 & 8 &gt; 7\n\n[1] TRUE\n\n# bir durum FALSE diğer durum TRUE ise sonuç FALSE döner.\n3 &lt; 5 & 6 &gt; 7\n\n[1] FALSE\n\n# iki durumda FALSE ise sonuç FALSE döner.\n6 &lt; 5 & 6 &gt; 7\n\n[1] FALSE\n\n# | (veya) operatörü\n# Her iki durumdan birisi TRUE ise TRUE döner\n(5==4) | (3!=4)\n\n[1] TRUE",
+    "crumbs": [
+      "R Programlamaya Giriş",
+      "<span class='chapter-number'>1</span>  <span class='chapter-title'>Temel Fonksiyonlar</span>"
+    ]
+  },
+  {
+    "objectID": "data_join.html#join-kavramı-ve-türleri",
+    "href": "data_join.html#join-kavramı-ve-türleri",
+    "title": "Veri Birleştirme",
+    "section": "Join Kavramı ve Türleri",
+    "text": "Join Kavramı ve Türleri\n\nJoin Nedir?\nJoin, iki veya daha fazla veri tablosunu ortak bir anahtar üzerinden birleştirme işlemidir. Sonuçta, tablolar tek bir veri çerçevesinde birleştirilir. Join türleri, hangi satırların korunacağına veya eleneceğine göre farklılık gösterir.\n\n\n\n\n\n\n\n\nJoin Türü\nTanım\nTutulan Satırlar\n\n\n\n\nleft_join\nSoldaki tüm satırları korur, sağdan eşleşenleri getirir\nTüm sol tablo\n\n\ninner_join\nHer iki tabloda eşleşen satırları getirir\nOrtak anahtarlar\n\n\nright_join\nSağdaki tüm satırları korur\nTüm sağ tablo\n\n\nfull_join\nHer iki tablodaki tüm satırları birleştirir\nHer iki tablo\n\n\nsemi_join\nSadece sol tablodan, eşleşen satırların alt kümesini getirir\nSol tablo (eşleşenler)\n\n\nanti_join\nSol tablodan, eşleşmeyen satırları getirir\nSol tablo (eşleşmeyenler)\n\n\n\n\n\nKardinalite (İlişki Türü)\nİki tablo arasındaki ilişki, anahtar değişkenlerin yapısına bağlıdır:\n\n\n\n\n\n\n\n\nİlişki Türü\nTanım\nÖrnek\n\n\n\n\n1–1 (bire bir)\nHer anahtar her tabloda bir kez geçer\nT.C. kimlik numarası ↔︎ kişi\n\n\n1–N (bire çok)\nSol tablo tekil, sağ tablo tekrar içerir\nHavayolu ↔︎ Uçuşlar\n\n\nN–M (çoktan çok)\nHer iki tabloda da tekrarlar vardır\nÖğrenci ↔︎ Ders\n\n\n\nBu durum, birleştirme sonrası satır sayısını doğrudan etkiler. Örneğin 1–N ilişkisinde satır sayısı artabilir.\n\n\nR’de Join Yaklaşımları\nR dilinde iki temel yaklaşım vardır:\n\n\n\n\n\n\n\n\nYaklaşım\nFonksiyon\nPaket\n\n\n\n\nBase R\nmerge()\nTemel R\n\n\nTidyverse\nleft_join(), inner_join(), right_join(), full_join(), semi_join(), anti_join()\ndplyr\n\n\n\n\n\n\n\n\n\nNote\n\n\n\ndplyr fonksiyonları daha okunabilir, tutarlı, ve pipe (%&gt;%) yapısı ile çalışmaya uygundur.\nAncak merge() hâlâ birçok eski kodda ve küçük projelerde yaygın biçimde kullanılır.\nBu yüzden bu bölümde her iki yöntemi de göreceğiz.",
+    "crumbs": [
+      "Veri Birleştirme"
+    ]
   }
 ]

@@ -15,23 +15,13 @@ Bu bölümün sonunda, birleştirme türlerini ve hangi durumda hangisinin kulla
 
 ------------------------------------------------------------------------
 
-```{r}
-#| label: setup
-#| include: false
-#| message: false
-#| warning: false
-
-knitr::opts_chunk$set(
-  message = FALSE,
-  warning = FALSE
-)
-```
-
 ## Kullanacağımız Veri Setleri
 
 Bu bölümde `nycflights13` paketindeki veri setlerini kullanacağız. Bu paket, **2013 yılı New York uçuş verilerini** içerir ve ilişkisel yapıdadır. Yani birkaç tablo, ortak anahtarlar aracılığıyla birbirine bağlanabilir.
 
 ```{r}
+#| message: false
+#| warning: false
 library(dplyr)
 library(nycflights13)
 ```
@@ -66,7 +56,7 @@ Birleştirme işlemlerinde kullanılan sütunlara **anahtar değişken** denir. 
 -   Tekil veya tekrar eden değerler içerebilir. Tekrarlara göre **ilişki türü (1–1, 1–N, N–M)** belirlenir.
 :::
 
-# Join Kavramı ve Türleri
+## Join Kavramı ve Türleri
 
 ### Join Nedir?
 
